@@ -6,61 +6,55 @@ public class DiscThrowCountUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private TextMeshProUGUI throwCountText;
 
-    [Header("Format")]
-    [SerializeField] private string format = "남은 투척: {0} / {1}";
-
-    [Header("Options")]
-    [SerializeField] private bool hideWhenNoText = false;
+    [Header("Text")]
+    [SerializeField] private string limitedFormat = "남은 투척: {0} / {1}";
+    [SerializeField] private string unlimitedFormat = "던진 횟수: {0} / 제한 없음";
 
     public void Refresh(int usedThrows, int maxThrows)
     {
-        int safeMaxThrows = Mathf.Max(1, maxThrows);
-        int remainingThrows = Mathf.Clamp(
-            safeMaxThrows - usedThrows,
+        if (throwCountText == null)
+            return;
+
+        if (maxThrows <= 0)
+        {
+            throwCountText.text = string.Format(
+                unlimitedFormat,
+                Mathf.Max(0, usedThrows)
+            );
+
+            return;
+        }
+
+        int remaining = Mathf.Clamp(
+            maxThrows - usedThrows,
             0,
-            safeMaxThrows
+            maxThrows
         );
 
-        SetText(remainingThrows, safeMaxThrows);
+        throwCountText.text = string.Format(
+            limitedFormat,
+            remaining,
+            maxThrows
+        );
     }
 
     public void RefreshRemainingOnly(int remainingThrows)
     {
-        int safeRemaining = Mathf.Max(0, remainingThrows);
+        if (throwCountText == null)
+            return;
 
-        if (throwCountText != null)
+        if (remainingThrows < 0)
         {
-            throwCountText.text = $"남은 투척: {safeRemaining}";
-            throwCountText.gameObject.SetActive(
-                !hideWhenNoText || !string.IsNullOrEmpty(throwCountText.text)
-            );
+            throwCountText.text = "투척 제한 없음";
+            return;
         }
+
+        throwCountText.text = $"남은 투척: {remainingThrows}";
     }
 
     public void Clear()
     {
-        if (throwCountText == null)
-            return;
-
-        throwCountText.text = string.Empty;
-
-        if (hideWhenNoText)
-            throwCountText.gameObject.SetActive(false);
-    }
-
-    private void SetText(int remainingThrows, int maxThrows)
-    {
-        if (throwCountText == null)
-            return;
-
-        throwCountText.text = string.Format(
-            format,
-            remainingThrows,
-            maxThrows
-        );
-
-        throwCountText.gameObject.SetActive(
-            !hideWhenNoText || !string.IsNullOrEmpty(throwCountText.text)
-        );
+        if (throwCountText != null)
+            throwCountText.text = string.Empty;
     }
 }

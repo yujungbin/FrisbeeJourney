@@ -13,12 +13,14 @@ public class DiscRunManager : MonoBehaviour
     private enum GameOverReason
     {
         Unknown,
+        DurabilityBroken,
         NoThrowsRemaining
     }
 
     [Header("References")]
     [SerializeField] private DiscProgressionStore progressionStore;
     [SerializeField] private DiscSlingshotController discController;
+    [SerializeField] private DiscDurability discDurability;
     [SerializeField] private DiscCinemachineSwitcher cameraSwitcher;
 
     [Header("Launch Anchor")]
@@ -26,38 +28,34 @@ public class DiscRunManager : MonoBehaviour
     [SerializeField] private Transform trackRoot;
 
     [Header("Throw Limit")]
-    [Tooltip("한 판에서 총 몇 번 던질 수 있는지. 최초 투척도 포함됩니다.")]
+    [Tooltip("false면 투척 횟수 제한 없이 내구도가 0이 될 때까지 던질 수 있습니다.")]
+    [SerializeField] private bool useThrowLimit = false;
+
+    [Tooltip("Use Throw Limit이 true일 때 한 판에서 총 몇 번 던질 수 있는지입니다.")]
     [SerializeField] private int maxThrowsPerRun = 3;
 
     [Header("Retry")]
     [SerializeField] private bool rethrowFromImpactPoint = true;
+    [SerializeField] private bool rethrowFromFinalStopPosition = true;
 
-    [Tooltip("멈춘 위치에서 진행 방향 반대로 얼마나 물러나서 다시 던질지입니다. 처음에는 0~0.25 추천.")]
+    [Tooltip("멈춘 위치에서 진행 방향 반대로 얼마나 물러나서 다시 던질지입니다.")]
     [SerializeField] private float rethrowBackOffset = 0.15f;
 
-    [Tooltip("멈춘 디스크 위치보다 LaunchAnchor를 얼마나 위로 올릴지입니다. 보통 0 추천.")]
     [SerializeField] private float rethrowHeightOffset = 0f;
-
     [SerializeField] private float rethrowDelay = 0.6f;
 
-    [Header("Debug")]
-    [SerializeField] private bool logLaunchAnchorMove = true;
-
     [Header("Settle After Impact")]
-    [SerializeField] private float settleStableTime = 0.25f;
     [SerializeField] private float settleMaxWaitTime = 3.0f;
 
-    [Tooltip("true면 settleMaxWaitTime이 지나면 저속 조건과 상관없이 강제로 던지기를 끝냅니다. 테스트 중에는 false 추천.")]
+    [Tooltip("true면 settleMaxWaitTime이 지나면 저속 조건과 상관없이 강제로 던지기를 끝냅니다.")]
     [SerializeField] private bool forceFinishOnSettleTimeout = false;
 
     [SerializeField] private bool logSettlingStatus = true;
     [SerializeField] private float settlingStatusLogInterval = 0.5f;
 
-    [Tooltip("true면 처음 부딪힌 지점이 아니라 튕긴 뒤 최종 정지 위치에서 다시 던집니다.")]
-    [SerializeField] private bool rethrowFromFinalStopPosition = true;
-
     [Header("Auto Restart After Game Over")]
     [SerializeField] private bool restoreOriginalLaunchAnchorOnRunStart = true;
+    [SerializeField] private bool autoRestartWhenDurabilityBroken = false;
     [SerializeField] private bool autoRestartWhenNoThrowsRemaining = true;
     [SerializeField] private float gameOverRestartDelay = 1.0f;
 
@@ -86,7 +84,6 @@ public class DiscRunManager : MonoBehaviour
     private Quaternion originalLaunchAnchorRotation;
     private bool hasOriginalLaunchAnchor;
 
-    private float launchAnchorY;
     private int throwsUsed;
     private bool runActive;
 
@@ -94,8 +91,28 @@ public class DiscRunManager : MonoBehaviour
 
     public int MaxThrowsPerRun => Mathf.Max(1, maxThrowsPerRun);
     public int ThrowsUsed => throwsUsed;
-    public int ThrowsRemaining => Mathf.Max(0, MaxThrowsPerRun - throwsUsed);
-    public bool HasThrowsRemaining => ThrowsRemaining > 0;
+
+    public int ThrowsRemaining
+    {
+        get
+        {
+            if (!useThrowLimit)
+                return -1;
+
+            return Mathf.Max(0, MaxThrowsPerRun - throwsUsed);
+        }
+    }
+
+    public bool HasThrowsRemaining
+    {
+        get
+        {
+            if (!useThrowLimit)
+                return true;
+
+            return ThrowsRemaining > 0;
+        }
+    }
 
     private void Awake()
     {
@@ -121,24 +138,15 @@ public class DiscRunManager : MonoBehaviour
     {
         maxThrowsPerRun = Mathf.Max(1, maxThrowsPerRun);
         rethrowDelay = Mathf.Max(0f, rethrowDelay);
-        settleStableTime = Mathf.Max(0f, settleStableTime);
-        settleMaxWaitTime = Mathf.Max(0.1f, settleMaxWaitTime);
+        rethrowBackOffset = Mathf.Max(0f, rethrowBackOffset);
+        settleMaxWaitTime = Mathf.Max(0f, settleMaxWaitTime);
+        settlingStatusLogInterval = Mathf.Max(0.05f, settlingStatusLogInterval);
         gameOverRestartDelay = Mathf.Max(0f, gameOverRestartDelay);
     }
 
     public void StartRun()
     {
-        if (gameOverRestartRoutine != null)
-        {
-            StopCoroutine(gameOverRestartRoutine);
-            gameOverRestartRoutine = null;
-        }
-
-        if (rethrowRoutine != null)
-        {
-            StopCoroutine(rethrowRoutine);
-            rethrowRoutine = null;
-        }
+        StopRunningCoroutines();
 
         if (discController == null)
         {
@@ -154,17 +162,10 @@ public class DiscRunManager : MonoBehaviour
 
         SubscribeToDiscEvents();
 
-        maxThrowsPerRun = Mathf.Max(1, maxThrowsPerRun);
         throwsUsed = 0;
         runActive = true;
 
-        // 업그레이드 시스템이 있으면 스탯 적용.
-        // progressionStore가 없어도 기본 스탯으로 동작 가능.
-        if (progressionStore != null)
-        {
-            DiscRuntimeStats stats = progressionStore.BuildRuntimeStats();
-            discController.ApplyStats(stats);
-        }
+        ApplyRuntimeStatsAndDurability();
 
         NotifyThrowCountChanged();
         ResetDiscForThrow();
@@ -172,6 +173,27 @@ public class DiscRunManager : MonoBehaviour
         onRunStarted.Invoke();
 
         Debug.Log("새 게임 시작");
+    }
+
+    private void ApplyRuntimeStatsAndDurability()
+    {
+        if (progressionStore != null)
+        {
+            DiscRuntimeStats stats = progressionStore.BuildRuntimeStats();
+
+            if (discController != null)
+                discController.ApplyStats(stats);
+
+            if (discDurability != null)
+                discDurability.Initialize(stats.maxDurability);
+
+            return;
+        }
+
+        // ProgressionStore가 없을 때의 fallback.
+        // 업그레이드 시스템 없이 테스트할 때 사용됩니다.
+        if (discDurability != null)
+            discDurability.Initialize(discDurability.MaxDurability);
     }
 
     private void SubscribeToDiscEvents()
@@ -202,18 +224,18 @@ public class DiscRunManager : MonoBehaviour
         if (!runActive)
             return;
 
-        throwsUsed = Mathf.Clamp(
-            throwsUsed + 1,
-            0,
-            MaxThrowsPerRun
-        );
+        throwsUsed++;
 
         NotifyThrowCountChanged();
 
-        if (!HasThrowsRemaining)
+        if (useThrowLimit && !HasThrowsRemaining)
             onNoThrowsRemaining.Invoke();
 
-        Debug.Log($"투척 {throwsUsed}/{MaxThrowsPerRun}, 남은 투척 횟수: {ThrowsRemaining}");
+        Debug.Log(
+            useThrowLimit
+                ? $"투척 {throwsUsed}/{MaxThrowsPerRun}, 남은 투척: {ThrowsRemaining}"
+                : $"투척 {throwsUsed}, 투척 제한 없음"
+        );
     }
 
     public void HandleDiscImpact(DiscImpactInfo impactInfo)
@@ -225,15 +247,19 @@ public class DiscRunManager : MonoBehaviour
             return;
 
         Debug.Log(
-            $"충돌: {impactInfo.sourceName}, " +
-            $"속도: {impactInfo.impactSpeed:F1}, " +
-            $"남은 투척: {ThrowsRemaining}"
+            $"Impact handled. " +
+            $"source: {impactInfo.sourceName}, " +
+            $"speed: {impactInfo.impactSpeed:F2}, " +
+            $"damage: {impactInfo.durabilityDamage:F1}, " +
+            $"durability: {(discDurability != null ? discDurability.CurrentDurability.ToString("F1") : "none")}"
         );
 
         if (discController != null)
-            discController.BeginSettlingAfterImpact();
+            discController.BeginSettlingAfterImpact(impactInfo.impactSpeed);
 
-        rethrowRoutine = StartCoroutine(SettleThenResolveImpactRoutine(impactInfo));
+        rethrowRoutine = StartCoroutine(
+            SettleThenResolveImpactRoutine(impactInfo)
+        );
     }
 
     private IEnumerator SettleThenResolveImpactRoutine(DiscImpactInfo impactInfo)
@@ -248,6 +274,9 @@ public class DiscRunManager : MonoBehaviour
             if (discController == null)
                 break;
 
+            if (discDurability != null && discDurability.IsBroken)
+                break;
+
             if (discController.IsSlowEnoughToStop())
                 break;
 
@@ -256,15 +285,6 @@ public class DiscRunManager : MonoBehaviour
                 if (forceFinishOnSettleTimeout)
                 {
                     stoppedByTimeout = true;
-
-                    //Debug.LogWarning(
-                    //    $"Settling forced by timeout. " +
-                    //    $"elapsed: {elapsed:F2}, " +
-                    //    $"speed: {discController.CurrentSpeed:F2}, " +
-                    //    $"lowTimer: {discController.LowSpeedTimer:F2}/" +
-                    //    $"{discController.RequiredLowSpeedDurationToStop:F2}"
-                    //);
-
                     break;
                 }
 
@@ -272,14 +292,13 @@ public class DiscRunManager : MonoBehaviour
                 {
                     timeoutWarningShown = true;
 
-                    //Debug.LogWarning(
-                    //    $"Settling timeout reached, but throw will NOT finish yet. " +
-                    //    $"Waiting for low-speed duration. " +
-                    //    $"elapsed: {elapsed:F2}, " +
-                    //    $"speed: {discController.CurrentSpeed:F2}, " +
-                    //    $"lowTimer: {discController.LowSpeedTimer:F2}/" +
-                    //    $"{discController.RequiredLowSpeedDurationToStop:F2}"
-                    //);
+                    Debug.LogWarning(
+                        $"Settling timeout reached, but throw will NOT finish yet. " +
+                        $"Waiting for low-speed duration. " +
+                        $"speed: {discController.CurrentSpeed:F2}, " +
+                        $"lowTimer: {discController.LowSpeedTimer:F2}/" +
+                        $"{discController.RequiredLowSpeedDurationToStop:F2}"
+                    );
                 }
             }
 
@@ -287,14 +306,15 @@ public class DiscRunManager : MonoBehaviour
             {
                 nextLogTime = Time.time + settlingStatusLogInterval;
 
-                //Debug.Log(
-                //    $"Settling wait | " +
-                //    $"elapsed: {elapsed:F2}, " +
-                //    $"speed: {discController.CurrentSpeed:F2}, " +
-                //    $"lowTimer: {discController.LowSpeedTimer:F2}/" +
-                //    $"{discController.RequiredLowSpeedDurationToStop:F2}, " +
-                //    $"ready: {discController.SettlingStopReady}"
-                //);
+                Debug.Log(
+                    $"Settling wait | " +
+                    $"elapsed: {elapsed:F2}, " +
+                    $"speed: {discController.CurrentSpeed:F2}, " +
+                    $"lowTimer: {discController.LowSpeedTimer:F2}/" +
+                    $"{discController.RequiredLowSpeedDurationToStop:F2}, " +
+                    $"durability: {(discDurability != null ? discDurability.CurrentDurability.ToString("F1") : "none")}, " +
+                    $"ready: {discController.SettlingStopReady}"
+                );
             }
 
             elapsed += Time.fixedDeltaTime;
@@ -307,12 +327,18 @@ public class DiscRunManager : MonoBehaviour
         if (stoppedByTimeout)
         {
             Debug.LogWarning(
-                "Throw ended by timeout, not by low-speed detection. " +
-                "If this is not desired, turn Force Finish On Settle Timeout off."
+                "Throw ended by timeout, not by low-speed detection."
             );
         }
 
-        if (!HasThrowsRemaining)
+        if (discDurability != null && discDurability.IsBroken)
+        {
+            rethrowRoutine = null;
+            GameOver(GameOverReason.DurabilityBroken);
+            yield break;
+        }
+
+        if (useThrowLimit && !HasThrowsRemaining)
         {
             rethrowRoutine = null;
             GameOver(GameOverReason.NoThrowsRemaining);
@@ -341,9 +367,15 @@ public class DiscRunManager : MonoBehaviour
         if (!runActive)
             return;
 
-        if (!HasThrowsRemaining)
+        if (useThrowLimit && !HasThrowsRemaining)
         {
             GameOver(GameOverReason.NoThrowsRemaining);
+            return;
+        }
+
+        if (discDurability != null && discDurability.IsBroken)
+        {
+            GameOver(GameOverReason.DurabilityBroken);
             return;
         }
 
@@ -354,6 +386,91 @@ public class DiscRunManager : MonoBehaviour
             cameraSwitcher.ShowLaunchCameraAt(launchAnchor);
     }
 
+    private void GameOver(GameOverReason reason)
+    {
+        if (!runActive)
+            return;
+
+        runActive = false;
+
+        StopRunningCoroutines();
+
+        PlaceDiscAtOriginalLaunchAnchorForGameOver();
+
+        NotifyThrowCountChanged();
+
+        onGameOver.Invoke();
+
+        if (ShouldAutoRestart(reason))
+            ScheduleAutoRestart();
+    }
+
+    private bool ShouldAutoRestart(GameOverReason reason)
+    {
+        switch (reason)
+        {
+            case GameOverReason.DurabilityBroken:
+                return autoRestartWhenDurabilityBroken;
+
+            case GameOverReason.NoThrowsRemaining:
+                return autoRestartWhenNoThrowsRemaining;
+
+            default:
+                return false;
+        }
+    }
+
+    private void PlaceDiscAtOriginalLaunchAnchorForGameOver()
+    {
+        RestoreOriginalLaunchAnchor();
+
+        if (discController != null)
+            discController.PlaceAtLaunchAnchor(false);
+
+        if (cameraSwitcher != null)
+            cameraSwitcher.ShowLaunchCameraAt(launchAnchor);
+    }
+
+    private void ScheduleAutoRestart()
+    {
+        if (gameOverRestartRoutine != null)
+            StopCoroutine(gameOverRestartRoutine);
+
+        gameOverRestartRoutine = StartCoroutine(RestartAfterGameOverRoutine());
+    }
+
+    private IEnumerator RestartAfterGameOverRoutine()
+    {
+        if (gameOverRestartDelay > 0f)
+            yield return new WaitForSeconds(gameOverRestartDelay);
+
+        gameOverRestartRoutine = null;
+        StartRun();
+    }
+
+    public void RestartRunFromOriginalLaunchAnchor()
+    {
+        StopRunningCoroutines();
+
+        RestoreOriginalLaunchAnchor();
+        StartRun();
+    }
+
+    private void StopRunningCoroutines()
+    {
+        if (rethrowRoutine != null)
+        {
+            StopCoroutine(rethrowRoutine);
+            rethrowRoutine = null;
+        }
+
+        if (gameOverRestartRoutine != null)
+        {
+            StopCoroutine(gameOverRestartRoutine);
+            gameOverRestartRoutine = null;
+        }
+    }
+
     private void CaptureOriginalLaunchAnchor()
     {
         if (launchAnchor == null)
@@ -361,7 +478,6 @@ public class DiscRunManager : MonoBehaviour
 
         originalLaunchAnchorPosition = launchAnchor.position;
         originalLaunchAnchorRotation = launchAnchor.rotation;
-        launchAnchorY = originalLaunchAnchorPosition.y;
         hasOriginalLaunchAnchor = true;
     }
 
@@ -372,7 +488,6 @@ public class DiscRunManager : MonoBehaviour
 
         launchAnchor.position = originalLaunchAnchorPosition;
         launchAnchor.rotation = originalLaunchAnchorRotation;
-        launchAnchorY = originalLaunchAnchorPosition.y;
     }
 
     private void MoveLaunchAnchorToPoint(Vector3 point)
@@ -388,17 +503,6 @@ public class DiscRunManager : MonoBehaviour
             Vector3.up * rethrowHeightOffset;
 
         launchAnchor.position = newAnchorPosition;
-
-        if (logLaunchAnchorMove)
-        {
-            Debug.Log(
-                $"LaunchAnchor moved. " +
-                $"Stop point: {point}, " +
-                $"New anchor: {newAnchorPosition}, " +
-                $"Back offset: {rethrowBackOffset}, " +
-                $"Height offset: {rethrowHeightOffset}"
-            );
-        }
     }
 
     private Vector3 GetTrackForward()
@@ -417,81 +521,15 @@ public class DiscRunManager : MonoBehaviour
 
     private void NotifyThrowCountChanged()
     {
-        onThrowCountChanged.Invoke(throwsUsed, MaxThrowsPerRun);
-        onThrowsRemainingChanged.Invoke(ThrowsRemaining);
-    }
+        int maxForUi = useThrowLimit
+            ? MaxThrowsPerRun
+            : -1;
 
-    private void GameOver(GameOverReason reason)
-    {
-        if (!runActive)
-            return;
+        int remainingForUi = useThrowLimit
+            ? ThrowsRemaining
+            : -1;
 
-        runActive = false;
-
-        if (rethrowRoutine != null)
-        {
-            StopCoroutine(rethrowRoutine);
-            rethrowRoutine = null;
-        }
-
-        // 게임오버가 되면 원반을 즉시 원래 LaunchAnchor 위치에 보이게 한다.
-        PlaceDiscAtOriginalLaunchAnchorForGameOver();
-
-        NotifyThrowCountChanged();
-
-        onGameOver.Invoke();
-
-        if (reason == GameOverReason.NoThrowsRemaining &&
-            autoRestartWhenNoThrowsRemaining)
-        {
-            ScheduleAutoRestart();
-        }
-    }
-
-    private void ScheduleAutoRestart()
-    {
-        if (gameOverRestartRoutine != null)
-            StopCoroutine(gameOverRestartRoutine);
-
-        gameOverRestartRoutine = StartCoroutine(RestartAfterGameOverRoutine());
-    }
-
-    private IEnumerator RestartAfterGameOverRoutine()
-    {
-        if (gameOverRestartDelay > 0f)
-            yield return new WaitForSeconds(gameOverRestartDelay);
-
-        RestoreOriginalLaunchAnchor();
-
-        gameOverRestartRoutine = null;
-        StartRun();
-    }
-
-    public void RestartRunFromOriginalLaunchAnchor()
-    {
-        if (gameOverRestartRoutine != null)
-        {
-            StopCoroutine(gameOverRestartRoutine);
-            gameOverRestartRoutine = null;
-        }
-
-        if (rethrowRoutine != null)
-        {
-            StopCoroutine(rethrowRoutine);
-            rethrowRoutine = null;
-        }
-
-        RestoreOriginalLaunchAnchor();
-        StartRun();
-    }
-    private void PlaceDiscAtOriginalLaunchAnchorForGameOver()
-    {
-        RestoreOriginalLaunchAnchor();
-
-        if (discController != null)
-            discController.PlaceAtLaunchAnchor(false);
-
-        if (cameraSwitcher != null)
-            cameraSwitcher.ShowLaunchCameraAt(launchAnchor);
+        onThrowCountChanged.Invoke(throwsUsed, maxForUi);
+        onThrowsRemainingChanged.Invoke(remainingForUi);
     }
 }

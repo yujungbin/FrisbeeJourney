@@ -10,18 +10,19 @@ public class DiscCinemachineSwitcher : MonoBehaviour
     [Header("Targets")]
     [SerializeField] private Transform followTarget;
     [SerializeField] private Transform launchAnchor;
+    [SerializeField] private DiscCameraTargetFollower followTargetFollower;
 
     [Header("Launch Camera")]
-    [Tooltip("처음 정상적인 Launch Camera 구도를 저장한 뒤, LaunchAnchor가 이동한 만큼 카메라도 평행이동합니다.")]
     [SerializeField] private bool preserveInitialLaunchCameraPose = true;
-
-    [Tooltip("재투척 카메라로 돌아갈 때 Follow Camera의 타겟을 비웁니다.")]
     [SerializeField] private bool clearFollowTargetBeforeLaunch = true;
 
     [Header("Priorities")]
     [SerializeField] private int launchCameraPriority = 20;
     [SerializeField] private int followCameraBeforeLaunchPriority = 0;
     [SerializeField] private int followCameraAfterLaunchPriority = 30;
+
+    [Header("Debug")]
+    [SerializeField] private bool logCameraSwitch = true;
 
     private Vector3 originalLaunchAnchorPosition;
     private Vector3 originalLaunchCameraPosition;
@@ -30,6 +31,9 @@ public class DiscCinemachineSwitcher : MonoBehaviour
 
     private void Awake()
     {
+        if (followTargetFollower == null && followTarget != null)
+            followTargetFollower = followTarget.GetComponent<DiscCameraTargetFollower>();
+
         CaptureOriginalLaunchPose();
     }
 
@@ -60,8 +64,6 @@ public class DiscCinemachineSwitcher : MonoBehaviour
 
         if (launchCamera != null)
         {
-            // Launch Camera는 고정 조준 카메라로 사용합니다.
-            // 타겟을 비워두면 카메라가 이상한 방향으로 다시 회전하지 않습니다.
             launchCamera.Target = new CameraTarget
             {
                 TrackingTarget = null,
@@ -87,6 +89,9 @@ public class DiscCinemachineSwitcher : MonoBehaviour
                 };
             }
         }
+
+        if (logCameraSwitch)
+            Debug.Log("ShowLaunchCamera called.");
     }
 
     public void ShowLaunchCameraAt(Transform currentLaunchAnchor)
@@ -99,11 +104,29 @@ public class DiscCinemachineSwitcher : MonoBehaviour
 
     public void BeginFollow()
     {
-        if (followCamera == null || followTarget == null)
+        BeginFollowImmediate();
+    }
+
+    public void BeginFollowImmediate()
+    {
+        if (followCamera == null)
         {
-            Debug.LogWarning("BeginFollow 실패: Follow Camera 또는 Follow Target이 비어 있습니다.");
+            Debug.LogWarning("BeginFollowImmediate failed: Follow Camera is null.");
             return;
         }
+
+        if (followTarget == null)
+        {
+            Debug.LogWarning("BeginFollowImmediate failed: Follow Target is null.");
+            return;
+        }
+
+        if (followTargetFollower == null)
+            followTargetFollower = followTarget.GetComponent<DiscCameraTargetFollower>();
+
+        // 카메라 전환 직전에 타겟을 최신 원반 위치로 강제 갱신.
+        if (followTargetFollower != null)
+            followTargetFollower.SnapToDisc();
 
         followCamera.Target = new CameraTarget
         {
@@ -114,6 +137,16 @@ public class DiscCinemachineSwitcher : MonoBehaviour
 
         followCamera.Priority = followCameraAfterLaunchPriority;
         followCamera.Prioritize();
+
+        if (logCameraSwitch)
+        {
+            Debug.Log(
+                $"BeginFollowImmediate called. " +
+                $"FollowCamera: {followCamera.name}, " +
+                $"FollowTarget: {followTarget.name}, " +
+                $"Priority: {followCamera.Priority}"
+            );
+        }
     }
 
     private void RepositionLaunchCameraByAnchorDelta()
@@ -127,8 +160,6 @@ public class DiscCinemachineSwitcher : MonoBehaviour
         launchCamera.transform.position =
             originalLaunchCameraPosition + anchorDelta;
 
-        // 회전은 처음 정상 구도를 그대로 유지합니다.
-        // 여기서 TrackRoot.forward로 다시 회전시키면 180도 뒤집히는 문제가 생길 수 있습니다.
         launchCamera.transform.rotation =
             originalLaunchCameraRotation;
     }

@@ -288,11 +288,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &16653511
 PrefabInstance:
@@ -401,11 +404,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &32025489
 PrefabInstance:
@@ -502,11 +508,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &38319985
 PrefabInstance:
@@ -603,11 +612,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &43066211
 PrefabInstance:
@@ -696,11 +708,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &48402317
 PrefabInstance:
@@ -813,11 +828,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &62849377
 PrefabInstance:
@@ -926,11 +944,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &67283930
 GameObject:
@@ -1087,11 +1108,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &73399942
 PrefabInstance:
@@ -1192,11 +1216,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &73873666
 PrefabInstance:
@@ -1281,11 +1308,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &78306889
 PrefabInstance:
@@ -1382,11 +1412,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &82007884
 PrefabInstance:
@@ -1487,11 +1520,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &89567728
 PrefabInstance:
@@ -1600,11 +1636,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &89656090
 PrefabInstance:
@@ -1713,11 +1752,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &94343777
 PrefabInstance:
@@ -1818,11 +1860,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &97180257
 PrefabInstance:
@@ -1923,11 +1968,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &100081126 stripped
 GameObject:
@@ -1947,11 +1995,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &116038715
 GameObject:
@@ -2089,11 +2140,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &126807984
 PrefabInstance:
@@ -2202,11 +2256,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &133567329
 PrefabInstance:
@@ -2315,11 +2372,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &134921050
 PrefabInstance:
@@ -2453,12 +2513,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
+--- !u!1 &134921898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134921899}
+  - component: {fileID: 134921901}
+  - component: {fileID: 134921900}
+  m_Layer: 5
+  m_Name: Handle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &134921899
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134921898}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 229775482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &134921900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134921898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &134921901
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134921898}
+  m_CullTransparentMesh: 1
 --- !u!1001 &138294513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2542,11 +2680,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &145408825
 PrefabInstance:
@@ -2651,11 +2792,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &156026766
 PrefabInstance:
@@ -2756,11 +2900,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &156561684
 GameObject:
@@ -2896,11 +3043,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &188790111
 PrefabInstance:
@@ -3066,11 +3216,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &190511009
 PrefabInstance:
@@ -3179,11 +3332,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &198587993
 PrefabInstance:
@@ -3317,11 +3473,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &200017594
 PrefabInstance:
@@ -3430,11 +3589,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &223349518
 PrefabInstance:
@@ -3543,11 +3705,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &224903932
 PrefabInstance:
@@ -3644,11 +3809,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &226472852
 PrefabInstance:
@@ -3757,11 +3925,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &227102467
 PrefabInstance:
@@ -3866,11 +4037,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &229378502
 GameObject:
@@ -3907,6 +4081,42 @@ Transform:
   - {fileID: 650490341}
   m_Father: {fileID: 1054359828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &229775481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 229775482}
+  m_Layer: 5
+  m_Name: Handle Slide Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &229775482
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229775481}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 134921899}
+  m_Father: {fileID: 1370359765}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &235382806
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,11 +4247,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &257541810
 PrefabInstance:
@@ -4142,11 +4355,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &268965550
 PrefabInstance:
@@ -4255,11 +4471,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &269398499
 PrefabInstance:
@@ -4372,11 +4591,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &281094499
 GameObject:
@@ -4505,6 +4727,42 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &299936925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 299936926}
+  m_Layer: 5
+  m_Name: Fill Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &299936926
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299936925}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1993137058}
+  m_Father: {fileID: 1370359765}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: -20, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &299949931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4588,11 +4846,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &310662117
 PrefabInstance:
@@ -4681,11 +4942,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &323696858
 PrefabInstance:
@@ -4794,11 +5058,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &326096670
 PrefabInstance:
@@ -4907,11 +5174,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &327209667
 GameObject:
@@ -5035,11 +5305,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &333738761
 PrefabInstance:
@@ -5148,11 +5421,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &334288710
 PrefabInstance:
@@ -5237,11 +5513,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &336114940
 PrefabInstance:
@@ -5350,11 +5629,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &336924236
 PrefabInstance:
@@ -5455,11 +5737,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &340286326
 PrefabInstance:
@@ -5568,11 +5853,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &353993507
 PrefabInstance:
@@ -5665,11 +5953,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &357340361
 GameObject:
@@ -5857,11 +6148,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &386661042
 PrefabInstance:
@@ -5950,11 +6244,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &395256308
 PrefabInstance:
@@ -6063,11 +6360,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &423093418
 PrefabInstance:
@@ -6152,11 +6452,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &445513067
 PrefabInstance:
@@ -6265,11 +6568,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &453059849
 PrefabInstance:
@@ -6378,11 +6684,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &453693349
 PrefabInstance:
@@ -6479,11 +6788,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &459221184
 PrefabInstance:
@@ -6592,11 +6904,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &468329377
 PrefabInstance:
@@ -6689,11 +7004,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &477653006
 GameObject:
@@ -6837,11 +7155,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &498054313 stripped
 GameObject:
@@ -6861,11 +7182,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &500728707
 PrefabInstance:
@@ -6950,11 +7274,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &504112266
 PrefabInstance:
@@ -7063,11 +7390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &511874238
 GameObject:
@@ -7087,6 +7417,7 @@ GameObject:
   - component: {fileID: 511874239}
   - component: {fileID: 511874249}
   - component: {fileID: 511874248}
+  - component: {fileID: 511874250}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -7258,17 +7589,35 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
-  UpdateMethod: 2
+  UpdateMethod: 3
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
     DefaultMode: 2
   DefaultBlend:
-    Style: 1
-    Time: 2
+    Style: 7
+    Time: 0.2
     CustomCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -7317,6 +7666,22 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &511874250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511874238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566d2c7b82345d24fb5ec8c7d257355e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraRigUpdateDriver
+  brain: {fileID: 511874248}
+  followTargetFollower: {fileID: 633983073}
+  manualUpdateCinemachine: 1
+  updateFollowTargetBeforeBrain: 1
 --- !u!1001 &520633325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7408,11 +7773,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &536469987
 PrefabInstance:
@@ -7513,11 +7881,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &540007939
 PrefabInstance:
@@ -7626,11 +7997,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &546718678
 PrefabInstance:
@@ -7739,11 +8113,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &551849568
 PrefabInstance:
@@ -7852,11 +8229,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &574302068
 PrefabInstance:
@@ -7957,11 +8337,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &577917015
 PrefabInstance:
@@ -8070,11 +8453,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &579232428
 PrefabInstance:
@@ -8175,11 +8561,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &579851267
 PrefabInstance:
@@ -8268,11 +8657,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &580568912
 PrefabInstance:
@@ -8381,11 +8773,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &589940332
 PrefabInstance:
@@ -8580,11 +8975,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &592012347
 PrefabInstance:
@@ -8693,11 +9091,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &604066348
 PrefabInstance:
@@ -8794,11 +9195,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &605507130
 PrefabInstance:
@@ -8883,11 +9287,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &608207565
 PrefabInstance:
@@ -8976,11 +9383,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &608479237
 PrefabInstance:
@@ -9089,11 +9499,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &610180488
 PrefabInstance:
@@ -9190,11 +9603,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &613455272
 GameObject:
@@ -9292,6 +9708,7 @@ RectTransform:
   m_Children:
   - {fileID: 327209668}
   - {fileID: 1225547635}
+  - {fileID: 1853002574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9398,11 +9815,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &624573590
 PrefabInstance:
@@ -9499,11 +9919,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &633983071
 GameObject:
@@ -9550,9 +9973,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   disc: {fileID: 1503639411}
+  discController: {fileID: 0}
   trackRoot: {fileID: 1521146751}
+  updateMode: 1
   localOffset: {x: 0, y: 0.6, z: 0}
+  useSteerDrivenScreenOffset: 1
+  maxScreenLateralOffset: 0.15
+  screenOffsetMoveSpeed: 1.1
+  screenOffsetReturnSpeed: 0.3
+  steerDeadZone: 0.05
+  steerResponseExponent: 1
+  invertScreenOffset: 0
+  basePositionLag: 0
+  snapDistance: 8
   useTrackForward: 1
+  invertForward: 0
+  drawDebug: 0
 --- !u!1001 &642467689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9734,11 +10170,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &652247496
 PrefabInstance:
@@ -9847,11 +10286,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &656976864
 PrefabInstance:
@@ -9948,11 +10390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &671387596
 PrefabInstance:
@@ -10061,11 +10506,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &676044317
 PrefabInstance:
@@ -10150,11 +10598,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &677666030
 PrefabInstance:
@@ -10239,11 +10690,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &680750464
 PrefabInstance:
@@ -10352,11 +10806,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &681233333
 PrefabInstance:
@@ -10465,11 +10922,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &683021048
 PrefabInstance:
@@ -10570,11 +11030,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &696148657 stripped
 GameObject:
@@ -10676,11 +11139,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &709998494
 PrefabInstance:
@@ -10781,11 +11247,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &715199579
 PrefabInstance:
@@ -10882,11 +11351,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &723553028
 PrefabInstance:
@@ -10971,11 +11443,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &762786813
 PrefabInstance:
@@ -11084,11 +11559,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &764723549
 PrefabInstance:
@@ -11197,11 +11675,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &764800403
 PrefabInstance:
@@ -11368,11 +11849,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &790030976
 PrefabInstance:
@@ -11506,12 +11990,152 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
+--- !u!1 &798558807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 798558808}
+  - component: {fileID: 798558810}
+  - component: {fileID: 798558809}
+  m_Layer: 5
+  m_Name: DurabilityValueText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &798558808
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798558807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 968965257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -74}
+  m_SizeDelta: {x: 320, y: 28}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &798558809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798558807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &798558810
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798558807}
+  m_CullTransparentMesh: 1
 --- !u!1001 &809700642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11611,11 +12235,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &810058643
 PrefabInstance:
@@ -11704,11 +12331,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &814620905
 PrefabInstance:
@@ -11809,11 +12439,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &832691047
 PrefabInstance:
@@ -11906,11 +12539,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &837236145
 PrefabInstance:
@@ -12007,11 +12643,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &843846404
 PrefabInstance:
@@ -12108,11 +12747,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &846080998
 PrefabInstance:
@@ -12221,11 +12863,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &851282812
 PrefabInstance:
@@ -12334,11 +12979,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &874031450
 PrefabInstance:
@@ -12435,11 +13083,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &877239127
 PrefabInstance:
@@ -12548,11 +13199,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &886399970
 PrefabInstance:
@@ -12653,11 +13307,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &910418570
 PrefabInstance:
@@ -12754,11 +13411,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &917213888
 PrefabInstance:
@@ -12859,11 +13519,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &919801919
 PrefabInstance:
@@ -12952,11 +13615,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &938218986
 GameObject:
@@ -13113,11 +13779,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &966308117
 GameObject:
@@ -13332,6 +14001,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4281780448642680, guid: 0f9577b4dda6cc546abea4737be5a392, type: 3}
   m_PrefabInstance: {fileID: 968081442}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &968965256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968965257}
+  - component: {fileID: 968965258}
+  - component: {fileID: 968965259}
+  m_Layer: 5
+  m_Name: DurabilityGauge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &968965257
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968965256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1102040980}
+  - {fileID: 1370359765}
+  - {fileID: 798558808}
+  m_Father: {fileID: 1853002574}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 800}
+  m_SizeDelta: {x: 360, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &968965258
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968965256}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &968965259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968965256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2492ceb5ba9c23c43877a14ccee2f3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscDurabilityGaugeUI
+  durability: {fileID: 1503639413}
+  durabilitySlider: {fileID: 1370359766}
+  durabilityTitleText: {fileID: 1102040981}
+  durabilityValueText: {fileID: 798558809}
+  canvasGroup: {fileID: 968965258}
+  titleText: "\uB0B4\uAD6C\uB3C4"
+  valueFormat: '{0:0} / {1:0}'
+  smoothGauge: 1
+  smoothSpeed: 12
+  ignorePointerInput: 1
 --- !u!1001 &969951137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13439,11 +14182,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &973181183 stripped
 GameObject:
@@ -13557,11 +14303,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &985511210
 PrefabInstance:
@@ -13658,11 +14407,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1004511203
 PrefabInstance:
@@ -13763,11 +14515,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1004675902
 PrefabInstance:
@@ -13995,11 +14750,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1017780639
 PrefabInstance:
@@ -14108,11 +14866,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1018781309
 PrefabInstance:
@@ -14213,11 +14974,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1035028596 stripped
 GameObject:
@@ -14415,11 +15179,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1083071084
 GameObject:
@@ -14561,11 +15328,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1093455859
 PrefabInstance:
@@ -14650,11 +15420,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1098324986
 PrefabInstance:
@@ -14743,12 +15516,152 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
+--- !u!1 &1102040979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1102040980}
+  - component: {fileID: 1102040982}
+  - component: {fileID: 1102040981}
+  m_Layer: 5
+  m_Name: DurabilityTitleText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1102040980
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102040979}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 968965257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1102040981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102040979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 28
+  m_fontSizeBase: 28
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1102040982
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102040979}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1107816946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14856,11 +15769,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1112357798
 PrefabInstance:
@@ -14953,11 +15869,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1113302922
 PrefabInstance:
@@ -15181,11 +16100,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1126625659
 PrefabInstance:
@@ -15286,11 +16208,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1127721361
 GameObject:
@@ -15363,7 +16288,7 @@ Transform:
   m_GameObject: {fileID: 1127721361}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95.389, y: 4.4, z: 198.53}
+  m_LocalPosition: {x: 95.389, y: 4.1, z: 198.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15401,10 +16326,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0, y: 0, z: 0}
-  ShoulderOffset: {x: 0, y: -0.4, z: 0}
+  ShoulderOffset: {x: 0, y: -0.7, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
-  CameraDistance: 1.7
+  CameraDistance: 1.3
   AvoidObstacles:
     Enabled: 0
     CollisionFilter:
@@ -15497,11 +16422,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1140505117
 PrefabInstance:
@@ -15610,11 +16538,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1140671220
 PrefabInstance:
@@ -15715,11 +16646,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1144168451
 PrefabInstance:
@@ -15808,11 +16742,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1148014603
 PrefabInstance:
@@ -15905,11 +16842,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
-  baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  endThrowOnImpact: 1
+  baseDamage: 5
+  damagePerSpeed: 0.5
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1149841131
 GameObject:
@@ -16047,11 +16987,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1161063376
 GameObject:
@@ -16222,11 +17165,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1173520270
 PrefabInstance:
@@ -16331,11 +17277,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1182748753
 PrefabInstance:
@@ -16444,11 +17393,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1182788100
 PrefabInstance:
@@ -16582,11 +17534,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1187731738
 PrefabInstance:
@@ -16683,11 +17638,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1194450717
 PrefabInstance:
@@ -16784,11 +17742,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1201198020
 PrefabInstance:
@@ -16897,11 +17858,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1206732380
 PrefabInstance:
@@ -16998,11 +17962,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1210267118
 PrefabInstance:
@@ -17111,11 +18078,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1212676677
 GameObject:
@@ -17185,7 +18155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1225547635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17219,8 +18189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscThrowCountUI
   throwCountText: {fileID: 1855532371}
-  format: "\uB0A8\uC740 \uD22C\uCC99: {0} / {1}"
-  hideWhenNoText: 0
+  limitedFormat: "\uB0A8\uC740 \uD22C\uCC99: {0} / {1}"
+  unlimitedFormat: "\uB358\uC9C4 \uD69F\uC218: {0} / \uC81C\uD55C \uC5C6\uC74C"
 --- !u!1001 &1233565627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17328,11 +18298,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1233927155
 PrefabInstance:
@@ -17429,11 +18402,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1253662882
 PrefabInstance:
@@ -17534,11 +18510,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1256186746
 GameObject:
@@ -17680,11 +18659,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1276771407
 PrefabInstance:
@@ -17785,11 +18767,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1286603657
 PrefabInstance:
@@ -17878,12 +18863,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
+--- !u!1 &1287827429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1287827430}
+  - component: {fileID: 1287827432}
+  - component: {fileID: 1287827431}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1287827430
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287827429}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1370359765}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1287827431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287827429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1287827432
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287827429}
+  m_CullTransparentMesh: 1
 --- !u!1 &1289924326
 GameObject:
   m_ObjectHideFlags: 0
@@ -18018,11 +19081,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
-  baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  endThrowOnImpact: 1
+  baseDamage: 5
+  damagePerSpeed: 0.5
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1316537191
 PrefabInstance:
@@ -18123,11 +19189,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1318580327
 PrefabInstance:
@@ -18224,11 +19293,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1319735127
 PrefabInstance:
@@ -18411,11 +19483,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1354922471
 PrefabInstance:
@@ -18524,11 +19599,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1365279276
 GameObject:
@@ -18567,6 +19645,96 @@ Transform:
   - {fileID: 235382807}
   m_Father: {fileID: 1043571681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1370359764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1370359765}
+  - component: {fileID: 1370359766}
+  m_Layer: 5
+  m_Name: DurabilitySlider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1370359765
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370359764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1287827430}
+  - {fileID: 299936926}
+  - {fileID: 229775482}
+  m_Father: {fileID: 968965257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -42}
+  m_SizeDelta: {x: 320, y: 28}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1370359766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370359764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 0
+  m_TargetGraphic: {fileID: 134921900}
+  m_FillRect: {fileID: 1993137058}
+  m_HandleRect: {fileID: 134921899}
+  m_Direction: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1375936471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18674,11 +19842,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1382153643
 PrefabInstance:
@@ -18844,11 +20015,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1390216037
 GameObject:
@@ -18881,7 +20055,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DiscDurabilityUI
   durability: {fileID: 0}
   durabilitySlider: {fileID: 0}
-  durabilityText: {fileID: 0}
+  durabilityTitleText: {fileID: 0}
+  durabilityValueText: {fileID: 0}
+  titleText: "\uB0B4\uAD6C\uB3C4"
+  valueFormat: '{0:0} / {1:0}'
 --- !u!4 &1390216039
 Transform:
   m_ObjectHideFlags: 0
@@ -19004,11 +20181,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1396278222
 PrefabInstance:
@@ -19117,11 +20297,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1401323810
 PrefabInstance:
@@ -19218,11 +20401,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1406374570
 PrefabInstance:
@@ -19323,11 +20509,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1408904786
 PrefabInstance:
@@ -19428,11 +20617,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1410901465
 PrefabInstance:
@@ -19525,11 +20717,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1417995424
 PrefabInstance:
@@ -19626,11 +20821,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1419513544
 PrefabInstance:
@@ -19739,11 +20937,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1424135206
 PrefabInstance:
@@ -19844,11 +21045,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1426648149
 PrefabInstance:
@@ -20014,11 +21218,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1438760434
 PrefabInstance:
@@ -20119,11 +21326,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1455871838
 PrefabInstance:
@@ -20232,11 +21442,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1464146562
 PrefabInstance:
@@ -20337,11 +21550,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1464866449
 PrefabInstance:
@@ -20450,11 +21666,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1469145051
 PrefabInstance:
@@ -20551,11 +21770,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1469500876
 GameObject:
@@ -20603,22 +21825,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DiscRunManager
   progressionStore: {fileID: 0}
   discController: {fileID: 1503639412}
+  discDurability: {fileID: 1503639413}
   cameraSwitcher: {fileID: 1994770297}
   launchAnchor: {fileID: 1507380250}
   trackRoot: {fileID: 1521146751}
+  useThrowLimit: 0
   maxThrowsPerRun: 3
   rethrowFromImpactPoint: 1
+  rethrowFromFinalStopPosition: 1
   rethrowBackOffset: 0.8
   rethrowHeightOffset: 1
   rethrowDelay: 0.6
-  logLaunchAnchorMove: 1
-  settleStableTime: 0.25
   settleMaxWaitTime: 3
   forceFinishOnSettleTimeout: 0
   logSettlingStatus: 1
   settlingStatusLogInterval: 0.5
-  rethrowFromFinalStopPosition: 1
   restoreOriginalLaunchAnchorOnRunStart: 1
+  autoRestartWhenDurabilityBroken: 0
   autoRestartWhenNoThrowsRemaining: 1
   gameOverRestartDelay: 1
   onRunStarted:
@@ -20762,11 +21985,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1503639409
 PrefabInstance:
@@ -20896,6 +22122,8 @@ MonoBehaviour:
   launchAnchor: {fileID: 1507380250}
   trackRoot: {fileID: 1521146751}
   visualRoot: {fileID: 1503639411}
+  cameraSwitcher: {fileID: 1994770297}
+  beginCameraFollowImmediatelyOnRelease: 1
   defaultInitialThrust: 30
   defaultMaxDurability: 100
   defaultLift: 0.9
@@ -20913,10 +22141,16 @@ MonoBehaviour:
   maxDragWorldDistance: 4.5
   minDragYOffset: -0.2
   maxDragYOffset: 2.5
+  throwPowerToInitialThrust: 1
+  throwPowerResponseExponent: 1
+  scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.033
   minThrowUpAngle: 3
-  maxThrowUpAngle: 14
+  maxThrowUpAngle: 23
+  forwardCorrectionStrength: 0.15
+  forwardCorrectionTurnSpeed: 0
+  steeringRelativeToThrowDirection: 1
   minLaunchSpeedRatio: 0.45
   targetForwardSpeedRatio: 0.9
   forwardSpeedGain: 4
@@ -20925,21 +22159,28 @@ MonoBehaviour:
   laneHalfWidth: 100
   boundarySpring: 40
   boundaryDamping: 10
-  settlingLinearDamping: 0.05
-  settlingAngularDamping: 1
-  settlingHorizontalBrake: 1
-  stopLinearSpeed: 0.01
-  requireAngularSlowToStop: 0
-  stopAngularSpeed: 0.5
-  minSettlingTimeBeforeStop: 1
-  requiredLowSpeedDurationToStop: 0.8
-  logLowSpeedTimer: 0
-  logSettlingStopCheck: 0
-  settlingLogInterval: 0.5
   postImpactControlOffSpeed: 0.5
   postImpactSteeringMultiplier: 0.15
   postImpactLiftMultiplier: 0
   spinWhilePostImpactMoving: 1
+  postImpactForwardAccelerationCoefficient: 0.15
+  postImpactMaxForwardAcceleration: 2.5
+  postImpactForwardAccelerationMinSpeed: 0.2
+  unlockRotationAfterFirstImpact: 1
+  unlockRotationCurrentSpeedThreshold: 100
+  unlockRotationImpactSpeedThreshold: 100
+  unlockedRotationAngularDamping: 4
+  settlingLinearDamping: 0.05
+  settlingAngularDamping: 1
+  settlingHorizontalBrake: 1
+  minSettlingTimeBeforeStop: 1
+  stopLinearSpeed: 0.1
+  requiredLowSpeedDurationToStop: 0.3
+  stopRotationWhenLowSpeedStable: 1
+  freezeRotationWhenLowSpeedStable: 1
+  lowSpeedStableAngularDamping: 20
+  logSettlingStopCheck: 0
+  settlingLogInterval: 0.5
   flyingLinearDamping: 0.1
   flyingAngularDamping: 0.05
   stoppedLinearDamping: 4
@@ -20951,7 +22192,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1994770297}
         m_TargetAssemblyTypeName: DiscCinemachineSwitcher, Assembly-CSharp
-        m_MethodName: BeginFollow
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20960,13 +22201,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-  throwPowerToInitialThrust: 1
-  throwPowerResponseExponent: 1
-  scaleForwardTargetSpeedWithThrowPower: 1
-  forwardCorrectionStrength: 0.15
-  forwardCorrectionTurnSpeed: 0
-  steeringRelativeToThrowDirection: 1
+        m_CallState: 0
 --- !u!114 &1503639413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20979,8 +22214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b466849f56aac34f90a1dc938a206aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscDurability
-  maxDurability: 100
-  currentDurability: 100
+  maxDurability: 1000
+  currentDurability: 1000
   onDurabilityChanged:
     m_PersistentCalls:
       m_Calls:
@@ -21025,11 +22260,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DiscImpactReceiver
   discController: {fileID: 1503639412}
   runManager: {fileID: 1469500878}
+  durability: {fileID: 0}
   impactLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   minImpactSpeed: 0.1
   handleCollisionStay: 1
+  globalDamageMultiplier: 1
+  applyDamageWhileSettling: 1
+  settlingDamageMultiplier: 0.75
+  stayDamageMultiplier: 0.5
+  globalDamageCooldown: 0.05
+  sameColliderDamageCooldown: 0.35
+  endThrowWhenProfileMissing: 1
+  fallbackDamageWhenProfileMissing: 0
   logImpacts: 1
 --- !u!1 &1507380249
 GameObject:
@@ -21169,11 +22413,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1515496377
 PrefabInstance:
@@ -21282,11 +22529,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1520001515
 PrefabInstance:
@@ -21371,11 +22621,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1521146750
 GameObject:
@@ -21503,11 +22756,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1528319896
 PrefabInstance:
@@ -21616,11 +22872,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1534252961
 PrefabInstance:
@@ -21733,11 +22992,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1544583552
 PrefabInstance:
@@ -21846,11 +23108,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1557809238
 PrefabInstance:
@@ -21963,11 +23228,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1562548660
 PrefabInstance:
@@ -22076,11 +23344,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1592685912
 PrefabInstance:
@@ -22173,11 +23444,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1595756599
 PrefabInstance:
@@ -22286,11 +23560,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1596306158
 PrefabInstance:
@@ -22481,11 +23758,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1617487040
 PrefabInstance:
@@ -22594,11 +23874,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1617623709
 PrefabInstance:
@@ -22707,11 +23990,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1624499382
 PrefabInstance:
@@ -22812,11 +24098,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1624795426
 PrefabInstance:
@@ -22925,11 +24214,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1625747954
 PrefabInstance:
@@ -23038,11 +24330,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1641431666
 PrefabInstance:
@@ -23143,11 +24438,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1644829357
 PrefabInstance:
@@ -23248,11 +24546,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1664808931
 PrefabInstance:
@@ -23336,11 +24637,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1666522250
 PrefabInstance:
@@ -23449,11 +24753,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1671129589
 PrefabInstance:
@@ -23537,11 +24844,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1683330848
 PrefabInstance:
@@ -23714,11 +25024,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1728106137 stripped
 GameObject:
@@ -23738,11 +25051,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1731973822
 PrefabInstance:
@@ -23827,11 +25143,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1737722678
 PrefabInstance:
@@ -23940,11 +25259,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1752899993
 PrefabInstance:
@@ -24045,11 +25367,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1765122412
 PrefabInstance:
@@ -24146,11 +25471,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1769288939
 PrefabInstance:
@@ -24251,11 +25579,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1781353918
 PrefabInstance:
@@ -24348,11 +25679,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1782499993
 PrefabInstance:
@@ -24445,11 +25779,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1787950990
 PrefabInstance:
@@ -24561,11 +25898,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!64 &1787950994
 MeshCollider:
@@ -24672,11 +26012,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1800197422
 PrefabInstance:
@@ -24773,11 +26116,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1810192153
 GameObject:
@@ -24921,11 +26267,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1811730338
 GameObject:
@@ -25130,11 +26479,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1823727294
 PrefabInstance:
@@ -25235,11 +26587,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1825582804
 PrefabInstance:
@@ -25340,12 +26695,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
+--- !u!1 &1853002573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1853002574}
+  m_Layer: 5
+  m_Name: InGameHUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1853002574
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853002573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 968965257}
+  m_Father: {fileID: 613455276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -892, y: -1992}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1854193105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25441,11 +26835,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1855532369
 GameObject:
@@ -25671,11 +27068,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1894941197
 PrefabInstance:
@@ -25776,11 +27176,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1905982470
 PrefabInstance:
@@ -25893,11 +27296,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1921926008
 PrefabInstance:
@@ -26084,11 +27490,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1948752010
 PrefabInstance:
@@ -26173,11 +27582,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1950951645
 PrefabInstance:
@@ -26261,11 +27673,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.5
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1962276837
 PrefabInstance:
@@ -26366,11 +27781,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &1969464526
 PrefabInstance:
@@ -26479,11 +27897,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1979005926
 GameObject:
@@ -26633,12 +28054,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
+--- !u!1 &1993137057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993137058}
+  - component: {fileID: 1993137060}
+  - component: {fileID: 1993137059}
+  m_Layer: 5
+  m_Name: Fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1993137058
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993137057}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 299936926}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1993137059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993137057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1993137060
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993137057}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1993642581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26722,11 +28221,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &1994770296
 GameObject:
@@ -26761,11 +28263,13 @@ MonoBehaviour:
   followCamera: {fileID: 1127721364}
   followTarget: {fileID: 633983072}
   launchAnchor: {fileID: 0}
+  followTargetFollower: {fileID: 0}
   preserveInitialLaunchCameraPose: 1
   clearFollowTargetBeforeLaunch: 1
   launchCameraPriority: 20
   followCameraBeforeLaunchPriority: 0
   followCameraAfterLaunchPriority: 30
+  logCameraSwitch: 1
 --- !u!4 &1994770298
 Transform:
   m_ObjectHideFlags: 0
@@ -26917,11 +28421,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &2024857354
 PrefabInstance:
@@ -27100,11 +28607,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &2051443385
 GameObject:
@@ -27241,11 +28751,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &2089274705
 PrefabInstance:
@@ -27354,11 +28867,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1 &2110719641
 GameObject:
@@ -27542,11 +29058,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &2123774669
 PrefabInstance:
@@ -27647,11 +29166,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 0.1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &2130242311
 PrefabInstance:
@@ -27838,11 +29360,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &2137279189
 PrefabInstance:
@@ -27939,11 +29464,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1001 &2141032339
 PrefabInstance:
@@ -28052,11 +29580,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
+  endThrowOnImpact: 1
   baseDamage: 10
-  damagePerImpactSpeed: 1.5
-  minImpactSpeed: 2
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
   maxDamage: 50
-  stopFlightAndAllowRethrow: 1
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
   instantBreak: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

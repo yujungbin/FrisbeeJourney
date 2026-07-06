@@ -1,13 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-
-public struct DiscImpactInfo
-{
-    public string sourceName;
-    public float impactSpeed;
-    public Vector3 hitPoint;
-    public Vector3 hitNormal;
-    public Collider hitCollider;
-}
 
 [RequireComponent(typeof(DiscSlingshotController))]
 public class DiscImpactReceiver : MonoBehaviour
@@ -15,27 +7,63 @@ public class DiscImpactReceiver : MonoBehaviour
     [Header("References")]
     [SerializeField] private DiscSlingshotController discController;
     [SerializeField] private DiscRunManager runManager;
+    [SerializeField] private DiscDurability durability;
 
     [Header("Impact Filter")]
-    [Tooltip("이 레이어에 속한 물체와 충돌했을 때만 정지 처리합니다.")]
+    [Tooltip("이 레이어에 속한 물체와 충돌했을 때만 처리합니다.")]
     [SerializeField] private LayerMask impactLayers = ~0;
 
     [Tooltip("이 속도보다 느린 충돌은 무시합니다.")]
     [SerializeField] private float minImpactSpeed = 0.1f;
 
-    [Tooltip("OnCollisionEnter를 놓쳤을 때를 대비해 OnCollisionStay에서도 처리합니다.")]
-    [SerializeField] private bool handleCollisionStay = true;
+    [Tooltip("OnCollisionStay에서도 데미지를 줄지 여부입니다. 기본은 false 추천입니다.")]
+    [SerializeField] private bool handleCollisionStay = false;
+
+    [Header("Damage")]
+    [Tooltip("모든 ImpactDamageProfile의 최종 데미지에 곱해지는 전체 배율입니다.")]
+    [SerializeField] private float globalDamageMultiplier = 1f;
+
+    [Tooltip("첫 충돌 후 Settling 상태에서도 2차, 3차 충돌 데미지를 적용합니다.")]
+    [SerializeField] private bool applyDamageWhileSettling = true;
+
+    [Tooltip("Settling 중 추가 충돌 데미지 배율입니다. 1이면 동일 데미지, 0.5면 절반입니다.")]
+    [SerializeField] private float settlingDamageMultiplier = 0.75f;
+
+    [Tooltip("OnCollisionStay로 들어온 데미지 배율입니다. handleCollisionStay를 켤 때만 의미 있습니다.")]
+    [SerializeField] private float stayDamageMultiplier = 0.5f;
+
+    [Header("Damage Cooldown")]
+    [Tooltip("모든 충돌 데미지 사이의 최소 간격입니다.")]
+    [SerializeField] private float globalDamageCooldown = 0.05f;
+
+    [Tooltip("같은 Collider에서 다시 데미지를 받을 수 있는 최소 간격입니다.")]
+    [SerializeField] private float sameColliderDamageCooldown = 0.35f;
+
+    [Header("Missing Profile")]
+    [Tooltip("ImpactDamageProfile이 없는 물체에 부딪혔을 때도 첫 충돌이면 투척 종료 처리를 할지 여부입니다.")]
+    [SerializeField] private bool endThrowWhenProfileMissing = true;
+
+    [Tooltip("ImpactDamageProfile이 없는 물체에 부딪혔을 때 적용할 기본 데미지입니다.")]
+    [SerializeField] private float fallbackDamageWhenProfileMissing = 0f;
 
     [Header("Debug")]
     [SerializeField] private bool logImpacts = true;
 
-    private bool impactHandledThisThrow;
+    private bool firstEndingImpactSentToRunManager;
+    private float nextGlobalDamageTime;
+
+    private readonly Dictionary<Collider, float> nextDamageTimeByCollider =
+        new Dictionary<Collider, float>();
+
     private DiscSlingshotController subscribedController;
 
     private void Awake()
     {
         if (discController == null)
             discController = GetComponent<DiscSlingshotController>();
+
+        if (durability == null)
+            durability = GetComponent<DiscDurability>();
     }
 
     private void OnEnable()
@@ -46,6 +74,17 @@ public class DiscImpactReceiver : MonoBehaviour
     private void OnDisable()
     {
         UnsubscribeFromDisc();
+    }
+
+    private void OnValidate()
+    {
+        minImpactSpeed = Mathf.Max(0f, minImpactSpeed);
+        globalDamageMultiplier = Mathf.Max(0f, globalDamageMultiplier);
+        settlingDamageMultiplier = Mathf.Max(0f, settlingDamageMultiplier);
+        stayDamageMultiplier = Mathf.Max(0f, stayDamageMultiplier);
+        globalDamageCooldown = Mathf.Max(0f, globalDamageCooldown);
+        sameColliderDamageCooldown = Mathf.Max(0f, sameColliderDamageCooldown);
+        fallbackDamageWhenProfileMissing = Mathf.Max(0f, fallbackDamageWhenProfileMissing);
     }
 
     private void SubscribeToDisc()
@@ -61,7 +100,7 @@ public class DiscImpactReceiver : MonoBehaviour
 
         UnsubscribeFromDisc();
 
-        discController.Launched += ResetImpactLock;
+        discController.Launched += ResetImpactStateForNewThrow;
         subscribedController = discController;
     }
 
@@ -70,21 +109,23 @@ public class DiscImpactReceiver : MonoBehaviour
         if (subscribedController == null)
             return;
 
-        subscribedController.Launched -= ResetImpactLock;
+        subscribedController.Launched -= ResetImpactStateForNewThrow;
         subscribedController = null;
     }
 
-    private void ResetImpactLock()
+    private void ResetImpactStateForNewThrow()
     {
-        impactHandledThisThrow = false;
+        firstEndingImpactSentToRunManager = false;
+        nextGlobalDamageTime = 0f;
+        nextDamageTimeByCollider.Clear();
 
         if (logImpacts)
-            Debug.Log("Impact lock reset for new throw.");
+            Debug.Log("Impact receiver reset for new throw.");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        TryHandleCollision(collision, "Enter");
+        TryHandleCollision(collision, CollisionPhase.Enter);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -92,20 +133,27 @@ public class DiscImpactReceiver : MonoBehaviour
         if (!handleCollisionStay)
             return;
 
-        TryHandleCollision(collision, "Stay");
+        TryHandleCollision(collision, CollisionPhase.Stay);
     }
 
-    private void TryHandleCollision(Collision collision, string phase)
+    private enum CollisionPhase
     {
-        if (impactHandledThisThrow)
-            return;
+        Enter,
+        Stay
+    }
 
+    private void TryHandleCollision(Collision collision, CollisionPhase phase)
+    {
         if (discController == null || runManager == null)
             return;
 
-        // 비행 중일 때만 첫 충돌을 처리한다.
-        // Settling 중 추가 충돌은 무시한다.
-        if (!discController.IsFlying)
+        bool canProcessFlyingImpact = discController.IsFlying;
+
+        bool canProcessSettlingDamage =
+            applyDamageWhileSettling &&
+            discController.IsSettling;
+
+        if (!canProcessFlyingImpact && !canProcessSettlingDamage)
             return;
 
         if (!IsLayerAllowed(collision.collider.gameObject.layer))
@@ -116,29 +164,47 @@ public class DiscImpactReceiver : MonoBehaviour
         if (impactSpeed < minImpactSpeed)
             return;
 
-        DiscImpactInfo impactInfo = BuildImpactInfo(collision, impactSpeed);
+        DiscImpactInfo impactInfo = BuildImpactInfo(collision);
 
-        impactHandledThisThrow = true;
+        ApplyPhaseDamageModifiers(ref impactInfo, phase);
+
+        bool damageApplied = TryApplyDurabilityDamage(
+            impactInfo,
+            collision.collider
+        );
 
         if (logImpacts)
         {
             Debug.Log(
                 $"Disc impact {phase}: {impactInfo.sourceName}, " +
-                $"speed: {impactInfo.impactSpeed:F2}"
+                $"state: {(discController.IsFlying ? "Flying" : discController.IsSettling ? "Settling" : "Other")}, " +
+                $"speed: {impactInfo.impactSpeed:F2}, " +
+                $"normalImpact: {impactInfo.normalImpact01:F2}, " +
+                $"angleFactor: {impactInfo.angleDamageFactor:F2}, " +
+                $"damage: {impactInfo.durabilityDamage:F1}, " +
+                $"damageApplied: {damageApplied}, " +
+                $"durability: {(durability != null ? durability.CurrentDurability.ToString("F1") : "none")}"
             );
         }
 
-        runManager.HandleDiscImpact(impactInfo);
+        TrySendFirstEndingImpactToRunManager(impactInfo);
     }
 
-    private bool IsLayerAllowed(int layer)
+    private DiscImpactInfo BuildImpactInfo(Collision collision)
     {
-        int mask = 1 << layer;
-        return (impactLayers.value & mask) != 0;
-    }
+        ImpactDamageProfile profile =
+            collision.collider.GetComponentInParent<ImpactDamageProfile>();
 
-    private DiscImpactInfo BuildImpactInfo(Collision collision, float impactSpeed)
-    {
+        if (profile != null)
+            return profile.BuildImpactInfo(collision, globalDamageMultiplier);
+
+        if (logImpacts)
+        {
+            Debug.LogWarning(
+                $"ImpactDamageProfile이 없는 물체와 충돌했습니다: {collision.collider.name}"
+            );
+        }
+
         Vector3 hitPoint = transform.position;
         Vector3 hitNormal = Vector3.up;
 
@@ -152,10 +218,101 @@ public class DiscImpactReceiver : MonoBehaviour
         return new DiscImpactInfo
         {
             sourceName = collision.collider.name,
-            impactSpeed = impactSpeed,
+            impactSpeed = collision.relativeVelocity.magnitude,
+            durabilityDamage = fallbackDamageWhenProfileMissing,
+            normalImpact01 = 1f,
+            angleDamageFactor = 1f,
             hitPoint = hitPoint,
             hitNormal = hitNormal,
-            hitCollider = collision.collider
+            hitCollider = collision.collider,
+            endsThrow = endThrowWhenProfileMissing
         };
+    }
+
+    private void ApplyPhaseDamageModifiers(
+        ref DiscImpactInfo impactInfo,
+        CollisionPhase phase)
+    {
+        float multiplier = 1f;
+
+        if (discController != null && discController.IsSettling)
+            multiplier *= settlingDamageMultiplier;
+
+        if (phase == CollisionPhase.Stay)
+            multiplier *= stayDamageMultiplier;
+
+        impactInfo.durabilityDamage *= multiplier;
+    }
+
+    private bool TryApplyDurabilityDamage(
+        DiscImpactInfo impactInfo,
+        Collider hitCollider)
+    {
+        if (durability == null)
+            return false;
+
+        if (durability.IsBroken)
+            return false;
+
+        if (impactInfo.durabilityDamage <= 0f)
+            return false;
+
+        if (!CanApplyDamageFromCollider(hitCollider))
+            return false;
+
+        durability.ApplyDamage(impactInfo.durabilityDamage);
+
+        RegisterDamageCooldown(hitCollider);
+
+        return true;
+    }
+
+    private bool CanApplyDamageFromCollider(Collider hitCollider)
+    {
+        if (Time.time < nextGlobalDamageTime)
+            return false;
+
+        if (hitCollider != null &&
+            nextDamageTimeByCollider.TryGetValue(hitCollider, out float nextColliderTime) &&
+            Time.time < nextColliderTime)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void RegisterDamageCooldown(Collider hitCollider)
+    {
+        nextGlobalDamageTime = Time.time + globalDamageCooldown;
+
+        if (hitCollider != null)
+        {
+            nextDamageTimeByCollider[hitCollider] =
+                Time.time + sameColliderDamageCooldown;
+        }
+    }
+
+    private void TrySendFirstEndingImpactToRunManager(
+        DiscImpactInfo impactInfo)
+    {
+        if (firstEndingImpactSentToRunManager)
+            return;
+
+        if (!discController.IsFlying)
+            return;
+
+        if (!impactInfo.endsThrow)
+            return;
+
+        firstEndingImpactSentToRunManager = true;
+
+        runManager.HandleDiscImpact(impactInfo);
+    }
+
+    private bool IsLayerAllowed(int layer)
+    {
+        int mask = 1 << layer;
+        return (impactLayers.value & mask) != 0;
     }
 }
