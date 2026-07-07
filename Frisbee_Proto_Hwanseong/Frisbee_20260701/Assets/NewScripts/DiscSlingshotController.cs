@@ -211,7 +211,7 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField] private bool stopRotationWhenLowSpeedStable = true;
 
     [Tooltip("저속 지속 조건을 만족한 순간 Rigidbody 회전을 다시 고정합니다.")]
-    [SerializeField] private bool freezeRotationWhenLowSpeedStable = true;
+    [SerializeField] private bool freezeRotationWhenLowSpeedStable = false;
 
     [Tooltip("저속 지속 조건을 만족한 뒤 적용할 회전 감쇠값입니다.")]
     [SerializeField] private float lowSpeedStableAngularDamping = 20f;
@@ -703,7 +703,8 @@ public class DiscSlingshotController : MonoBehaviour
         SetAngularDamping(flyingAngularDamping);
 
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-        rb.constraints |= RigidbodyConstraints.FreezeRotation;
+        //rb.constraints |= RigidbodyConstraints.FreezeRotation;
+        rb.constraints &= ~RigidbodyConstraints.FreezeRotation;
 
         state = DiscState.Flying;
         flightControlEnabled = true;
@@ -1216,8 +1217,8 @@ public class DiscSlingshotController : MonoBehaviour
         }
         else
         {
-            rb.angularVelocity = Vector3.zero;
-            rb.constraints |= RigidbodyConstraints.FreezeRotation;
+            //rb.angularVelocity = Vector3.zero;
+            //rb.constraints |= RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -1376,18 +1377,8 @@ public class DiscSlingshotController : MonoBehaviour
         flightControlEnabled = false;
         forwardAssistEnabled = false;
 
-        lowSpeedTimer = 0f;
-        settlingStopReady = false;
-        rotationStoppedAfterLowSpeed = false;
-        postImpactRotationUnlocked = false;
-
-        activeFingerId = -1;
-        mouseDragging = false;
         hasPendingLaunch = false;
         launchEventsPending = false;
-        steerInput = 0f;
-
-        rb.isKinematic = false;
 
         SetLinearVelocity(Vector3.zero);
         rb.angularVelocity = Vector3.zero;
@@ -1396,7 +1387,6 @@ public class DiscSlingshotController : MonoBehaviour
         SetAngularDamping(stoppedLinearDamping);
 
         rb.constraints |= RigidbodyConstraints.FreezeRotation;
-
         rb.isKinematic = true;
     }
 
@@ -1582,13 +1572,30 @@ public class DiscSlingshotController : MonoBehaviour
     {
         PlaceAtLaunchAnchor(true);
     }
+    private void ResetVisualPose()
+    {
+        spinAngle = 0f;
 
+        if (visualRoot == null)
+            return;
+
+        visualRoot.localPosition = Vector3.zero;
+        visualRoot.localRotation = Quaternion.identity;
+    }
     public void PlaceAtLaunchAnchor(bool readyForInput)
     {
-        anchorPosition = launchAnchor != null
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+
+        Vector3 targetPosition = launchAnchor != null
             ? launchAnchor.position
             : transform.position;
 
+        Quaternion targetRotation = launchAnchor != null
+            ? launchAnchor.rotation
+            : Quaternion.identity;
+
+        // 입력/비행 상태 초기화
         activeFingerId = -1;
         mouseDragging = false;
         hasPendingLaunch = false;
@@ -1597,41 +1604,34 @@ public class DiscSlingshotController : MonoBehaviour
         flightControlEnabled = false;
         forwardAssistEnabled = false;
 
-        activeTargetForwardSpeed = 0f;
-        lastThrowPower01 = 0f;
-        lastThrowThrustRatio = 1f;
-
-        activeFlightForward = GetTrackForward();
-        activeFlightRight = GetTrackRight();
-
+        steerInput = 0f;
         lowSpeedTimer = 0f;
         settlingStopReady = false;
         rotationStoppedAfterLowSpeed = false;
         postImpactRotationUnlocked = false;
 
-        totalDragScreen = Vector2.zero;
-        pointerSamples.Clear();
-
-        steerInput = 0f;
-
-        rb.isKinematic = false;
+        // 물리 정지
+        rb.isKinematic = true;
 
         SetLinearVelocity(Vector3.zero);
         rb.angularVelocity = Vector3.zero;
 
-        ConfigureRigidbodyForReadyOrFlying();
+        // 핵심: 위치뿐 아니라 회전도 초기화
+        rb.position = targetPosition;
+        rb.rotation = targetRotation;
 
-        rb.position = anchorPosition;
-        transform.position = anchorPosition;
+        transform.SetPositionAndRotation(
+            targetPosition,
+            targetRotation
+        );
 
-        dragTargetPosition = anchorPosition;
+        // Ready 상태에서는 시작 자세로 고정
+        rb.constraints |= RigidbodyConstraints.FreezeRotation;
 
-        rb.isKinematic = true;
+        SetLinearDamping(stoppedLinearDamping);
+        SetAngularDamping(stoppedLinearDamping);
 
-        spinAngle = 0f;
-
-        if (visualRoot != null)
-            visualRoot.localRotation = visualInitialLocalRotation;
+        ResetVisualPose();
 
         state = readyForInput
             ? DiscState.Ready
