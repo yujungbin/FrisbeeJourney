@@ -438,14 +438,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StraightMapSpawner
   roadTilePrefab: {fileID: 3220417588870590623, guid: eda42116d2d69fb4186a77ef449ae07e, type: 3}
-  initialTileCount: 10
-  tileLength: 10
+  poolSize: 5
+  tileLength: 250
   startZ: 0
+  despawnZ: -500
   moveSpeed: 8
   deceleration: 3
   minMoveSpeed: 0
   maxMoveSpeed: 30
-  despawnZ: -20
   testSpeed: 12
 --- !u!4 &1682569302
 Transform:
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DiscLaunchController
   mapSpawner: {fileID: 1682569301}
   mainCamera: {fileID: 1117315936}
-  maxThrowCount: 3
+  maxThrowCount: 10
   minDragDistance: 80
   minLaunchSpeed: 3
   maxLaunchSpeed: 50
@@ -628,13 +628,14 @@ MonoBehaviour:
   spinSpeed: 900
   tiltAmount: 25
   tiltLerpSpeed: 8
-  keyboardMoveSpeed: 4
-  maxHorizontalOffset: 10
+  keyboardMoveSpeed: 20
+  maxHorizontalOffset: 1000
   maxDragDistance: 500
   minFlightHeight: 0.8
-  maxFlightHeight: 20
+  maxFlightHeight: 30
   minForwardOffset: 0.5
   maxForwardOffset: 2.5
+  landingCompleteDistance: 0.05
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
