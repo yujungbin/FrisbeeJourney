@@ -24,7 +24,7 @@ public class DiscLaunchController : MonoBehaviour
 
     [Header("Keyboard Move Test")]
     [SerializeField] private float keyboardMoveSpeed = 4f;
-    [SerializeField] private float maxHorizontalOffset = 20f;
+    [SerializeField] private float maxHorizontalOffset = 1000f;
 
     [Header("Power Settings")]
     [SerializeField] private float maxDragDistance = 500f;
@@ -33,27 +33,33 @@ public class DiscLaunchController : MonoBehaviour
     [SerializeField] private float minForwardOffset = 0.5f;
     [SerializeField] private float maxForwardOffset = 2.5f;
 
+    [Header("Landing Settings")]
+    [SerializeField] private float landingCompleteDistance = 0.05f;
+
     private int currentThrowCount = 0;
 
     private bool isDragging = false;
     private bool isFlyingVisual = false;
+    private bool isLanding = false;
 
     private Vector2 dragStartPosition;
     private Vector2 currentPointerPosition;
+    private Vector2 finalDragVector;
 
-    private Vector3 startPosition;
-    private Quaternion startRotation;
+    private Vector3 basePosition;
+    private Quaternion baseRotation;
 
     private Vector3 targetVisualPosition;
+    private Vector3 landingTargetPosition;
+
     private Quaternion targetVisualRotation;
 
     private float spinAngle = 0f;
 
-    private float currentHorizontalOffset = 200f;
+    private float currentHorizontalOffset = 0f;
     private float launchDirectionOffsetX = 0f;
     private float launchDirectionOffsetZ = 0f;
 
-    private Vector2 finalDragVector;
     private float currentPower01 = 0f;
 
     private void Awake()
@@ -63,11 +69,12 @@ public class DiscLaunchController : MonoBehaviour
             mainCamera = Camera.main;
         }
 
-        startPosition = transform.position;
-        startRotation = transform.rotation;
+        basePosition = transform.position;
+        baseRotation = transform.rotation;
 
-        targetVisualPosition = startPosition;
-        targetVisualRotation = startRotation;
+        targetVisualPosition = basePosition;
+        landingTargetPosition = basePosition;
+        targetVisualRotation = baseRotation;
     }
 
     private void Update()
@@ -97,6 +104,11 @@ public class DiscLaunchController : MonoBehaviour
 
     private void StartDrag(Vector2 screenPosition)
     {
+        if (CanStartNewThrow() == false)
+        {
+            return;
+        }
+
         if (currentThrowCount >= maxThrowCount)
         {
             Debug.Log("더 이상 던질 수 없음");
@@ -106,6 +118,30 @@ public class DiscLaunchController : MonoBehaviour
         isDragging = true;
         dragStartPosition = screenPosition;
         currentPointerPosition = screenPosition;
+        finalDragVector = Vector2.zero;
+    }
+
+    private bool CanStartNewThrow()
+    {
+        if (mapSpawner != null && mapSpawner.IsScrolling)
+        {
+            Debug.Log("아직 비행 중이라 다시 던질 수 없음");
+            return false;
+        }
+
+        if (isFlyingVisual)
+        {
+            Debug.Log("아직 비행 중이라 다시 던질 수 없음");
+            return false;
+        }
+
+        if (isLanding)
+        {
+            Debug.Log("아직 착지 중이라 다시 던질 수 없음");
+            return false;
+        }
+
+        return true;
     }
 
     private void UpdateDrag(Vector2 screenPosition)
@@ -138,7 +174,6 @@ public class DiscLaunchController : MonoBehaviour
 
         if (finalDragVector.y < minDragDistance)
         {
-           
             return;
         }
 
@@ -153,14 +188,17 @@ public class DiscLaunchController : MonoBehaviour
             return;
         }
 
+        if (CanStartNewThrow() == false)
+        {
+            return;
+        }
+
         currentThrowCount++;
 
-        float dragPower = dragVector.magnitude * dragPowerMultiplier;
-
         float power01 = Mathf.InverseLerp(
-         minDragDistance,
-         maxDragDistance,
-         dragVector.magnitude
+            minDragDistance,
+            maxDragDistance,
+            dragVector.magnitude
         );
 
         power01 = Mathf.Clamp01(power01);
@@ -171,15 +209,18 @@ public class DiscLaunchController : MonoBehaviour
             power01
         );
 
-        mapSpawner.StartScrolling(launchSpeed);
+        currentHorizontalOffset = 0f;
 
+        mapSpawner.StartScrolling(launchSpeed);
         StartDiscFlightVisual(dragVector);
 
+        Debug.Log("원반 던짐! " + currentThrowCount + " / " + maxThrowCount);
     }
 
     private void StartDiscFlightVisual(Vector2 dragVector)
     {
         isFlyingVisual = true;
+        isLanding = false;
 
         float power01 = Mathf.InverseLerp(
             minDragDistance,
@@ -206,82 +247,155 @@ public class DiscLaunchController : MonoBehaviour
             power01
         );
 
-        launchDirectionOffsetX = horizontalDrag * 5f;
+        launchDirectionOffsetX = horizontalDrag * 100f;
         launchDirectionOffsetZ = forwardDrag * currentForwardOffset;
 
-        targetVisualPosition = startPosition;
+        targetVisualPosition = basePosition;
         targetVisualPosition.x += launchDirectionOffsetX;
         targetVisualPosition.y += currentFlightHeight;
         targetVisualPosition.z += launchDirectionOffsetZ;
 
-        targetVisualRotation = startRotation * Quaternion.Euler(
+        targetVisualRotation = baseRotation * Quaternion.Euler(
             0f,
             0f,
             -horizontalDrag * tiltAmount
         );
-
     }
 
     private void UpdateDiscVisual()
     {
-        if (mapSpawner != null && mapSpawner.IsScrolling)
+        bool isMapScrolling = mapSpawner != null && mapSpawner.IsScrolling;
+
+        if (isMapScrolling)
         {
-            isFlyingVisual = true;
-        }
-        else
-        {
-            isFlyingVisual = false;
+            UpdateFlyingVisual();
+            return;
         }
 
         if (isFlyingVisual)
         {
-            Vector3 finalTargetPosition = targetVisualPosition;
-            finalTargetPosition.x += currentHorizontalOffset;
-
-            transform.position = Vector3.Lerp(
-                transform.position,
-                finalTargetPosition,
-                takeOffLerpSpeed * Time.deltaTime
-                        );
-
-            spinAngle += spinSpeed * Time.deltaTime;
-
-            Quaternion spinRotation = Quaternion.Euler(
-                0f,
-                spinAngle,
-                0f
-            );
-
-            Quaternion finalRotation = targetVisualRotation * spinRotation;
-
-            transform.rotation = Quaternion.Lerp(
-                transform.rotation,
-                finalRotation,
-                tiltLerpSpeed * Time.deltaTime
-            );
+            StartLandingFromCurrentPosition();
         }
-        else
+
+        if (isLanding)
         {
-            currentHorizontalOffset = Mathf.Lerp(
-            currentHorizontalOffset,
-            0f,
-            landingLerpSpeed * Time.deltaTime
-            );
-
-            transform.position = Vector3.Lerp(
-                transform.position,
-                startPosition,
-                landingLerpSpeed * Time.deltaTime
-            );
-
-            transform.rotation = Quaternion.Lerp(
-                transform.rotation,
-                startRotation,
-                landingLerpSpeed * Time.deltaTime
-            );
-
-
+            UpdateLandingVisual();
+            return;
         }
+
+        UpdateIdleVisual();
+    }
+
+    private void UpdateFlyingVisual()
+    {
+        isFlyingVisual = true;
+        isLanding = false;
+
+        Vector3 finalTargetPosition = targetVisualPosition;
+        finalTargetPosition.x += currentHorizontalOffset;
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            finalTargetPosition,
+            takeOffLerpSpeed * Time.deltaTime
+        );
+
+        spinAngle += spinSpeed * Time.deltaTime;
+
+        Quaternion spinRotation = Quaternion.Euler(
+            0f,
+            spinAngle,
+            0f
+        );
+
+        Quaternion finalRotation = targetVisualRotation * spinRotation;
+
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            finalRotation,
+            tiltLerpSpeed * Time.deltaTime
+        );
+    }
+
+    private void StartLandingFromCurrentPosition()
+    {
+        isFlyingVisual = false;
+        isLanding = true;
+
+        landingTargetPosition = transform.position;
+        landingTargetPosition.y = basePosition.y;
+
+        targetVisualPosition = landingTargetPosition;
+    }
+
+    private void UpdateLandingVisual()
+    {
+        transform.position = Vector3.Lerp(
+            transform.position,
+            landingTargetPosition,
+            landingLerpSpeed * Time.deltaTime
+        );
+
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            baseRotation,
+            landingLerpSpeed * Time.deltaTime
+        );
+
+        float distance = Vector3.Distance(transform.position, landingTargetPosition);
+
+        if (distance <= landingCompleteDistance)
+        {
+            CompleteLanding();
+        }
+    }
+
+    private void CompleteLanding()
+    {
+        transform.position = landingTargetPosition;
+        transform.rotation = baseRotation;
+
+        basePosition = landingTargetPosition;
+
+        currentHorizontalOffset = 0f;
+        targetVisualPosition = basePosition;
+
+        isLanding = false;
+
+        Debug.Log("착지 완료. 다음 비행 시작 위치 갱신: " + basePosition);
+    }
+
+    private void UpdateIdleVisual()
+    {
+        transform.position = basePosition;
+        transform.rotation = baseRotation;
+    }
+
+    private void HandleKeyboardMove()
+    {
+        if (isFlyingVisual == false)
+        {
+            return;
+        }
+
+        float inputX = 0f;
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            inputX = -1f;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            inputX = 1f;
+        }
+
+        currentHorizontalOffset += inputX * keyboardMoveSpeed * Time.deltaTime;
+
+        currentHorizontalOffset = Mathf.Clamp(
+            currentHorizontalOffset,
+            -maxHorizontalOffset,
+            maxHorizontalOffset
+        );
     }
 
     private bool GetPointerDown(out Vector2 position)
@@ -351,30 +465,4 @@ public class DiscLaunchController : MonoBehaviour
 
         return false;
     }
-    private void HandleKeyboardMove()
-    {
-        if (isFlyingVisual == false)
-        {
-            return;
-        }
-
-        float inputX = 0f;
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            inputX = -1f;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            inputX = 1f;
-        }
-
-        currentHorizontalOffset += inputX * keyboardMoveSpeed * Time.deltaTime;
-        currentHorizontalOffset = Mathf.Clamp(
-            currentHorizontalOffset,
-            -maxHorizontalOffset,
-            maxHorizontalOffset
-        );
-    }
 }
-
