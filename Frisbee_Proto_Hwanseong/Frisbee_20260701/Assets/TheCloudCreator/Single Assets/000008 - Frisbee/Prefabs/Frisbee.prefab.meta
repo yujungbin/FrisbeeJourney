@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9e764509cf1585c4a8a7f3c85b68a0e5
+timeCreated: 1507464145
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 102156
+  packageName: Frisbee
+  packageVersion: 1.0
+  assetPath: Assets/TheCloudCreator/Single Assets/000008 - Frisbee/Prefabs/Frisbee.prefab
+  uploadId: 205051
