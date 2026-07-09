@@ -1208,18 +1208,18 @@ public class DiscSlingshotController : MonoBehaviour
         SetLinearDamping(settlingLinearDamping);
         SetAngularDamping(settlingAngularDamping);
 
-        postImpactRotationUnlocked = false;
+        // 핵심:
+        // 충돌 후에는 물리 회전을 허용한다.
+        rb.constraints &= ~RigidbodyConstraints.FreezeRotation;
 
-        if (unlockRotationAfterFirstImpact &&
-            firstImpactSpeed <= unlockRotationImpactSpeedThreshold)
-        {
-            UnlockRotationAfterImpact("impact speed threshold");
-        }
-        else
-        {
-            //rb.angularVelocity = Vector3.zero;
-            //rb.constraints |= RigidbodyConstraints.FreezeRotation;
-        }
+        // 핵심:
+        // 여기서 rb.angularVelocity = Vector3.zero를 하면 안 된다.
+        // 충돌로 생긴 회전 속도를 지우지 않는다.
+        postImpactRotationUnlocked = true;
+
+        Debug.Log(
+            $"Disc entered Settling. Impact speed: {firstImpactSpeed:F2}. Rotation kept."
+        );
     }
 
     public void BeginSettlingAfterImpact()
@@ -1773,6 +1773,9 @@ public class DiscSlingshotController : MonoBehaviour
     private void UpdateVisual()
     {
         if (visualRoot == null)
+            return;
+
+        if (state == DiscState.Settling)
             return;
 
         bool shouldSpin =

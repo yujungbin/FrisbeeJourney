@@ -22260,8 +22260,8 @@ MonoBehaviour:
   boundarySpring: 40
   boundaryDamping: 10
   postImpactControlOffSpeed: 0.5
-  postImpactSteeringMultiplier: 0.15
-  postImpactLiftMultiplier: 0
+  postImpactSteeringMultiplier: 0
+  postImpactLiftMultiplier: 0.078
   spinWhilePostImpactMoving: 1
   postImpactForwardAccelerationCoefficient: 0.15
   postImpactMaxForwardAcceleration: 2.5
@@ -22269,7 +22269,7 @@ MonoBehaviour:
   unlockRotationAfterFirstImpact: 1
   unlockRotationCurrentSpeedThreshold: 100
   unlockRotationImpactSpeedThreshold: 100
-  unlockedRotationAngularDamping: 4
+  unlockedRotationAngularDamping: 0.05
   settlingLinearDamping: 0.05
   settlingAngularDamping: 1
   settlingHorizontalBrake: 1
