@@ -123,9 +123,9 @@ public class DiscLaunchController : MonoBehaviour
 
     private bool CanStartNewThrow()
     {
-        if (mapSpawner != null && mapSpawner.IsScrolling)
+        if (mapSpawner != null)
         {
-            Debug.Log("아직 비행 중이라 다시 던질 수 없음");
+            Debug.Log("맵 스폰 없음");
             return false;
         }
 
@@ -264,7 +264,7 @@ public class DiscLaunchController : MonoBehaviour
 
     private void UpdateDiscVisual()
     {
-        bool isMapScrolling = mapSpawner != null && mapSpawner.IsScrolling;
+        bool isMapScrolling = mapSpawner != null;
 
         if (isMapScrolling)
         {
