@@ -1380,6 +1380,7 @@ public class DiscSlingshotController : MonoBehaviour
     {
         state = DiscState.Stopped;
 
+
         flightControlEnabled = false;
         forwardAssistEnabled = false;
 

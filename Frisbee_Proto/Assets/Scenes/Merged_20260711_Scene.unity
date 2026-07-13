@@ -802,17 +802,18 @@ MonoBehaviour:
   tilesBehindTarget: 1
   tileLength: 250
   startZ: 0
+  tilePivotMode: 0
   tileX: 0
   tileY: 0
   tileEulerRotation: {x: 0, y: 0, z: 0}
-  recycleBehindDistance: 120
-  snapPoolWhenTargetJumps: 1
-  snapDistanceInTiles: 2.5
+  generateOnlyAfterStartScrolling: 0
+  maxSequentialRecyclesPerFrame: 3
+  resetOnLargeBackwardJump: 1
+  backwardResetThresholdInTiles: 2
   resetObjectsOnInitialSpawn: 1
   resetObjectsWhenRecycled: 1
   resetObjectsWhenSnapped: 1
-  generateOnlyAfterStartScrolling: 0
-  logRecycle: 0
+  logGeneration: 0
   enableTestInput: 0
 --- !u!4 &1034782680
 Transform:
@@ -2127,7 +2128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682569300}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a85815d63a709048a491b5a56b3b4f6, type: 3}
   m_Name: 
@@ -2139,17 +2140,18 @@ MonoBehaviour:
   tilesBehindTarget: 1
   tileLength: 250
   startZ: 0
+  tilePivotMode: 0
   tileX: 0
   tileY: 0
   tileEulerRotation: {x: 0, y: 0, z: 0}
-  recycleBehindDistance: 120
-  snapPoolWhenTargetJumps: 1
-  snapDistanceInTiles: 2.5
+  generateOnlyAfterStartScrolling: 0
+  maxSequentialRecyclesPerFrame: 3
+  resetOnLargeBackwardJump: 1
+  backwardResetThresholdInTiles: 2
   resetObjectsOnInitialSpawn: 1
   resetObjectsWhenRecycled: 1
   resetObjectsWhenSnapped: 1
-  generateOnlyAfterStartScrolling: 0
-  logRecycle: 0
+  logGeneration: 0
   enableTestInput: 0
 --- !u!4 &1682569302
 Transform:
@@ -2179,11 +2181,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscRunManager
   progressionStore: {fileID: 0}
-  discController: {fileID: 0}
-  discDurability: {fileID: 0}
-  cameraSwitcher: {fileID: 0}
-  launchAnchor: {fileID: 0}
-  trackRoot: {fileID: 0}
+  discController: {fileID: 1503639412}
+  discDurability: {fileID: 1503639413}
+  cameraSwitcher: {fileID: 1994770297}
+  launchAnchor: {fileID: 1507380250}
+  trackRoot: {fileID: 1521146751}
   useThrowLimit: 0
   maxThrowsPerRun: 3
   rethrowFromImpactPoint: 1

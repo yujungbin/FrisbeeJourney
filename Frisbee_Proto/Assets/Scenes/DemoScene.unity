@@ -7807,7 +7807,7 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511874238}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 7d8e840bccf07be428829788e4f567f6, type: 2}
   m_InitialState: 1
@@ -8020,7 +8020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraRigUpdateDriver
   brain: {fileID: 511874248}
-  followTargetFollower: {fileID: 0}
+  followTargetFollower: {fileID: 1552011044}
   manualUpdateCinemachine: 1
   updateFollowTargetBeforeBrain: 1
 --- !u!1001 &520633325
@@ -19292,8 +19292,8 @@ MonoBehaviour:
   launchCamera: {fileID: 487093107}
   followCamera: {fileID: 664983814}
   followTarget: {fileID: 1552011043}
-  launchAnchor: {fileID: 0}
-  followTargetFollower: {fileID: 0}
+  launchAnchor: {fileID: 1007521037}
+  followTargetFollower: {fileID: 1552011044}
   preserveInitialLaunchCameraPose: 1
   clearFollowTargetBeforeLaunch: 1
   launchCameraPriority: 20
@@ -21909,11 +21909,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscRunManager
   progressionStore: {fileID: 0}
-  discController: {fileID: 0}
-  discDurability: {fileID: 0}
-  cameraSwitcher: {fileID: 0}
-  launchAnchor: {fileID: 0}
-  trackRoot: {fileID: 0}
+  discController: {fileID: 1783333607}
+  discDurability: {fileID: 1783333605}
+  cameraSwitcher: {fileID: 1313176449}
+  launchAnchor: {fileID: 1007521037}
+  trackRoot: {fileID: 2132737944}
   useThrowLimit: 0
   maxThrowsPerRun: 3
   rethrowFromImpactPoint: 1
@@ -25893,6 +25893,7 @@ MonoBehaviour:
   launchAnchor: {fileID: 1007521037}
   trackRoot: {fileID: 2132737944}
   visualRoot: {fileID: 154750256}
+  mapSpawner: {fileID: 0}
   cameraSwitcher: {fileID: 1313176449}
   beginCameraFollowImmediatelyOnRelease: 1
   defaultInitialThrust: 30
