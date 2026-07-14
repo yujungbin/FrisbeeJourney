@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8695d7a3edb076c42bd44482f3b7702f, type: 3}
+  m_Name: RoadTileObjectSpawnData
+  m_EditorClassIdentifier: Assembly-CSharp::RoadTileObjectSpawnData
+  spawnObjects:
+  - objectName: 
+    prefab: {fileID: 1856861724390114, guid: e05ee61d6dad0e54eb51d1c8ec3becc6, type: 3}
+    spawnWeight: 1
+    randomScaleRange: {x: 1, y: 1}
+    yOffset: 0.1

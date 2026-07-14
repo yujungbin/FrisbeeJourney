@@ -153,11 +153,12 @@ MonoBehaviour:
   - {fileID: 910401793999811698, guid: b8f3f3b2a81d3ea43b6695a605d3e20f, type: 3}
   - {fileID: 2886505374366024563, guid: 03bbfcfd763614446a7b1fd38199e807, type: 3}
   - {fileID: 840820038257143544, guid: 958bbe68c903e5a4883ba0c94029966a, type: 3}
-  initialSpawnCount: 3
+  - {fileID: 8586826067680159921, guid: 8cfce18722317784a9202a94aae3c6ad, type: 3}
+  initialSpawnCount: 2
   tileLength: 250
   startZ: 0
-  spawnAheadDistance: 300
-  destroyBehindDistance: 400
+  spawnAheadDistance: 600
+  destroyBehindDistance: -100
 --- !u!4 &248318661
 Transform:
   m_ObjectHideFlags: 0
@@ -275,7 +276,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
@@ -357,14 +358,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleCameraFollow
   target: {fileID: 465174908}
-  normalOffset: {x: 0, y: 6, z: -8}
+  normalOffset: {x: 0, y: 3, z: -5}
   followSpeed: 5
   lookSpeed: 8
   zoomOutOffset: {x: 0, y: 8, z: -13}
   zoomOutDuration: 1.2
   offsetLerpSpeed: 4
   useFovZoom: 1
-  normalFov: 60
+  normalFov: 45
   zoomOutFov: 75
   fovLerpSpeed: 4
   lookHeightOffset: 0.5
@@ -521,7 +522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &549573756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,15 +811,15 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   cameraSwitcher: {fileID: 0}
   beginCameraFollowImmediatelyOnRelease: 1
-  defaultInitialThrust: 18
+  defaultInitialThrust: 30
   defaultMaxDurability: 100
-  defaultLift: 0.65
+  defaultLift: 0.9
   requireTouchOnDisc: 0
   discHitMask:
     serializedVersion: 2
     m_Bits: 4294967295
   maxDragPixels: 500
-  minDragPixelsToThrow: 45
+  minDragPixelsToThrow: 60
   minFlickPixelsPerSecond: 250
   maxFlickPixelsPerSecond: 1800
   releaseVelocitySampleTime: 0.12
@@ -841,17 +842,17 @@ MonoBehaviour:
   targetForwardSpeedRatio: 0.85
   forwardSpeedGain: 4
   lateralAcceleration: 30
-  maxLateralSpeed: 8
-  laneHalfWidth: 4.5
+  maxLateralSpeed: 50
+  laneHalfWidth: 500
   boundarySpring: 40
   boundaryDamping: 10
   postImpactControlOffSpeed: 0.2
   postImpactSteeringMultiplier: 0.15
   postImpactLiftMultiplier: 0
   spinWhilePostImpactMoving: 1
-  postImpactForwardAccelerationCoefficient: 0.15
-  postImpactMaxForwardAcceleration: 2.5
-  postImpactForwardAccelerationMinSpeed: 0.2
+  postImpactForwardAccelerationCoefficient: 0
+  postImpactMaxForwardAcceleration: 0
+  postImpactForwardAccelerationMinSpeed: 0
   unlockRotationAfterFirstImpact: 1
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
@@ -876,6 +877,55 @@ MonoBehaviour:
   onLaunched:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1234174334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234174324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b466849f56aac34f90a1dc938a206aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscDurability
+  maxDurability: 100
+  currentDurability: 100
+  onDurabilityChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onBroken:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1234174335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234174324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09724c51152c754fb5bc048eef21d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscImpactReceiver
+  discController: {fileID: 1234174329}
+  runManager: {fileID: 1899963714}
+  durability: {fileID: 1234174334}
+  impactLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minImpactSpeed: 0.1
+  handleCollisionStay: 0
+  globalDamageMultiplier: 1
+  applyDamageWhileSettling: 1
+  settlingDamageMultiplier: 0.75
+  stayDamageMultiplier: 0.5
+  globalDamageCooldown: 0.05
+  sameColliderDamageCooldown: 0.35
+  endThrowWhenProfileMissing: 1
+  fallbackDamageWhenProfileMissing: 0
+  logImpacts: 1
 --- !u!1001 &1574253969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -939,7 +989,96 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1234174329}
+    - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234174335}
+    - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234174334}
   m_SourcePrefab: {fileID: 100100000, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+--- !u!1 &1899963713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1899963715}
+  - component: {fileID: 1899963714}
+  m_Layer: 0
+  m_Name: RunManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1899963714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899963713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecd7d4ed1bb69a47a6f24405da5d329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscRunManager
+  progressionStore: {fileID: 0}
+  discController: {fileID: 1234174329}
+  discDurability: {fileID: 1234174334}
+  cameraSwitcher: {fileID: 0}
+  launchAnchor: {fileID: 1171811459}
+  trackRoot: {fileID: 2097020924}
+  useThrowLimit: 0
+  maxThrowsPerRun: 3
+  rethrowFromImpactPoint: 1
+  rethrowFromFinalStopPosition: 1
+  rethrowBackOffset: 0.15
+  rethrowHeightOffset: 0
+  rethrowDelay: 0.6
+  settleMaxWaitTime: 3
+  forceFinishOnSettleTimeout: 0
+  logSettlingStatus: 1
+  settlingStatusLogInterval: 0.5
+  restoreOriginalLaunchAnchorOnRunStart: 1
+  autoRestartWhenDurabilityBroken: 0
+  autoRestartWhenNoThrowsRemaining: 1
+  gameOverRestartDelay: 1
+  onRunStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onRethrowReady:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls: []
+  onThrowCountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onThrowsRemainingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onNoThrowsRemaining:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1899963715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899963713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 125.79869, y: 0, z: 599.9833}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2097020923
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,7 +1118,8 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 549573761}
-  - {fileID: 1574253969}
   - {fileID: 248318661}
   - {fileID: 1171811459}
   - {fileID: 2097020924}
+  - {fileID: 1899963715}
+  - {fileID: 1574253969}

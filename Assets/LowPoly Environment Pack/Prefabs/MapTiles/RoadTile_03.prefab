@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3273730206236987747}
+  - component: {fileID: 5047029702001420277}
   m_Layer: 0
   m_Name: RoadTile_03
   m_TagString: Untagged
@@ -25,13 +26,31 @@ Transform:
   m_GameObject: {fileID: 840820038257143544}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.90671, y: -0.33, z: 225.81238}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7504062104233033495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5047029702001420277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840820038257143544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a01db2b26ceaf45aacaf2196efeff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoadTileObjectSpawner
+  spawnData: {fileID: 11400000, guid: 2f39f83d24b76534abc31221d1fab736, type: 2}
+  minObjectCount: 5
+  maxObjectCount: 12
+  spawnAreaWidth: 200
+  spawnAreaLength: 250
+  spawnY: 1
 --- !u!1 &4849026440292153956
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,8 +79,8 @@ Transform:
   m_GameObject: {fileID: 4849026440292153956}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.4876}
-  m_LocalScale: {x: 300, y: 2, z: 250}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1000, y: 2, z: 250}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3273730206236987747}
