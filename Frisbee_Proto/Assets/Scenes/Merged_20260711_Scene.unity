@@ -796,7 +796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StraightMapSpawner
   roadTilePrefab: {fileID: 3220417588870590623, guid: eda42116d2d69fb4186a77ef449ae07e, type: 3}
-  followTarget: {fileID: 633983072}
+  followTarget: {fileID: 1503639411}
   tileParent: {fileID: 0}
   poolSize: 5
   tilesBehindTarget: 1
@@ -1993,8 +1993,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscImpactReceiver
   discController: {fileID: 1503639412}
-  runManager: {fileID: 0}
-  durability: {fileID: 0}
+  runManager: {fileID: 1682569303}
+  durability: {fileID: 1503639413}
   impactLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2005,7 +2005,7 @@ MonoBehaviour:
   settlingDamageMultiplier: 0.75
   stayDamageMultiplier: 0.5
   globalDamageCooldown: 0.05
-  sameColliderDamageCooldown: 0.35
+  sameColliderDamageCooldown: 0.5
   endThrowWhenProfileMissing: 1
   fallbackDamageWhenProfileMissing: 0
   logImpacts: 1
@@ -2880,7 +2880,7 @@ Transform:
   m_GameObject: {fileID: 2110719641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 1.6, z: -3.85}
+  m_LocalPosition: {x: 0, y: 1.6, z: -6.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
