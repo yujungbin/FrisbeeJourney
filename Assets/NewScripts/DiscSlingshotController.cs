@@ -1581,61 +1581,96 @@ public class DiscSlingshotController : MonoBehaviour
     public void ResetToLaunch()
     {
         PlaceAtLaunchAnchor(true);
+        //False to block input after gameover.
     }
 
     public void PlaceAtLaunchAnchor(bool readyForInput)
     {
-        anchorPosition = launchAnchor != null
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+
+        Vector3 targetPosition = launchAnchor != null
             ? launchAnchor.position
             : transform.position;
 
+        Quaternion targetRotation = GetReadyRotation();
+
+        // 입력 상태 초기화
         activeFingerId = -1;
         mouseDragging = false;
+
+        // 발사 예약 상태 초기화
         hasPendingLaunch = false;
         launchEventsPending = false;
+        pendingLaunchVelocity = Vector3.zero;
 
+        // 비행 / 충돌 후 제어 상태 초기화
         flightControlEnabled = false;
         forwardAssistEnabled = false;
 
+        // 조종 입력 초기화
+        steerInput = 0f;
+
+        // 던지기 세기 / 목표 속도 초기화
         activeTargetForwardSpeed = 0f;
         lastThrowPower01 = 0f;
         lastThrowThrustRatio = 1f;
 
+        // 이번 투척의 기준 비행 방향 초기화
         activeFlightForward = GetTrackForward();
         activeFlightRight = GetTrackRight();
 
+        // Settling / 정지 판정 상태 초기화
         lowSpeedTimer = 0f;
         settlingStopReady = false;
         rotationStoppedAfterLowSpeed = false;
         postImpactRotationUnlocked = false;
 
+        // 드래그 상태 초기화
         totalDragScreen = Vector2.zero;
         pointerSamples.Clear();
 
-        steerInput = 0f;
-
+        // 물리 상태 초기화
         rb.isKinematic = false;
 
         SetLinearVelocity(Vector3.zero);
         rb.angularVelocity = Vector3.zero;
 
-        ConfigureRigidbodyForReadyOrFlying();
+        SetLinearDamping(flyingLinearDamping);
+        SetAngularDamping(flyingAngularDamping);
 
-        rb.position = anchorPosition;
-        transform.position = anchorPosition;
+        rb.useGravity = true;
 
-        dragTargetPosition = anchorPosition;
+        // Y 이동은 허용
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
 
+        // Ready 상태에서는 회전을 잠가서 시작 자세를 안정적으로 유지
+        rb.constraints |= RigidbodyConstraints.FreezeRotation;
+
+        // 핵심: 위치뿐 아니라 회전도 반드시 초기화
+        rb.position = targetPosition;
+        rb.rotation = targetRotation;
+
+        transform.SetPositionAndRotation(
+            targetPosition,
+            targetRotation
+        );
+
+        dragTargetPosition = targetPosition;
+        anchorPosition = targetPosition;
+
+        // Ready 상태에서는 드래그 전까지 물리 시뮬레이션에 의해 움직이지 않게 함
         rb.isKinematic = true;
 
-        spinAngle = 0f;
-
-        if (visualRoot != null)
-            visualRoot.localRotation = visualInitialLocalRotation;
+        // Visual 자식 오브젝트의 시각적 회전도 초기화
+        ResetVisualPose();
 
         state = readyForInput
             ? DiscState.Ready
             : DiscState.Stopped;
+
+        // Transform과 Physics 상태 동기화
+        Physics.SyncTransforms();
     }
 
     private void ConfigureRigidbodyForReadyOrFlying()
@@ -1646,6 +1681,29 @@ public class DiscSlingshotController : MonoBehaviour
 
         SetLinearDamping(flyingLinearDamping);
         SetAngularDamping(flyingAngularDamping);
+    }
+    private Quaternion GetReadyRotation()
+    {
+        Vector3 forward = Vector3.forward;
+
+        if (launchAnchor != null)
+        {
+            forward = launchAnchor.forward;
+        }
+        else if (trackRoot != null)
+        {
+            forward = trackRoot.forward;
+        }
+
+        forward.y = 0f;
+
+        if (forward.sqrMagnitude < 0.0001f)
+            forward = Vector3.forward;
+
+        return Quaternion.LookRotation(
+            forward.normalized,
+            Vector3.up
+        );
     }
 
     #endregion
@@ -1820,6 +1878,16 @@ public class DiscSlingshotController : MonoBehaviour
             targetRotation,
             t
         );
+    }
+    private void ResetVisualPose()
+    {
+        spinAngle = 0f;
+
+        if (visualRoot == null)
+            return;
+
+        visualRoot.localPosition = Vector3.zero;
+        visualRoot.localRotation = Quaternion.identity;
     }
 
     #endregion
