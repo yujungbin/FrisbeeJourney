@@ -1916,7 +1916,7 @@ MonoBehaviour:
   cameraSwitcher: {fileID: 1994770297}
   beginCameraFollowImmediatelyOnRelease: 1
   defaultInitialThrust: 30
-  defaultMaxDurability: 100
+  defaultMaxDurability: 1000
   defaultLift: 0.9
   requireTouchOnDisc: 0
   discHitMask:
