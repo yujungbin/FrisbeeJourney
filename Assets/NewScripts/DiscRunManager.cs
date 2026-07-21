@@ -64,6 +64,10 @@ public class DiscRunManager : MonoBehaviour
     [SerializeField] private UnityEvent onRethrowReady = new UnityEvent();
     [SerializeField] private UnityEvent onGameOver = new UnityEvent();
 
+    [Header("Result UI")]
+    [SerializeField] private ResultScreenController resultScreenController;
+    [SerializeField] private RunProgressTracker progressTracker;
+
     [Header("Throw Events")]
     [SerializeField]
     private ThrowCountChangedEvent onThrowCountChanged =
@@ -221,21 +225,54 @@ public class DiscRunManager : MonoBehaviour
 
     private void HandleDiscLaunched()
     {
+        // 게임이 진행 중이 아닐 때 발생한 발사 이벤트는 무시합니다.
         if (!runActive)
             return;
 
-        throwsUsed++;
+        // 실제 발사가 완료된 횟수를 증가시킵니다.
+        // 투척 제한을 사용하지 않더라도 총 던진 횟수는 기록합니다.
+        if (useThrowLimit)
+        {
+            throwsUsed = Mathf.Clamp(
+                throwsUsed + 1,
+                0,
+                MaxThrowsPerRun
+            );
+        }
+        else
+        {
+            throwsUsed++;
+        }
 
+        // 이번 투척의 비행 거리 측정을 시작합니다.
+        if (progressTracker != null)
+            progressTracker.BeginThrow();
+
+        // 남은 투척 횟수 UI를 갱신합니다.
         NotifyThrowCountChanged();
 
+        // 마지막 허용 투척이 실제로 발사된 순간 호출합니다.
+        // 여기서 바로 게임오버시키지는 않습니다.
+        // 원반이 충돌하고 완전히 멈춘 뒤 RunManager가 게임오버를 결정합니다.
         if (useThrowLimit && !HasThrowsRemaining)
             onNoThrowsRemaining.Invoke();
 
-        Debug.Log(
-            useThrowLimit
-                ? $"투척 {throwsUsed}/{MaxThrowsPerRun}, 남은 투척: {ThrowsRemaining}"
-                : $"투척 {throwsUsed}, 투척 제한 없음"
-        );
+        if (useThrowLimit)
+        {
+            Debug.Log(
+                $"Disc launched. " +
+                $"Throws used: {throwsUsed}/{MaxThrowsPerRun}, " +
+                $"throws remaining: {ThrowsRemaining}"
+            );
+        }
+        else
+        {
+            Debug.Log(
+                $"Disc launched. " +
+                $"Throws used: {throwsUsed}, " +
+                $"throw limit: unlimited"
+            );
+        }
     }
 
     public void HandleDiscImpact(DiscImpactInfo impactInfo)
@@ -331,20 +368,71 @@ public class DiscRunManager : MonoBehaviour
             );
         }
 
+        if (progressTracker != null)
+            progressTracker.EndThrow();
+
+
+        // 1. 내구도 소진 결과
         if (discDurability != null && discDurability.IsBroken)
         {
             rethrowRoutine = null;
-            GameOver(GameOverReason.DurabilityBroken);
+            runActive = false;
+
+            if (resultScreenController != null)
+            {
+                resultScreenController.ShowFinalBrokenResult();
+            }
+            else
+            {
+                Debug.LogError(
+                    "ResultScreenController가 연결되지 않아 " +
+                    "내구도 소진 결과 화면을 표시할 수 없습니다."
+                );
+            }
+
             yield break;
         }
 
+
+        // 2. 맵 완주 결과
+        bool levelCompleted =
+            progressTracker != null &&
+            progressTracker.LevelProgress01 >= 1f;
+
+        if (levelCompleted)
+        {
+            rethrowRoutine = null;
+            runActive = false;
+
+            if (resultScreenController != null)
+            {
+                resultScreenController.ShowFinalCompleteResult();
+            }
+            else
+            {
+                Debug.LogError(
+                    "ResultScreenController가 연결되지 않아 " +
+                    "완주 결과 화면을 표시할 수 없습니다."
+                );
+            }
+
+            yield break;
+        }
+
+
+        // 3. 투척 횟수 소진
         if (useThrowLimit && !HasThrowsRemaining)
         {
             rethrowRoutine = null;
+
+            // 결과 화면을 아직 따로 만들지 않았다면 기존 GameOver 사용.
             GameOver(GameOverReason.NoThrowsRemaining);
+
             yield break;
         }
 
+
+        // 4. 다음 투척 위치 계산
         Vector3 rethrowPoint = impactInfo.hitPoint;
 
         if (rethrowFromFinalStopPosition && discController != null)
@@ -353,13 +441,28 @@ public class DiscRunManager : MonoBehaviour
         if (rethrowFromImpactPoint)
             MoveLaunchAnchorToPoint(rethrowPoint);
 
-        if (rethrowDelay > 0f)
-            yield return new WaitForSeconds(rethrowDelay);
 
-        ResetDiscForThrow();
-
+        // 5. 중간 결과 화면
         rethrowRoutine = null;
-        onRethrowReady.Invoke();
+
+        if (resultScreenController != null)
+        {
+            resultScreenController.ShowIntermediateResult();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "ResultScreenController가 연결되지 않아 " +
+                "중간 결과 화면 없이 바로 재투척 상태로 이동합니다."
+            );
+
+            ResetDiscForThrow();
+            onRethrowReady.Invoke();
+        }
+
+        yield break;
+
+
     }
 
     private void ResetDiscForThrow()
@@ -385,6 +488,7 @@ public class DiscRunManager : MonoBehaviour
         if (cameraSwitcher != null)
             cameraSwitcher.ShowLaunchCameraAt(launchAnchor);
     }
+    
 
     private void GameOver(GameOverReason reason)
     {
@@ -531,5 +635,20 @@ public class DiscRunManager : MonoBehaviour
 
         onThrowCountChanged.Invoke(throwsUsed, maxForUi);
         onThrowsRemainingChanged.Invoke(remainingForUi);
+    }
+
+    public void ContinueAfterIntermediateResult()
+    {
+        if (!runActive)
+            return;
+
+        if (discDurability != null && discDurability.IsBroken)
+            return;
+
+        if (useThrowLimit && !HasThrowsRemaining)
+            return;
+
+        ResetDiscForThrow();
+        onRethrowReady.Invoke();
     }
 }
