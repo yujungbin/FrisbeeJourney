@@ -30,6 +30,7 @@ public class StraightMapSpawner : MonoBehaviour
 
     private int nextTileIndex;
     private float nextSpawnZ;
+    private int poolSize;
     //[Header("Pool Settings")]
     //[SerializeField] private float recycleBehindDistance = 50f;
     //[SerializeField] private float despawnZ = -400f;
@@ -52,6 +53,7 @@ public class StraightMapSpawner : MonoBehaviour
     {
         nextTileIndex = 0;
         nextSpawnZ = startZ;
+        poolSize = roadTilePrefabs.Length;
 
         int spawnCount = Mathf.Min(
             initialSpawnCount,
@@ -130,6 +132,7 @@ public class StraightMapSpawner : MonoBehaviour
         spawnedTiles.Add(newTile);
 
         nextTileIndex++;
+        nextTileIndex = nextTileIndex % poolSize;
         nextSpawnZ += tileLength;
     }
 

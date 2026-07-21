@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7194911674680254417}
   - component: {fileID: 8753761896851879202}
+  - component: {fileID: 7079413909616340121}
   m_Layer: 0
   m_Name: RoadTile_02
   m_TagString: Untagged
@@ -51,6 +52,28 @@ MonoBehaviour:
   spawnAreaWidth: 200
   spawnAreaLength: 250
   spawnY: 1
+--- !u!114 &7079413909616340121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2886505374366024563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12dda1d9445bd2c4984f3a3ab790a50a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
+  surfaceName: Surface
+  endThrowOnImpact: 1
+  baseDamage: 5
+  damagePerSpeed: 1
+  minDamageSpeed: 0.5
+  maxDamage: 50
+  damageMultiplier: 1
+  glancingDamageMultiplier: 0.35
+  angleExponent: 1.5
+  instantBreak: 0
 --- !u!1 &6925358995281599099
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +171,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6925358995281599099}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 2339e320806a5124cba05c857673498c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
