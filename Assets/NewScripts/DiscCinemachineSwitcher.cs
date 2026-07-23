@@ -6,6 +6,7 @@ public class DiscCinemachineSwitcher : MonoBehaviour
     [Header("Cinemachine Cameras")]
     [SerializeField] private CinemachineCamera launchCamera;
     [SerializeField] private CinemachineCamera followCamera;
+    [SerializeField] private DiscSpeedCameraEffects speedCameraEffects;
 
     [Header("Targets")]
     [SerializeField] private Transform followTarget;
@@ -23,6 +24,7 @@ public class DiscCinemachineSwitcher : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool logCameraSwitch = true;
+
 
     private Vector3 originalLaunchAnchorPosition;
     private Vector3 originalLaunchCameraPosition;
@@ -56,6 +58,9 @@ public class DiscCinemachineSwitcher : MonoBehaviour
 
     public void ShowLaunchCamera()
     {
+        if (speedCameraEffects != null)
+            speedCameraEffects.ResetImmediately();
+
         if (!hasOriginalLaunchPose)
             CaptureOriginalLaunchPose();
 

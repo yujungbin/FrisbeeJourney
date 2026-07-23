@@ -5,13 +5,18 @@ public class DiscThrowCountUI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI throwCountText;
+    //[SerializeField] private DiscRunManager discRunManager;
 
     [Header("Text")]
     [SerializeField] private string limitedFormat = "남은 투척: {0} / {1}";
     [SerializeField] private string unlimitedFormat = "던진 횟수: {0} / 제한 없음";
 
+   // private int maxThrows;
+    //private int usedThrows;
+
     public void Refresh(int usedThrows, int maxThrows)
     {
+        //maxThrows = discRunManager.MaxThrowsPerRun;
         if (throwCountText == null)
             return;
 
