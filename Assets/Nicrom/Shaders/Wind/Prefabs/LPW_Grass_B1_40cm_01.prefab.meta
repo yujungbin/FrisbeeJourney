@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f37c8cfcbf935f6428718bf11e4a8de8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Prefabs/LPW_Grass_B1_40cm_01.prefab
+  uploadId: 859548

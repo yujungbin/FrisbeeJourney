@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8fa5b5c3366716b4a81e8b62c84db4af
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Demo/Assets/Prefabs/INFO.prefab
+  uploadId: 859548

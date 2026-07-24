@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ad5c407a98376814b88ddc265aecdcb8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Assets/Editor/Scripts/LPVegetationTransparent_MaterialInspector.cs
+  uploadId: 859548

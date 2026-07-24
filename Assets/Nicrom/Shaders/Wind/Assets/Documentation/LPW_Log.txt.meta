@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d7869631dd2baba40877d5e19ea5faa1
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Assets/Documentation/LPW_Log.txt
+  uploadId: 859548

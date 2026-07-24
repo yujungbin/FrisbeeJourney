@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0dee0a5c73cc4d746a63652331a3c92f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Assets/Shaders/ASE/LPW_Vegetation_Transparent.shader
+  uploadId: 859548

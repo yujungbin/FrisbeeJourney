@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: df92e6d0cb68a9547babf0370c8bf4e6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Assets/Materials/LPW_Grass_B1_01.mat
+  uploadId: 859548

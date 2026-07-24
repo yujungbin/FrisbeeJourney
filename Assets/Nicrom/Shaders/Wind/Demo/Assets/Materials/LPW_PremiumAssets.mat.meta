@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd69c05e39ad4624d920d17ae717cfc0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Demo/Assets/Materials/LPW_PremiumAssets.mat
+  uploadId: 859548

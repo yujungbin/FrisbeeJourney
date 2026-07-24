@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d76f8cf6d6d23834d97c23574821f38e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Prefabs/LPW_Tree_B1_9m_02.prefab
+  uploadId: 859548

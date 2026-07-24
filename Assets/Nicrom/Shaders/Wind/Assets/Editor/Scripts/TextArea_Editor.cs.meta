@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3a062c273261b3f48934fbf832522c1e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Assets/Editor/Scripts/TextArea_Editor.cs
+  uploadId: 859548
