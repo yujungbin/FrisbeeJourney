@@ -3066,6 +3066,7 @@ GameObject:
   - component: {fileID: 951400861}
   - component: {fileID: 951400863}
   - component: {fileID: 951400862}
+  - component: {fileID: 951400864}
   m_Layer: 0
   m_Name: DiscModel
   m_TagString: Untagged
@@ -3144,6 +3145,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951400860}
   m_Mesh: {fileID: 4300002, guid: ec3ee0406c501fb4c9bad60dce019e77, type: 3}
+--- !u!114 &951400864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951400860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8a3131d86f29d409ed435a87fdcccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscAppearanceApplier
+  cosmeticDatabase: {fileID: 11400000, guid: d520c346cfebccc40890e229a7e5c13a, type: 2}
+  targetMeshFilter: {fileID: 951400863}
+  targetMeshRenderer: {fileID: 951400862}
+  applyEquippedCosmeticOnAwake: 1
 --- !u!1 &968965256
 GameObject:
   m_ObjectHideFlags: 0

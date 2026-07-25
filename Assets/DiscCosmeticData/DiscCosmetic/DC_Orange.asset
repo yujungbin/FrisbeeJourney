@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9d31261640f474a85ef9933691e8d6, type: 3}
+  m_Name: DC_Orange
+  m_EditorClassIdentifier: Assembly-CSharp::DiscCosmeticData
+  cosmeticId: Orange_default
+  displayName: "\uC8FC\uD669\uC0C9 \uC6D0\uBC18"
+  description: "\uD589\uC6B4\uC744 \uC8FC\uB294 \uC8FC\uD669\uC0C9 \uAE30\uBCF8 \uC6D0\uBC18"
+  thumbnail: {fileID: 0}
+  visualMesh: {fileID: 4300002, guid: ec3ee0406c501fb4c9bad60dce019e77, type: 3}
+  visualMaterials:
+  - {fileID: 2100000, guid: 6fba8b0e4304cdf4194d0e25ef980c0c, type: 2}
+  modelLocalPosition: {x: 0, y: 0, z: 0}
+  modelLocalEulerAngles: {x: 0, y: 0, z: 0}
+  modelLocalScale: {x: 1, y: 1, z: 1}
+  price: 0
+  ownedByDefault: 1
