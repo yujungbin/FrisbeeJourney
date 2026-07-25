@@ -51,10 +51,10 @@ public class DiscSlingshotController : MonoBehaviour
 
     #region Inspector - Default Stats
 
-    [Header("Default Stats")]
-    [SerializeField] private float defaultInitialThrust = 18f;
-    [SerializeField] private float defaultMaxDurability = 100f;
-    [SerializeField] private float defaultLift = 0.65f;
+    //[Header("Default Stats")]
+    //[SerializeField] private float defaultInitialThrust = 18f;
+    //[SerializeField] private float defaultMaxDurability = 100f;
+    //[SerializeField] private float defaultLift = 0.65f;
 
     #endregion
 
@@ -287,6 +287,8 @@ public class DiscSlingshotController : MonoBehaviour
     private float spinAngle;
     private Quaternion visualInitialLocalRotation;
 
+    private bool runtimeStatsInitialized;
+
     #endregion
 
     #region Public Properties
@@ -305,6 +307,8 @@ public class DiscSlingshotController : MonoBehaviour
     public bool SettlingStopReady => settlingStopReady;
     public bool RotationStoppedAfterLowSpeed => rotationStoppedAfterLowSpeed;
 
+    public bool RuntimeStatsInitialized => runtimeStatsInitialized;
+
     #endregion
 
     #region Unity Lifecycle
@@ -321,11 +325,11 @@ public class DiscSlingshotController : MonoBehaviour
         else
             visualInitialLocalRotation = Quaternion.identity;
 
-        ApplyStats(new DiscRuntimeStats(
-            defaultInitialThrust,
-            defaultMaxDurability,
-            defaultLift
-        ));
+        //ApplyStats(new DiscRuntimeStats(
+        //    defaultInitialThrust,
+        //    defaultMaxDurability,
+        //    defaultLift
+        //));
 
         ConfigureRigidbodyForReadyOrFlying();
     }
@@ -347,9 +351,9 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void OnValidate()
     {
-        defaultInitialThrust = Mathf.Max(1f, defaultInitialThrust);
-        defaultMaxDurability = Mathf.Max(1f, defaultMaxDurability);
-        defaultLift = Mathf.Max(0f, defaultLift);
+        //defaultInitialThrust = Mathf.Max(1f, defaultInitialThrust);
+        //defaultMaxDurability = Mathf.Max(1f, defaultMaxDurability);
+        //defaultLift = Mathf.Max(0f, defaultLift);
 
         maxDragPixels = Mathf.Max(1f, maxDragPixels);
         minDragPixelsToThrow = Mathf.Max(0f, minDragPixelsToThrow);
@@ -572,6 +576,18 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void BeginDrag(int fingerId, Vector2 screenPosition)
     {
+        if (!runtimeStatsInitialized)
+        {
+            Debug.LogError(
+                "DiscSlingshotController: " +
+                "Runtime Stats가 적용되지 않았습니다. " +
+                "DiscRunManager의 Progression Store와 " +
+                "DiscProgressionConfig 연결을 확인하세요.",
+                this
+            );
+
+            return;
+        }
         state = DiscState.Dragging;
         activeFingerId = fingerId;
 
@@ -623,6 +639,17 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ReleaseDrag()
     {
+        if (!runtimeStatsInitialized)
+        {
+            Debug.LogError(
+                "Runtime Stats가 적용되지 않아 발사를 취소합니다.",
+                this
+            );
+
+            CancelDrag();
+            return;
+        }
+
         Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
 
         bool hasEnoughDistance =
@@ -1565,17 +1592,38 @@ public class DiscSlingshotController : MonoBehaviour
 
     public void ApplyStats(DiscRuntimeStats stats)
     {
+        /*
+         * DiscSlingshotController는 비행 물리만 담당합니다.
+         * maxDurability와 incomeMultiplier는 여기서 사용하지 않습니다.
+         */
+
         runtimeStats = stats;
 
-        runtimeStats.initialThrust = Mathf.Max(1f, runtimeStats.initialThrust);
-        runtimeStats.maxDurability = Mathf.Max(1f, runtimeStats.maxDurability);
-        runtimeStats.lift = Mathf.Max(0f, runtimeStats.lift);
+        runtimeStats.initialThrust = Mathf.Max(
+            0.01f,
+            stats.initialThrust
+        );
+
+        runtimeStats.lift = Mathf.Max(
+            0f,
+            stats.lift
+        );
 
         targetForwardSpeed =
             runtimeStats.initialThrust *
-            targetForwardSpeedRatio;
+            Mathf.Max(0f, targetForwardSpeedRatio);
 
-        activeTargetForwardSpeed = targetForwardSpeed;
+        activeTargetForwardSpeed =
+            targetForwardSpeed;
+
+        runtimeStatsInitialized = true;
+
+        Debug.Log(
+            $"Disc flight stats applied | " +
+            $"Initial Thrust: {runtimeStats.initialThrust:F2}, " +
+            $"Lift: {runtimeStats.lift:F2}",
+            this
+        );
     }
 
     public void ResetToLaunch()

@@ -1,0 +1,33 @@
+Release Notes:
+
+v1.4.0
+- Added support for Unity 6.2 and 6.3 URP
+- Added links to Nicrom Discord server and publisher page.
+- Moved the shader nodes that simulate the wind to a shader function. 
+
+- Fixed custom material inspector not being applied.
+- Going forward the minimum supported Unity version will be 2022.3
+
+- Rebuild the GUIDs. If LPW already exists in the project, it is recommended that you delete it from your project before you import the new version.
+  If you are using LPW shaders in your project, after you import the new update you may see pink materials, even after you import the upgrade package.
+  To fix this, select the materials that use LPW shaders and reassign them.
+
+
+v1.3.1
+- Added support for Unity 6.0.
+
+
+v1.3.0
+- Added new transparent shader.
+- Going forward the minimum supported Unity version will be 2020.3 for BIRP/URP and 2021.3 for HDRP.
+
+
+v1.2.0:
+- Added support for HDRP in Unity 2020.2.
+
+
+v1.1.0:
+- Added support for HDRP.
+
+
+v1.0.0 Initial release.

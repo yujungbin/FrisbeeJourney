@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3357f6c63b9885409664beb364a12f6, type: 3}
+  m_Name: DefaultDiscProgressionConfig
+  m_EditorClassIdentifier: Assembly-CSharp::DiscProgressionConfig
+  baseInitialThrust: 40
+  flightFirstLevelIncrease: 3
+  flightIncreaseRetention: 1
+  flightMaxLevel: 20
+  flightUpgradeCost:
+    baseCost: 100
+    costGrowthPerLevel: 1.35
+  baseMaxDurability: 1000
+  durabilityPerLevel: 50
+  durabilityMaxLevel: 20
+  durabilityUpgradeCost:
+    baseCost: 100
+    costGrowthPerLevel: 1.35
+  baseIncomeMultiplier: 1
+  incomeMultiplierPerLevel: 0.1
+  incomeMaxLevel: 20
+  incomeUpgradeCost:
+    baseCost: 100
+    costGrowthPerLevel: 1.35
+  fixedLift: 0.9

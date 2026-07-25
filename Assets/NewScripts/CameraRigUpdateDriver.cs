@@ -14,6 +14,7 @@ public class CameraRigUpdateDriver : MonoBehaviour
 
     [Tooltip("Cinemachine을 갱신하기 직전에 Follow Target을 먼저 갱신합니다.")]
     [SerializeField] private bool updateFollowTargetBeforeBrain = true;
+    [SerializeField] private DiscSpeedCameraEffects speedCameraEffects;
 
     private void Awake()
     {
@@ -23,7 +24,9 @@ public class CameraRigUpdateDriver : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (updateFollowTargetBeforeBrain && followTargetFollower != null)
+        // 1. DiscCameraTarget의 위치와 회전부터 갱신
+        if (updateFollowTargetBeforeBrain &&
+            followTargetFollower != null)
         {
             followTargetFollower.ManualUpdateTarget(
                 Time.deltaTime,
@@ -31,6 +34,15 @@ public class CameraRigUpdateDriver : MonoBehaviour
             );
         }
 
+        // 2. 속도 기반 FOV와 Follow Offset 갱신
+        if (speedCameraEffects != null)
+        {
+            speedCameraEffects.ManualUpdateEffect(
+                Time.deltaTime
+            );
+        }
+
+        // 3. 마지막으로 Cinemachine이 카메라 위치를 계산
         if (manualUpdateCinemachine && brain != null)
         {
             brain.ManualUpdate();

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 62e570c62a5cc054694b49c038ef660b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Assets/Shaders/ASE/LPW_Vegetation.shader
+  uploadId: 859548

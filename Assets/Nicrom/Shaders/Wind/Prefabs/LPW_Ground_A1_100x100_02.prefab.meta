@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 14d1ebaf454fb5d4daead1c6ae0281c4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Prefabs/LPW_Ground_A1_100x100_02.prefab
+  uploadId: 859548

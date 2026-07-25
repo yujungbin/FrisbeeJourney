@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 25cb56d59f80f614b9da0e9a36c48a05
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Prefabs/LPW_Rock_Wall_A1_01.prefab
+  uploadId: 859548

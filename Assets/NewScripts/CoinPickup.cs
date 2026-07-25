@@ -4,6 +4,7 @@ public class CoinPickup : MonoBehaviour
 {
     [SerializeField] private int amount = 1;
     [SerializeField] private DiscProgressionStore progressionStore;
+    [SerializeField] private RunCoinBank runCoinBank;
 
     private bool collected;
 
@@ -26,7 +27,7 @@ public class CoinPickup : MonoBehaviour
 
         collected = true;
 
-        progressionStore.AddCoins(amount);
+        runCoinBank.AddPendingCoins(amount);
 
         gameObject.SetActive(false);
     }

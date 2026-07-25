@@ -167,16 +167,27 @@ public class DiscRunManager : MonoBehaviour
         SubscribeToDiscEvents();
 
         throwsUsed = 0;
-        runActive = true;
+        if (!TryApplyRuntimeStatsAndDurability())
+        {
+            Debug.LogError(
+                "DiscRunManager: 스탯 초기화 실패로 Run을 시작하지 않습니다.",
+                this
+            );
 
-        ApplyRuntimeStatsAndDurability();
+            return;
+        }
+
+        runActive = true;
 
         NotifyThrowCountChanged();
         ResetDiscForThrow();
 
+        if (progressTracker != null)
+            progressTracker.ResetRun();
+
         onRunStarted.Invoke();
 
-        Debug.Log("새 게임 시작");
+        Debug.Log("Run started.");
     }
 
     private void ApplyRuntimeStatsAndDurability()
@@ -198,6 +209,64 @@ public class DiscRunManager : MonoBehaviour
         // 업그레이드 시스템 없이 테스트할 때 사용됩니다.
         if (discDurability != null)
             discDurability.Initialize(discDurability.MaxDurability);
+    }
+    private bool TryApplyRuntimeStatsAndDurability()
+    {
+        if (progressionStore == null)
+        {
+            Debug.LogError(
+                "DiscRunManager: " +
+                "Progression Store가 연결되지 않았습니다.",
+                this
+            );
+
+            return false;
+        }
+
+        if (progressionStore.Config == null)
+        {
+            Debug.LogError(
+                "DiscRunManager: " +
+                "DiscProgressionStore의 Config가 연결되지 않았습니다. " +
+                "DiscProgressionConfig asset을 연결하세요.",
+                progressionStore
+            );
+
+            return false;
+        }
+
+        DiscRuntimeStats stats =
+            progressionStore.BuildRuntimeStats();
+
+        if (discController == null)
+        {
+            Debug.LogError(
+                "DiscRunManager: Disc Controller가 연결되지 않았습니다.",
+                this
+            );
+
+            return false;
+        }
+
+        // initialThrust와 lift 적용
+        discController.ApplyStats(stats);
+
+        if (discDurability == null)
+        {
+            Debug.LogError(
+                "DiscRunManager: Disc Durability가 연결되지 않았습니다.",
+                this
+            );
+
+            return false;
+        }
+
+        // maxDurability와 currentDurability 초기화
+        discDurability.Initialize(
+            stats.maxDurability
+        );
+
+        return true;
     }
 
     private void SubscribeToDiscEvents()

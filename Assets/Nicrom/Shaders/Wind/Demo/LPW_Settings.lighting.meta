@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86025a968facd544ba2100849959246a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Demo/LPW_Settings.lighting
+  uploadId: 859548

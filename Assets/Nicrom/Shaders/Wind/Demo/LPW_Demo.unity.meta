@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c32987c5553eb7f4681d55e43c309896
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182586
+  packageName: Low Poly Wind
+  packageVersion: 1.4.0
+  assetPath: Assets/Nicrom/Shaders/Wind/Demo/LPW_Demo.unity
+  uploadId: 859548
