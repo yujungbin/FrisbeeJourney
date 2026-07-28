@@ -81,6 +81,13 @@ public class DiscRunManager : MonoBehaviour
     private UnityEvent onNoThrowsRemaining =
         new UnityEvent();
 
+    [Header("Temporary Distance Coin Reward")]
+    [SerializeField]
+    private RunCoinBank runCoinBank;
+
+    [SerializeField]
+    private DistanceCoinRewarder distanceCoinRewarder;
+
     private Coroutine rethrowRoutine;
     private Coroutine gameOverRestartRoutine;
 
@@ -184,6 +191,11 @@ public class DiscRunManager : MonoBehaviour
 
         if (progressTracker != null)
             progressTracker.ResetRun();
+        if (runCoinBank != null)
+            runCoinBank.ResetRun();
+
+        if (distanceCoinRewarder != null)
+            distanceCoinRewarder.ResetRun();
 
         onRunStarted.Invoke();
 
@@ -439,6 +451,9 @@ public class DiscRunManager : MonoBehaviour
 
         if (progressTracker != null)
             progressTracker.EndThrow();
+
+        if (distanceCoinRewarder != null)
+            distanceCoinRewarder.AwardAvailableCoins();
 
 
         // 1. 내구도 소진 결과

@@ -1534,7 +1534,7 @@ RectTransform:
   m_GameObject: {fileID: 479714224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1995773417}
@@ -2228,7 +2228,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.1688507
         inSlope: 136.15245
         outSlope: 136.15245
         tangentMode: 0
@@ -2237,7 +2237,7 @@ TrailRenderer:
         outWeight: 0.22471716
       - serializedVersion: 3
         time: 0.008412171
-        value: 0.45819396
+        value: 0.8106567
         inSlope: -2.9934258
         outSlope: -2.9934258
         tangentMode: 0
@@ -2745,7 +2745,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846430187
 MonoBehaviour:
@@ -3466,7 +3466,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1120383069
 MonoBehaviour:
@@ -3807,7 +3807,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.1688507
         inSlope: 53.984016
         outSlope: 53.984016
         tangentMode: 0
@@ -3816,7 +3816,7 @@ TrailRenderer:
         outWeight: 0.4494343
       - serializedVersion: 3
         time: 0.008412171
-        value: 0.45
+        value: 0.8229553
         inSlope: -2.8023386
         outSlope: -2.8023386
         tangentMode: 0
@@ -4200,8 +4200,8 @@ MonoBehaviour:
   minSpeed: 5
   maxSpeed: 25
   useHorizontalSpeed: 1
-  minTrailTime: 0.02
-  maxTrailTime: 0.15
+  minTrailTime: 0.01
+  maxTrailTime: 0.06
   trailTimeResponse: 2
   speedToTrailCurve:
     serializedVersion: 2
@@ -4361,7 +4361,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 18
+  m_Spacing: 40
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -4878,6 +4878,8 @@ MonoBehaviour:
   onNoThrowsRemaining:
     m_PersistentCalls:
       m_Calls: []
+  runCoinBank: {fileID: 0}
+  distanceCoinRewarder: {fileID: 0}
 --- !u!114 &1469500879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5293,7 +5295,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1760422332
 MonoBehaviour:
@@ -5758,7 +5760,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -5945,6 +5947,7 @@ GameObject:
   - component: {fileID: 1899608844}
   - component: {fileID: 1899608843}
   - component: {fileID: 1899608845}
+  - component: {fileID: 1899608846}
   m_Layer: 0
   m_Name: RunDataManager
   m_TagString: Untagged
@@ -5964,7 +5967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9686b642edc951048b53e8aa5571c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunCoinBank
-  progressionStore: {fileID: 0}
+  progressionStore: {fileID: 1469500879}
   onPendingCoinsChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5999,6 +6002,23 @@ MonoBehaviour:
   trackRoot: {fileID: 2097020924}
   levelOrigin: {fileID: 540757803}
   levelLength: 1000
+--- !u!114 &1899608846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899608842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea41340ac0ce37b4fbb070a98666d61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DistanceCoinRewarder
+  progressTracker: {fileID: 1899608845}
+  coinBank: {fileID: 1899608843}
+  distanceSource: 1
+  coinsPerMeter: 0.05
+  logRewards: 1
 --- !u!1 &1899963713
 GameObject:
   m_ObjectHideFlags: 0
@@ -6069,6 +6089,8 @@ MonoBehaviour:
   onNoThrowsRemaining:
     m_PersistentCalls:
       m_Calls: []
+  runCoinBank: {fileID: 1899608843}
+  distanceCoinRewarder: {fileID: 1899608846}
 --- !u!4 &1899963715
 Transform:
   m_ObjectHideFlags: 0
