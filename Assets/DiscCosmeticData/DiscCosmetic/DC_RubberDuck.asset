@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9d31261640f474a85ef9933691e8d6, type: 3}
+  m_Name: DC_RubberDuck
+  m_EditorClassIdentifier: Assembly-CSharp::DiscCosmeticData
+  cosmeticId: RubberDuck
+  displayName: "\uC624\uB9AC \uC6D0\uBC18"
+  description: "\uB204\uB974\uBA74 \uC18C\uB9AC\uAC00 \uB0A0 \uAC83 \uAC19\uC740
+    \uC6D0\uBC18"
+  thumbnail: {fileID: 0}
+  visualMesh: {fileID: 4493585093827132993, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
+  visualMaterials:
+  - {fileID: 4874126678125670354, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
+  - {fileID: -6478536213147159724, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
+  - {fileID: -3846018093981099296, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
+  modelLocalPosition: {x: 0, y: 0, z: 0}
+  modelLocalEulerAngles: {x: 0, y: 0, z: 0}
+  modelLocalScale: {x: 1, y: 1, z: 1}
+  price: 0
+  ownedByDefault: 1

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5214986451ac3f41970b54645428f8e, type: 3}
+  m_Name: DiscCosmeticDataBase
+  m_EditorClassIdentifier: Assembly-CSharp::DiscCosmeticDatabase
+  defaultCosmetic: {fileID: 11400000, guid: b243c02b545feaa4692c0645691a9a18, type: 2}
+  cosmetics:
+  - {fileID: 11400000, guid: b243c02b545feaa4692c0645691a9a18, type: 2}
+  - {fileID: 11400000, guid: e16500aff97ead244bd9cb67c763e9c2, type: 2}
+  - {fileID: 11400000, guid: 2ded5432c45bbde4ebfabb7d7848e855, type: 2}
+  - {fileID: 11400000, guid: 077ecef9f7077e74f891ca30fce44a48, type: 2}
