@@ -476,15 +476,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StraightMapSpawner
   discTarget: {fileID: 465174908}
   roadTilePrefabs:
-  - {fileID: 910401793999811698, guid: b8f3f3b2a81d3ea43b6695a605d3e20f, type: 3}
-  - {fileID: 2886505374366024563, guid: 03bbfcfd763614446a7b1fd38199e807, type: 3}
-  - {fileID: 840820038257143544, guid: 958bbe68c903e5a4883ba0c94029966a, type: 3}
-  - {fileID: 8586826067680159921, guid: 8cfce18722317784a9202a94aae3c6ad, type: 3}
-  initialSpawnCount: 2
+  - {fileID: 4606607070572545718, guid: 7919127f719ee2d4db726124e6e4e2e1, type: 3}
+  initialSpawnCount: 3
   tileLength: 250
   startZ: 0
   spawnAheadDistance: 600
-  destroyBehindDistance: -100
+  destroyBehindDistance: 100
 --- !u!4 &248318661
 Transform:
   m_ObjectHideFlags: 0
