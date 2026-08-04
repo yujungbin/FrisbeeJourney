@@ -48,24 +48,42 @@ public class RunCoinBank : MonoBehaviour
         NotifyChanged();
     }
 
-    public void CommitPendingCoins()
+    public bool CommitPendingCoins()
     {
         if (progressionStore == null)
         {
-            Debug.LogWarning(
-                "RunCoinBank: Progression Store가 연결되지 않았습니다."
+            Debug.LogError(
+                "RunCoinBank: Progression Store가 연결되지 않아 " +
+                "임시 코인을 저장할 수 없습니다.",
+                this
             );
 
-            return;
+            return false;
         }
 
         int payout = PendingCoins;
 
         if (payout > 0)
+        {
+            /*
+             * DiscProgressionStore.AddCoins() 안에서
+             * Save()와 NotifyChanged()가 호출되어야 합니다.
+             */
             progressionStore.AddCoins(payout);
+        }
 
+        // 정산이 끝났으므로 이번 런의 임시 코인은 비웁니다.
         pendingCoinCredit = 0f;
         NotifyChanged();
+
+        Debug.Log(
+            $"Run coins committed | " +
+            $"payout: {payout}, " +
+            $"total coins: {progressionStore.Coins}",
+            this
+        );
+
+        return true;
     }
 
     public void DiscardPendingCoins()

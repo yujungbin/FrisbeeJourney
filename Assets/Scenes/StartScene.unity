@@ -2909,7 +2909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc0c0bd395c0c0448b4294044f28519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscUpgradePanel
-  progressionStore: {fileID: 0}
+  progressionStore: {fileID: 1709075005}
   coinsText: {fileID: 0}
   flightPowerText: {fileID: 0}
   durabilityText: {fileID: 0}
@@ -3801,6 +3801,59 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1709075004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709075006}
+  - component: {fileID: 1709075005}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1709075005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709075004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afa0c040f9a25a4eadc3c9ea57ded7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscProgressionStore
+  config: {fileID: 11400000, guid: ece250d818ba7a343a60cafff271523e, type: 2}
+  defaultCoins: 0
+  saveKeyPrefix: DiscGame.
+  onProgressionChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onCoinsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1709075006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709075004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1721175367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,3 +4654,4 @@ SceneRoots:
   - {fileID: 584783461}
   - {fileID: 883169344}
   - {fileID: 1775844316}
+  - {fileID: 1709075006}

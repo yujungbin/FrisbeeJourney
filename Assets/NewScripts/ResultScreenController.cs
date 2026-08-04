@@ -169,18 +169,12 @@ public class ResultScreenController : MonoBehaviour
 
     private void HandleQuit()
     {
-        if (coinBank != null)
-            coinBank.CommitPendingCoins();
-
         HideAll();
         onQuitRequested.Invoke();
     }
 
     private void HandleCollect()
     {
-        if (coinBank != null)
-            coinBank.CommitPendingCoins();
-
         HideAll();
         onCollectRequested.Invoke();
     }

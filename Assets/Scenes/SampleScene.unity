@@ -1027,13 +1027,13 @@ MonoBehaviour:
   onQuitRequested:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505133791}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 413453456}
+        m_TargetAssemblyTypeName: GameSceneNavigator, Assembly-CSharp
+        m_MethodName: ReturnToStartScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1042,13 +1042,13 @@ MonoBehaviour:
   onCollectRequested:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505133791}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 413453456}
+        m_TargetAssemblyTypeName: GameSceneNavigator, Assembly-CSharp
+        m_MethodName: ReturnToStartScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1341,6 +1341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSceneNavigator
   startSceneName: StartScene
+  runCoinBank: {fileID: 1899608843}
+  commitPendingCoinsBeforeReturn: 1
+  logNavigation: 1
 --- !u!4 &465174908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
@@ -3899,7 +3902,7 @@ Transform:
   m_GameObject: {fileID: 1171811458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4023,20 +4026,20 @@ MonoBehaviour:
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
   unlockedRotationAngularDamping: 1.5
-  settlingLinearDamping: 0.3
+  settlingLinearDamping: 0.1
   settlingAngularDamping: 3
-  settlingHorizontalBrake: 1
+  settlingHorizontalBrake: 0.1
   minSettlingTimeBeforeStop: 0.35
   stopLinearSpeed: 0.55
   requiredLowSpeedDurationToStop: 0.8
-  stopRotationWhenLowSpeedStable: 1
-  freezeRotationWhenLowSpeedStable: 1
+  stopRotationWhenLowSpeedStable: 0
+  freezeRotationWhenLowSpeedStable: 0
   lowSpeedStableAngularDamping: 20
   logSettlingStopCheck: 0
   settlingLogInterval: 0.5
   flyingLinearDamping: 0.05
   flyingAngularDamping: 0.05
-  stoppedLinearDamping: 4
+  stoppedLinearDamping: 0.02
   spinDegreesPerSecond: 900
   bankAngle: 18
   visualLerp: 12
@@ -5037,7 +5040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6799,7 +6802,7 @@ Transform:
   m_GameObject: {fileID: 2110719641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 0.4, z: -0.6}
+  m_LocalPosition: {x: 0, y: 10.4, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

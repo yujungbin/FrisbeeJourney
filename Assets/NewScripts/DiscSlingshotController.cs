@@ -456,7 +456,7 @@ public class DiscSlingshotController : MonoBehaviour
             if (flightControlEnabled)
                 ApplyPostImpactFlightControl();
 
-            ApplySettlingBrake();
+            //ApplySettlingBrake();
 
             UpdatePostImpactRotationUnlock();
             UpdateSettlingStopReadiness();
