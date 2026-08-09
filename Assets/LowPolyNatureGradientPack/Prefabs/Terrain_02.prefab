@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12dda1d9445bd2c4984f3a3ab790a50a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
-  surfaceName: Obstacle
+  surfaceName: Surface
   endThrowOnImpact: 1
   baseDamage: 5
   damagePerSpeed: 1
