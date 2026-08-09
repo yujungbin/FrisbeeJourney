@@ -71,9 +71,16 @@ public sealed class DiscProgressionStore : MonoBehaviour
 
     private void Awake()
     {
+        if (config == null)
+        {
+            Debug.LogError(
+                "DiscProgressionStore: Config asset is not assigned.",
+                this
+            );
+        }
+
         Load();
     }
-
     private void OnValidate()
     {
         defaultCoins = Mathf.Max(0, defaultCoins);
@@ -112,15 +119,21 @@ public sealed class DiscProgressionStore : MonoBehaviour
 
     public void Save()
     {
-        PlayerPrefs.SetInt(CoinsKey, coins);
+        PlayerPrefs.SetInt(
+            CoinsKey,
+            coins
+        );
+
         PlayerPrefs.SetInt(
             FlightLevelKey,
             flightPowerLevel
         );
+
         PlayerPrefs.SetInt(
             DurabilityLevelKey,
             durabilityLevel
         );
+
         PlayerPrefs.SetInt(
             IncomeLevelKey,
             incomeLevel
@@ -260,7 +273,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
         if (amount <= 0)
             return;
 
-        long newCoins = (long)coins + amount;
+        long newCoins =
+            (long)coins + amount;
 
         coins = (int)Mathf.Clamp(
             newCoins,

@@ -43,15 +43,22 @@ public class ResultPanelView : MonoBehaviour
     }
 
     public void Show(
-        RunResultSnapshot snapshot,
-        string title,
-        string primaryLabel,
-        string secondaryLabel,
-        bool showSecondaryButton,
-        UnityAction primaryAction,
-        UnityAction secondaryAction,
-        ResultScreenTheme theme)
+    RunResultSnapshot snapshot,
+    string title,
+    string primaryLabel,
+    string secondaryLabel,
+    bool showSecondaryButton,
+    UnityEngine.Events.UnityAction primaryAction,
+    UnityEngine.Events.UnityAction secondaryAction,
+    ResultScreenTheme theme)
     {
+        /*
+         * FinalResultPanel이 Hierarchy에서 비활성화되어 있어도
+         * 결과를 표시할 수 있게 합니다.
+         */
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+
         ApplyTheme(theme);
 
         if (titleText != null)
@@ -74,11 +81,18 @@ public class ResultPanelView : MonoBehaviour
             secondaryButtonLabel.text = secondaryLabel;
 
         if (secondaryButton != null)
-            secondaryButton.gameObject.SetActive(showSecondaryButton);
+        {
+            secondaryButton.gameObject.SetActive(
+                showSecondaryButton
+            );
+        }
 
         BindPrimaryButton(primaryAction);
+
         BindSecondaryButton(
-            showSecondaryButton ? secondaryAction : null
+            showSecondaryButton
+                ? secondaryAction
+                : null
         );
 
         SetVisible(true);

@@ -88,6 +88,10 @@ public class DiscRunManager : MonoBehaviour
     [SerializeField]
     private DistanceCoinRewarder distanceCoinRewarder;
 
+    [Header("Scene Navigation")]
+    [SerializeField]
+    private GameSceneNavigator sceneNavigator;
+
     private Coroutine rethrowRoutine;
     private Coroutine gameOverRestartRoutine;
 
@@ -102,6 +106,8 @@ public class DiscRunManager : MonoBehaviour
 
     public int MaxThrowsPerRun => Mathf.Max(1, maxThrowsPerRun);
     public int ThrowsUsed => throwsUsed;
+
+    private bool finalResultShown;
 
     public int ThrowsRemaining
     {
@@ -158,6 +164,7 @@ public class DiscRunManager : MonoBehaviour
     public void StartRun()
     {
         StopRunningCoroutines();
+        finalResultShown = false;
 
         if (discController == null)
         {
@@ -335,8 +342,8 @@ public class DiscRunManager : MonoBehaviour
         // 마지막 허용 투척이 실제로 발사된 순간 호출합니다.
         // 여기서 바로 게임오버시키지는 않습니다.
         // 원반이 충돌하고 완전히 멈춘 뒤 RunManager가 게임오버를 결정합니다.
-        if (useThrowLimit && !HasThrowsRemaining)
-            onNoThrowsRemaining.Invoke();
+        //if (useThrowLimit && !HasThrowsRemaining)
+            //onNoThrowsRemaining.Invoke();
 
         if (useThrowLimit)
         {
@@ -380,29 +387,42 @@ public class DiscRunManager : MonoBehaviour
         );
     }
 
-    private IEnumerator SettleThenResolveImpactRoutine(DiscImpactInfo impactInfo)
+    private IEnumerator SettleThenResolveImpactRoutine(
+    DiscImpactInfo impactInfo)
     {
         float elapsed = 0f;
         float nextLogTime = 0f;
         bool timeoutWarningShown = false;
         bool stoppedByTimeout = false;
 
+        string finishReason = "Unknown";
+
         while (true)
         {
             if (discController == null)
+            {
+                finishReason = "DiscControllerMissing";
                 break;
+            }
 
-            if (discDurability != null && discDurability.IsBroken)
-                break;
+            /*
+             * 내구도가 파괴되어도 여기서 즉시 break하지 않습니다.
+             * 원반이 충분히 느려질 때까지 자연스럽게 기다립니다.
+             */
 
             if (discController.IsSlowEnoughToStop())
+            {
+                finishReason = "LowSpeedDurationReached";
                 break;
+            }
 
-            if (settleMaxWaitTime > 0f && elapsed >= settleMaxWaitTime)
+            if (settleMaxWaitTime > 0f &&
+                elapsed >= settleMaxWaitTime)
             {
                 if (forceFinishOnSettleTimeout)
                 {
                     stoppedByTimeout = true;
+                    finishReason = "ForcedTimeout";
                     break;
                 }
 
@@ -411,8 +431,7 @@ public class DiscRunManager : MonoBehaviour
                     timeoutWarningShown = true;
 
                     Debug.LogWarning(
-                        $"Settling timeout reached, but throw will NOT finish yet. " +
-                        $"Waiting for low-speed duration. " +
+                        $"Settling timeout reached, but waiting continues. " +
                         $"speed: {discController.CurrentSpeed:F2}, " +
                         $"lowTimer: {discController.LowSpeedTimer:F2}/" +
                         $"{discController.RequiredLowSpeedDurationToStop:F2}"
@@ -420,9 +439,11 @@ public class DiscRunManager : MonoBehaviour
                 }
             }
 
-            if (logSettlingStatus && Time.time >= nextLogTime)
+            if (logSettlingStatus &&
+                Time.time >= nextLogTime)
             {
-                nextLogTime = Time.time + settlingStatusLogInterval;
+                nextLogTime =
+                    Time.time + settlingStatusLogInterval;
 
                 Debug.Log(
                     $"Settling wait | " +
@@ -430,7 +451,7 @@ public class DiscRunManager : MonoBehaviour
                     $"speed: {discController.CurrentSpeed:F2}, " +
                     $"lowTimer: {discController.LowSpeedTimer:F2}/" +
                     $"{discController.RequiredLowSpeedDurationToStop:F2}, " +
-                    $"durability: {(discDurability != null ? discDurability.CurrentDurability.ToString("F1") : "none")}, " +
+                    $"broken: {(discDurability != null && discDurability.IsBroken)}, " +
                     $"ready: {discController.SettlingStopReady}"
                 );
             }
@@ -439,18 +460,28 @@ public class DiscRunManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        Debug.Log(
+            $"Settling finished | " +
+            $"reason: {finishReason}, " +
+            $"speedBeforeStop: " +
+            $"{(discController != null ? discController.CurrentSpeed : -1f):F2}, " +
+            $"elapsed: {elapsed:F2}"
+        );
+
         if (discController != null)
             discController.StopDiscImmediately();
 
         if (stoppedByTimeout)
         {
             Debug.LogWarning(
-                "Throw ended by timeout, not by low-speed detection."
+                "The disc was forcibly stopped by the settling timeout."
             );
         }
 
         if (progressTracker != null)
             progressTracker.EndThrow();
+
+        // 이후 기존 결과 처리 코드 유지
 
         if (distanceCoinRewarder != null)
             distanceCoinRewarder.AwardAvailableCoins();
@@ -461,6 +492,7 @@ public class DiscRunManager : MonoBehaviour
         {
             rethrowRoutine = null;
             runActive = false;
+            finalResultShown = true;
 
             if (resultScreenController != null)
             {
@@ -487,6 +519,7 @@ public class DiscRunManager : MonoBehaviour
         {
             rethrowRoutine = null;
             runActive = false;
+            finalResultShown = true;
 
             if (resultScreenController != null)
             {
@@ -505,13 +538,9 @@ public class DiscRunManager : MonoBehaviour
 
 
         // 3. 투척 횟수 소진
-        if (useThrowLimit && !HasThrowsRemaining)
+        if (useThrowLimit && ThrowsRemaining <= 0)
         {
-            rethrowRoutine = null;
-
-            // 결과 화면을 아직 따로 만들지 않았다면 기존 GameOver 사용.
-            GameOver(GameOverReason.NoThrowsRemaining);
-
+            ShowNoThrowsFinalResult();
             yield break;
         }
 
@@ -519,8 +548,12 @@ public class DiscRunManager : MonoBehaviour
         // 4. 다음 투척 위치 계산
         Vector3 rethrowPoint = impactInfo.hitPoint;
 
-        if (rethrowFromFinalStopPosition && discController != null)
-            rethrowPoint = discController.RigidbodyPosition;
+        if (rethrowFromFinalStopPosition &&
+            discController != null)
+        {
+            rethrowPoint =
+                discController.RigidbodyPosition;
+        }
 
         if (rethrowFromImpactPoint)
             MoveLaunchAnchorToPoint(rethrowPoint);
@@ -536,8 +569,9 @@ public class DiscRunManager : MonoBehaviour
         else
         {
             Debug.LogWarning(
-                "ResultScreenController가 연결되지 않아 " +
-                "중간 결과 화면 없이 바로 재투척 상태로 이동합니다."
+                "ResultScreenController is not assigned. " +
+                "Moving directly to the next throw.",
+                this
             );
 
             ResetDiscForThrow();
@@ -547,6 +581,36 @@ public class DiscRunManager : MonoBehaviour
         yield break;
 
 
+    }
+    private void ShowNoThrowsFinalResult()
+    {
+        if (finalResultShown)
+            return;
+
+        finalResultShown = true;
+
+        runActive = false;
+        rethrowRoutine = null;
+
+        Debug.Log(
+            $"DiscRunManager: Showing no-throws final result. " +
+            $"Throws used: {throwsUsed}/{MaxThrowsPerRun}, " +
+            $"remaining: {ThrowsRemaining}",
+            this
+        );
+
+        if (resultScreenController == null)
+        {
+            Debug.LogError(
+                "DiscRunManager: ResultScreenController가 연결되어 있지 않아 " +
+                "최종 결과 화면을 표시할 수 없습니다.",
+                this
+            );
+
+            return;
+        }
+
+        resultScreenController.ShowFinalNoThrowsResult();
     }
 
     private void ResetDiscForThrow()

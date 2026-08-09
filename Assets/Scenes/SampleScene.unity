@@ -1027,13 +1027,13 @@ MonoBehaviour:
   onQuitRequested:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505133791}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 413453456}
+        m_TargetAssemblyTypeName: GameSceneNavigator, Assembly-CSharp
+        m_MethodName: ReturnToStartScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1042,13 +1042,13 @@ MonoBehaviour:
   onCollectRequested:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 505133791}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 413453456}
+        m_TargetAssemblyTypeName: GameSceneNavigator, Assembly-CSharp
+        m_MethodName: ReturnToStartScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1341,6 +1341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSceneNavigator
   startSceneName: StartScene
+  runCoinBank: {fileID: 1899608843}
+  commitPendingCoinsBeforeReturn: 1
+  logNavigation: 1
 --- !u!4 &465174908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
@@ -3557,7 +3560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1127721365}
   - component: {fileID: 1127721364}
-  - component: {fileID: 1127721367}
+  - component: {fileID: 1127721369}
   - component: {fileID: 1127721366}
   - component: {fileID: 1127721368}
   m_Layer: 0
@@ -3618,8 +3621,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127721361}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0.1, z: -0.7}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.4, z: -0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3644,25 +3647,6 @@ MonoBehaviour:
     Controllers: []
   PlayerIndex: -1
   AutoEnableInputs: 1
---- !u!114 &1127721367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127721361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
-  TrackerSettings:
-    BindingMode: 4
-    PositionDamping: {x: 0, y: 0, z: 0}
-    AngularDampingMode: 0
-    RotationDamping: {x: 1, y: 1, z: 1}
-    QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0.1, z: -0.7}
 --- !u!114 &1127721368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3676,7 +3660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscSpeedCameraEffects
   followCamera: {fileID: 1127721364}
-  followComponent: {fileID: 1127721367}
+  followComponent: {fileID: 0}
   discRigidbody: {fileID: 1574253970}
   updateMode: 1
   useHorizontalSpeed: 0
@@ -3714,6 +3698,25 @@ MonoBehaviour:
   zoomInSharpness: 5
   logCurrentValues: 0
   logInterval: 0.5
+--- !u!114 &1127721369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127721361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 0, y: 0, z: 0}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: -0.4, z: -0.9}
 --- !u!1 &1156923619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3899,7 +3902,7 @@ Transform:
   m_GameObject: {fileID: 1171811458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3999,8 +4002,8 @@ MonoBehaviour:
   scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 3
-  maxThrowUpAngle: 22
+  minThrowUpAngle: 1.5
+  maxThrowUpAngle: 6
   forwardCorrectionStrength: 0.25
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
@@ -4023,14 +4026,14 @@ MonoBehaviour:
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
   unlockedRotationAngularDamping: 1.5
-  settlingLinearDamping: 0.3
-  settlingAngularDamping: 3
-  settlingHorizontalBrake: 1
+  settlingLinearDamping: 0.1
+  settlingAngularDamping: 0.3
+  settlingHorizontalBrake: 0
   minSettlingTimeBeforeStop: 0.35
   stopLinearSpeed: 0.55
   requiredLowSpeedDurationToStop: 0.8
-  stopRotationWhenLowSpeedStable: 1
-  freezeRotationWhenLowSpeedStable: 1
+  stopRotationWhenLowSpeedStable: 0
+  freezeRotationWhenLowSpeedStable: 0
   lowSpeedStableAngularDamping: 20
   logSettlingStopCheck: 0
   settlingLogInterval: 0.5
@@ -4875,8 +4878,8 @@ MonoBehaviour:
   onNoThrowsRemaining:
     m_PersistentCalls:
       m_Calls: []
-  runCoinBank: {fileID: 0}
-  distanceCoinRewarder: {fileID: 0}
+  runCoinBank: {fileID: 1899608843}
+  distanceCoinRewarder: {fileID: 1899608846}
 --- !u!114 &1469500879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5037,7 +5040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6799,7 +6802,7 @@ Transform:
   m_GameObject: {fileID: 2110719641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 0.4, z: -0.6}
+  m_LocalPosition: {x: 0, y: 4.4, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
