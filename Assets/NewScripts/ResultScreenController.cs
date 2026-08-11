@@ -38,6 +38,18 @@ public class ResultScreenController : MonoBehaviour
     [SerializeField]
     private UnityEvent onCollectRequested =
         new UnityEvent();
+    [Header("Final Result Text")]
+    [SerializeField]
+    private string completeTitle = "COMPLETE!";
+
+    [SerializeField]
+    private string brokenTitle = "DISC BROKEN";
+
+    [SerializeField]
+    private string noThrowsTitle = "FINAL RESULT";
+
+    [SerializeField]
+    private string collectButtonLabel = "COLLECT";
 
     private bool opened;
 
@@ -76,19 +88,55 @@ public class ResultScreenController : MonoBehaviour
     public void ShowFinalCompleteResult()
     {
         ShowFinalResult(
-            title: "COMPLETE!",
-            completed: true
+            completeTitle,
+            true
         );
     }
 
     public void ShowFinalBrokenResult()
     {
         ShowFinalResult(
-            title: "RESULT",
-            completed: false
+            brokenTitle,
+            false
         );
     }
 
+    public void ShowFinalNoThrowsResult()
+    {
+        ShowFinalResult(
+            noThrowsTitle,
+            false
+        );
+    }
+    //private void ShowNoThrowsFinalResult()
+    //{
+    //    if (finalResultShown)
+    //        return;
+
+    //    finalResultShown = true;
+    //    runActive = false;
+    //    rethrowRoutine = null;
+
+    //    Debug.Log(
+    //        $"Showing no-throws final result. " +
+    //        $"Throws used: {throwsUsed}/{MaxThrowsPerRun}, " +
+    //        $"remaining: {ThrowsRemaining}",
+    //        this
+    //    );
+
+    //    if (resultScreenController == null)
+    //    {
+    //        Debug.LogError(
+    //            "DiscRunManager: ResultScreenController is not assigned. " +
+    //            "Assign ResultOverlayRoot to the Result Screen Controller field.",
+    //            this
+    //        );
+
+    //        return;
+    //    }
+
+    //    resultScreenController.ShowFinalNoThrowsResult();
+    //}
     public void HideAll()
     {
         if (intermediatePanel != null)
@@ -102,31 +150,56 @@ public class ResultScreenController : MonoBehaviour
     }
 
     private void ShowFinalResult(
-        string title,
-        bool completed)
+    string title,
+    bool completed)
     {
-        RunResultSnapshot snapshot = BuildSnapshot(completed);
+        /*
+         * ResultOverlayRoot를 Hierarchy에서 꺼둔 경우에도
+         * 다시 활성화합니다.
+         */
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+
+        RunResultSnapshot snapshot =
+            BuildSnapshot(completed);
 
         SetOverlayVisible(true);
 
         if (intermediatePanel != null)
             intermediatePanel.Hide();
 
-        if (finalPanel != null)
+        if (finalPanel == null)
         {
-            finalPanel.Show(
-                snapshot,
-                title,
-                "받기!",
-                string.Empty,
-                false,
-                HandleCollect,
-                null,
-                theme
+            Debug.LogError(
+                "ResultScreenController: Final Panel is not assigned.",
+                this
             );
+
+            return;
         }
 
+        finalPanel.Show(
+            snapshot,
+            title,
+            collectButtonLabel,
+            string.Empty,
+            false,
+            HandleCollect,
+            null,
+            theme
+        );
+
         SetPauseState(true);
+
+        Canvas.ForceUpdateCanvases();
+
+        Debug.Log(
+            $"Final result shown | " +
+            $"title: {title}, " +
+            $"distance: {snapshot.totalFlightDistance:F1}, " +
+            $"coins: {snapshot.pendingCoins}",
+            this
+        );
     }
 
     private RunResultSnapshot BuildSnapshot(bool completed)
@@ -169,18 +242,12 @@ public class ResultScreenController : MonoBehaviour
 
     private void HandleQuit()
     {
-        if (coinBank != null)
-            coinBank.CommitPendingCoins();
-
         HideAll();
         onQuitRequested.Invoke();
     }
 
     private void HandleCollect()
     {
-        if (coinBank != null)
-            coinBank.CommitPendingCoins();
-
         HideAll();
         onCollectRequested.Invoke();
     }
@@ -195,17 +262,27 @@ public class ResultScreenController : MonoBehaviour
 
     private void SetOverlayVisible(bool visible)
     {
-        opened = visible;
+        if (visible && !gameObject.activeSelf)
+            gameObject.SetActive(true);
 
         if (overlayCanvasGroup == null)
         {
-            gameObject.SetActive(visible);
+            Debug.LogError(
+                "ResultScreenController: Overlay CanvasGroup is not assigned.",
+                this
+            );
+
             return;
         }
 
-        overlayCanvasGroup.alpha = visible ? 1f : 0f;
-        overlayCanvasGroup.interactable = visible;
-        overlayCanvasGroup.blocksRaycasts = visible;
+        overlayCanvasGroup.alpha =
+            visible ? 1f : 0f;
+
+        overlayCanvasGroup.interactable =
+            visible;
+
+        overlayCanvasGroup.blocksRaycasts =
+            visible;
     }
 
     private void SetPauseState(bool resultOpen)
