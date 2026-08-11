@@ -812,7 +812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338241530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2156,7 +2156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708578708}
   - component: {fileID: 708578709}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3099,7 +3099,7 @@ GameObject:
   - component: {fileID: 951400863}
   - component: {fileID: 951400862}
   - component: {fileID: 951400864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DiscModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3413,7 +3413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112890085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TrailRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3735,7 +3735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156923620}
   - component: {fileID: 1156923621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3910,7 +3910,7 @@ Transform:
   m_GameObject: {fileID: 1171811458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4011,7 +4011,7 @@ MonoBehaviour:
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
   minThrowUpAngle: 1.5
-  maxThrowUpAngle: 6
+  maxThrowUpAngle: 8
   forwardCorrectionStrength: 0.25
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
@@ -5043,13 +5043,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frisbee
       objectReference: {fileID: 0}
+    - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5090,6 +5094,10 @@ PrefabInstance:
     - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 64778123423723518, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_Mesh
@@ -6812,7 +6820,7 @@ Transform:
   m_GameObject: {fileID: 2110719641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 4.4, z: -0.6}
+  m_LocalPosition: {x: 0, y: 7.4, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
