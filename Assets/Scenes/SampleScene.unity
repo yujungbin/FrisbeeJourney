@@ -476,11 +476,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StraightMapSpawner
   discTarget: {fileID: 465174908}
   roadTilePrefabs:
-  - {fileID: 4606607070572545718, guid: 7919127f719ee2d4db726124e6e4e2e1, type: 3}
-  initialSpawnCount: 3
+  - {fileID: 4113769683616148186, guid: ce53cd740f1e93447b5e211a2aeaf4a6, type: 3}
+  - {fileID: 7503593712868242097, guid: cc99eb98d5ce15d469e9bdfb7cbdb5db, type: 3}
+  - {fileID: 103637895943305227, guid: 1cfa82e93654e634da284619ccfa8995, type: 3}
+  - {fileID: 6723003092396342418, guid: 6c33d5ce134f999459b7dbdc8fdebd58, type: 3}
+  initialSpawnCount: 2
   tileLength: 250
-  startZ: 0
-  spawnAheadDistance: 600
+  startZ: 120
+  mapXOffset: 12
+  spawnAheadDistance: 300
   destroyBehindDistance: 100
 --- !u!4 &248318661
 Transform:
@@ -1054,6 +1058,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  completeTitle: COMPLETE!
+  brokenTitle: DISC BROKEN
+  noThrowsTitle: FINAL RESULT
+  collectButtonLabel: COLLECT
 --- !u!225 &372113073
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4880,6 +4888,7 @@ MonoBehaviour:
       m_Calls: []
   runCoinBank: {fileID: 1899608843}
   distanceCoinRewarder: {fileID: 1899608846}
+  sceneNavigator: {fileID: 0}
 --- !u!114 &1469500879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5044,7 +5053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -240
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6091,6 +6100,7 @@ MonoBehaviour:
       m_Calls: []
   runCoinBank: {fileID: 1899608843}
   distanceCoinRewarder: {fileID: 1899608846}
+  sceneNavigator: {fileID: 0}
 --- !u!4 &1899963715
 Transform:
   m_ObjectHideFlags: 0
