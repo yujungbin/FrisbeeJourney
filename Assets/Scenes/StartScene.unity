@@ -2001,6 +2001,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frisbee_RubberDuck
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2349,7 +2353,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1330815275}
         m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
-        m_MethodName: UpgradeInitialThrust
+        m_MethodName: UpgradeFlightPower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4683,13 +4687,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1330815274}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1330815275}
+        m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
+        m_MethodName: UpgradeIncome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
