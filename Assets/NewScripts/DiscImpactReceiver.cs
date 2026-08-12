@@ -46,6 +46,27 @@ public class DiscImpactReceiver : MonoBehaviour
     [Tooltip("ImpactDamageProfile이 없는 물체에 부딪혔을 때 적용할 기본 데미지입니다.")]
     [SerializeField] private float fallbackDamageWhenProfileMissing = 0f;
 
+    [Header("Throw Ending Guard")]
+    [Tooltip("실제 발사 직후 이 시간 동안 첫 충돌 종료 판정을 막습니다.")]
+    [SerializeField, Min(0f)]
+    private float throwEndingArmDelay = 0.12f;
+
+    [Tooltip(
+        "접촉면 normal 방향 속도가 이 값 이상일 때만 " +
+        "투척 종료 충돌로 인정합니다."
+    )]
+    [SerializeField, Min(0f)]
+    private float minThrowEndingNormalSpeed = 0.75f;
+
+    [Tooltip(
+        "OnCollisionStay가 첫 Settling을 시작하도록 허용할지입니다. " +
+        "일단 false를 권장합니다."
+    )]
+    [SerializeField]
+    private bool allowStayToEndThrow = false;
+
+    private float throwEndingArmedTime;
+
     [Header("Debug")]
     [SerializeField] private bool logImpacts = true;
 
@@ -116,15 +137,25 @@ public class DiscImpactReceiver : MonoBehaviour
     private void ResetImpactStateForNewThrow()
     {
         firstEndingImpactSentToRunManager = false;
+
         nextGlobalDamageTime = 0f;
         nextDamageTimeByCollider.Clear();
 
-        if (logImpacts)
-            Debug.Log("Impact receiver reset for new throw.");
-    }
+        throwEndingArmedTime =
+            Time.time + throwEndingArmDelay;
 
+        if (logImpacts)
+        {
+            Debug.Log(
+                $"Impact receiver armed after " +
+                $"{throwEndingArmDelay:F2}s.",
+                this
+            );
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
+      
         TryHandleCollision(collision, CollisionPhase.Enter);
     }
 
@@ -146,6 +177,11 @@ public class DiscImpactReceiver : MonoBehaviour
     {
         if (discController == null || runManager == null)
             return;
+        if (!discController.IsFlying &&
+            !discController.IsSettling)
+        {
+            return;
+        }
 
         bool canProcessFlyingImpact = discController.IsFlying;
 
@@ -156,8 +192,8 @@ public class DiscImpactReceiver : MonoBehaviour
         if (!canProcessFlyingImpact && !canProcessSettlingDamage)
             return;
 
-        if (!IsLayerAllowed(collision.collider.gameObject.layer))
-            return;
+        //if (!IsLayerAllowed(collision.collider.gameObject.layer))
+            //return;
 
         float impactSpeed = collision.relativeVelocity.magnitude;
 
@@ -187,7 +223,13 @@ public class DiscImpactReceiver : MonoBehaviour
             );
         }
 
-        TrySendFirstEndingImpactToRunManager(impactInfo);
+        float normalImpactSpeed = CalculateNormalImpactSpeed(collision);
+
+        TrySendFirstEndingImpactToRunManager(
+            impactInfo,
+            phase,
+            normalImpactSpeed
+        );
     }
 
     private DiscImpactInfo BuildImpactInfo(Collision collision)
@@ -294,18 +336,71 @@ public class DiscImpactReceiver : MonoBehaviour
     }
 
     private void TrySendFirstEndingImpactToRunManager(
-        DiscImpactInfo impactInfo)
+    DiscImpactInfo impactInfo,
+    CollisionPhase phase,
+    float normalImpactSpeed)
     {
         if (firstEndingImpactSentToRunManager)
             return;
 
+        // Ready나 Dragging 상태에서는 절대 Settling을 시작하지 않습니다.
         if (!discController.IsFlying)
             return;
 
         if (!impactInfo.endsThrow)
             return;
 
+        // 발사 직후 기존 접촉이나 겹침으로 생기는 이벤트를 무시합니다.
+        if (Time.time < throwEndingArmedTime)
+        {
+            if (logImpacts)
+            {
+                Debug.Log(
+                    $"Throw-ending impact ignored by arm delay | " +
+                    $"other: {impactInfo.sourceName}, " +
+                    $"normal speed: {normalImpactSpeed:F2}",
+                    this
+                );
+            }
+
+            return;
+        }
+
+        // 지속 접촉은 기본적으로 첫 충돌 종료 판정에 사용하지 않습니다.
+        if (phase == CollisionPhase.Stay &&
+            !allowStayToEndThrow)
+        {
+            return;
+        }
+
+        // 바닥 위 수평 미끄러짐이나 스치는 접촉은 투척 종료로 보지 않습니다.
+        if (normalImpactSpeed <
+            minThrowEndingNormalSpeed)
+        {
+            if (logImpacts)
+            {
+                Debug.Log(
+                    $"Throw-ending impact ignored by normal speed | " +
+                    $"other: {impactInfo.sourceName}, " +
+                    $"normal speed: {normalImpactSpeed:F2}, " +
+                    $"required: {minThrowEndingNormalSpeed:F2}",
+                    this
+                );
+            }
+
+            return;
+        }
+
         firstEndingImpactSentToRunManager = true;
+
+        Debug.Log(
+            $"Meaningful first impact accepted | " +
+            $"other: {impactInfo.sourceName}, " +
+            $"total speed: {impactInfo.impactSpeed:F2}, " +
+            $"normal speed: {normalImpactSpeed:F2}, " +
+            $"phase: {phase}",
+            this
+        );
 
         runManager.HandleDiscImpact(impactInfo);
     }
@@ -314,5 +409,44 @@ public class DiscImpactReceiver : MonoBehaviour
     {
         int mask = 1 << layer;
         return (impactLayers.value & mask) != 0;
+    }
+    private float CalculateNormalImpactSpeed(
+    Collision collision)
+    {
+        Vector3 relativeVelocity =
+            collision.relativeVelocity;
+
+        if (relativeVelocity.sqrMagnitude < 0.000001f)
+            return 0f;
+
+        if (collision.contactCount <= 0)
+            return relativeVelocity.magnitude;
+
+        float maximumNormalSpeed = 0f;
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint contact =
+                collision.GetContact(i);
+
+            Vector3 normal =
+                contact.normal.sqrMagnitude > 0.0001f
+                    ? contact.normal.normalized
+                    : Vector3.up;
+
+            float normalSpeed = Mathf.Abs(
+                Vector3.Dot(
+                    relativeVelocity,
+                    normal
+                )
+            );
+
+            maximumNormalSpeed = Mathf.Max(
+                maximumNormalSpeed,
+                normalSpeed
+            );
+        }
+
+        return maximumNormalSpeed;
     }
 }

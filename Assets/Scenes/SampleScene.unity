@@ -812,7 +812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338241530}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2156,7 +2156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708578708}
   - component: {fileID: 708578709}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LeftTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3099,7 +3099,7 @@ GameObject:
   - component: {fileID: 951400863}
   - component: {fileID: 951400862}
   - component: {fileID: 951400864}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: DiscModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3413,7 +3413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112890085}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TrailRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3735,7 +3735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156923620}
   - component: {fileID: 1156923621}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RightTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3910,7 +3910,7 @@ Transform:
   m_GameObject: {fileID: 1171811458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4102,6 +4102,9 @@ MonoBehaviour:
   sameColliderDamageCooldown: 0.35
   endThrowWhenProfileMissing: 1
   fallbackDamageWhenProfileMissing: 0
+  throwEndingArmDelay: 0.12
+  minThrowEndingNormalSpeed: 0.75
+  allowStayToEndThrow: 0
   logImpacts: 1
 --- !u!73398921 &1234174339
 VFXRenderer:
@@ -5045,7 +5048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5053,7 +5056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6820,7 +6823,7 @@ Transform:
   m_GameObject: {fileID: 2110719641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 7.4, z: -0.6}
+  m_LocalPosition: {x: 0, y: 8.4, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

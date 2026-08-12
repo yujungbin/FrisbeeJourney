@@ -1209,8 +1209,17 @@ public class DiscSlingshotController : MonoBehaviour
 
     public void BeginSettlingAfterImpact(float firstImpactSpeed)
     {
-        if (state == DiscState.Stopped)
+        if(state != DiscState.Flying)
+        {
+            Debug.LogWarning(
+                $"BeginSettlingAfterImpact ignored | " +
+                $"current state: {state}, " +
+                $"impact speed: {firstImpactSpeed:F2}",
+                this
+            );
+
             return;
+        }
 
         state = DiscState.Settling;
 

@@ -18572,9 +18572,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3264529482260700300, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264529482260700300, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3730851696621504903, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
       propertyPath: m_Name
       value: Terrain_09
+      objectReference: {fileID: 0}
+    - target: {fileID: 6853724764483793608, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7440990855507139932, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
       propertyPath: m_Mesh
