@@ -2003,7 +2003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4100,6 +4100,10 @@ PrefabInstance:
     - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_Name
       value: Frisbee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.x

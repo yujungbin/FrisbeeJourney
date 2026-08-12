@@ -812,7 +812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338241530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2156,7 +2156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708578708}
   - component: {fileID: 708578709}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3099,7 +3099,7 @@ GameObject:
   - component: {fileID: 951400863}
   - component: {fileID: 951400862}
   - component: {fileID: 951400864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DiscModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3413,7 +3413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112890085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TrailRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3735,7 +3735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156923620}
   - component: {fileID: 1156923621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4011,7 +4011,7 @@ MonoBehaviour:
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
   minThrowUpAngle: 1.5
-  maxThrowUpAngle: 3.5
+  maxThrowUpAngle: 2.5
   forwardCorrectionStrength: 0.25
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
@@ -4030,7 +4030,7 @@ MonoBehaviour:
   postImpactForwardAccelerationCoefficient: 0
   postImpactMaxForwardAcceleration: 0
   postImpactForwardAccelerationMinSpeed: 0.2
-  unlockRotationAfterFirstImpact: 0
+  unlockRotationAfterFirstImpact: 1
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
   unlockedRotationAngularDamping: 1.5
@@ -4091,7 +4091,7 @@ MonoBehaviour:
   durability: {fileID: 1234174334}
   impactLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 17
   minImpactSpeed: 0.1
   handleCollisionStay: 0
   globalDamageMultiplier: 1
@@ -5048,7 +5048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.x

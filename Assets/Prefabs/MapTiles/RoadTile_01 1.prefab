@@ -2348,6 +2348,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_01 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4544,6 +4548,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4402586919040968252, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8807375032429039457, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
       propertyPath: m_LocalScale.x
       value: 10.702339
@@ -5278,6 +5286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_01
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5590,7 +5602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11200,6 +11212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_01 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15402,6 +15418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15732,7 +15752,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3264529482260700300, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3730851696621504903, guid: 9ea6a9b3d465e784183822c28d049eb5, type: 3}
       propertyPath: m_Name
@@ -17317,6 +17337,10 @@ PrefabInstance:
     - target: {fileID: 6083914863593583902, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
       propertyPath: m_Name
       value: Ground_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19251,6 +19275,10 @@ PrefabInstance:
     - target: {fileID: 6083914863593583902, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
       propertyPath: m_Name
       value: Ground_01 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37743,6 +37771,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4402586919040968252, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8807375032429039457, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.1856318
@@ -43521,6 +43553,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_01 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -43852,6 +43888,10 @@ PrefabInstance:
     - target: {fileID: 1500723136213751533, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
       propertyPath: m_Name
       value: Ground_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402586919040968252, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8807375032429039457, guid: 2f27ec56d113c2c44a69862e7f8e6743, type: 3}
       propertyPath: m_LocalScale.x
@@ -66954,6 +66994,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -88117,6 +88161,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground_01 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -93240,6 +93288,10 @@ PrefabInstance:
     - target: {fileID: 6083914863593583902, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
       propertyPath: m_Name
       value: Ground_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6376491746939300809, guid: acb4d66690ae2b549ba30b8b42152317, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
