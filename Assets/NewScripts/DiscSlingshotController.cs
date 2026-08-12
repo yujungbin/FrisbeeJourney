@@ -723,14 +723,14 @@ public class DiscSlingshotController : MonoBehaviour
     {
         rb.isKinematic = false;
 
-        SetLinearVelocity(Vector3.zero);
+        //SetLinearVelocity(Vector3.zero);
         rb.angularVelocity = Vector3.zero;
 
         SetLinearDamping(flyingLinearDamping);
         SetAngularDamping(flyingAngularDamping);
 
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-        rb.constraints |= RigidbodyConstraints.FreezeRotation;
+        rb.constraints &= ~RigidbodyConstraints.FreezeRotation;
 
         state = DiscState.Flying;
         flightControlEnabled = true;
