@@ -12,9 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8695d7a3edb076c42bd44482f3b7702f, type: 3}
   m_Name: RoadTileObjectSpawnData
   m_EditorClassIdentifier: Assembly-CSharp::RoadTileObjectSpawnData
-  spawnObjects:
-  - objectName: 
-    prefab: {fileID: 1856861724390114, guid: e05ee61d6dad0e54eb51d1c8ec3becc6, type: 3}
-    spawnWeight: 1
-    randomScaleRange: {x: 1, y: 1}
-    yOffset: 0.1
+  spawnObjects: []

@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2432,7 +2432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2926,7 +2926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscImpactReceiver
   discController: {fileID: 1234174329}
-  runManager: {fileID: 1899963714}
+  runManager: {fileID: 1469500878}
   durability: {fileID: 1234174334}
   impactLayers:
     serializedVersion: 2
@@ -4854,7 +4854,7 @@ MonoBehaviour:
   onGameOver:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 413453454}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 0
@@ -4891,7 +4891,7 @@ MonoBehaviour:
       m_Calls: []
   runCoinBank: {fileID: 1899608843}
   distanceCoinRewarder: {fileID: 1899608846}
-  sceneNavigator: {fileID: 0}
+  sceneNavigator: {fileID: 413453456}
 --- !u!114 &1469500879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5135,12 +5135,29 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1234174346}
+    - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1574253971}
   m_SourcePrefab: {fileID: 100100000, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
 --- !u!54 &1574253970 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
   m_PrefabInstance: {fileID: 1574253969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574253971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234174324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad50bd93ae09d8b4f821a7cedff1190f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RawDiscCollisionProbe
+  discController: {fileID: 1234174329}
+  stayLogInterval: 0.2
 --- !u!1 &1607512296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6039,94 +6056,6 @@ MonoBehaviour:
   distanceSource: 1
   coinsPerMeter: 0.05
   logRewards: 1
---- !u!1 &1899963713
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1899963715}
-  - component: {fileID: 1899963714}
-  m_Layer: 0
-  m_Name: RunManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1899963714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899963713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ecd7d4ed1bb69a47a6f24405da5d329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DiscRunManager
-  progressionStore: {fileID: 1469500879}
-  discController: {fileID: 1234174329}
-  discDurability: {fileID: 1234174334}
-  cameraSwitcher: {fileID: 1994770297}
-  launchAnchor: {fileID: 1171811459}
-  trackRoot: {fileID: 2097020924}
-  useThrowLimit: 0
-  maxThrowsPerRun: 3
-  rethrowFromImpactPoint: 1
-  rethrowFromFinalStopPosition: 1
-  rethrowBackOffset: 0.15
-  rethrowHeightOffset: 0
-  rethrowDelay: 0.6
-  settleMaxWaitTime: 3
-  forceFinishOnSettleTimeout: 0
-  logSettlingStatus: 1
-  settlingStatusLogInterval: 0.5
-  restoreOriginalLaunchAnchorOnRunStart: 1
-  autoRestartWhenDurabilityBroken: 0
-  autoRestartWhenNoThrowsRemaining: 1
-  gameOverRestartDelay: 1
-  onRunStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onRethrowReady:
-    m_PersistentCalls:
-      m_Calls: []
-  onGameOver:
-    m_PersistentCalls:
-      m_Calls: []
-  resultScreenController: {fileID: 372113072}
-  progressTracker: {fileID: 1899608845}
-  onThrowCountChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onThrowsRemainingChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onNoThrowsRemaining:
-    m_PersistentCalls:
-      m_Calls: []
-  runCoinBank: {fileID: 1899608843}
-  distanceCoinRewarder: {fileID: 1899608846}
-  sceneNavigator: {fileID: 0}
---- !u!4 &1899963715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899963713}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125.79869, y: 0, z: 599.9833}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1970681291
 GameObject:
   m_ObjectHideFlags: 0
@@ -6925,7 +6854,6 @@ SceneRoots:
   - {fileID: 248318661}
   - {fileID: 1171811459}
   - {fileID: 2097020924}
-  - {fileID: 1899963715}
   - {fileID: 1574253969}
   - {fileID: 1390216039}
   - {fileID: 1127721365}
