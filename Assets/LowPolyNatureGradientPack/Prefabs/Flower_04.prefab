@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 1689238721995824313}
   - component: {fileID: 8020050228770599875}
   - component: {fileID: 3237028926135823117}
+  - component: {fileID: 5006765914423292333}
   m_Layer: 0
   m_Name: Flower_04_LOD0
   m_TagString: Untagged
@@ -254,7 +255,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.4409981, y: 0.43537465, z: 0.32344967}
   m_Center: {x: -0.009472653, y: 0.21562912, z: 0.026107743}
@@ -280,3 +281,25 @@ MonoBehaviour:
   glancingDamageMultiplier: 0.35
   angleExponent: 1.5
   instantBreak: 0
+--- !u!64 &5006765914423292333
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7340235105182454315}
+  m_Material: {fileID: 13400000, guid: e1f05fcce47e9994b945df92237b7b1c, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5353721164296124591, guid: fa12917b29cd63d4fbeff9fb40e58edf, type: 3}
