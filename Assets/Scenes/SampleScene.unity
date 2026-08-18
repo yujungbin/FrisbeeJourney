@@ -4017,6 +4017,10 @@ MonoBehaviour:
   forwardCorrectionStrength: 0.25
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
+  liftFadeStartUpSpeed: 0
+  liftCutoffUpSpeed: 1
+  liftScaleAtCutoff: 0.05
+  maxLiftToGravityRatio: 0.97
   minLaunchSpeedRatio: 0.25
   targetForwardSpeedRatio: 0.85
   forwardSpeedGain: 0
@@ -4037,9 +4041,9 @@ MonoBehaviour:
   unlockRotationAfterFirstImpact: 1
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
-  unlockedRotationAngularDamping: 1.5
+  unlockedRotationAngularDamping: 3
   settlingLinearDamping: 0.1
-  settlingAngularDamping: 0.3
+  settlingAngularDamping: 3
   settlingHorizontalBrake: 0
   minSettlingTimeBeforeStop: 0.35
   stopLinearSpeed: 0.55
@@ -4050,7 +4054,7 @@ MonoBehaviour:
   logSettlingStopCheck: 0
   settlingLogInterval: 0.5
   flyingLinearDamping: 0.05
-  flyingAngularDamping: 0.05
+  flyingAngularDamping: 3
   stoppedLinearDamping: 30
   spinDegreesPerSecond: 900
   bankAngle: 18
@@ -5101,6 +5105,10 @@ PrefabInstance:
     - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_AngularDamping
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_CollisionDetection
