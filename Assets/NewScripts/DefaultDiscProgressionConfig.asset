@@ -31,4 +31,4 @@ MonoBehaviour:
   incomeUpgradeCost:
     baseCost: 100
     costGrowthPerLevel: 1.35
-  fixedLift: 0.9
+  fixedLift: 0.4

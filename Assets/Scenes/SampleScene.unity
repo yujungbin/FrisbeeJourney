@@ -4017,7 +4017,7 @@ MonoBehaviour:
   steeringRelativeToThrowDirection: 0
   minLaunchSpeedRatio: 0.25
   targetForwardSpeedRatio: 0.85
-  forwardSpeedGain: 4
+  forwardSpeedGain: 0
   lateralAcceleration: 30
   maxLateralSpeed: 50
   laneHalfWidth: 500

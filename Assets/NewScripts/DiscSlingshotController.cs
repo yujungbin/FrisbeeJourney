@@ -685,6 +685,10 @@ public class DiscSlingshotController : MonoBehaviour
         rb.position = dragTargetPosition;
 
         pendingLaunchVelocity = throwDirection * launchSpeed;
+        pendingLaunchVelocity =
+    ClampFinalLaunchAngle(
+        pendingLaunchVelocity
+    );
         hasPendingLaunch = true;
         launchEventsPending = true;
 
@@ -1201,6 +1205,66 @@ public class DiscSlingshotController : MonoBehaviour
             return activeTargetForwardSpeed;
 
         return Mathf.Max(0.01f, targetForwardSpeed);
+    }
+    private Vector3 ClampFinalLaunchAngle(
+    Vector3 launchVelocity)
+    {
+        float speed = launchVelocity.magnitude;
+
+        if (speed <= 0.0001f)
+            return Vector3.zero;
+
+        Vector3 horizontalVelocity =
+            Vector3.ProjectOnPlane(
+                launchVelocity,
+                Vector3.up
+            );
+
+        float horizontalSpeed =
+            horizontalVelocity.magnitude;
+
+        if (horizontalSpeed <= 0.0001f)
+            return launchVelocity;
+
+        float currentAngle =
+            Mathf.Atan2(
+                launchVelocity.y,
+                horizontalSpeed
+            ) * Mathf.Rad2Deg;
+
+        // 위쪽 각도만 maxThrowAngle로 제한합니다.
+        // 아래로 던지는 입력은 그대로 허용합니다.
+        float clampedAngle =
+            Mathf.Min(
+                currentAngle,
+                maxThrowUpAngle
+            );
+
+        float clampedAngleRadians =
+            clampedAngle *
+            Mathf.Deg2Rad;
+
+        Vector3 horizontalDirection =
+            horizontalVelocity /
+            horizontalSpeed;
+
+        Vector3 clampedDirection =
+            horizontalDirection *
+            Mathf.Cos(clampedAngleRadians) +
+            Vector3.up *
+            Mathf.Sin(clampedAngleRadians);
+        Debug.Log(
+    $"FINAL LAUNCH | " +
+    $"power: {lastThrowPower01:F2}, " +
+    $"thrustRatio: {lastThrowThrustRatio:F2}, " +
+    $"velocity: {pendingLaunchVelocity}, " +
+    $"angle: {clampedAngle:F2}, " +
+    $"maxAngle: {maxThrowUpAngle:F2}",
+    this
+);
+
+        return clampedDirection.normalized *
+               speed;
     }
 
     #endregion
