@@ -4008,10 +4008,12 @@ MonoBehaviour:
   throwPowerToInitialThrust: 1
   throwPowerResponseExponent: 1
   scaleForwardTargetSpeedWithThrowPower: 1
-  allowBackwardThrow: 0
+  allowBackwardThrow: 1
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 1.5
-  maxThrowUpAngle: 2.5
+  minThrowUpAngle: 1
+  maxThrowUpAngle: 2
+  throwUpInputExponent: 2
+  maxInitialUpwardSpeed: 0.75
   forwardCorrectionStrength: 0.25
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
@@ -4024,7 +4026,9 @@ MonoBehaviour:
   boundarySpring: 40
   boundaryDamping: 10
   postImpactControlOffSpeed: 0.2
-  postImpactSteeringMultiplier: 0.15
+  allowPostImpactSteering: 1
+  postImpactSteeringMultiplier: 0.762
+  postImpactSteeringFullEffectSpeed: 20
   postImpactLiftMultiplier: 0
   spinWhilePostImpactMoving: 1
   postImpactForwardAccelerationCoefficient: 0

@@ -115,6 +115,21 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField] private float minThrowUpAngle = 3f;
     [SerializeField] private float maxThrowUpAngle = 14f;
 
+    [Header("Throw Height Control")]
+    [Tooltip(
+    "값이 클수록 위쪽으로 강하게 드래그했을 때만 " +
+    "Max Throw Up Angle에 가까워집니다."
+)]
+    [SerializeField, Min(0.1f)]
+    private float throwUpInputExponent = 2f;
+
+    [Tooltip(
+        "강한 투척에서도 허용할 최대 초기 상승 속도입니다. " +
+        "Max Throw Angle과 별도로 적용됩니다."
+    )]
+    [SerializeField, Min(0f)]
+    private float maxInitialUpwardSpeed = 0.75f;
+
     [Header("Throw Direction Preservation")]
     [Tooltip("던진 방향을 얼마나 TrackForward 쪽으로 보정할지입니다. 0이면 던진 방향 유지, 1이면 기존처럼 앞으로 강하게 보정합니다.")]
     [SerializeField, Range(0f, 1f)] private float forwardCorrectionStrength = 0.25f;
@@ -128,6 +143,33 @@ public class DiscSlingshotController : MonoBehaviour
     #endregion
 
     #region Inspector - Flight
+    [Header("Lift Rise Limiter")]
+    [Tooltip(
+    "수직 상승 속도가 이 값부터 Lift가 감소하기 시작합니다."
+)]
+    [SerializeField]
+    private float liftFadeStartUpSpeed = 0f;
+
+    [Tooltip(
+        "수직 상승 속도가 이 값 이상이면 " +
+        "Lift가 Lift Scale At Cutoff 수준까지 감소합니다."
+    )]
+    [SerializeField, Min(0.01f)]
+    private float liftCutoffUpSpeed = 1f;
+
+    [Tooltip(
+        "빠르게 상승할 때 유지할 최소 Lift 비율입니다. " +
+        "0이면 상승 중 Lift를 완전히 끕니다."
+    )]
+    [SerializeField, Range(0f, 1f)]
+    private float liftScaleAtCutoff = 0.05f;
+
+    [Tooltip(
+        "Lift의 최대 위쪽 가속도를 중력의 몇 배까지 허용할지입니다. " +
+        "1보다 낮으면 Lift만으로 계속 상승하지 않습니다."
+    )]
+    [SerializeField, Range(0f, 1f)]
+    private float maxLiftToGravityRatio = 0.97f;
 
     [Header("Flight")]
     [Tooltip("최소 발사 속도 = 초기 추진력 × 이 값")]
@@ -153,8 +195,17 @@ public class DiscSlingshotController : MonoBehaviour
     [Tooltip("충돌 후에도 이 속도보다 빠르면 약한 비행 제어를 유지합니다.")]
     [SerializeField] private float postImpactControlOffSpeed = 0.2f;
 
+    [SerializeField]
+    private bool allowPostImpactSteering = true;
+
     [Tooltip("충돌 후 좌우 조종이 얼마나 남아 있을지입니다. 0이면 조종 없음.")]
     [SerializeField, Range(0f, 1f)] private float postImpactSteeringMultiplier = 0.15f;
+    [Tooltip(
+    "충돌 후 이 속도 이상이면 Post Impact Steering이 " +
+    "설정된 최대 강도로 적용됩니다."
+)]
+    [SerializeField, Min(0.01f)]
+    private float postImpactSteeringFullEffectSpeed = 8f;
 
     [Tooltip("충돌 후 양력을 얼마나 남길지입니다. 자연스럽게 떨어져 멈추게 하려면 0 추천.")]
     [SerializeField, Range(0f, 1f)] private float postImpactLiftMultiplier = 0f;
@@ -414,6 +465,10 @@ public class DiscSlingshotController : MonoBehaviour
                 break;
 
             case DiscState.Flying:
+                ReadSteeringInput();
+                break;
+
+            case DiscState.Settling:
                 ReadSteeringInput();
                 break;
 
@@ -689,6 +744,10 @@ public class DiscSlingshotController : MonoBehaviour
     ClampFinalLaunchAngle(
         pendingLaunchVelocity
     );
+        pendingLaunchVelocity =
+    ClampInitialUpwardSpeed(
+        pendingLaunchVelocity
+    );
         hasPendingLaunch = true;
         launchEventsPending = true;
 
@@ -846,13 +905,18 @@ public class DiscSlingshotController : MonoBehaviour
 
     private Vector3 BuildThrowDirection(Vector2 screenVector)
     {
-        if (screenVector.sqrMagnitude < 0.0001f)
-            return AddUpAngle(GetTrackForward(), minThrowUpAngle);
-
-        Vector2 input = screenVector.normalized;
-
         Vector3 forward = GetTrackForward();
         Vector3 right = GetTrackRight();
+
+        if (screenVector.sqrMagnitude < 0.0001f)
+        {
+            return AddUpAngle(
+                forward,
+                minThrowUpAngle
+            );
+        }
+
+        Vector2 input = screenVector.normalized;
 
         float forwardInput = input.y;
 
@@ -868,40 +932,171 @@ public class DiscSlingshotController : MonoBehaviour
             right * input.x +
             forward * forwardInput;
 
-        flatDirection.y = 0f;
-
-        if (flatDirection.sqrMagnitude < 0.0001f)
-            flatDirection = forward;
-
-        flatDirection.Normalize();
-
-        float upward01 = Mathf.Clamp01(input.y);
-
-        float upAngle = Mathf.Lerp(
-            minThrowUpAngle,
-            maxThrowUpAngle,
-            upward01
+        flatDirection = Vector3.ProjectOnPlane(
+            flatDirection,
+            Vector3.up
         );
 
-        return AddUpAngle(flatDirection, upAngle);
-    }
-
-    private Vector3 AddUpAngle(Vector3 flatDirection, float angleDegrees)
-    {
-        flatDirection = Vector3.ProjectOnPlane(flatDirection, Vector3.up);
+        if (flatDirection.sqrMagnitude < 0.0001f)
+        {
+            flatDirection = Vector3.ProjectOnPlane(
+                forward,
+                Vector3.up
+            );
+        }
 
         if (flatDirection.sqrMagnitude < 0.0001f)
-            flatDirection = GetTrackForward();
+            flatDirection = Vector3.forward;
 
         flatDirection.Normalize();
 
-        float angleRad = angleDegrees * Mathf.Deg2Rad;
+        float rawUpward01 =
+            Mathf.Clamp01(input.y);
+
+        // 위쪽 입력이 충분히 클 때만 최대 상승각에 접근
+        float shapedUpward01 =
+            Mathf.Pow(
+                rawUpward01,
+                throwUpInputExponent
+            );
+
+        float minimumAngle =
+            Mathf.Min(
+                minThrowUpAngle,
+                maxThrowUpAngle
+            );
+
+        float maximumAngle =
+            Mathf.Max(
+                minThrowUpAngle,
+                maxThrowUpAngle
+            );
+
+        float upAngle = Mathf.Lerp(
+            minimumAngle,
+            maximumAngle,
+            shapedUpward01
+        );
+
+        return AddUpAngle(
+            flatDirection,
+            upAngle
+        );
+    }
+
+    private Vector3 AddUpAngle(
+    Vector3 flatDirection,
+    float angleDegrees)
+    {
+        Vector3 planarDirection =
+            Vector3.ProjectOnPlane(
+                flatDirection,
+                Vector3.up
+            );
+
+        if (planarDirection.sqrMagnitude < 0.0001f)
+        {
+            planarDirection = Vector3.ProjectOnPlane(
+                GetTrackForward(),
+                Vector3.up
+            );
+        }
+
+        if (planarDirection.sqrMagnitude < 0.0001f)
+            planarDirection = Vector3.forward;
+
+        planarDirection.Normalize();
+
+        float minimumAngle =
+            Mathf.Min(
+                minThrowUpAngle,
+                maxThrowUpAngle
+            );
+
+        float maximumAngle =
+            Mathf.Max(
+                minThrowUpAngle,
+                maxThrowUpAngle
+            );
+
+        float clampedAngle = Mathf.Clamp(
+            angleDegrees,
+            minimumAngle,
+            maximumAngle
+        );
+
+        float angleRadians =
+            clampedAngle * Mathf.Deg2Rad;
 
         Vector3 direction =
-            flatDirection * Mathf.Cos(angleRad) +
-            Vector3.up * Mathf.Sin(angleRad);
+            planarDirection *
+            Mathf.Cos(angleRadians) +
+            Vector3.up *
+            Mathf.Sin(angleRadians);
 
         return direction.normalized;
+    }
+    private Vector3 ClampInitialUpwardSpeed(
+    Vector3 launchVelocity)
+    {
+        // 아래 방향 투척이나 이미 낮은 Y 속도는 그대로 유지
+        if (launchVelocity.y <= maxInitialUpwardSpeed)
+            return launchVelocity;
+
+        float totalSpeed =
+            launchVelocity.magnitude;
+
+        if (totalSpeed <= 0.0001f)
+            return Vector3.zero;
+
+        Vector3 horizontalVelocity =
+            Vector3.ProjectOnPlane(
+                launchVelocity,
+                Vector3.up
+            );
+
+        if (horizontalVelocity.sqrMagnitude < 0.0001f)
+        {
+            horizontalVelocity =
+                Vector3.ProjectOnPlane(
+                    GetTrackForward(),
+                    Vector3.up
+                );
+        }
+
+        if (horizontalVelocity.sqrMagnitude < 0.0001f)
+            horizontalVelocity = Vector3.forward;
+
+        horizontalVelocity.Normalize();
+
+        float clampedUpwardSpeed =
+            Mathf.Min(
+                maxInitialUpwardSpeed,
+                totalSpeed
+            );
+
+        /*
+         * 전체 발사 속도는 유지하고,
+         * 줄어든 Y 속도만큼 수평 속도로 재분배합니다.
+         *
+         * 강한 투척:
+         * 더 높이 뜨는 대신 더 멀리 날아가게 됩니다.
+         */
+        float newHorizontalSpeed =
+            Mathf.Sqrt(
+                Mathf.Max(
+                    0f,
+                    totalSpeed * totalSpeed -
+                    clampedUpwardSpeed *
+                    clampedUpwardSpeed
+                )
+            );
+
+        return
+            horizontalVelocity *
+            newHorizontalSpeed +
+            Vector3.up *
+            clampedUpwardSpeed;
     }
 
     #endregion
@@ -1039,12 +1234,85 @@ public class DiscSlingshotController : MonoBehaviour
 
         steerInput = Mathf.Clamp(input, -1f, 1f);
     }
+    private bool CanReadSteeringInput()
+    {
+        if (state == DiscState.Flying)
+            return true;
 
+        if (state == DiscState.Settling &&
+            allowPostImpactSteering)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    private float CalculateLiftRiseScale(
+    Vector3 velocity)
+    {
+        float upwardSpeed =
+            Vector3.Dot(
+                velocity,
+                Vector3.up
+            );
+
+        float rise01 = Mathf.InverseLerp(
+            liftFadeStartUpSpeed,
+            Mathf.Max(
+                liftFadeStartUpSpeed + 0.01f,
+                liftCutoffUpSpeed
+            ),
+            upwardSpeed
+        );
+
+        return Mathf.Lerp(
+            1f,
+            liftScaleAtCutoff,
+            rise01
+        );
+    }
+    private float LimitLiftAcceleration(
+    float rawLiftAcceleration,
+    Vector3 velocity)
+    {
+        float riseScale =
+            CalculateLiftRiseScale(velocity);
+
+        float limitedLiftAcceleration =
+            Mathf.Max(
+                0f,
+                rawLiftAcceleration
+            ) *
+            riseScale;
+
+        /*
+         * 현재 World Up 기준 아래쪽 중력 가속도 크기.
+         * 기본 중력에서는 약 9.81입니다.
+         */
+        float downwardGravityAcceleration =
+            Mathf.Max(
+                0.01f,
+                -Vector3.Dot(
+                    Physics.gravity,
+                    Vector3.up
+                )
+            );
+
+        float maximumLiftAcceleration =
+            downwardGravityAcceleration *
+            maxLiftToGravityRatio;
+
+        return Mathf.Min(
+            limitedLiftAcceleration,
+            maximumLiftAcceleration
+        );
+    }
     private void ApplyFlightControl(
         bool allowForwardAssist,
         float steeringMultiplier,
         float liftMultiplier,
-        bool applyBoundary)
+        bool applyBoundary,
+        float steeringInputScale = 1f)
     {
         if (state != DiscState.Flying && state != DiscState.Settling)
             return;
@@ -1084,9 +1352,12 @@ public class DiscSlingshotController : MonoBehaviour
 
         if (steeringMultiplier > 0f)
         {
+            float effectiveSteerInput =
+            steerInput *
+            Mathf.Clamp01(steeringInputScale);
             rb.AddForce(
                 steeringRight *
-                (steerInput * lateralAcceleration * steeringMultiplier),
+                (effectiveSteerInput * lateralAcceleration * steeringMultiplier),
                 ForceMode.Acceleration
             );
         }
@@ -1100,7 +1371,16 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ApplyPostImpactFlightControl()
     {
-        float speed = GetLinearVelocity().magnitude;
+        Vector3 velocity =
+            GetLinearVelocity();
+
+        float speed =
+            velocity.magnitude;
+        float steeringSpeed =
+            Vector3.ProjectOnPlane(
+            velocity,
+            Vector3.up
+         ).magnitude;
 
         if (speed <= postImpactControlOffSpeed)
         {
@@ -1109,15 +1389,37 @@ public class DiscSlingshotController : MonoBehaviour
             return;
         }
 
+        /*
+         * postImpactControlOffSpeed에서는 0,
+         * postImpactSteeringFullEffectSpeed에서는 1이 됩니다.
+         */
+        float safeFullEffectSpeed =
+            Mathf.Max(
+                postImpactControlOffSpeed + 0.01f,
+                postImpactSteeringFullEffectSpeed
+            );
+
+        float steeringSpeedScale =
+            Mathf.InverseLerp(
+                postImpactControlOffSpeed,
+                safeFullEffectSpeed,
+                steeringSpeed
+            );
+
         ApplyFlightControl(
             allowForwardAssist: false,
-            steeringMultiplier: postImpactSteeringMultiplier,
-            liftMultiplier: postImpactLiftMultiplier,
-            applyBoundary: false
+            steeringMultiplier:
+                postImpactSteeringMultiplier,
+            liftMultiplier:
+                postImpactLiftMultiplier,
+            applyBoundary: false,
+            steeringInputScale:
+                steeringSpeedScale
         );
 
         ApplyPostImpactForwardAcceleration(speed);
     }
+    
 
     private void ApplyPostImpactForwardAcceleration(float currentSpeed)
     {
@@ -1164,8 +1466,15 @@ public class DiscSlingshotController : MonoBehaviour
             speedFactor *
             multiplier;
 
+        float finalLiftAcceleration =
+        LimitLiftAcceleration(
+            liftAcceleration,
+            velocity
+        );
+
         rb.AddForce(
-            Vector3.up * liftAcceleration,
+            Vector3.up *
+            finalLiftAcceleration,
             ForceMode.Acceleration
         );
     }
@@ -1300,7 +1609,8 @@ public class DiscSlingshotController : MonoBehaviour
         mouseDragging = false;
         hasPendingLaunch = false;
         launchEventsPending = false;
-        steerInput = 0f;
+        if (!allowPostImpactSteering)
+            steerInput = 0f;
 
         rb.isKinematic = false;
 
@@ -1317,7 +1627,7 @@ public class DiscSlingshotController : MonoBehaviour
         else
         {
             rb.angularVelocity = Vector3.zero;
-            rb.constraints |= RigidbodyConstraints.FreezeRotation;
+            rb.constraints &= ~RigidbodyConstraints.FreezeRotation;
         }
     }
 
@@ -1798,7 +2108,7 @@ public class DiscSlingshotController : MonoBehaviour
     {
         rb.useGravity = true;
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
-        rb.constraints |= RigidbodyConstraints.FreezeRotation;
+        //rb.constraints |= RigidbodyConstraints.FreezeRotation;
 
         SetLinearDamping(flyingLinearDamping);
         SetAngularDamping(flyingAngularDamping);
