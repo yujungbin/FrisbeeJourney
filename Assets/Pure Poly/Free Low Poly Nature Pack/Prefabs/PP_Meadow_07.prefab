@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4303119187155117086}
   - component: {fileID: 2357419356555822538}
   - component: {fileID: 8507128851255553316}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PP_Meadow_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}

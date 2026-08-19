@@ -738,6 +738,10 @@ public class DiscSlingshotController : MonoBehaviour
         activeTargetForwardSpeed = CalculateActiveTargetForwardSpeed(thrustRatio);
 
         rb.position = dragTargetPosition;
+        lastThrowPower01 = power01;
+
+        lastThrowThrustRatio =
+            thrustRatio;
 
         pendingLaunchVelocity = throwDirection * launchSpeed;
         pendingLaunchVelocity =
@@ -747,6 +751,11 @@ public class DiscSlingshotController : MonoBehaviour
         pendingLaunchVelocity =
     ClampInitialUpwardSpeed(
         pendingLaunchVelocity
+    );
+        pendingLaunchVelocity =
+    ClampFinalLaunchVelocity(
+        pendingLaunchVelocity,
+        lastThrowPower01
     );
         hasPendingLaunch = true;
         launchEventsPending = true;
@@ -784,6 +793,16 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ExecutePhysicsLaunch()
     {
+        Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
+        float power01 = CalculateThrowPower01(totalDragScreen, releaseVelocityScreen);
+        //lastThrowPower01 = power01;
+        Vector3 finalLaunchVelocity =
+        ClampFinalLaunchVelocity(
+            pendingLaunchVelocity,
+            power01
+        );
+
+        pendingLaunchVelocity = finalLaunchVelocity;
         rb.isKinematic = false;
 
         //SetLinearVelocity(Vector3.zero);
@@ -804,7 +823,7 @@ public class DiscSlingshotController : MonoBehaviour
         settlingStopReady = false;
         lowSpeedTimer = 0f;
 
-        rb.AddForce(pendingLaunchVelocity, ForceMode.VelocityChange);
+        rb.AddForce(finalLaunchVelocity, ForceMode.VelocityChange);
 
         hasPendingLaunch = false;
 
@@ -1574,6 +1593,163 @@ public class DiscSlingshotController : MonoBehaviour
 
         return clampedDirection.normalized *
                speed;
+    }
+    private Vector3 ClampFinalLaunchVelocity(
+     Vector3 launchVelocity,
+     float throwPower01)
+    {
+        float actualSpeed =
+            launchVelocity.magnitude;
+
+        if (actualSpeed <= 0.0001f)
+            return Vector3.zero;
+
+        throwPower01 =
+            Mathf.Clamp01(throwPower01);
+
+        /*
+         * 현재 투척 세기에 해당하는 정상 발사 속도입니다.
+         */
+        float currentThrustRatio;
+
+        float configuredCurrentLaunchSpeed =
+            CalculateLaunchSpeedFromThrowPower(
+                throwPower01,
+                out currentThrustRatio
+            );
+
+        /*
+         * Throw Power 01이 1일 때의 최대 발사 속도입니다.
+         *
+         * 기존에 가정했던 maxThrowPower를
+         * 이 값이 대신합니다.
+         */
+        float maximumThrustRatio;
+
+        float configuredMaximumLaunchSpeed =
+            CalculateLaunchSpeedFromThrowPower(
+                1f,
+                out maximumThrustRatio
+            );
+
+        configuredCurrentLaunchSpeed =
+            Mathf.Max(
+                0f,
+                configuredCurrentLaunchSpeed
+            );
+
+        configuredMaximumLaunchSpeed =
+            Mathf.Max(
+                0f,
+                configuredMaximumLaunchSpeed
+            );
+
+        float safeMaximumAngle =
+            Mathf.Clamp(
+                maxThrowUpAngle,
+                0f,
+                89f
+            );
+
+        float maximumAngleRadians =
+            safeMaximumAngle *
+            Mathf.Deg2Rad;
+
+        /*
+         * Y 속도 계산에 사용할 기준 속도입니다.
+         *
+         * 1. 실제 최종 Velocity보다 클 수 없음
+         * 2. 현재 투척 세기로 계산된 속도보다 클 수 없음
+         * 3. 최대 투척 세기의 속도보다 클 수 없음
+         *
+         * 따라서 약한 투척과 강한 투척 모두
+         * Max Throw Up Angle을 넘지 않습니다.
+         */
+        float upwardSpeedReference =
+            Mathf.Min(
+                actualSpeed,
+                Mathf.Min(
+                    configuredCurrentLaunchSpeed,
+                    configuredMaximumLaunchSpeed
+                )
+            );
+
+        /*
+         * 최대 허용 Y 속도:
+         *
+         * 현재 투척 속도
+         * × sin(Max Throw Up Angle)
+         */
+        float maximumAllowedUpwardSpeed =
+            upwardSpeedReference *
+            Mathf.Sin(maximumAngleRadians);
+
+        /*
+         * 아래로 날아가는 Y 속도는 제한하지 않습니다.
+         * 이미 최대 Y 속도 이하라면 그대로 반환합니다.
+         */
+        if (launchVelocity.y <=
+            maximumAllowedUpwardSpeed)
+        {
+            return launchVelocity;
+        }
+
+        Vector3 horizontalVelocity =
+            Vector3.ProjectOnPlane(
+                launchVelocity,
+                Vector3.up
+            );
+
+        Vector3 horizontalDirection;
+
+        if (horizontalVelocity.sqrMagnitude >
+            0.0001f)
+        {
+            horizontalDirection =
+                horizontalVelocity.normalized;
+        }
+        else
+        {
+            horizontalDirection =
+                Vector3.ProjectOnPlane(
+                    GetTrackForward(),
+                    Vector3.up
+                );
+
+            if (horizontalDirection.sqrMagnitude <
+                0.0001f)
+            {
+                horizontalDirection =
+                    Vector3.forward;
+            }
+
+            horizontalDirection.Normalize();
+        }
+
+        /*
+         * 전체 실제 속력은 유지합니다.
+         *
+         * 초과한 Y 속도는 버리는 것이 아니라
+         * 수평 속도로 재분배합니다.
+         *
+         * 따라서 강한 투척은 높이 뜨는 대신
+         * 앞으로 더 멀리 나갑니다.
+         */
+        float newHorizontalSpeed = horizontalVelocity.magnitude;
+            //Mathf.Sqrt(
+              //  Mathf.Max(
+                //    0f,
+                  //  actualSpeed * actualSpeed -
+                    //maximumAllowedUpwardSpeed *
+                    //maximumAllowedUpwardSpeed
+                //)
+            //);
+
+        return
+            horizontalDirection *
+            newHorizontalSpeed +
+            Vector3.up *
+            maximumAllowedUpwardSpeed;
     }
 
     #endregion

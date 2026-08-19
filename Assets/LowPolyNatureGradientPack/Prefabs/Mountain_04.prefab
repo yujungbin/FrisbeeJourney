@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4967234683185324029}
   - component: {fileID: 1210506810494871415}
   - component: {fileID: 894507788555244016}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mountain_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
