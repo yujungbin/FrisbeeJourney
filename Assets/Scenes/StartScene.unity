@@ -2350,19 +2350,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 964598529}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1330815275}
-        m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
-        m_MethodName: UpgradeFlightPower
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &964598529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3012,9 +3000,9 @@ MonoBehaviour:
   flightPowerText: {fileID: 0}
   durabilityText: {fileID: 0}
   incomeText: {fileID: 0}
-  flightPowerButton: {fileID: 0}
-  durabilityButton: {fileID: 0}
-  incomeButton: {fileID: 0}
+  flightPowerButton: {fileID: 964598528}
+  durabilityButton: {fileID: 1966470518}
+  incomeButton: {fileID: 2091073373}
   coinsFormat: "\uFFFD\uFFFD\uFFFD\uFFFD: {0:N0}"
 --- !u!4 &1330815276
 Transform:
@@ -3049,7 +3037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1372846285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3149,7 +3137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscProgressionStore
   config: {fileID: 11400000, guid: ece250d818ba7a343a60cafff271523e, type: 2}
-  defaultCoins: 0
+  defaultCoins: 100000
   saveKeyPrefix: DiscGame.
   onProgressionChanged:
     m_PersistentCalls:
@@ -3689,6 +3677,7 @@ GameObject:
   - component: {fileID: 1693320000}
   - component: {fileID: 1693320002}
   - component: {fileID: 1693320001}
+  - component: {fileID: 1693320003}
   m_Layer: 5
   m_Name: CoinText
   m_TagString: Untagged
@@ -3815,6 +3804,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693319999}
   m_CullTransparentMesh: 1
+--- !u!114 &1693320003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693319999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c380a51ed79e0648b5831f89597e1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinBalanceUI
+  progressionStore: {fileID: 0}
+  coinText: {fileID: 0}
 --- !u!1 &1696621296
 GameObject:
   m_ObjectHideFlags: 0
@@ -4349,19 +4352,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1966470519}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1330815275}
-        m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
-        m_MethodName: UpgradeDurability
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1966470519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4690,19 +4681,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2091073374}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1330815275}
-        m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
-        m_MethodName: UpgradeIncome
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2091073374
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,18 +17,18 @@ MonoBehaviour:
   flightIncreaseRetention: 1
   flightMaxLevel: 20
   flightUpgradeCost:
-    baseCost: 100
-    costGrowthPerLevel: 1.35
+    baseCost: 1
+    costGrowthPerLevel: 2
   baseMaxDurability: 1000
   durabilityPerLevel: 50
   durabilityMaxLevel: 20
   durabilityUpgradeCost:
-    baseCost: 100
-    costGrowthPerLevel: 1.35
+    baseCost: 1
+    costGrowthPerLevel: 2
   baseIncomeMultiplier: 1
   incomeMultiplierPerLevel: 0.1
   incomeMaxLevel: 20
   incomeUpgradeCost:
-    baseCost: 100
-    costGrowthPerLevel: 1.35
+    baseCost: 1
+    costGrowthPerLevel: 2
   fixedLift: 0.95
