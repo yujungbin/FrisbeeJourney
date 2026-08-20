@@ -1,6 +1,6 @@
 public enum DiscUpgradeType
 {
-    FlightPower,
+    Lift,
     Durability,
     Income
 }
