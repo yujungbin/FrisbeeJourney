@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,17 +28,17 @@ public class DiscRunManager : MonoBehaviour
     [SerializeField] private Transform trackRoot;
 
     [Header("Throw Limit")]
-    [Tooltip("false¸é ÅõÃ´ È½¼ö Á¦ÇÑ ¾øÀÌ ³»±¸µµ°¡ 0ÀÌ µÉ ¶§±îÁö ´øÁú ¼ö ÀÖ½À´Ï´Ù.")]
+    [Tooltip("falseë©´ íˆ¬ì²™ íšŸìˆ˜ ì œí•œ ì—†ì´ ë‚´êµ¬ë„ê°€ 0ì´ ë  ë•Œê¹Œì§€ ë˜ì§ˆ ìˆ˜ ìˆìŠµë‹ˆë‹¤.")]
     [SerializeField] private bool useThrowLimit = false;
 
-    [Tooltip("Use Throw LimitÀÌ trueÀÏ ¶§ ÇÑ ÆÇ¿¡¼­ ÃÑ ¸î ¹ø ´øÁú ¼ö ÀÖ´ÂÁöÀÔ´Ï´Ù.")]
+    [Tooltip("Use Throw Limitì´ trueì¼ ë•Œ í•œ íŒì—ì„œ ì´ ëª‡ ë²ˆ ë˜ì§ˆ ìˆ˜ ìˆëŠ”ì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private int maxThrowsPerRun = 3;
 
     [Header("Retry")]
     [SerializeField] private bool rethrowFromImpactPoint = true;
     [SerializeField] private bool rethrowFromFinalStopPosition = true;
 
-    [Tooltip("¸ØÃá À§Ä¡¿¡¼­ ÁøÇà ¹æÇâ ¹İ´ë·Î ¾ó¸¶³ª ¹°·¯³ª¼­ ´Ù½Ã ´øÁúÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ë©ˆì¶˜ ìœ„ì¹˜ì—ì„œ ì§„í–‰ ë°©í–¥ ë°˜ëŒ€ë¡œ ì–¼ë§ˆë‚˜ ë¬¼ëŸ¬ë‚˜ì„œ ë‹¤ì‹œ ë˜ì§ˆì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private float rethrowBackOffset = 0.15f;
 
     [SerializeField] private float rethrowHeightOffset = 0f;
@@ -47,7 +47,7 @@ public class DiscRunManager : MonoBehaviour
     [Header("Settle After Impact")]
     [SerializeField] private float settleMaxWaitTime = 3.0f;
 
-    [Tooltip("true¸é settleMaxWaitTimeÀÌ Áö³ª¸é Àú¼Ó Á¶°Ç°ú »ó°ü¾øÀÌ °­Á¦·Î ´øÁö±â¸¦ ³¡³À´Ï´Ù.")]
+    [Tooltip("trueë©´ settleMaxWaitTimeì´ ì§€ë‚˜ë©´ ì €ì† ì¡°ê±´ê³¼ ìƒê´€ì—†ì´ ê°•ì œë¡œ ë˜ì§€ê¸°ë¥¼ ëëƒ…ë‹ˆë‹¤.")]
     [SerializeField] private bool forceFinishOnSettleTimeout = false;
 
     [SerializeField] private bool logSettlingStatus = true;
@@ -168,7 +168,7 @@ public class DiscRunManager : MonoBehaviour
 
         if (discController == null)
         {
-            Debug.LogError("DiscController°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.");
+            Debug.LogError("DiscControllerê°€ ì—°ê²°ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -184,7 +184,7 @@ public class DiscRunManager : MonoBehaviour
         if (!TryApplyRuntimeStatsAndDurability())
         {
             Debug.LogError(
-                "DiscRunManager: ½ºÅÈ ÃÊ±âÈ­ ½ÇÆĞ·Î RunÀ» ½ÃÀÛÇÏÁö ¾Ê½À´Ï´Ù.",
+                "DiscRunManager: ìŠ¤íƒ¯ ì´ˆê¸°í™” ì‹¤íŒ¨ë¡œ Runì„ ì‹œì‘í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.",
                 this
             );
 
@@ -224,8 +224,8 @@ public class DiscRunManager : MonoBehaviour
             return;
         }
 
-        // ProgressionStore°¡ ¾øÀ» ¶§ÀÇ fallback.
-        // ¾÷±×·¹ÀÌµå ½Ã½ºÅÛ ¾øÀÌ Å×½ºÆ®ÇÒ ¶§ »ç¿ëµË´Ï´Ù.
+        // ProgressionStoreê°€ ì—†ì„ ë•Œì˜ fallback.
+        // ì—…ê·¸ë ˆì´ë“œ ì‹œìŠ¤í…œ ì—†ì´ í…ŒìŠ¤íŠ¸í•  ë•Œ ì‚¬ìš©ë©ë‹ˆë‹¤.
         if (discDurability != null)
             discDurability.Initialize(discDurability.MaxDurability);
     }
@@ -235,7 +235,7 @@ public class DiscRunManager : MonoBehaviour
         {
             Debug.LogError(
                 "DiscRunManager: " +
-                "Progression Store°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                "Progression Storeê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                 this
             );
 
@@ -246,8 +246,8 @@ public class DiscRunManager : MonoBehaviour
         {
             Debug.LogError(
                 "DiscRunManager: " +
-                "DiscProgressionStoreÀÇ Config°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù. " +
-                "DiscProgressionConfig assetÀ» ¿¬°áÇÏ¼¼¿ä.",
+                "DiscProgressionStoreì˜ Configê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. " +
+                "DiscProgressionConfig assetì„ ì—°ê²°í•˜ì„¸ìš”.",
                 progressionStore
             );
 
@@ -260,27 +260,27 @@ public class DiscRunManager : MonoBehaviour
         if (discController == null)
         {
             Debug.LogError(
-                "DiscRunManager: Disc Controller°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                "DiscRunManager: Disc Controllerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                 this
             );
 
             return false;
         }
 
-        // initialThrust¿Í lift Àû¿ë
+        // initialThrustì™€ lift ì ìš©
         discController.ApplyStats(stats);
 
         if (discDurability == null)
         {
             Debug.LogError(
-                "DiscRunManager: Disc Durability°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                "DiscRunManager: Disc Durabilityê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                 this
             );
 
             return false;
         }
 
-        // maxDurability¿Í currentDurability ÃÊ±âÈ­
+        // maxDurabilityì™€ currentDurability ì´ˆê¸°í™”
         discDurability.Initialize(
             stats.maxDurability
         );
@@ -313,12 +313,12 @@ public class DiscRunManager : MonoBehaviour
 
     private void HandleDiscLaunched()
     {
-        // °ÔÀÓÀÌ ÁøÇà ÁßÀÌ ¾Æ´Ò ¶§ ¹ß»ıÇÑ ¹ß»ç ÀÌº¥Æ®´Â ¹«½ÃÇÕ´Ï´Ù.
+        // ê²Œì„ì´ ì§„í–‰ ì¤‘ì´ ì•„ë‹ ë•Œ ë°œìƒí•œ ë°œì‚¬ ì´ë²¤íŠ¸ëŠ” ë¬´ì‹œí•©ë‹ˆë‹¤.
         if (!runActive)
             return;
 
-        // ½ÇÁ¦ ¹ß»ç°¡ ¿Ï·áµÈ È½¼ö¸¦ Áõ°¡½ÃÅµ´Ï´Ù.
-        // ÅõÃ´ Á¦ÇÑÀ» »ç¿ëÇÏÁö ¾Ê´õ¶óµµ ÃÑ ´øÁø È½¼ö´Â ±â·ÏÇÕ´Ï´Ù.
+        // ì‹¤ì œ ë°œì‚¬ê°€ ì™„ë£Œëœ íšŸìˆ˜ë¥¼ ì¦ê°€ì‹œí‚µë‹ˆë‹¤.
+        // íˆ¬ì²™ ì œí•œì„ ì‚¬ìš©í•˜ì§€ ì•Šë”ë¼ë„ ì´ ë˜ì§„ íšŸìˆ˜ëŠ” ê¸°ë¡í•©ë‹ˆë‹¤.
         if (useThrowLimit)
         {
             throwsUsed = Mathf.Clamp(
@@ -332,16 +332,16 @@ public class DiscRunManager : MonoBehaviour
             throwsUsed++;
         }
 
-        // ÀÌ¹ø ÅõÃ´ÀÇ ºñÇà °Å¸® ÃøÁ¤À» ½ÃÀÛÇÕ´Ï´Ù.
+        // ì´ë²ˆ íˆ¬ì²™ì˜ ë¹„í–‰ ê±°ë¦¬ ì¸¡ì •ì„ ì‹œì‘í•©ë‹ˆë‹¤.
         if (progressTracker != null)
             progressTracker.BeginThrow();
 
-        // ³²Àº ÅõÃ´ È½¼ö UI¸¦ °»½ÅÇÕ´Ï´Ù.
+        // ë‚¨ì€ íˆ¬ì²™ íšŸìˆ˜ UIë¥¼ ê°±ì‹ í•©ë‹ˆë‹¤.
         NotifyThrowCountChanged();
 
-        // ¸¶Áö¸· Çã¿ë ÅõÃ´ÀÌ ½ÇÁ¦·Î ¹ß»çµÈ ¼ø°£ È£ÃâÇÕ´Ï´Ù.
-        // ¿©±â¼­ ¹Ù·Î °ÔÀÓ¿À¹ö½ÃÅ°Áö´Â ¾Ê½À´Ï´Ù.
-        // ¿ø¹İÀÌ Ãæµ¹ÇÏ°í ¿ÏÀüÈ÷ ¸ØÃá µÚ RunManager°¡ °ÔÀÓ¿À¹ö¸¦ °áÁ¤ÇÕ´Ï´Ù.
+        // ë§ˆì§€ë§‰ í—ˆìš© íˆ¬ì²™ì´ ì‹¤ì œë¡œ ë°œì‚¬ëœ ìˆœê°„ í˜¸ì¶œí•©ë‹ˆë‹¤.
+        // ì—¬ê¸°ì„œ ë°”ë¡œ ê²Œì„ì˜¤ë²„ì‹œí‚¤ì§€ëŠ” ì•ŠìŠµë‹ˆë‹¤.
+        // ì›ë°˜ì´ ì¶©ëŒí•˜ê³  ì™„ì „íˆ ë©ˆì¶˜ ë’¤ RunManagerê°€ ê²Œì„ì˜¤ë²„ë¥¼ ê²°ì •í•©ë‹ˆë‹¤.
         //if (useThrowLimit && !HasThrowsRemaining)
             //onNoThrowsRemaining.Invoke();
 
@@ -406,8 +406,8 @@ public class DiscRunManager : MonoBehaviour
             }
 
             /*
-             * ³»±¸µµ°¡ ÆÄ±«µÇ¾îµµ ¿©±â¼­ Áï½Ã breakÇÏÁö ¾Ê½À´Ï´Ù.
-             * ¿ø¹İÀÌ ÃæºĞÈ÷ ´À·ÁÁú ¶§±îÁö ÀÚ¿¬½º·´°Ô ±â´Ù¸³´Ï´Ù.
+             * ë‚´êµ¬ë„ê°€ íŒŒê´´ë˜ì–´ë„ ì—¬ê¸°ì„œ ì¦‰ì‹œ breakí•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+             * ì›ë°˜ì´ ì¶©ë¶„íˆ ëŠë ¤ì§ˆ ë•Œê¹Œì§€ ìì—°ìŠ¤ëŸ½ê²Œ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.
              */
 
             if (discController.IsSlowEnoughToStop())
@@ -481,13 +481,13 @@ public class DiscRunManager : MonoBehaviour
         if (progressTracker != null)
             progressTracker.EndThrow();
 
-        // ÀÌÈÄ ±âÁ¸ °á°ú Ã³¸® ÄÚµå À¯Áö
+        // ì´í›„ ê¸°ì¡´ ê²°ê³¼ ì²˜ë¦¬ ì½”ë“œ ìœ ì§€
 
         if (distanceCoinRewarder != null)
             distanceCoinRewarder.AwardAvailableCoins();
 
 
-        // 1. ³»±¸µµ ¼ÒÁø °á°ú
+        // 1. ë‚´êµ¬ë„ ì†Œì§„ ê²°ê³¼
         if (discDurability != null && discDurability.IsBroken)
         {
             rethrowRoutine = null;
@@ -501,8 +501,8 @@ public class DiscRunManager : MonoBehaviour
             else
             {
                 Debug.LogError(
-                    "ResultScreenController°¡ ¿¬°áµÇÁö ¾Ê¾Æ " +
-                    "³»±¸µµ ¼ÒÁø °á°ú È­¸éÀ» Ç¥½ÃÇÒ ¼ö ¾ø½À´Ï´Ù."
+                    "ResultScreenControllerê°€ ì—°ê²°ë˜ì§€ ì•Šì•„ " +
+                    "ë‚´êµ¬ë„ ì†Œì§„ ê²°ê³¼ í™”ë©´ì„ í‘œì‹œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
                 );
             }
 
@@ -510,7 +510,7 @@ public class DiscRunManager : MonoBehaviour
         }
 
 
-        // 2. ¸Ê ¿ÏÁÖ °á°ú
+        // 2. ë§µ ì™„ì£¼ ê²°ê³¼
         bool levelCompleted =
             progressTracker != null &&
             progressTracker.LevelProgress01 >= 1f;
@@ -528,8 +528,8 @@ public class DiscRunManager : MonoBehaviour
             else
             {
                 Debug.LogError(
-                    "ResultScreenController°¡ ¿¬°áµÇÁö ¾Ê¾Æ " +
-                    "¿ÏÁÖ °á°ú È­¸éÀ» Ç¥½ÃÇÒ ¼ö ¾ø½À´Ï´Ù."
+                    "ResultScreenControllerê°€ ì—°ê²°ë˜ì§€ ì•Šì•„ " +
+                    "ì™„ì£¼ ê²°ê³¼ í™”ë©´ì„ í‘œì‹œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
                 );
             }
 
@@ -537,7 +537,7 @@ public class DiscRunManager : MonoBehaviour
         }
 
 
-        // 3. ÅõÃ´ È½¼ö ¼ÒÁø
+        // 3. íˆ¬ì²™ íšŸìˆ˜ ì†Œì§„
         if (useThrowLimit && ThrowsRemaining <= 0)
         {
             ShowNoThrowsFinalResult();
@@ -545,7 +545,7 @@ public class DiscRunManager : MonoBehaviour
         }
 
 
-        // 4. ´ÙÀ½ ÅõÃ´ À§Ä¡ °è»ê
+        // 4. ë‹¤ìŒ íˆ¬ì²™ ìœ„ì¹˜ ê³„ì‚°
         Vector3 rethrowPoint = impactInfo.hitPoint;
 
         if (rethrowFromFinalStopPosition &&
@@ -559,7 +559,7 @@ public class DiscRunManager : MonoBehaviour
             MoveLaunchAnchorToPoint(rethrowPoint);
 
 
-        // 5. Áß°£ °á°ú È­¸é
+        // 5. ì¤‘ê°„ ê²°ê³¼ í™”ë©´
         rethrowRoutine = null;
 
         if (resultScreenController != null)
@@ -602,8 +602,8 @@ public class DiscRunManager : MonoBehaviour
         if (resultScreenController == null)
         {
             Debug.LogError(
-                "DiscRunManager: ResultScreenController°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê¾Æ " +
-                "ÃÖÁ¾ °á°ú È­¸éÀ» Ç¥½ÃÇÒ ¼ö ¾ø½À´Ï´Ù.",
+                "DiscRunManager: ResultScreenControllerê°€ ì—°ê²°ë˜ì–´ ìˆì§€ ì•Šì•„ " +
+                "ìµœì¢… ê²°ê³¼ í™”ë©´ì„ í‘œì‹œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.",
                 this
             );
 

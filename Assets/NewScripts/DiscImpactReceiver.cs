@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DiscSlingshotController))]
@@ -10,57 +10,57 @@ public class DiscImpactReceiver : MonoBehaviour
     [SerializeField] private DiscDurability durability;
 
     [Header("Impact Filter")]
-    [Tooltip("ÀÌ ·¹ÀÌ¾î¿¡ ¼ÓÇÑ ¹°Ã¼¿Í Ãæµ¹ÇßÀ» ¶§¸¸ Ã³¸®ÇÕ´Ï´Ù.")]
+    [Tooltip("ì´ ë ˆì´ì–´ì— ì†í•œ ë¬¼ì²´ì™€ ì¶©ëŒí–ˆì„ ë•Œë§Œ ì²˜ë¦¬í•©ë‹ˆë‹¤.")]
     [SerializeField] private LayerMask impactLayers = ~0;
 
-    [Tooltip("ÀÌ ¼Óµµº¸´Ù ´À¸° Ãæµ¹Àº ¹«½ÃÇÕ´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ë³´ë‹¤ ëŠë¦° ì¶©ëŒì€ ë¬´ì‹œí•©ë‹ˆë‹¤.")]
     [SerializeField] private float minImpactSpeed = 0.1f;
 
-    [Tooltip("OnCollisionStay¿¡¼­µµ µ¥¹ÌÁö¸¦ ÁÙÁö ¿©ºÎÀÔ´Ï´Ù. ±âº»Àº false ÃßÃµÀÔ´Ï´Ù.")]
+    [Tooltip("OnCollisionStayì—ì„œë„ ë°ë¯¸ì§€ë¥¼ ì¤„ì§€ ì—¬ë¶€ì…ë‹ˆë‹¤. ê¸°ë³¸ì€ false ì¶”ì²œì…ë‹ˆë‹¤.")]
     [SerializeField] private bool handleCollisionStay = false;
 
     [Header("Damage")]
-    [Tooltip("¸ğµç ImpactDamageProfileÀÇ ÃÖÁ¾ µ¥¹ÌÁö¿¡ °öÇØÁö´Â ÀüÃ¼ ¹èÀ²ÀÔ´Ï´Ù.")]
+    [Tooltip("ëª¨ë“  ImpactDamageProfileì˜ ìµœì¢… ë°ë¯¸ì§€ì— ê³±í•´ì§€ëŠ” ì „ì²´ ë°°ìœ¨ì…ë‹ˆë‹¤.")]
     [SerializeField] private float globalDamageMultiplier = 1f;
 
-    [Tooltip("Ã¹ Ãæµ¹ ÈÄ Settling »óÅÂ¿¡¼­µµ 2Â÷, 3Â÷ Ãæµ¹ µ¥¹ÌÁö¸¦ Àû¿ëÇÕ´Ï´Ù.")]
+    [Tooltip("ì²« ì¶©ëŒ í›„ Settling ìƒíƒœì—ì„œë„ 2ì°¨, 3ì°¨ ì¶©ëŒ ë°ë¯¸ì§€ë¥¼ ì ìš©í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool applyDamageWhileSettling = true;
 
-    [Tooltip("Settling Áß Ãß°¡ Ãæµ¹ µ¥¹ÌÁö ¹èÀ²ÀÔ´Ï´Ù. 1ÀÌ¸é µ¿ÀÏ µ¥¹ÌÁö, 0.5¸é Àı¹İÀÔ´Ï´Ù.")]
+    [Tooltip("Settling ì¤‘ ì¶”ê°€ ì¶©ëŒ ë°ë¯¸ì§€ ë°°ìœ¨ì…ë‹ˆë‹¤. 1ì´ë©´ ë™ì¼ ë°ë¯¸ì§€, 0.5ë©´ ì ˆë°˜ì…ë‹ˆë‹¤.")]
     [SerializeField] private float settlingDamageMultiplier = 0.75f;
 
-    [Tooltip("OnCollisionStay·Î µé¾î¿Â µ¥¹ÌÁö ¹èÀ²ÀÔ´Ï´Ù. handleCollisionStay¸¦ ÄÓ ¶§¸¸ ÀÇ¹Ì ÀÖ½À´Ï´Ù.")]
+    [Tooltip("OnCollisionStayë¡œ ë“¤ì–´ì˜¨ ë°ë¯¸ì§€ ë°°ìœ¨ì…ë‹ˆë‹¤. handleCollisionStayë¥¼ ì¼¤ ë•Œë§Œ ì˜ë¯¸ ìˆìŠµë‹ˆë‹¤.")]
     [SerializeField] private float stayDamageMultiplier = 0.5f;
 
     [Header("Damage Cooldown")]
-    [Tooltip("¸ğµç Ãæµ¹ µ¥¹ÌÁö »çÀÌÀÇ ÃÖ¼Ò °£°İÀÔ´Ï´Ù.")]
+    [Tooltip("ëª¨ë“  ì¶©ëŒ ë°ë¯¸ì§€ ì‚¬ì´ì˜ ìµœì†Œ ê°„ê²©ì…ë‹ˆë‹¤.")]
     [SerializeField] private float globalDamageCooldown = 0.05f;
 
-    [Tooltip("°°Àº Collider¿¡¼­ ´Ù½Ã µ¥¹ÌÁö¸¦ ¹ŞÀ» ¼ö ÀÖ´Â ÃÖ¼Ò °£°İÀÔ´Ï´Ù.")]
+    [Tooltip("ê°™ì€ Colliderì—ì„œ ë‹¤ì‹œ ë°ë¯¸ì§€ë¥¼ ë°›ì„ ìˆ˜ ìˆëŠ” ìµœì†Œ ê°„ê²©ì…ë‹ˆë‹¤.")]
     [SerializeField] private float sameColliderDamageCooldown = 0.35f;
 
     [Header("Missing Profile")]
-    [Tooltip("ImpactDamageProfileÀÌ ¾ø´Â ¹°Ã¼¿¡ ºÎµúÇûÀ» ¶§µµ Ã¹ Ãæµ¹ÀÌ¸é ÅõÃ´ Á¾·á Ã³¸®¸¦ ÇÒÁö ¿©ºÎÀÔ´Ï´Ù.")]
+    [Tooltip("ImpactDamageProfileì´ ì—†ëŠ” ë¬¼ì²´ì— ë¶€ë”ªí˜”ì„ ë•Œë„ ì²« ì¶©ëŒì´ë©´ íˆ¬ì²™ ì¢…ë£Œ ì²˜ë¦¬ë¥¼ í• ì§€ ì—¬ë¶€ì…ë‹ˆë‹¤.")]
     [SerializeField] private bool endThrowWhenProfileMissing = true;
 
-    [Tooltip("ImpactDamageProfileÀÌ ¾ø´Â ¹°Ã¼¿¡ ºÎµúÇûÀ» ¶§ Àû¿ëÇÒ ±âº» µ¥¹ÌÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ImpactDamageProfileì´ ì—†ëŠ” ë¬¼ì²´ì— ë¶€ë”ªí˜”ì„ ë•Œ ì ìš©í•  ê¸°ë³¸ ë°ë¯¸ì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private float fallbackDamageWhenProfileMissing = 0f;
 
     [Header("Throw Ending Guard")]
-    [Tooltip("½ÇÁ¦ ¹ß»ç Á÷ÈÄ ÀÌ ½Ã°£ µ¿¾È Ã¹ Ãæµ¹ Á¾·á ÆÇÁ¤À» ¸·½À´Ï´Ù.")]
+    [Tooltip("ì‹¤ì œ ë°œì‚¬ ì§í›„ ì´ ì‹œê°„ ë™ì•ˆ ì²« ì¶©ëŒ ì¢…ë£Œ íŒì •ì„ ë§‰ìŠµë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float throwEndingArmDelay = 0.12f;
 
     [Tooltip(
-        "Á¢ÃË¸é normal ¹æÇâ ¼Óµµ°¡ ÀÌ °ª ÀÌ»óÀÏ ¶§¸¸ " +
-        "ÅõÃ´ Á¾·á Ãæµ¹·Î ÀÎÁ¤ÇÕ´Ï´Ù."
+        "ì ‘ì´‰ë©´ normal ë°©í–¥ ì†ë„ê°€ ì´ ê°’ ì´ìƒì¼ ë•Œë§Œ " +
+        "íˆ¬ì²™ ì¢…ë£Œ ì¶©ëŒë¡œ ì¸ì •í•©ë‹ˆë‹¤."
     )]
     [SerializeField, Min(0f)]
     private float minThrowEndingNormalSpeed = 0.75f;
 
     [Tooltip(
-        "OnCollisionStay°¡ Ã¹ SettlingÀ» ½ÃÀÛÇÏµµ·Ï Çã¿ëÇÒÁöÀÔ´Ï´Ù. " +
-        "ÀÏ´Ü false¸¦ ±ÇÀåÇÕ´Ï´Ù."
+        "OnCollisionStayê°€ ì²« Settlingì„ ì‹œì‘í•˜ë„ë¡ í—ˆìš©í• ì§€ì…ë‹ˆë‹¤. " +
+        "ì¼ë‹¨ falseë¥¼ ê¶Œì¥í•©ë‹ˆë‹¤."
     )]
     [SerializeField]
     private bool allowStayToEndThrow = false;
@@ -243,7 +243,7 @@ public class DiscImpactReceiver : MonoBehaviour
         if (logImpacts)
         {
             Debug.LogWarning(
-                $"ImpactDamageProfileÀÌ ¾ø´Â ¹°Ã¼¿Í Ãæµ¹Çß½À´Ï´Ù: {collision.collider.name}"
+                $"ImpactDamageProfileì´ ì—†ëŠ” ë¬¼ì²´ì™€ ì¶©ëŒí–ˆìŠµë‹ˆë‹¤: {collision.collider.name}"
             );
         }
 
@@ -343,14 +343,14 @@ public class DiscImpactReceiver : MonoBehaviour
         if (firstEndingImpactSentToRunManager)
             return;
 
-        // Ready³ª Dragging »óÅÂ¿¡¼­´Â Àı´ë SettlingÀ» ½ÃÀÛÇÏÁö ¾Ê½À´Ï´Ù.
+        // Readyë‚˜ Dragging ìƒíƒœì—ì„œëŠ” ì ˆëŒ€ Settlingì„ ì‹œì‘í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
         if (!discController.IsFlying)
             return;
 
         if (!impactInfo.endsThrow)
             return;
 
-        // ¹ß»ç Á÷ÈÄ ±âÁ¸ Á¢ÃËÀÌ³ª °ãÄ§À¸·Î »ı±â´Â ÀÌº¥Æ®¸¦ ¹«½ÃÇÕ´Ï´Ù.
+        // ë°œì‚¬ ì§í›„ ê¸°ì¡´ ì ‘ì´‰ì´ë‚˜ ê²¹ì¹¨ìœ¼ë¡œ ìƒê¸°ëŠ” ì´ë²¤íŠ¸ë¥¼ ë¬´ì‹œí•©ë‹ˆë‹¤.
         if (Time.time < throwEndingArmedTime)
         {
             if (logImpacts)
@@ -366,14 +366,14 @@ public class DiscImpactReceiver : MonoBehaviour
             return;
         }
 
-        // Áö¼Ó Á¢ÃËÀº ±âº»ÀûÀ¸·Î Ã¹ Ãæµ¹ Á¾·á ÆÇÁ¤¿¡ »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.
+        // ì§€ì† ì ‘ì´‰ì€ ê¸°ë³¸ì ìœ¼ë¡œ ì²« ì¶©ëŒ ì¢…ë£Œ íŒì •ì— ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
         if (phase == CollisionPhase.Stay &&
             !allowStayToEndThrow)
         {
             return;
         }
 
-        // ¹Ù´Ú À§ ¼öÆò ¹Ì²ô·¯ÁüÀÌ³ª ½ºÄ¡´Â Á¢ÃËÀº ÅõÃ´ Á¾·á·Î º¸Áö ¾Ê½À´Ï´Ù.
+        // ë°”ë‹¥ ìœ„ ìˆ˜í‰ ë¯¸ë„ëŸ¬ì§ì´ë‚˜ ìŠ¤ì¹˜ëŠ” ì ‘ì´‰ì€ íˆ¬ì²™ ì¢…ë£Œë¡œ ë³´ì§€ ì•ŠìŠµë‹ˆë‹¤.
         if (normalImpactSpeed <
             minThrowEndingNormalSpeed)
         {

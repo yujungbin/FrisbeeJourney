@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Unity.Cinemachine;
 
 public class DiscCinemachineSwitcher : MonoBehaviour
@@ -129,7 +129,7 @@ public class DiscCinemachineSwitcher : MonoBehaviour
         if (followTargetFollower == null)
             followTargetFollower = followTarget.GetComponent<DiscCameraTargetFollower>();
 
-        // Ä«¸Ş¶ó ÀüÈ¯ Á÷Àü¿¡ Å¸°ÙÀ» ÃÖ½Å ¿ø¹İ À§Ä¡·Î °­Á¦ °»½Å.
+        // ì¹´ë©”ë¼ ì „í™˜ ì§ì „ì— íƒ€ê²Ÿì„ ìµœì‹  ì›ë°˜ ìœ„ì¹˜ë¡œ ê°•ì œ ê°±ì‹ .
         if (followTargetFollower != null)
             followTargetFollower.SnapToDisc();
 

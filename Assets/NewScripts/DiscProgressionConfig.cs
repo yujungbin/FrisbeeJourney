@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -47,29 +47,30 @@ public sealed class DiscProgressionConfig : ScriptableObject
 
     [Header("Lift Upgrade")]
 
-    [Tooltip("·¹º§ 0¿¡¼­ »ç¿ëÇÏ´Â ±âº» LiftÀÔ´Ï´Ù.")]
+    [Tooltip("ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½âº» Liftï¿½Ô´Ï´ï¿½.")]
     [FormerlySerializedAs("fixedLift")]
     [SerializeField, Range(0f, 1f)]
     private float baseLift = 0.65f;
 
     [Tooltip(
-        "·¹º§ 0¿¡¼­ 1·Î ¿Ã¶ó°¥ ¶§ Áõ°¡ÇÏ´Â LiftÀÔ´Ï´Ù. " +
-        "0¿¡¼­ 1 »çÀÌ·Î Á¦ÇÑµË´Ï´Ù."
+        "ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ã¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Liftï¿½Ô´Ï´ï¿½. " +
+        "0ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ÑµË´Ï´ï¿½."
     )]
     [SerializeField, Range(0f, 1f)]
     private float liftFirstLevelIncrease = 0.04f;
 
     [Tooltip(
-        "´ÙÀ½ ·¹º§ÀÇ Áõ°¡·®ÀÌ ÀÌÀü Áõ°¡·®ÀÇ ¸î ¹èÀÎÁöÀÔ´Ï´Ù. " +
-        "1ÀÌ¸é ¸Å ·¹º§ Áõ°¡·®ÀÌ °°°í, 1º¸´Ù ÀÛÀ¸¸é Áõ°¡·®ÀÌ Á¡Â÷ °¨¼ÒÇÕ´Ï´Ù."
+        "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½. " +
+        "1ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½."
     )]
     [FormerlySerializedAs("flightIncreaseRetention")]
+
     [SerializeField, Range(0.01f, 1f)]
     private float liftIncreaseRetention = 0.9f;
 
     [Tooltip(
-        "LiftÀÇ Àı´ë ÃÖ´ë°ªÀÔ´Ï´Ù. " +
-        "0¿¡¼­ 1 »çÀÌ·Î¸¸ ¼³Á¤ÇÒ ¼ö ÀÖ½À´Ï´Ù."
+        "Liftï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ë°ªï¿½Ô´Ï´ï¿½. " +
+        "0ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ì·Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½."
     )]
     [SerializeField, Range(0f, 1f)]
     private float maximumLift = 1f;
@@ -93,7 +94,7 @@ public sealed class DiscProgressionConfig : ScriptableObject
     [SerializeField, Min(1f)]
     private float baseMaxDurability = 100f;
 
-    [Tooltip("³»±¸µµ´Â ·¹º§¸¶´Ù ÀÌ °ª¸¸Å­ ÀÏÁ¤ÇÏ°Ô Áõ°¡ÇÕ´Ï´Ù.")]
+    [Tooltip("ë‚´êµ¬ë„ëŠ” ë ˆë²¨ë§ˆë‹¤ ì´ ê°’ë§Œí¼ ì¼ì •í•˜ê²Œ ì¦ê°€í•©ë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float durabilityPerLevel = 10f;
 
@@ -104,21 +105,21 @@ public sealed class DiscProgressionConfig : ScriptableObject
     private UpgradeCostRule durabilityUpgradeCost =
         new UpgradeCostRule();
 
-
     // ==================================================
     // Income Upgrade
     // ==================================================
 
     [Header("Income Upgrade")]
 
-    [Tooltip("±âº» ÄÚÀÎ È¹µæ ¹è¼öÀÔ´Ï´Ù. 1ÀÌ¸é 100%ÀÔ´Ï´Ù.")]
+    [Tooltip("ï¿½âº» ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½. 1ï¿½Ì¸ï¿½ 100%ï¿½Ô´Ï´ï¿½.")]
     [SerializeField, Min(0f)]
     private float baseIncomeMultiplier = 1f;
 
     [Tooltip(
-        "¼öÀÔ ·¹º§¸¶´Ù ÀÏÁ¤ÇÏ°Ô Áõ°¡ÇÏ´Â ¹è¼öÀÔ´Ï´Ù. " +
-        "0.1ÀÌ¸é ·¹º§¸¶´Ù +10%ÀÔ´Ï´Ù."
+        "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½. " +
+        "0.1ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +10%ï¿½Ô´Ï´ï¿½."
     )]
+
     [SerializeField, Min(0f)]
     private float incomeMultiplierPerLevel = 0.1f;
 
@@ -137,7 +138,7 @@ public sealed class DiscProgressionConfig : ScriptableObject
     [Header("Fixed Physics")]
 
     [Tooltip(
-        "¾÷±×·¹ÀÌµåµÇÁö ¾Ê´Â °íÁ¤ Initial ThrustÀÔ´Ï´Ù."
+        "ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ Initial Thrustï¿½Ô´Ï´ï¿½."
     )]
     [FormerlySerializedAs("baseInitialThrust")]
     [SerializeField, Min(0.01f)]
@@ -256,25 +257,27 @@ public sealed class DiscProgressionConfig : ScriptableObject
             liftIncreaseRetention,
             1f))
         {
-            // ¸Å ·¹º§ °°Àº °ª¸¸Å­ Áõ°¡
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
             totalIncrease =
                 liftFirstLevelIncrease *
                 level;
         }
         else
         {
+
             /*
-             * °¨¼ÒÇÏ´Â µîºñ¼ö¿­ÀÇ ÇÕ
+             * ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
              *
-             * Lv.1 Áõ°¡·®:
+             * Lv.1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
              * firstIncrease
              *
-             * Lv.2 Áõ°¡·®:
-             * firstIncrease ¡¿ retention
+             * Lv.2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+             * firstIncrease ï¿½ï¿½ retention
              *
-             * Lv.3 Áõ°¡·®:
-             * firstIncrease ¡¿ retention©÷
+             * Lv.3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+             * firstIncrease ï¿½ï¿½ retentionï¿½ï¿½
              */
+
             totalIncrease =
                 liftFirstLevelIncrease *
                 (
@@ -335,8 +338,8 @@ public sealed class DiscProgressionConfig : ScriptableObject
             );
 
         /*
-         * maximumLift¿¡ ÀÏÂï µµ´ŞÇß´Ù¸é
-         * ±× µÚ ·¹º§À» ±¸¸ÅÇÏÁö ¸øÇÏ°Ô ½ÇÁ¦ ÃÖ´ë ·¹º§À» ÁÙÀÔ´Ï´Ù.
+         * maximumLiftï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½
+         * ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
          */
         for (int level = 0;
              level < configuredMaximumLevel;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ImpactDamageProfile : MonoBehaviour
 {
@@ -6,31 +6,31 @@ public class ImpactDamageProfile : MonoBehaviour
     [SerializeField] private string surfaceName = "Obstacle";
 
     [Header("Throw Behavior")]
-    [Tooltip("true¸é ÀÌ ¹°Ã¼¿Í ºÎµúÈù ÈÄ ÅõÃ´ÀÌ Settling »óÅÂ·Î ³Ñ¾î°©´Ï´Ù.")]
+    [Tooltip("trueë©´ ì´ ë¬¼ì²´ì™€ ë¶€ë”ªíŒ í›„ íˆ¬ì²™ì´ Settling ìƒíƒœë¡œ ë„˜ì–´ê°‘ë‹ˆë‹¤.")]
     [SerializeField] private bool endThrowOnImpact = true;
 
     [Header("Damage")]
-    [Tooltip("À¯È¿ Ãæµ¹ ½Ã ±âº»À¸·Î µé¾î°¡´Â µ¥¹ÌÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ìœ íš¨ ì¶©ëŒ ì‹œ ê¸°ë³¸ìœ¼ë¡œ ë“¤ì–´ê°€ëŠ” ë°ë¯¸ì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private float baseDamage = 5f;
 
-    [Tooltip("Ãæµ¹ ¼Óµµ 1´ç Ãß°¡ µ¥¹ÌÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ ì†ë„ 1ë‹¹ ì¶”ê°€ ë°ë¯¸ì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private float damagePerSpeed = 1f;
 
-    [Tooltip("ÀÌ ¼Óµµº¸´Ù ´À¸®¸é µ¥¹ÌÁö¸¦ 0À¸·Î º¾´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ë³´ë‹¤ ëŠë¦¬ë©´ ë°ë¯¸ì§€ë¥¼ 0ìœ¼ë¡œ ë´…ë‹ˆë‹¤.")]
     [SerializeField] private float minDamageSpeed = 0.5f;
 
-    [Tooltip("0º¸´Ù Å©¸é Ãæµ¹ 1È¸´ç ÃÖ´ë µ¥¹ÌÁö¸¦ Á¦ÇÑÇÕ´Ï´Ù.")]
+    [Tooltip("0ë³´ë‹¤ í¬ë©´ ì¶©ëŒ 1íšŒë‹¹ ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì œí•œí•©ë‹ˆë‹¤.")]
     [SerializeField] private float maxDamage = 50f;
 
-    [Tooltip("¹°Ã¼º° ÃÖÁ¾ µ¥¹ÌÁö ¹èÀ²ÀÔ´Ï´Ù.")]
+    [Tooltip("ë¬¼ì²´ë³„ ìµœì¢… ë°ë¯¸ì§€ ë°°ìœ¨ì…ë‹ˆë‹¤.")]
     [SerializeField] private float damageMultiplier = 1f;
 
     [Header("Angle")]
-    [Tooltip("½ºÄ¡µí ºÎµúÇûÀ» ¶§ÀÇ ÃÖ¼Ò µ¥¹ÌÁö ºñÀ²ÀÔ´Ï´Ù. 0.25¸é Á¤¸é Ãæµ¹ ´ëºñ 25%ÀÔ´Ï´Ù.")]
+    [Tooltip("ìŠ¤ì¹˜ë“¯ ë¶€ë”ªí˜”ì„ ë•Œì˜ ìµœì†Œ ë°ë¯¸ì§€ ë¹„ìœ¨ì…ë‹ˆë‹¤. 0.25ë©´ ì •ë©´ ì¶©ëŒ ëŒ€ë¹„ 25%ì…ë‹ˆë‹¤.")]
     [SerializeField, Range(0f, 1f)]
     private float glancingDamageMultiplier = 0.35f;
 
-    [Tooltip("Ãæµ¹ °¢µµ ¹Î°¨µµÀÔ´Ï´Ù. °ªÀÌ Å¬¼ö·Ï Á¤¸é Ãæµ¹°ú ½ºÄ§ Ãæµ¹ÀÇ Â÷ÀÌ°¡ Ä¿Áı´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ ê°ë„ ë¯¼ê°ë„ì…ë‹ˆë‹¤. ê°’ì´ í´ìˆ˜ë¡ ì •ë©´ ì¶©ëŒê³¼ ìŠ¤ì¹¨ ì¶©ëŒì˜ ì°¨ì´ê°€ ì»¤ì§‘ë‹ˆë‹¤.")]
     [SerializeField] private float angleExponent = 1.5f;
 
     [Header("Special")]
@@ -110,7 +110,7 @@ public class ImpactDamageProfile : MonoBehaviour
         Vector3 velocityDirection = relativeVelocity.normalized;
         Vector3 normalDirection = hitNormal.normalized;
 
-        // Á¤¸é Ãæµ¹ÀÌ¸é 1¿¡ °¡±õ°í, ½ºÄ¡¸é 0¿¡ °¡±õ½À´Ï´Ù.
+        // ì •ë©´ ì¶©ëŒì´ë©´ 1ì— ê°€ê¹ê³ , ìŠ¤ì¹˜ë©´ 0ì— ê°€ê¹ìŠµë‹ˆë‹¤.
         return Mathf.Clamp01(
             Mathf.Abs(Vector3.Dot(velocityDirection, normalDirection))
         );

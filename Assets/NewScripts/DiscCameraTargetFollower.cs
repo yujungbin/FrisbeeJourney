@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class DiscCameraTargetFollower : MonoBehaviour
 {
@@ -17,36 +17,36 @@ public class DiscCameraTargetFollower : MonoBehaviour
     [SerializeField] private UpdateMode updateMode = UpdateMode.Manual;
 
     [Header("Base Offset")]
-    [Tooltip("TrackRoot ±âÁØ ¿ÀÇÁ¼ÂÀÔ´Ï´Ù. X´Â ÁÂ¿ì, Y´Â ³ôÀÌ, Z´Â Àü¹æÀÔ´Ï´Ù.")]
+    [Tooltip("TrackRoot ê¸°ì¤€ ì˜¤í”„ì…‹ì…ë‹ˆë‹¤. XëŠ” ì¢Œìš°, YëŠ” ë†’ì´, ZëŠ” ì „ë°©ì…ë‹ˆë‹¤.")]
     [SerializeField] private Vector3 localOffset = new Vector3(0f, 0.6f, 0f);
 
     [Header("Screen Lateral Framing")]
-    [Tooltip("true¸é ¿ø¹İÀÇ ½ÇÁ¦ ÁÂ¿ì ¹°¸® À§Ä¡°¡ ¾Æ´Ï¶ó steer ÀÔ·ÂÀ¸·Î È­¸é»ó ÁÂ¿ì À§Ä¡¸¦ ¸¸µì´Ï´Ù.")]
+    [Tooltip("trueë©´ ì›ë°˜ì˜ ì‹¤ì œ ì¢Œìš° ë¬¼ë¦¬ ìœ„ì¹˜ê°€ ì•„ë‹ˆë¼ steer ì…ë ¥ìœ¼ë¡œ í™”ë©´ìƒ ì¢Œìš° ìœ„ì¹˜ë¥¼ ë§Œë“­ë‹ˆë‹¤.")]
     [SerializeField] private bool useSteerDrivenScreenOffset = true;
 
-    [Tooltip("steer¸¦ ÃÖ´ë·Î ÁáÀ» ¶§ ¿ø¹İÀÌ È­¸é»ó ÁÂ¿ì·Î ÀÌµ¿ÇÏ´Â ÃÖ´ë °Å¸®ÀÔ´Ï´Ù. ¿ùµå ´ÜÀ§ÀÔ´Ï´Ù.")]
+    [Tooltip("steerë¥¼ ìµœëŒ€ë¡œ ì¤¬ì„ ë•Œ ì›ë°˜ì´ í™”ë©´ìƒ ì¢Œìš°ë¡œ ì´ë™í•˜ëŠ” ìµœëŒ€ ê±°ë¦¬ì…ë‹ˆë‹¤. ì›”ë“œ ë‹¨ìœ„ì…ë‹ˆë‹¤.")]
     [SerializeField] private float maxScreenLateralOffset = 1.4f;
 
-    [Tooltip("steer ÀÔ·ÂÀ¸·Î ¿ø¹İÀÌ È­¸é ÁÂ¿ì·Î ÀÌµ¿ÇÏ´Â ¼ÓµµÀÔ´Ï´Ù. °ªÀÌ Å¬¼ö·Ï Áï°¢ÀûÀ¸·Î ¿òÁ÷ÀÔ´Ï´Ù.")]
+    [Tooltip("steer ì…ë ¥ìœ¼ë¡œ ì›ë°˜ì´ í™”ë©´ ì¢Œìš°ë¡œ ì´ë™í•˜ëŠ” ì†ë„ì…ë‹ˆë‹¤. ê°’ì´ í´ìˆ˜ë¡ ì¦‰ê°ì ìœ¼ë¡œ ì›€ì§ì…ë‹ˆë‹¤.")]
     [SerializeField] private float screenOffsetMoveSpeed = 4.5f;
 
-    [Tooltip("steer¸¦ ³õ¾ÒÀ» ¶§ ¿ø¹İÀÌ È­¸é Áß½ÉÀ¸·Î µ¹¾Æ¿À´Â ¼ÓµµÀÔ´Ï´Ù.")]
+    [Tooltip("steerë¥¼ ë†“ì•˜ì„ ë•Œ ì›ë°˜ì´ í™”ë©´ ì¤‘ì‹¬ìœ¼ë¡œ ëŒì•„ì˜¤ëŠ” ì†ë„ì…ë‹ˆë‹¤.")]
     [SerializeField] private float screenOffsetReturnSpeed = 5.5f;
 
-    [Tooltip("ÀÌ °ªº¸´Ù ÀÛÀº steer ÀÔ·ÂÀº 0À¸·Î º¾´Ï´Ù.")]
+    [Tooltip("ì´ ê°’ë³´ë‹¤ ì‘ì€ steer ì…ë ¥ì€ 0ìœ¼ë¡œ ë´…ë‹ˆë‹¤.")]
     [SerializeField] private float steerDeadZone = 0.05f;
 
-    [Tooltip("1ÀÌ¸é ¼±Çü, 2¸é ¾àÇÑ steer ÀÔ·Â ¹İÀÀÀÌ ÁÙ¾îµì´Ï´Ù.")]
+    [Tooltip("1ì´ë©´ ì„ í˜•, 2ë©´ ì•½í•œ steer ì…ë ¥ ë°˜ì‘ì´ ì¤„ì–´ë“­ë‹ˆë‹¤.")]
     [SerializeField] private float steerResponseExponent = 1f;
 
-    [Tooltip("È­¸é»ó ÁÂ¿ì ÀÌµ¿ ¹æÇâÀÌ ¹İ´ë·Î ´À²¸Áö¸é ÄÑ¼¼¿ä.")]
+    [Tooltip("í™”ë©´ìƒ ì¢Œìš° ì´ë™ ë°©í–¥ì´ ë°˜ëŒ€ë¡œ ëŠê»´ì§€ë©´ ì¼œì„¸ìš”.")]
     [SerializeField] private bool invertScreenOffset = false;
 
     [Header("Base Position Stabilization")]
-    [Tooltip("0ÀÌ¸é ¿ø¹İ À§Ä¡¸¦ Áï½Ã µû¶ó°©´Ï´Ù. ±×·¡µµ Ä«¸Ş¶ó ¹è°æÀÌ ¶³¸®¸é 0.01~0.03 Á¤µµ¸¸ »ç¿ëÇÏ¼¼¿ä.")]
+    [Tooltip("0ì´ë©´ ì›ë°˜ ìœ„ì¹˜ë¥¼ ì¦‰ì‹œ ë”°ë¼ê°‘ë‹ˆë‹¤. ê·¸ë˜ë„ ì¹´ë©”ë¼ ë°°ê²½ì´ ë–¨ë¦¬ë©´ 0.01~0.03 ì •ë„ë§Œ ì‚¬ìš©í•˜ì„¸ìš”.")]
     [SerializeField] private float basePositionLag = 0f;
 
-    [Tooltip("ÀçÅõÃ´/¸®¼Â µîÀ¸·Î ÀÌ °Å¸® ÀÌ»ó ¹ú¾îÁö¸é Áï½Ã ºÙ½À´Ï´Ù.")]
+    [Tooltip("ì¬íˆ¬ì²™/ë¦¬ì…‹ ë“±ìœ¼ë¡œ ì´ ê±°ë¦¬ ì´ìƒ ë²Œì–´ì§€ë©´ ì¦‰ì‹œ ë¶™ìŠµë‹ˆë‹¤.")]
     [SerializeField] private float snapDistance = 8f;
 
     [Header("Rotation")]
@@ -117,9 +117,9 @@ public class DiscCameraTargetFollower : MonoBehaviour
         Vector3 forward = GetPlanarForward();
         Vector3 right = GetPlanarRight(forward);
 
-        // ÇÙ½É:
-        // currentScreenLateralOffsetÀÌ ¾ç¼öÀÌ¸é ¿ø¹İÀÌ È­¸é ¿À¸¥ÂÊ¿¡ º¸ÀÌµµ·Ï,
-        // Ä«¸Ş¶ó Å¸°ÙÀº ¿ø¹İ ±âÁØ ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.
+        // í•µì‹¬:
+        // currentScreenLateralOffsetì´ ì–‘ìˆ˜ì´ë©´ ì›ë°˜ì´ í™”ë©´ ì˜¤ë¥¸ìª½ì— ë³´ì´ë„ë¡,
+        // ì¹´ë©”ë¼ íƒ€ê²Ÿì€ ì›ë°˜ ê¸°ì¤€ ì™¼ìª½ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.
         Vector3 targetPosition =
             smoothedBasePosition -
             right * currentScreenLateralOffset;
