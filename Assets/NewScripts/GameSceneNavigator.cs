@@ -31,70 +31,88 @@ public sealed class GameSceneNavigator : MonoBehaviour
     /// 임시 코인을 영구 코인으로 정산한 뒤 StartScene으로 돌아갑니다.
     /// 결과 화면의 QUIT / COLLECT 버튼에서 이 메서드를 호출합니다.
     /// </summary>
+    //public void ReturnToStartScene()
+    //{
+    //    if (isLoading)
+    //        return;
+
+    //    if (!ValidateStartScene())
+    //        return;
+
+    //    isLoading = true;
+
+    //    int pendingCoinsBeforeCommit =
+    //        runCoinBank != null
+    //            ? runCoinBank.PendingCoins
+    //            : 0;
+
+    //    if (commitPendingCoinsBeforeReturn)
+    //    {
+    //        if (runCoinBank == null)
+    //        {
+    //            Debug.LogError(
+    //                "GameSceneNavigator: RunCoinBank가 연결되지 않아 " +
+    //                "코인을 정산하지 않고 Scene을 이동할 수 없습니다.",
+    //                this
+    //            );
+
+    //            isLoading = false;
+    //            return;
+    //        }
+
+    //        bool committed =
+    //            runCoinBank.CommitPendingCoins();
+
+    //        if (!committed)
+    //        {
+    //            Debug.LogError(
+    //                "GameSceneNavigator: 코인 정산에 실패하여 " +
+    //                "StartScene 이동을 취소했습니다.",
+    //                this
+    //            );
+
+    //            isLoading = false;
+    //            return;
+    //        }
+    //    }
+
+    //    // 결과 UI에서 Time.timeScale을 0으로 설정했을 경우 복구합니다.
+    //    Time.timeScale = 1f;
+
+    //    if (logNavigation)
+    //    {
+    //        Debug.Log(
+    //            $"Returning to StartScene | " +
+    //            $"scene: {startSceneName}, " +
+    //            $"committed pending coins: {pendingCoinsBeforeCommit}",
+    //            this
+    //        );
+    //    }
+
+    //    SceneManager.LoadScene(
+    //        startSceneName,
+    //        LoadSceneMode.Single
+    //    );
+    //}
     public void ReturnToStartScene()
     {
         if (isLoading)
             return;
 
-        if (!ValidateStartScene())
-            return;
+        if (runCoinBank != null)
+        {
+            runCoinBank.CommitPendingCoins();
+        }
 
         isLoading = true;
 
-        int pendingCoinsBeforeCommit =
-            runCoinBank != null
-                ? runCoinBank.PendingCoins
-                : 0;
-
-        if (commitPendingCoinsBeforeReturn)
-        {
-            if (runCoinBank == null)
-            {
-                Debug.LogError(
-                    "GameSceneNavigator: RunCoinBank가 연결되지 않아 " +
-                    "코인을 정산하지 않고 Scene을 이동할 수 없습니다.",
-                    this
-                );
-
-                isLoading = false;
-                return;
-            }
-
-            bool committed =
-                runCoinBank.CommitPendingCoins();
-
-            if (!committed)
-            {
-                Debug.LogError(
-                    "GameSceneNavigator: 코인 정산에 실패하여 " +
-                    "StartScene 이동을 취소했습니다.",
-                    this
-                );
-
-                isLoading = false;
-                return;
-            }
-        }
-
-        // 결과 UI에서 Time.timeScale을 0으로 설정했을 경우 복구합니다.
         Time.timeScale = 1f;
-
-        if (logNavigation)
-        {
-            Debug.Log(
-                $"Returning to StartScene | " +
-                $"scene: {startSceneName}, " +
-                $"committed pending coins: {pendingCoinsBeforeCommit}",
-                this
-            );
-        }
 
         SceneManager.LoadScene(
             startSceneName,
             LoadSceneMode.Single
         );
     }
-
     private bool ValidateStartScene()
     {
         if (string.IsNullOrWhiteSpace(startSceneName))

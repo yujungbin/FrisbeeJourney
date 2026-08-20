@@ -15,7 +15,7 @@ public class RunCoinBank : MonoBehaviour
     private CoinChangedEvent onPendingCoinsChanged =
         new CoinChangedEvent();
 
-    // ¼Ò¼ö ¹èÀ²À» ÀÒÁö ¾Êµµ·Ï ³»ºÎÀûÀ¸·Î float·Î ´©ÀûÇÕ´Ï´Ù.
+    // ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ floatï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     private float pendingCoinCredit;
 
     public int PendingCoins =>
@@ -53,8 +53,8 @@ public class RunCoinBank : MonoBehaviour
         if (progressionStore == null)
         {
             Debug.LogError(
-                "RunCoinBank: Progression Store°¡ ¿¬°áµÇÁö ¾Ê¾Æ " +
-                "ÀÓ½Ã ÄÚÀÎÀ» ÀúÀåÇÒ ¼ö ¾ø½À´Ï´Ù.",
+                "RunCoinBank: Progression Storeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ " +
+                "ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.",
                 this
             );
 
@@ -66,13 +66,13 @@ public class RunCoinBank : MonoBehaviour
         if (payout > 0)
         {
             /*
-             * DiscProgressionStore.AddCoins() ¾È¿¡¼­
-             * Save()¿Í NotifyChanged()°¡ È£ÃâµÇ¾î¾ß ÇÕ´Ï´Ù.
+             * DiscProgressionStore.AddCoins() ï¿½È¿ï¿½ï¿½ï¿½
+             * Save()ï¿½ï¿½ NotifyChanged()ï¿½ï¿½ È£ï¿½ï¿½Ç¾ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
              */
             progressionStore.AddCoins(payout);
         }
 
-        // Á¤»êÀÌ ³¡³µÀ¸¹Ç·Î ÀÌ¹ø ·±ÀÇ ÀÓ½Ã ÄÚÀÎÀº ºñ¿ó´Ï´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.
         pendingCoinCredit = 0f;
         NotifyChanged();
 
@@ -84,6 +84,10 @@ public class RunCoinBank : MonoBehaviour
         );
 
         return true;
+    }
+    public void CommitPendingCoinsFromUI()
+    {
+        CommitPendingCoins();
     }
 
     public void DiscardPendingCoins()

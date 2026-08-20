@@ -8,8 +8,8 @@ PhysicsMaterial:
   m_PrefabAsset: {fileID: 0}
   m_Name: Terrain
   serializedVersion: 2
-  m_DynamicFriction: 0.7
-  m_StaticFriction: 0.7
-  m_Bounciness: 0.3
-  m_FrictionCombine: 0
-  m_BounceCombine: 0
+  m_DynamicFriction: 0.8
+  m_StaticFriction: 0.8
+  m_Bounciness: 0.04
+  m_FrictionCombine: 3
+  m_BounceCombine: 2

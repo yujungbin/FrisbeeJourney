@@ -41,7 +41,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     [Header("Text Formats")]
     [SerializeField]
-    private string coinsFormat = "ÄÚÀÎ: {0:N0}";
+    private string coinsFormat = "ï¿½ï¿½ï¿½ï¿½: {0:N0}";
 
     #endregion
 
@@ -71,8 +71,8 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (progressionStore == null)
             return;
 
-        // OnChanged°¡ ¾Æ´Ï¶ó ChangedÀÔ´Ï´Ù.
-        // Áßº¹ ±¸µ¶À» ¹æÁöÇÏ±â À§ÇØ ¸ÕÀú Á¦°ÅÇÕ´Ï´Ù.
+        // OnChangedï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ Changedï¿½Ô´Ï´ï¿½.
+        // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         progressionStore.Changed -= Refresh;
         progressionStore.Changed += Refresh;
     }
@@ -181,19 +181,19 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         {
             Debug.LogWarning(
                 "DiscUpgradePanel: " +
-                "Progression Store°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù."
+                "Progression Storeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½."
             );
 
             Refresh();
             return;
         }
 
-        // UI ´Ü°èÀÇ »çÀü °Ë»çÀÔ´Ï´Ù.
+        // UI ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ô´Ï´ï¿½.
         if (!CanUpgrade(upgradeType))
         {
             Debug.Log(
-                $"{GetUpgradeDisplayName(upgradeType)} ¾÷±×·¹ÀÌµå ºÒ°¡. " +
-                "ÄÚÀÎÀÌ ºÎÁ·ÇÏ°Å³ª ÃÖ´ë ·¹º§ÀÔ´Ï´Ù."
+                $"{GetUpgradeDisplayName(upgradeType)} ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ò°ï¿½. " +
+                "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½."
             );
 
             Refresh();
@@ -201,8 +201,8 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         }
 
         /*
-         * Store.TryUpgrade() ³»ºÎ¿¡¼­µµ CanUpgrade()¸¦ ´Ù½Ã °Ë»çÇÕ´Ï´Ù.
-         * Panel °Ë»ç´Â UI¿ëÀÌ°í, Store °Ë»ç´Â ½ÇÁ¦ µ¥ÀÌÅÍ º¸È£¿ëÀÔ´Ï´Ù.
+         * Store.TryUpgrade() ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ CanUpgrade()ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½Ë»ï¿½ï¿½Õ´Ï´ï¿½.
+         * Panel ï¿½Ë»ï¿½ï¿½ UIï¿½ï¿½ï¿½Ì°ï¿½, Store ï¿½Ë»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
          */
         bool upgraded =
             progressionStore.TryUpgrade(upgradeType);
@@ -210,16 +210,16 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (!upgraded)
         {
             Debug.LogWarning(
-                $"{GetUpgradeDisplayName(upgradeType)} ¾÷±×·¹ÀÌµå°¡ " +
-                "ÃÖÁ¾ °Ë»ç¿¡¼­ ½ÇÆÐÇß½À´Ï´Ù."
+                $"{GetUpgradeDisplayName(upgradeType)} ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå°¡ " +
+                "ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ç¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½."
             );
 
             Refresh();
         }
 
         /*
-         * ¼º°øÇÑ °æ¿ì DiscProgressionStore.NotifyChanged()°¡
-         * Changed ÀÌº¥Æ®¸¦ È£ÃâÇÏ°í, ±× ÀÌº¥Æ®·Î Refresh()°¡ ½ÇÇàµË´Ï´Ù.
+         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ DiscProgressionStore.NotifyChanged()ï¿½ï¿½
+         * Changed ï¿½Ìºï¿½Æ®ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ Refresh()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ë´Ï´ï¿½.
          */
     }
 
@@ -241,21 +241,21 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             SetAllButtonsInteractable(false);
 
             if (coinsText != null)
-                coinsText.text = "ÄÚÀÎ: -";
+                coinsText.text = "ï¿½ï¿½ï¿½ï¿½: -";
 
             if (flightPowerText != null)
-                flightPowerText.text = "ºñÇà·Â\n¿¬°áµÇÁö ¾ÊÀ½";
+                flightPowerText.text = "ï¿½ï¿½ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 
             if (durabilityText != null)
-                durabilityText.text = "³»±¸µµ\n¿¬°áµÇÁö ¾ÊÀ½";
+                durabilityText.text = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 
             if (incomeText != null)
-                incomeText.text = "¼öÀÔ\n¿¬°áµÇÁö ¾ÊÀ½";
+                incomeText.text = "ï¿½ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 
             return;
         }
 
-        // º¸À¯ ÄÚÀÎ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (coinsText != null)
         {
             coinsText.text = string.Format(
@@ -264,7 +264,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             );
         }
 
-        // °¢ ½ºÅÈ ¼³¸í
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (flightPowerText != null)
         {
             flightPowerText.text = BuildUpgradeText(
@@ -286,7 +286,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             );
         }
 
-        // °¢ ¹öÆ°ÀÇ È°¼ºÈ­ »óÅÂ
+        // ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         if (flightPowerButton != null)
         {
             flightPowerButton.interactable =
@@ -327,7 +327,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         DiscUpgradeType upgradeType)
     {
         if (progressionStore == null)
-            return "¿¬°áµÇÁö ¾ÊÀ½";
+            return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 
         string displayName =
             GetUpgradeDisplayName(upgradeType);
@@ -358,8 +358,8 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         return
             $"{displayName} Lv.{currentLevel}\n" +
             $"{FormatUpgradeValue(upgradeType, currentValue)}" +
-            $" ¡æ {FormatUpgradeValue(upgradeType, nextValue)}\n" +
-            $"ºñ¿ë: {upgradeCost:N0}";
+            $" ï¿½ï¿½ {FormatUpgradeValue(upgradeType, nextValue)}\n" +
+            $"ï¿½ï¿½ï¿½: {upgradeCost:N0}";
     }
 
     private string GetUpgradeDisplayName(
@@ -368,16 +368,16 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         switch (upgradeType)
         {
             case DiscUpgradeType.FlightPower:
-                return "ºñÇà·Â";
+                return "ï¿½ï¿½ï¿½ï¿½ï¿½";
 
             case DiscUpgradeType.Durability:
-                return "³»±¸µµ";
+                return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 
             case DiscUpgradeType.Income:
-                return "¼öÀÔ";
+                return "ï¿½ï¿½ï¿½ï¿½";
 
             default:
-                return "¾Ë ¼ö ¾øÀ½";
+                return "ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
         }
     }
 
@@ -388,16 +388,16 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         switch (upgradeType)
         {
             case DiscUpgradeType.FlightPower:
-                // initialThrust °ª
+                // initialThrust ï¿½ï¿½
                 return value.ToString("0.0");
 
             case DiscUpgradeType.Durability:
-                // ÃÖ´ë ³»±¸µµ
+                // ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 return value.ToString("0");
 
             case DiscUpgradeType.Income:
-                // ÄÚÀÎ È¹µæ ¹è¼ö
-                return $"{value:0.00}¹è";
+                // ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½
+                return $"{value:0.00}ï¿½ï¿½";
 
             default:
                 return value.ToString("0.##");

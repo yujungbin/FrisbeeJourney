@@ -71,9 +71,16 @@ public sealed class DiscProgressionStore : MonoBehaviour
 
     private void Awake()
     {
+        if (config == null)
+        {
+            Debug.LogError(
+                "DiscProgressionStore: Config asset is not assigned.",
+                this
+            );
+        }
+
         Load();
     }
-
     private void OnValidate()
     {
         defaultCoins = Mathf.Max(0, defaultCoins);
@@ -112,15 +119,21 @@ public sealed class DiscProgressionStore : MonoBehaviour
 
     public void Save()
     {
-        PlayerPrefs.SetInt(CoinsKey, coins);
+        PlayerPrefs.SetInt(
+            CoinsKey,
+            coins
+        );
+
         PlayerPrefs.SetInt(
             FlightLevelKey,
             flightPowerLevel
         );
+
         PlayerPrefs.SetInt(
             DurabilityLevelKey,
             durabilityLevel
         );
+
         PlayerPrefs.SetInt(
             IncomeLevelKey,
             incomeLevel
@@ -134,8 +147,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
         if (config == null)
         {
             Debug.LogWarning(
-                "DiscProgressionStore: Config°¡ ¿¬°áµÇÁö ¾Ê¾Æ " +
-                "±âº» ·±Å¸ÀÓ ½ºÅÈÀ» »ç¿ëÇÕ´Ï´Ù."
+                "DiscProgressionStore: Configï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ " +
+                "ï¿½âº» ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½."
             );
 
             return new DiscRuntimeStats(
@@ -247,9 +260,9 @@ public sealed class DiscProgressionStore : MonoBehaviour
         NotifyChanged();
 
         Debug.Log(
-            $"{type} ¾÷±×·¹ÀÌµå ¿Ï·á. " +
-            $"·¹º§: {GetLevel(type)}, " +
-            $"³²Àº ÄÚÀÎ: {coins}"
+            $"{type} ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ï·ï¿½. " +
+            $"ï¿½ï¿½ï¿½ï¿½: {GetLevel(type)}, " +
+            $"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {coins}"
         );
 
         return true;
@@ -260,7 +273,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
         if (amount <= 0)
             return;
 
-        long newCoins = (long)coins + amount;
+        long newCoins =
+            (long)coins + amount;
 
         coins = (int)Mathf.Clamp(
             newCoins,
@@ -288,6 +302,7 @@ public sealed class DiscProgressionStore : MonoBehaviour
         return true;
     }
 
+    [ContextMenu("TEST - ëª¨ë“  ê°•í™”/ì½”ì¸ ì´ˆê¸°í™”")]
     public void ResetAllProgress()
     {
         coins = defaultCoins;

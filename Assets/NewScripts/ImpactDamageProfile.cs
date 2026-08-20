@@ -3,7 +3,7 @@ using UnityEngine;
 public class ImpactDamageProfile : MonoBehaviour
 {
     [Header("Info")]
-    [SerializeField] private string surfaceName = "Surface";
+    [SerializeField] private string surfaceName = "Obstacle";
 
     [Header("Throw Behavior")]
     [Tooltip("true면 이 물체와 부딪힌 후 투척이 Settling 상태로 넘어갑니다.")]

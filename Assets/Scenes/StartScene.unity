@@ -259,7 +259,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 965106250}
   m_Father: {fileID: 1978664972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2000,6 +2001,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frisbee_RubberDuck
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 66af61604bc2f8141a4fb85e83bc1220, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2345,19 +2350,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 964598529}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1330815275}
-        m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
-        m_MethodName: UpgradeInitialThrust
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &964598529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2395,6 +2388,95 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964598526}
+  m_CullTransparentMesh: 1
+--- !u!1 &965106249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965106250}
+  - component: {fileID: 965106253}
+  - component: {fileID: 965106252}
+  - component: {fileID: 965106251}
+  m_Layer: 0
+  m_Name: PreviewDragArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &965106250
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965106249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 68506435}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &965106251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965106249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14811708e08e0074a85b788cd1fc8ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscPreviewDragArea
+  previewAnimation: {fileID: 1237650260}
+--- !u!114 &965106252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965106249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &965106253
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965106249}
   m_CullTransparentMesh: 1
 --- !u!1 &997097293
 GameObject:
@@ -2669,9 +2751,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscPreviewIdleAnimation
   rotationAxis: {x: 0, y: 1, z: 0}
-  rotationSpeed: 50
+  idleRotationSpeed: 30
   floatingHeight: 0.02
   floatingSpeed: 3.5
+  dragRotationSensitivity: 0.5
+  invertDragDirection: 0
+  inertiaDamping: 4
+  maxInertiaSpeed: 720
 --- !u!1 &1245988786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,7 +2977,7 @@ GameObject:
   - component: {fileID: 1330815276}
   - component: {fileID: 1330815275}
   m_Layer: 0
-  m_Name: Upgrade
+  m_Name: UpgradePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2909,14 +2995,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc0c0bd395c0c0448b4294044f28519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscUpgradePanel
-  progressionStore: {fileID: 1709075005}
+  progressionStore: {fileID: 1374168715}
   coinsText: {fileID: 0}
   flightPowerText: {fileID: 0}
   durabilityText: {fileID: 0}
   incomeText: {fileID: 0}
-  flightPowerButton: {fileID: 0}
-  durabilityButton: {fileID: 0}
-  incomeButton: {fileID: 0}
+  flightPowerButton: {fileID: 964598528}
+  durabilityButton: {fileID: 1966470518}
+  incomeButton: {fileID: 2091073373}
   coinsFormat: "\uFFFD\uFFFD\uFFFD\uFFFD: {0:N0}"
 --- !u!4 &1330815276
 Transform:
@@ -2951,7 +3037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1372846285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3021,6 +3107,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372846284}
   m_CullTransparentMesh: 1
+--- !u!1 &1374168714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374168716}
+  - component: {fileID: 1374168715}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1374168715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374168714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afa0c040f9a25a4eadc3c9ea57ded7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscProgressionStore
+  config: {fileID: 11400000, guid: ece250d818ba7a343a60cafff271523e, type: 2}
+  defaultCoins: 100000
+  saveKeyPrefix: DiscGame.
+  onProgressionChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onCoinsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1374168716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374168714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.47202, y: 0.13455, z: 19.88052}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1435275365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,6 +3677,7 @@ GameObject:
   - component: {fileID: 1693320000}
   - component: {fileID: 1693320002}
   - component: {fileID: 1693320001}
+  - component: {fileID: 1693320003}
   m_Layer: 5
   m_Name: CoinText
   m_TagString: Untagged
@@ -3664,6 +3804,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693319999}
   m_CullTransparentMesh: 1
+--- !u!114 &1693320003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693319999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c380a51ed79e0648b5831f89597e1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinBalanceUI
+  progressionStore: {fileID: 0}
+  coinText: {fileID: 0}
 --- !u!1 &1696621296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,59 +3955,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1 &1709075004
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1709075006}
-  - component: {fileID: 1709075005}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1709075005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709075004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3afa0c040f9a25a4eadc3c9ea57ded7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DiscProgressionStore
-  config: {fileID: 11400000, guid: ece250d818ba7a343a60cafff271523e, type: 2}
-  defaultCoins: 0
-  saveKeyPrefix: DiscGame.
-  onProgressionChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onCoinsChanged:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &1709075006
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709075004}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1721175367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4002,6 +4103,10 @@ PrefabInstance:
     - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_Name
       value: Frisbee
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4247,19 +4352,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1966470519}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1330815275}
-        m_TargetAssemblyTypeName: DiscUpgradePanel, Assembly-CSharp
-        m_MethodName: UpgradeDurability
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1966470519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4588,19 +4681,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2091073374}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1330815274}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2091073374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4654,4 +4735,4 @@ SceneRoots:
   - {fileID: 584783461}
   - {fileID: 883169344}
   - {fileID: 1775844316}
-  - {fileID: 1709075006}
+  - {fileID: 1374168716}
