@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [DisallowMultipleComponent]
 public sealed class DistanceCoinRewarder : MonoBehaviour
 {
     public enum DistanceSource
     {
-        // ¿ø¹İÀÌ ½ÇÁ¦·Î ÀÌµ¿ÇÑ ±ËÀûÀÇ ´©Àû ±æÀÌ
+        // ì›ë°˜ì´ ì‹¤ì œë¡œ ì´ë™í•œ ê¶¤ì ì˜ ëˆ„ì  ê¸¸ì´
         TotalTravelDistance,
 
-        // ¸Ê ½ÃÀÛÁ¡¿¡¼­ °¡Àå ¸Ö¸® ÀüÁøÇÑ °Å¸®
+        // ë§µ ì‹œì‘ì ì—ì„œ ê°€ì¥ ë©€ë¦¬ ì „ì§„í•œ ê±°ë¦¬
         ForwardProgress
     }
 
@@ -21,17 +21,17 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
 
     [Header("Reward")]
     [Tooltip(
-        "ÄÚÀÎ °è»ê¿¡ »ç¿ëÇÒ °Å¸®ÀÔ´Ï´Ù. " +
-        "Total Travel Distance´Â ½ÇÁ¦ ÀÌµ¿ ±ËÀû, " +
-        "Forward Progress´Â ¸Ê Àü¹æ ÁøÇà °Å¸®ÀÔ´Ï´Ù."
+        "ì½”ì¸ ê³„ì‚°ì— ì‚¬ìš©í•  ê±°ë¦¬ì…ë‹ˆë‹¤. " +
+        "Total Travel DistanceëŠ” ì‹¤ì œ ì´ë™ ê¶¤ì , " +
+        "Forward ProgressëŠ” ë§µ ì „ë°© ì§„í–‰ ê±°ë¦¬ì…ë‹ˆë‹¤."
     )]
     [SerializeField]
     private DistanceSource distanceSource =
         DistanceSource.TotalTravelDistance;
 
     [Tooltip(
-        "1¹ÌÅÍ´ç È¹µæÇÏ´Â ±âº» ÄÚÀÎÀÔ´Ï´Ù. " +
-        "0.1ÀÌ¸é 10m´ç 1ÄÚÀÎ, 0.25¸é 4m´ç 1ÄÚÀÎÀÔ´Ï´Ù."
+        "1ë¯¸í„°ë‹¹ íšë“í•˜ëŠ” ê¸°ë³¸ ì½”ì¸ì…ë‹ˆë‹¤. " +
+        "0.1ì´ë©´ 10më‹¹ 1ì½”ì¸, 0.25ë©´ 4më‹¹ 1ì½”ì¸ì…ë‹ˆë‹¤."
     )]
     [SerializeField, Min(0f)]
     private float coinsPerMeter = 0.1f;
@@ -40,7 +40,7 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
     [SerializeField]
     private bool logRewards = true;
 
-    // ÀÌ¹ø ·±¿¡¼­ ÀÌ¹Ì RunCoinBank¿¡ Àü´ŞÇÑ ±âº» ÄÚÀÎ ¼ö
+    // ì´ë²ˆ ëŸ°ì—ì„œ ì´ë¯¸ RunCoinBankì— ì „ë‹¬í•œ ê¸°ë³¸ ì½”ì¸ ìˆ˜
     private int awardedBaseCoins;
 
     public float CoinsPerMeter => coinsPerMeter;
@@ -68,8 +68,8 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
     }
 
     /// <summary>
-    /// »õ·Î¿î ·±À» ½ÃÀÛÇÒ ¶§ È£ÃâÇÕ´Ï´Ù.
-    /// RunCoinBank.ResetRun()°ú ÇÔ²² È£ÃâÇØ¾ß ÇÕ´Ï´Ù.
+    /// ìƒˆë¡œìš´ ëŸ°ì„ ì‹œì‘í•  ë•Œ í˜¸ì¶œí•©ë‹ˆë‹¤.
+    /// RunCoinBank.ResetRun()ê³¼ í•¨ê»˜ í˜¸ì¶œí•´ì•¼ í•©ë‹ˆë‹¤.
     /// </summary>
     public void ResetRun()
     {
@@ -85,10 +85,10 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç±îÁö ÀÌµ¿ÇÑ ´©Àû °Å¸®¸¦ ±âÁØÀ¸·Î
-    /// ¾ÆÁ÷ Áö±ŞÇÏÁö ¾ÊÀº ÄÚÀÎÀ» RunCoinBank¿¡ Ãß°¡ÇÕ´Ï´Ù.
+    /// í˜„ì¬ê¹Œì§€ ì´ë™í•œ ëˆ„ì  ê±°ë¦¬ë¥¼ ê¸°ì¤€ìœ¼ë¡œ
+    /// ì•„ì§ ì§€ê¸‰í•˜ì§€ ì•Šì€ ì½”ì¸ì„ RunCoinBankì— ì¶”ê°€í•©ë‹ˆë‹¤.
     ///
-    /// ¹İÈ¯°ªÀº ÀÌ¹ø È£Ãâ·Î »õ·Î Ãß°¡µÈ ±âº» ÄÚÀÎ ¼öÀÔ´Ï´Ù.
+    /// ë°˜í™˜ê°’ì€ ì´ë²ˆ í˜¸ì¶œë¡œ ìƒˆë¡œ ì¶”ê°€ëœ ê¸°ë³¸ ì½”ì¸ ìˆ˜ì…ë‹ˆë‹¤.
     /// </summary>
     public int AwardAvailableCoins()
     {
@@ -98,7 +98,7 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
         {
             Debug.LogWarning(
                 "DistanceCoinRewarder: " +
-                "RunProgressTracker°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.",
+                "RunProgressTrackerê°€ ì—°ê²°ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.",
                 this
             );
 
@@ -109,7 +109,7 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
         {
             Debug.LogWarning(
                 "DistanceCoinRewarder: " +
-                "RunCoinBank°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.",
+                "RunCoinBankê°€ ì—°ê²°ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.",
                 this
             );
 
@@ -131,8 +131,8 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
             targetBaseCoins;
 
         /*
-         * RunCoinBank¿¡¼­ IncomeMultiplier°¡ Àû¿ëµË´Ï´Ù.
-         * ¿©±â¼­´Â °Å¸®·Î °è»êÇÑ ±âº» ÄÚÀÎ¸¸ Àü´ŞÇÕ´Ï´Ù.
+         * RunCoinBankì—ì„œ IncomeMultiplierê°€ ì ìš©ë©ë‹ˆë‹¤.
+         * ì—¬ê¸°ì„œëŠ” ê±°ë¦¬ë¡œ ê³„ì‚°í•œ ê¸°ë³¸ ì½”ì¸ë§Œ ì „ë‹¬í•©ë‹ˆë‹¤.
          */
         coinBank.AddPendingCoins(
             newBaseCoins
@@ -165,8 +165,8 @@ public sealed class DistanceCoinRewarder : MonoBehaviour
             distance * coinsPerMeter;
 
         /*
-         * ¾ÆÁÖ ÀÛÀº ºÎµ¿¼Ò¼öÁ¡ ¿ÀÂ÷·Î
-         * 6.999999°¡ 6À¸·Î °è»êµÇ´Â »óÈ²À» ÁÙÀÔ´Ï´Ù.
+         * ì•„ì£¼ ì‘ì€ ë¶€ë™ì†Œìˆ˜ì  ì˜¤ì°¨ë¡œ
+         * 6.999999ê°€ 6ìœ¼ë¡œ ê³„ì‚°ë˜ëŠ” ìƒí™©ì„ ì¤„ì…ë‹ˆë‹¤.
          */
         return Mathf.Max(
             0,

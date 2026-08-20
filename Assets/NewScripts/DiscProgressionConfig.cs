@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 [Serializable]
@@ -35,11 +35,11 @@ public sealed class DiscProgressionConfig : ScriptableObject
     [SerializeField, Min(0.01f)]
     private float baseInitialThrust = 18f;
 
-    [Tooltip("·¹º§ 0¿¡¼­ 1·Î ¿Ã¶ó°¥ ¶§ Áõ°¡ÇÏ´Â ºñÇà·ÂÀÔ´Ï´Ù.")]
+    [Tooltip("ë ˆë²¨ 0ì—ì„œ 1ë¡œ ì˜¬ë¼ê°ˆ ë•Œ ì¦ê°€í•˜ëŠ” ë¹„í–‰ë ¥ì…ë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float flightFirstLevelIncrease = 3f;
 
-    [Tooltip("´ÙÀ½ ·¹º§ Áõ°¡·®ÀÌ ÀÌÀü Áõ°¡·®ÀÇ ¸î ¹èÀÎÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ë‹¤ìŒ ë ˆë²¨ ì¦ê°€ëŸ‰ì´ ì´ì „ ì¦ê°€ëŸ‰ì˜ ëª‡ ë°°ì¸ì§€ì…ë‹ˆë‹¤.")]
     [SerializeField, Range(0.01f, 1f)]
     private float flightIncreaseRetention = 0.85f;
 
@@ -54,7 +54,7 @@ public sealed class DiscProgressionConfig : ScriptableObject
     [SerializeField, Min(1f)]
     private float baseMaxDurability = 100f;
 
-    [Tooltip("³»±¸µµ´Â ·¹º§¸¶´Ù ÀÌ °ª¸¸Å­ ÀÏÁ¤ÇÏ°Ô Áõ°¡ÇÕ´Ï´Ù.")]
+    [Tooltip("ë‚´êµ¬ë„ëŠ” ë ˆë²¨ë§ˆë‹¤ ì´ ê°’ë§Œí¼ ì¼ì •í•˜ê²Œ ì¦ê°€í•©ë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float durabilityPerLevel = 10f;
 
@@ -66,11 +66,11 @@ public sealed class DiscProgressionConfig : ScriptableObject
         new UpgradeCostRule();
 
     [Header("Income Multiplier")]
-    [Tooltip("±âº» ÄÚÀÎ È¹µæ ¹è¼öÀÔ´Ï´Ù. 1ÀÌ¸é 100%ÀÔ´Ï´Ù.")]
+    [Tooltip("ê¸°ë³¸ ì½”ì¸ íšë“ ë°°ìˆ˜ì…ë‹ˆë‹¤. 1ì´ë©´ 100%ì…ë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float baseIncomeMultiplier = 1f;
 
-    [Tooltip("¼öÀÔ ·¹º§¸¶´Ù ÀÏÁ¤ÇÏ°Ô Áõ°¡ÇÏ´Â ¹è¼öÀÔ´Ï´Ù. 0.1ÀÌ¸é ·¹º§¸¶´Ù +10%ÀÔ´Ï´Ù.")]
+    [Tooltip("ìˆ˜ì… ë ˆë²¨ë§ˆë‹¤ ì¼ì •í•˜ê²Œ ì¦ê°€í•˜ëŠ” ë°°ìˆ˜ì…ë‹ˆë‹¤. 0.1ì´ë©´ ë ˆë²¨ë§ˆë‹¤ +10%ì…ë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float incomeMultiplierPerLevel = 0.1f;
 
@@ -82,7 +82,7 @@ public sealed class DiscProgressionConfig : ScriptableObject
         new UpgradeCostRule();
 
     [Header("Fixed Physics")]
-    [Tooltip("ÇöÀç´Â ¾÷±×·¹ÀÌµåÇÏÁö ¾Ê´Â ±âÁ¸ ¾ç·Â°ªÀÔ´Ï´Ù.")]
+    [Tooltip("í˜„ì¬ëŠ” ì—…ê·¸ë ˆì´ë“œí•˜ì§€ ì•ŠëŠ” ê¸°ì¡´ ì–‘ë ¥ê°’ì…ë‹ˆë‹¤.")]
     [SerializeField, Min(0f)]
     private float fixedLift = 0.9f;
 
@@ -122,7 +122,7 @@ public sealed class DiscProgressionConfig : ScriptableObject
         }
         else
         {
-            // °¨¼ÒÇÏ´Â µîºñ¼ö¿­ÀÇ ÇÕ
+            // ê°ì†Œí•˜ëŠ” ë“±ë¹„ìˆ˜ì—´ì˜ í•©
             totalIncrease =
                 flightFirstLevelIncrease *
                 (1f - Mathf.Pow(

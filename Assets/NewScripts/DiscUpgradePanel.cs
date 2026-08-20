@@ -251,7 +251,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
             if (incomeText != null)
                 incomeText.text = "����\n������� ����";
-
+            
             return;
         }
 
@@ -344,7 +344,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (isMaxLevel)
         {
             return
-                $"{displayName} Lv.{currentLevel}\n" +
+                $"{displayName}\n" +
                 $"{FormatUpgradeValue(upgradeType, currentValue)}\n" +
                 "MAX";
         }
@@ -356,7 +356,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             progressionStore.GetUpgradeCost(upgradeType);
 
         return
-            $"{displayName} Lv.{currentLevel}\n" +
+            $"{displayName}\n" +
             $"{FormatUpgradeValue(upgradeType, currentValue)}" +
             $" �� {FormatUpgradeValue(upgradeType, nextValue)}\n" +
             $"���: {upgradeCost:N0}";

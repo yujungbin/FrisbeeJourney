@@ -1,4 +1,4 @@
-using TMPro;
+Ôªøusing TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +11,7 @@ public class DiscDurabilityUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI durabilityValueText;
 
     [Header("Text")]
-    [SerializeField] private string titleText = "≥ª±∏µµ";
+    [SerializeField] private string titleText = "ÎÇ¥Íµ¨ÎèÑ";
     [SerializeField] private string valueFormat = "{0:0} / {1:0}";
 
     private void OnEnable()
