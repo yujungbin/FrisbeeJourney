@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -476,11 +476,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StraightMapSpawner
   discTarget: {fileID: 465174908}
   roadTilePrefabs:
-  - {fileID: 4606607070572545718, guid: 7919127f719ee2d4db726124e6e4e2e1, type: 3}
-  initialSpawnCount: 3
+  - {fileID: 4113769683616148186, guid: ce53cd740f1e93447b5e211a2aeaf4a6, type: 3}
+  - {fileID: 7503593712868242097, guid: cc99eb98d5ce15d469e9bdfb7cbdb5db, type: 3}
+  - {fileID: 103637895943305227, guid: 1cfa82e93654e634da284619ccfa8995, type: 3}
+  - {fileID: 6723003092396342418, guid: 6c33d5ce134f999459b7dbdc8fdebd58, type: 3}
+  initialSpawnCount: 2
   tileLength: 250
-  startZ: 0
-  spawnAheadDistance: 600
+  startZ: 120
+  mapXOffset: 12
+  spawnAheadDistance: 300
   destroyBehindDistance: 100
 --- !u!4 &248318661
 Transform:
@@ -629,7 +633,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 85.46106
   orthographic: 0
@@ -688,7 +692,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -808,7 +812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338241530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +1012,7 @@ MonoBehaviour:
   coinBank: {fileID: 1899608843}
   durability: {fileID: 1234174334}
   theme: {fileID: 11400000, guid: cd038bcd737f2df4a9f9ef9651aacbfe, type: 2}
-  pauseTimeScaleWhileOpen: 0
+  pauseTimeScaleWhileOpen: 1
   onContinueRequested:
     m_PersistentCalls:
       m_Calls:
@@ -1042,6 +1046,18 @@ MonoBehaviour:
   onCollectRequested:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1899608843}
+        m_TargetAssemblyTypeName: RunCoinBank, Assembly-CSharp
+        m_MethodName: CommitPendingCoinsFromUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CommitPendingCoins()
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 413453456}
         m_TargetAssemblyTypeName: GameSceneNavigator, Assembly-CSharp
         m_MethodName: ReturnToStartScene
@@ -1054,6 +1070,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  completeTitle: COMPLETE!
+  brokenTitle: DISC BROKEN
+  noThrowsTitle: FINAL RESULT
+  collectButtonLabel: COLLECT
 --- !u!225 &372113073
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2148,7 +2168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708578708}
   - component: {fileID: 708578709}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2424,7 +2444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2918,7 +2938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3091,7 +3111,7 @@ GameObject:
   - component: {fileID: 951400863}
   - component: {fileID: 951400862}
   - component: {fileID: 951400864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DiscModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3405,7 +3425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112890085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TrailRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3561,8 +3581,10 @@ GameObject:
   - component: {fileID: 1127721365}
   - component: {fileID: 1127721364}
   - component: {fileID: 1127721369}
+  - component: {fileID: 1127721370}
   - component: {fileID: 1127721366}
   - component: {fileID: 1127721368}
+  - component: {fileID: 1127721371}
   m_Layer: 0
   m_Name: CM_DiscFollow
   m_TagString: Untagged
@@ -3596,7 +3618,7 @@ MonoBehaviour:
   Lens:
     FieldOfView: 85.46106
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 0.05
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -3717,6 +3739,75 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: -0.4, z: -0.9}
+--- !u!114 &1127721370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127721361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7de3aefa901374ba29464584a3109a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineDecollider
+  CameraRadius: 0.1
+  Decollision:
+    Enabled: 0
+    ObstacleLayers:
+      serializedVersion: 2
+      m_Bits: 1
+    UseFollowTarget:
+      Enabled: 0
+      YOffset: 0
+    Damping: 0.5
+    SmoothingTime: 0
+  TerrainResolution:
+    Enabled: 1
+    TerrainLayers:
+      serializedVersion: 2
+      m_Bits: 8
+    MaximumRaycast: 2
+    Damping: 5.71
+--- !u!114 &1127721371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127721361}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe43d662878a7c43bcd44d43c9e2094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineDeoccluder
+  CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  IgnoreTag: 
+  TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  MinimumDistanceFromTarget: 0.3
+  AvoidObstacles:
+    Enabled: 1
+    DistanceLimit: 0
+    MinimumOcclusionTime: 0
+    CameraRadius: 0.4
+    UseFollowTarget:
+      Enabled: 0
+      YOffset: 0
+    Strategy: 0
+    MaximumEffort: 4
+    SmoothingTime: 0
+    Damping: 0.4
+    DampingWhenOccluded: 0.2
+  ShotQualityEvaluation:
+    Enabled: 0
+    OptimalDistance: 10
+    NearLimit: 5
+    FarLimit: 30
+    MaxQualityBoost: 0.2
 --- !u!1 &1156923619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3727,7 +3818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156923620}
   - component: {fileID: 1156923621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightTrailPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3902,7 +3993,7 @@ Transform:
   m_GameObject: {fileID: 1171811458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4002,32 +4093,40 @@ MonoBehaviour:
   scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 1.5
-  maxThrowUpAngle: 6
+  minThrowUpAngle: 1
+  maxThrowUpAngle: 2
+  throwUpInputExponent: 2
+  maxInitialUpwardSpeed: 0.75
   forwardCorrectionStrength: 0.25
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
+  liftFadeStartUpSpeed: 0
+  liftCutoffUpSpeed: 1
+  liftScaleAtCutoff: 0.05
+  maxLiftToGravityRatio: 0.97
   minLaunchSpeedRatio: 0.25
   targetForwardSpeedRatio: 0.85
-  forwardSpeedGain: 4
+  forwardSpeedGain: 0
   lateralAcceleration: 30
   maxLateralSpeed: 50
   laneHalfWidth: 500
   boundarySpring: 40
   boundaryDamping: 10
   postImpactControlOffSpeed: 0.2
-  postImpactSteeringMultiplier: 0.15
+  allowPostImpactSteering: 1
+  postImpactSteeringMultiplier: 0.762
+  postImpactSteeringFullEffectSpeed: 10
   postImpactLiftMultiplier: 0
   spinWhilePostImpactMoving: 1
   postImpactForwardAccelerationCoefficient: 0
   postImpactMaxForwardAcceleration: 0
   postImpactForwardAccelerationMinSpeed: 0.2
-  unlockRotationAfterFirstImpact: 0
+  unlockRotationAfterFirstImpact: 1
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
-  unlockedRotationAngularDamping: 1.5
+  unlockedRotationAngularDamping: 3
   settlingLinearDamping: 0.1
-  settlingAngularDamping: 0.3
+  settlingAngularDamping: 3
   settlingHorizontalBrake: 0
   minSettlingTimeBeforeStop: 0.35
   stopLinearSpeed: 0.55
@@ -4038,8 +4137,8 @@ MonoBehaviour:
   logSettlingStopCheck: 0
   settlingLogInterval: 0.5
   flyingLinearDamping: 0.05
-  flyingAngularDamping: 0.05
-  stoppedLinearDamping: 4
+  flyingAngularDamping: 3
+  stoppedLinearDamping: 30
   spinDegreesPerSecond: 900
   bankAngle: 18
   visualLerp: 12
@@ -4079,11 +4178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscImpactReceiver
   discController: {fileID: 1234174329}
-  runManager: {fileID: 1899963714}
+  runManager: {fileID: 1469500878}
   durability: {fileID: 1234174334}
   impactLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 17
   minImpactSpeed: 0.1
   handleCollisionStay: 0
   globalDamageMultiplier: 1
@@ -4094,6 +4193,9 @@ MonoBehaviour:
   sameColliderDamageCooldown: 0.35
   endThrowWhenProfileMissing: 1
   fallbackDamageWhenProfileMissing: 0
+  throwEndingArmDelay: 0.12
+  minThrowEndingNormalSpeed: 0.75
+  allowStayToEndThrow: 0
   logImpacts: 1
 --- !u!73398921 &1234174339
 VFXRenderer:
@@ -4843,7 +4945,7 @@ MonoBehaviour:
   onGameOver:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 413453454}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 0
@@ -4880,6 +4982,7 @@ MonoBehaviour:
       m_Calls: []
   runCoinBank: {fileID: 1899608843}
   distanceCoinRewarder: {fileID: 1899608846}
+  sceneNavigator: {fileID: 413453456}
 --- !u!114 &1469500879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5034,17 +5137,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frisbee
       objectReference: {fileID: 0}
+    - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -240
       objectReference: {fileID: 0}
     - target: {fileID: 4698779609921984, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5082,6 +5193,14 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_AngularDamping
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 64778123423723518, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5115,12 +5234,29 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1234174346}
+    - targetCorrespondingSourceObject: {fileID: 1763658146493484, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1574253971}
   m_SourcePrefab: {fileID: 100100000, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
 --- !u!54 &1574253970 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 54899141291583268, guid: 9e764509cf1585c4a8a7f3c85b68a0e5, type: 3}
   m_PrefabInstance: {fileID: 1574253969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574253971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234174324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad50bd93ae09d8b4f821a7cedff1190f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RawDiscCollisionProbe
+  discController: {fileID: 1234174329}
+  stayLogInterval: 0.2
 --- !u!1 &1607512296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6019,93 +6155,6 @@ MonoBehaviour:
   distanceSource: 1
   coinsPerMeter: 0.05
   logRewards: 1
---- !u!1 &1899963713
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1899963715}
-  - component: {fileID: 1899963714}
-  m_Layer: 0
-  m_Name: RunManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1899963714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899963713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ecd7d4ed1bb69a47a6f24405da5d329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DiscRunManager
-  progressionStore: {fileID: 1469500879}
-  discController: {fileID: 1234174329}
-  discDurability: {fileID: 1234174334}
-  cameraSwitcher: {fileID: 1994770297}
-  launchAnchor: {fileID: 1171811459}
-  trackRoot: {fileID: 2097020924}
-  useThrowLimit: 0
-  maxThrowsPerRun: 3
-  rethrowFromImpactPoint: 1
-  rethrowFromFinalStopPosition: 1
-  rethrowBackOffset: 0.15
-  rethrowHeightOffset: 0
-  rethrowDelay: 0.6
-  settleMaxWaitTime: 3
-  forceFinishOnSettleTimeout: 0
-  logSettlingStatus: 1
-  settlingStatusLogInterval: 0.5
-  restoreOriginalLaunchAnchorOnRunStart: 1
-  autoRestartWhenDurabilityBroken: 0
-  autoRestartWhenNoThrowsRemaining: 1
-  gameOverRestartDelay: 1
-  onRunStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onRethrowReady:
-    m_PersistentCalls:
-      m_Calls: []
-  onGameOver:
-    m_PersistentCalls:
-      m_Calls: []
-  resultScreenController: {fileID: 372113072}
-  progressTracker: {fileID: 1899608845}
-  onThrowCountChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onThrowsRemainingChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onNoThrowsRemaining:
-    m_PersistentCalls:
-      m_Calls: []
-  runCoinBank: {fileID: 1899608843}
-  distanceCoinRewarder: {fileID: 1899608846}
---- !u!4 &1899963715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899963713}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 125.79869, y: 0, z: 599.9833}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1970681291
 GameObject:
   m_ObjectHideFlags: 0
@@ -6802,7 +6851,7 @@ Transform:
   m_GameObject: {fileID: 2110719641}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0, y: 4.4, z: -0.6}
+  m_LocalPosition: {x: 0, y: 8.4, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6904,7 +6953,6 @@ SceneRoots:
   - {fileID: 248318661}
   - {fileID: 1171811459}
   - {fileID: 2097020924}
-  - {fileID: 1899963715}
   - {fileID: 1574253969}
   - {fileID: 1390216039}
   - {fileID: 1127721365}

@@ -11,25 +11,27 @@ public class StraightMapSpawner : MonoBehaviour
     //[SerializeField] private GameObject roadTilePrefab;
 
     [Tooltip("게임 시작 시 미리 생성할 타일 개수")]
-    [SerializeField] private int initialSpawnCount = 3;
+    [SerializeField] private int initialSpawnCount = 2;
 
     //[SerializeField] private int poolSize = 5;
 
     [Header("Tile Settings")]
     [SerializeField] private float tileLength = 250f;
-    [SerializeField] private float startZ = 0f;
+    [SerializeField] private float startZ = 100f;
+    [SerializeField] private float mapXOffset = 0f;
 
     [Tooltip("원반이 마지막 생성 위치에 이 거리만큼 가까워지면 다음 타일을 생성합니다.")]
     [SerializeField] private float spawnAheadDistance = 300f;
     
     [Tooltip("원반보다 이 거리 이상 뒤에 있는 타일은 삭제합니다.")]
-    [SerializeField] private float destroyBehindDistance = 400f;
+    [SerializeField] private float destroyBehindDistance = 50f;
 
     private readonly List<GameObject> spawnedTiles =
     new List<GameObject>();
 
     private int nextTileIndex;
     private float nextSpawnZ;
+    private float mapSpawnX;
     private int poolSize;
     //[Header("Pool Settings")]
     //[SerializeField] private float recycleBehindDistance = 50f;
@@ -55,6 +57,10 @@ public class StraightMapSpawner : MonoBehaviour
         nextSpawnZ = startZ;
         poolSize = roadTilePrefabs.Length;
 
+        if (discTarget != null)
+        {
+            mapSpawnX = discTarget.position.x + mapXOffset;
+        }
         int spawnCount = Mathf.Min(
             initialSpawnCount,
             roadTilePrefabs.Length
@@ -118,7 +124,7 @@ public class StraightMapSpawner : MonoBehaviour
         }
 
         Vector3 spawnPosition = new Vector3(
-            0f,
+            mapSpawnX,
             0f,
             nextSpawnZ
         );

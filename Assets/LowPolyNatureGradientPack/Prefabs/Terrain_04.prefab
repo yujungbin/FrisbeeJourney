@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1518441755692321351}
   - component: {fileID: 3113687079609057428}
   - component: {fileID: 4655236997391113133}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 2027af6a532022e4eb422aa17d1fc682, type: 3}
 --- !u!114 &4655236997391113133

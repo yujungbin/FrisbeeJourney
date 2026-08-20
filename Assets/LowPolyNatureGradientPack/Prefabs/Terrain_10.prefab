@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7601732764748205801}
   - component: {fileID: 114863853436367798}
   - component: {fileID: -8025923114825078459}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e6ac72faa33fc3e4a9aa2c432076cdfb, type: 3}
 --- !u!114 &-8025923114825078459
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Surface
-  endThrowOnImpact: 1
+  endThrowOnImpact: 0
   baseDamage: 5
   damagePerSpeed: 1
   minDamageSpeed: 0.5

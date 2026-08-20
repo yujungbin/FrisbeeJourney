@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 2153324750392118595}
   - component: {fileID: 3375401313467096473}
   - component: {fileID: 9075926959389810369}
+  - component: {fileID: 2326276451924009039}
   m_Layer: 0
   m_Name: Grass_06_LOD0
   m_TagString: Untagged
@@ -197,7 +198,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.2764578, y: 0.48339975, z: 0.29557255}
   m_Center: {x: 0.004818864, y: 0.23792413, z: -0.018993348}
@@ -223,6 +224,28 @@ MonoBehaviour:
   glancingDamageMultiplier: 0.35
   angleExponent: 1.5
   instantBreak: 0
+--- !u!64 &2326276451924009039
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615816797140996930}
+  m_Material: {fileID: 13400000, guid: 7be2b7679f4d71b48bdfeb87155b5a19, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8514188418892715829, guid: 4f6cf488a47b6e74893a59f7d687b034, type: 3}
 --- !u!1 &8363722971655716914
 GameObject:
   m_ObjectHideFlags: 0
