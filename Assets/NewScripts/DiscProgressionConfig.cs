@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 
 [Serializable]
 public sealed class UpgradeCostRule
@@ -10,13 +12,20 @@ public sealed class UpgradeCostRule
     [SerializeField, Min(1f)]
     private float costGrowthPerLevel = 1.35f;
 
+
     public int GetCost(int currentLevel)
     {
-        currentLevel = Mathf.Max(0, currentLevel);
+        currentLevel = Mathf.Max(
+            0,
+            currentLevel
+        );
 
         float cost =
             baseCost *
-            Mathf.Pow(costGrowthPerLevel, currentLevel);
+            Mathf.Pow(
+                costGrowthPerLevel,
+                currentLevel
+            );
 
         return Mathf.Max(
             0,
@@ -25,32 +34,63 @@ public sealed class UpgradeCostRule
     }
 }
 
+
 [CreateAssetMenu(
     fileName = "DiscProgressionConfig",
     menuName = "Disc Game/Progression/Disc Progression Config"
 )]
 public sealed class DiscProgressionConfig : ScriptableObject
 {
-    [Header("Flight Power / Initial Thrust")]
-    [SerializeField, Min(0.01f)]
-    private float baseInitialThrust = 18f;
+    // ==================================================
+    // Lift Upgrade
+    // ==================================================
 
-    [Tooltip("레벨 0에서 1로 올라갈 때 증가하는 비행력입니다.")]
-    [SerializeField, Min(0f)]
-    private float flightFirstLevelIncrease = 3f;
+    [Header("Lift Upgrade")]
 
-    [Tooltip("다음 레벨 증가량이 이전 증가량의 몇 배인지입니다.")]
+    [Tooltip("���� 0���� ����ϴ� �⺻ Lift�Դϴ�.")]
+    [FormerlySerializedAs("fixedLift")]
+    [SerializeField, Range(0f, 1f)]
+    private float baseLift = 0.65f;
+
+    [Tooltip(
+        "���� 0���� 1�� �ö� �� �����ϴ� Lift�Դϴ�. " +
+        "0���� 1 ���̷� ���ѵ˴ϴ�."
+    )]
+    [SerializeField, Range(0f, 1f)]
+    private float liftFirstLevelIncrease = 0.04f;
+
+    [Tooltip(
+        "���� ������ �������� ���� �������� �� �������Դϴ�. " +
+        "1�̸� �� ���� �������� ����, 1���� ������ �������� ���� �����մϴ�."
+    )]
+    [FormerlySerializedAs("flightIncreaseRetention")]
+
     [SerializeField, Range(0.01f, 1f)]
-    private float flightIncreaseRetention = 0.85f;
+    private float liftIncreaseRetention = 0.9f;
 
+    [Tooltip(
+        "Lift�� ���� �ִ밪�Դϴ�. " +
+        "0���� 1 ���̷θ� ������ �� �ֽ��ϴ�."
+    )]
+    [SerializeField, Range(0f, 1f)]
+    private float maximumLift = 1f;
+
+    [FormerlySerializedAs("flightMaxLevel")]
     [SerializeField, Min(1)]
-    private int flightMaxLevel = 20;
+    private int liftMaxLevel = 20;
 
+    [FormerlySerializedAs("flightUpgradeCost")]
     [SerializeField]
-    private UpgradeCostRule flightUpgradeCost =
+    private UpgradeCostRule liftUpgradeCost =
         new UpgradeCostRule();
 
-    [Header("Durability")]
+
+    // ==================================================
+    // Durability Upgrade
+    // ==================================================
+
+    [Header("Durability Upgrade")]
+
     [SerializeField, Min(1f)]
     private float baseMaxDurability = 100f;
 
@@ -65,12 +105,21 @@ public sealed class DiscProgressionConfig : ScriptableObject
     private UpgradeCostRule durabilityUpgradeCost =
         new UpgradeCostRule();
 
-    [Header("Income Multiplier")]
-    [Tooltip("기본 코인 획득 배수입니다. 1이면 100%입니다.")]
+    // ==================================================
+    // Income Upgrade
+    // ==================================================
+
+    [Header("Income Upgrade")]
+
+    [Tooltip("�⺻ ���� ȹ�� ����Դϴ�. 1�̸� 100%�Դϴ�.")]
     [SerializeField, Min(0f)]
     private float baseIncomeMultiplier = 1f;
 
-    [Tooltip("수입 레벨마다 일정하게 증가하는 배수입니다. 0.1이면 레벨마다 +10%입니다.")]
+    [Tooltip(
+        "���� �������� �����ϰ� �����ϴ� ����Դϴ�. " +
+        "0.1�̸� �������� +10%�Դϴ�."
+    )]
+
     [SerializeField, Min(0f)]
     private float incomeMultiplierPerLevel = 0.1f;
 
@@ -81,76 +130,247 @@ public sealed class DiscProgressionConfig : ScriptableObject
     private UpgradeCostRule incomeUpgradeCost =
         new UpgradeCostRule();
 
+
+    // ==================================================
+    // Fixed Physics
+    // ==================================================
+
     [Header("Fixed Physics")]
-    [Tooltip("현재는 업그레이드하지 않는 기존 양력값입니다.")]
-    [SerializeField, Min(0f)]
-    private float fixedLift = 0.9f;
+
+    [Tooltip(
+        "���׷��̵���� �ʴ� ���� Initial Thrust�Դϴ�."
+    )]
+    [FormerlySerializedAs("baseInitialThrust")]
+    [SerializeField, Min(0.01f)]
+    private float fixedInitialThrust = 18f;
+
+
+    // ==================================================
+    // Public Properties
+    // ==================================================
+
+    public float FixedInitialThrust =>
+        fixedInitialThrust;
+
+    public float BaseLift =>
+        baseLift;
+
+    public float MaximumLift =>
+        maximumLift;
+
+
+    // ==================================================
+    // Validation
+    // ==================================================
 
     private void OnValidate()
     {
-        baseInitialThrust = Mathf.Max(0.01f, baseInitialThrust);
-        flightFirstLevelIncrease = Mathf.Max(0f, flightFirstLevelIncrease);
-        flightIncreaseRetention =
-            Mathf.Clamp(flightIncreaseRetention, 0.01f, 1f);
-        flightMaxLevel = Mathf.Max(1, flightMaxLevel);
+        maximumLift = Mathf.Clamp01(
+            maximumLift
+        );
 
-        baseMaxDurability = Mathf.Max(1f, baseMaxDurability);
-        durabilityPerLevel = Mathf.Max(0f, durabilityPerLevel);
-        durabilityMaxLevel = Mathf.Max(1, durabilityMaxLevel);
+        baseLift = Mathf.Clamp(
+            baseLift,
+            0f,
+            maximumLift
+        );
 
-        baseIncomeMultiplier = Mathf.Max(0f, baseIncomeMultiplier);
-        incomeMultiplierPerLevel =
-            Mathf.Max(0f, incomeMultiplierPerLevel);
-        incomeMaxLevel = Mathf.Max(1, incomeMaxLevel);
+        liftFirstLevelIncrease = Mathf.Clamp01(
+            liftFirstLevelIncrease
+        );
 
-        fixedLift = Mathf.Max(0f, fixedLift);
+        liftIncreaseRetention = Mathf.Clamp(
+            liftIncreaseRetention,
+            0.01f,
+            1f
+        );
+
+        liftMaxLevel = Mathf.Max(
+            1,
+            liftMaxLevel
+        );
+
+
+        baseMaxDurability = Mathf.Max(
+            1f,
+            baseMaxDurability
+        );
+
+        durabilityPerLevel = Mathf.Max(
+            0f,
+            durabilityPerLevel
+        );
+
+        durabilityMaxLevel = Mathf.Max(
+            1,
+            durabilityMaxLevel
+        );
+
+
+        baseIncomeMultiplier = Mathf.Max(
+            0f,
+            baseIncomeMultiplier
+        );
+
+        incomeMultiplierPerLevel = Mathf.Max(
+            0f,
+            incomeMultiplierPerLevel
+        );
+
+        incomeMaxLevel = Mathf.Max(
+            1,
+            incomeMaxLevel
+        );
+
+
+        fixedInitialThrust = Mathf.Max(
+            0.01f,
+            fixedInitialThrust
+        );
     }
 
-    public float GetInitialThrust(int level)
+
+    // ==================================================
+    // Lift
+    // ==================================================
+
+    public float GetLift(int level)
     {
-        level = Mathf.Clamp(level, 0, flightMaxLevel);
+        level = Mathf.Clamp(
+            level,
+            0,
+            liftMaxLevel
+        );
 
         if (level <= 0)
-            return baseInitialThrust;
+        {
+            return Mathf.Clamp(
+                baseLift,
+                0f,
+                maximumLift
+            );
+        }
 
         float totalIncrease;
 
-        if (Mathf.Approximately(flightIncreaseRetention, 1f))
+        if (Mathf.Approximately(
+            liftIncreaseRetention,
+            1f))
         {
+            // �� ���� ���� ����ŭ ����
             totalIncrease =
-                flightFirstLevelIncrease * level;
+                liftFirstLevelIncrease *
+                level;
         }
         else
         {
-            // 감소하는 등비수열의 합
+
+            /*
+             * �����ϴ� �������� ��
+             *
+             * Lv.1 ������:
+             * firstIncrease
+             *
+             * Lv.2 ������:
+             * firstIncrease �� retention
+             *
+             * Lv.3 ������:
+             * firstIncrease �� retention��
+             */
+
             totalIncrease =
-                flightFirstLevelIncrease *
-                (1f - Mathf.Pow(
-                    flightIncreaseRetention,
-                    level)) /
-                (1f - flightIncreaseRetention);
+                liftFirstLevelIncrease *
+                (
+                    1f -
+                    Mathf.Pow(
+                        liftIncreaseRetention,
+                        level
+                    )
+                ) /
+                (
+                    1f -
+                    liftIncreaseRetention
+                );
         }
 
-        return baseInitialThrust + totalIncrease;
+        return Mathf.Clamp(
+            baseLift + totalIncrease,
+            0f,
+            maximumLift
+        );
     }
 
-    public float GetNextFlightIncrease(int currentLevel)
+
+    public float GetNextLiftIncrease(
+        int currentLevel)
     {
+        int maximumLevel =
+            GetEffectiveLiftMaxLevel();
+
         currentLevel = Mathf.Clamp(
             currentLevel,
             0,
-            flightMaxLevel
+            maximumLevel
         );
 
-        if (currentLevel >= flightMaxLevel)
+        if (currentLevel >= maximumLevel)
             return 0f;
 
-        return flightFirstLevelIncrease *
-               Mathf.Pow(
-                   flightIncreaseRetention,
-                   currentLevel
-               );
+        float currentValue =
+            GetLift(currentLevel);
+
+        float nextValue =
+            GetLift(currentLevel + 1);
+
+        return Mathf.Max(
+            0f,
+            nextValue - currentValue
+        );
     }
+
+
+    private int GetEffectiveLiftMaxLevel()
+    {
+        int configuredMaximumLevel =
+            Mathf.Max(
+                0,
+                liftMaxLevel
+            );
+
+        /*
+         * maximumLift�� ���� �����ߴٸ�
+         * �� �� ������ �������� ���ϰ� ���� �ִ� ������ ���Դϴ�.
+         */
+        for (int level = 0;
+             level < configuredMaximumLevel;
+             level++)
+        {
+            float currentValue =
+                GetLift(level);
+
+            float nextValue =
+                GetLift(level + 1);
+
+            if (currentValue >=
+                maximumLift - 0.0001f)
+            {
+                return level;
+            }
+
+            if (nextValue <=
+                currentValue + 0.0001f)
+            {
+                return level;
+            }
+        }
+
+        return configuredMaximumLevel;
+    }
+
+
+    // ==================================================
+    // Durability
+    // ==================================================
 
     public float GetMaxDurability(int level)
     {
@@ -160,9 +380,16 @@ public sealed class DiscProgressionConfig : ScriptableObject
             durabilityMaxLevel
         );
 
-        return baseMaxDurability +
-               durabilityPerLevel * level;
+        return
+            baseMaxDurability +
+            durabilityPerLevel *
+            level;
     }
+
+
+    // ==================================================
+    // Income
+    // ==================================================
 
     public float GetIncomeMultiplier(int level)
     {
@@ -172,9 +399,16 @@ public sealed class DiscProgressionConfig : ScriptableObject
             incomeMaxLevel
         );
 
-        return baseIncomeMultiplier +
-               incomeMultiplierPerLevel * level;
+        return
+            baseIncomeMultiplier +
+            incomeMultiplierPerLevel *
+            level;
     }
+
+
+    // ==================================================
+    // Common Upgrade Queries
+    // ==================================================
 
     public float GetValue(
         DiscUpgradeType type,
@@ -182,8 +416,8 @@ public sealed class DiscProgressionConfig : ScriptableObject
     {
         switch (type)
         {
-            case DiscUpgradeType.FlightPower:
-                return GetInitialThrust(level);
+            case DiscUpgradeType.Lift:
+                return GetLift(level);
 
             case DiscUpgradeType.Durability:
                 return GetMaxDurability(level);
@@ -196,12 +430,14 @@ public sealed class DiscProgressionConfig : ScriptableObject
         }
     }
 
-    public int GetMaxLevel(DiscUpgradeType type)
+
+    public int GetMaxLevel(
+        DiscUpgradeType type)
     {
         switch (type)
         {
-            case DiscUpgradeType.FlightPower:
-                return flightMaxLevel;
+            case DiscUpgradeType.Lift:
+                return GetEffectiveLiftMaxLevel();
 
             case DiscUpgradeType.Durability:
                 return durabilityMaxLevel;
@@ -214,28 +450,38 @@ public sealed class DiscProgressionConfig : ScriptableObject
         }
     }
 
+
     public int GetUpgradeCost(
         DiscUpgradeType type,
         int currentLevel)
     {
-        if (currentLevel >= GetMaxLevel(type))
+        int maximumLevel =
+            GetMaxLevel(type);
+
+        if (currentLevel >= maximumLevel)
             return -1;
 
         switch (type)
         {
-            case DiscUpgradeType.FlightPower:
-                return flightUpgradeCost != null
-                    ? flightUpgradeCost.GetCost(currentLevel)
+            case DiscUpgradeType.Lift:
+                return liftUpgradeCost != null
+                    ? liftUpgradeCost.GetCost(
+                        currentLevel
+                    )
                     : 0;
 
             case DiscUpgradeType.Durability:
                 return durabilityUpgradeCost != null
-                    ? durabilityUpgradeCost.GetCost(currentLevel)
+                    ? durabilityUpgradeCost.GetCost(
+                        currentLevel
+                    )
                     : 0;
 
             case DiscUpgradeType.Income:
                 return incomeUpgradeCost != null
-                    ? incomeUpgradeCost.GetCost(currentLevel)
+                    ? incomeUpgradeCost.GetCost(
+                        currentLevel
+                    )
                     : 0;
 
             default:
@@ -243,16 +489,30 @@ public sealed class DiscProgressionConfig : ScriptableObject
         }
     }
 
+
+    // ==================================================
+    // Runtime Stats
+    // ==================================================
+
     public DiscRuntimeStats BuildRuntimeStats(
-        int flightLevel,
+        int liftLevel,
         int durabilityLevel,
         int incomeLevel)
     {
         return new DiscRuntimeStats(
-            initialThrust: GetInitialThrust(flightLevel),
-            maxDurability: GetMaxDurability(durabilityLevel),
-            lift: fixedLift,
-            incomeMultiplier: GetIncomeMultiplier(incomeLevel)
+            initialThrust: fixedInitialThrust,
+            maxDurability:
+                GetMaxDurability(
+                    durabilityLevel
+                ),
+            lift:
+                GetLift(
+                    liftLevel
+                ),
+            incomeMultiplier:
+                GetIncomeMultiplier(
+                    incomeLevel
+                )
         );
     }
 }

@@ -29,7 +29,7 @@ public sealed class DiscProgressionStore : MonoBehaviour
         new CoinsChangedEvent();
 
     private int coins;
-    private int flightPowerLevel;
+    private int liftLevel;
     private int durabilityLevel;
     private int incomeLevel;
 
@@ -38,15 +38,18 @@ public sealed class DiscProgressionStore : MonoBehaviour
     public DiscProgressionConfig Config => config;
 
     public int Coins => coins;
-    public int FlightPowerLevel => flightPowerLevel;
+    public int LiftLevel => liftLevel;
     public int DurabilityLevel => durabilityLevel;
     public int IncomeLevel => incomeLevel;
 
     public float InitialThrust =>
-        config != null
-            ? config.GetInitialThrust(flightPowerLevel)
-            : 18f;
-
+    config != null
+        ? config.FixedInitialThrust
+        : 18f;
+    public float Lift =>
+    config != null
+        ? config.GetLift(liftLevel)
+        : 0.65f;
     public float MaxDurability =>
         config != null
             ? config.GetMaxDurability(durabilityLevel)
@@ -60,8 +63,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
     private string CoinsKey =>
         saveKeyPrefix + "Coins";
 
-    private string FlightLevelKey =>
-        saveKeyPrefix + "FlightPowerLevel";
+    private string LiftLevelKey =>
+        saveKeyPrefix + "LiftLevel";
 
     private string DurabilityLevelKey =>
         saveKeyPrefix + "DurabilityLevel";
@@ -99,9 +102,9 @@ public sealed class DiscProgressionStore : MonoBehaviour
             )
         );
 
-        flightPowerLevel = LoadLevel(
-            FlightLevelKey,
-            DiscUpgradeType.FlightPower
+        liftLevel = LoadLevel(
+            LiftLevelKey,
+            DiscUpgradeType.Lift
         );
 
         durabilityLevel = LoadLevel(
@@ -125,8 +128,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
         );
 
         PlayerPrefs.SetInt(
-            FlightLevelKey,
-            flightPowerLevel
+            LiftLevelKey,
+            liftLevel
         );
 
         PlayerPrefs.SetInt(
@@ -160,7 +163,7 @@ public sealed class DiscProgressionStore : MonoBehaviour
         }
 
         return config.BuildRuntimeStats(
-            flightPowerLevel,
+            liftLevel,
             durabilityLevel,
             incomeLevel
         );
@@ -170,8 +173,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
     {
         switch (type)
         {
-            case DiscUpgradeType.FlightPower:
-                return flightPowerLevel;
+            case DiscUpgradeType.Lift:
+                return liftLevel;
 
             case DiscUpgradeType.Durability:
                 return durabilityLevel;
@@ -306,7 +309,7 @@ public sealed class DiscProgressionStore : MonoBehaviour
     public void ResetAllProgress()
     {
         coins = defaultCoins;
-        flightPowerLevel = 0;
+        liftLevel = 0;
         durabilityLevel = 0;
         incomeLevel = 0;
 
@@ -346,8 +349,8 @@ public sealed class DiscProgressionStore : MonoBehaviour
 
         switch (type)
         {
-            case DiscUpgradeType.FlightPower:
-                flightPowerLevel = level;
+            case DiscUpgradeType.Lift:
+                liftLevel = level;
                 break;
 
             case DiscUpgradeType.Durability:
