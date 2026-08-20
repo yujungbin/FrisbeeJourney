@@ -149,21 +149,35 @@ public class ResultPanelView : MonoBehaviour
         if (theme == null)
             return;
 
-        ApplyImageTheme(
+
+        ApplyOptionalSprite(
             panelBackground,
-            theme.panelSprite,
+            theme.panelSprite
+        );
+
+        ApplyOptionalSprite(
+            primaryButtonImage,
+            theme.primaryButtonSprite
+        );
+
+        ApplyOptionalSprite(
+            secondaryButtonImage,
+            theme.secondaryButtonSprite
+        );
+
+
+        ApplyImageColor(
+            panelBackground,
             theme.panelColor
         );
 
-        ApplyImageTheme(
+        ApplyImageColor(
             primaryButtonImage,
-            theme.primaryButtonSprite,
             theme.primaryButtonColor
         );
 
-        ApplyImageTheme(
+        ApplyImageColor(
             secondaryButtonImage,
-            theme.secondaryButtonSprite,
             theme.secondaryButtonColor
         );
 
@@ -212,4 +226,27 @@ public class ResultPanelView : MonoBehaviour
 
         image.color = color;
     }
-}
+
+    private void ApplyOptionalSprite(
+        Image image,
+        Sprite sprite)
+    {
+        if (image == null)
+            return;
+
+        if (sprite == null)
+            return;
+        image.sprite = sprite;
+        bool hasBorder = sprite.border.sqrMagnitude > 0.001f;
+        image.type = hasBorder
+            ? Image.Type.Sliced : Image.Type.Simple;
+    }
+    private void ApplyImageColor(
+        Image image,
+        Color color)
+    {
+        if(image == null)
+            return;
+        image.color = color;
+    }
+}   

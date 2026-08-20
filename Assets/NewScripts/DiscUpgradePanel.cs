@@ -18,7 +18,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     [FormerlySerializedAs("initialThrustText")]
     [SerializeField]
-    private TextMeshProUGUI flightPowerText;
+    private TextMeshProUGUI liftText;
 
     [SerializeField]
     private TextMeshProUGUI durabilityText;
@@ -28,9 +28,9 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     private TextMeshProUGUI incomeText;
 
     [Header("Buttons")]
-    [FormerlySerializedAs("initialThrustButton")]
+    [FormerlySerializedAs("LiftButton")]
     [SerializeField]
-    private Button flightPowerButton;
+    private Button liftButton;
 
     [SerializeField]
     private Button durabilityButton;
@@ -92,14 +92,14 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     private void RegisterButtonEvents()
     {
-        if (flightPowerButton != null)
+        if (liftButton != null)
         {
-            flightPowerButton.onClick.RemoveListener(
-                UpgradeFlightPower
+            liftButton.onClick.RemoveListener(
+                UpgradeLift
             );
 
-            flightPowerButton.onClick.AddListener(
-                UpgradeFlightPower
+            liftButton.onClick.AddListener(
+                UpgradeLift
             );
         }
 
@@ -128,10 +128,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     private void UnregisterButtonEvents()
     {
-        if (flightPowerButton != null)
+        if (liftButton != null)
         {
-            flightPowerButton.onClick.RemoveListener(
-                UpgradeFlightPower
+            liftButton.onClick.RemoveListener(
+                UpgradeLift
             );
         }
 
@@ -155,9 +155,9 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     #region Public Upgrade Buttons
 
-    public void UpgradeFlightPower()
+    public void UpgradeLift()
     {
-        TryUpgrade(DiscUpgradeType.FlightPower);
+        TryUpgrade(DiscUpgradeType.Lift);
     }
 
     public void UpgradeDurability()
@@ -243,8 +243,8 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             if (coinsText != null)
                 coinsText.text = "����: -";
 
-            if (flightPowerText != null)
-                flightPowerText.text = "�����\n������� ����";
+            if (liftText != null)
+                liftText.text = "�����\n������� ����";
 
             if (durabilityText != null)
                 durabilityText.text = "������\n������� ����";
@@ -265,10 +265,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         }
 
         // �� ���� ����
-        if (flightPowerText != null)
+        if (liftText != null)
         {
-            flightPowerText.text = BuildUpgradeText(
-                DiscUpgradeType.FlightPower
+            liftText.text = BuildUpgradeText(
+                DiscUpgradeType.Lift
             );
         }
 
@@ -287,10 +287,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         }
 
         // �� ��ư�� Ȱ��ȭ ����
-        if (flightPowerButton != null)
+        if (liftButton != null)
         {
-            flightPowerButton.interactable =
-                CanUpgrade(DiscUpgradeType.FlightPower);
+            liftButton.interactable =
+                CanUpgrade(DiscUpgradeType.Lift);
         }
 
         if (durabilityButton != null)
@@ -308,8 +308,8 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     private void SetAllButtonsInteractable(bool interactable)
     {
-        if (flightPowerButton != null)
-            flightPowerButton.interactable = interactable;
+        if (liftButton != null)
+            liftButton.interactable = interactable;
 
         if (durabilityButton != null)
             durabilityButton.interactable = interactable;
@@ -367,7 +367,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     {
         switch (upgradeType)
         {
-            case DiscUpgradeType.FlightPower:
+            case DiscUpgradeType.Lift:
                 return "�����";
 
             case DiscUpgradeType.Durability:
@@ -387,9 +387,9 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     {
         switch (upgradeType)
         {
-            case DiscUpgradeType.FlightPower:
+            case DiscUpgradeType.Lift:
                 // initialThrust ��
-                return value.ToString("0.0");
+                return value.ToString("0.00");
 
             case DiscUpgradeType.Durability:
                 // �ִ� ������

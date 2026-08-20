@@ -20,6 +20,6 @@ MonoBehaviour:
   panelColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 0.9}
   titleColor: {r: 1, g: 1, b: 1, a: 1}
   bodyTextColor: {r: 0, g: 0, b: 0, a: 1}
-  primaryButtonColor: {r: 0, g: 0.29921246, b: 0.5, a: 1}
-  secondaryButtonColor: {r: 0.6698113, g: 0.021841671, b: 0, a: 1}
+  primaryButtonColor: {r: 1, g: 1, b: 1, a: 1}
+  secondaryButtonColor: {r: 1, g: 1, b: 1, a: 1}
   buttonTextColor: {r: 1, g: 1, b: 1, a: 1}
