@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357873040918178147}
   - component: {fileID: -4752477474232454925}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mountain 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,6 +130,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 423e9b53e51f7534986979c4c372d422, type: 3}
       propertyPath: m_Name
       value: Mountain_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 423e9b53e51f7534986979c4c372d422, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
