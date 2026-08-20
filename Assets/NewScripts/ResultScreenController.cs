@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -24,17 +24,17 @@ public class ResultScreenController : MonoBehaviour
     [SerializeField] private bool pauseTimeScaleWhileOpen = false;
 
     [Header("Flow Events")]
-    [Tooltip("Áß°£ °á°ú¿¡¼­ 'ÀÀ!'À» ´­·¶À» ¶§ È£ÃâµË´Ï´Ù.")]
+    [Tooltip("ì¤‘ê°„ ê²°ê³¼ì—ì„œ 'ì‘!'ì„ ëˆŒë €ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.")]
     [SerializeField]
     private UnityEvent onContinueRequested =
         new UnityEvent();
 
-    [Tooltip("Áß°£ °á°ú¿¡¼­ '±×¸¸ÇÒ·¡'¸¦ ´­·¶À» ¶§ È£ÃâµË´Ï´Ù.")]
+    [Tooltip("ì¤‘ê°„ ê²°ê³¼ì—ì„œ 'ê·¸ë§Œí• ë˜'ë¥¼ ëˆŒë €ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.")]
     [SerializeField]
     private UnityEvent onQuitRequested =
         new UnityEvent();
 
-    [Tooltip("ÃÖÁ¾ °á°ú¿¡¼­ '¹Ş±â!'¸¦ ´­·¶À» ¶§ È£ÃâµË´Ï´Ù.")]
+    [Tooltip("ìµœì¢… ê²°ê³¼ì—ì„œ 'ë°›ê¸°!'ë¥¼ ëˆŒë €ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.")]
     [SerializeField]
     private UnityEvent onCollectRequested =
         new UnityEvent();
@@ -72,9 +72,9 @@ public class ResultScreenController : MonoBehaviour
         {
             intermediatePanel.Show(
                 snapshot,
-                "¶Ç ´øÁú±î?",
-                "ÀÀ!",
-                "±×¸¸ÇÒ·¡",
+                "ë˜ ë˜ì§ˆê¹Œ?",
+                "ì‘!",
+                "ê·¸ë§Œí• ë˜",
                 true,
                 HandleContinue,
                 HandleQuit,
@@ -154,8 +154,8 @@ public class ResultScreenController : MonoBehaviour
     bool completed)
     {
         /*
-         * ResultOverlayRoot¸¦ Hierarchy¿¡¼­ ²¨µĞ °æ¿ì¿¡µµ
-         * ´Ù½Ã È°¼ºÈ­ÇÕ´Ï´Ù.
+         * ResultOverlayRootë¥¼ Hierarchyì—ì„œ êº¼ë‘” ê²½ìš°ì—ë„
+         * ë‹¤ì‹œ í™œì„±í™”í•©ë‹ˆë‹¤.
          */
         if (!gameObject.activeSelf)
             gameObject.SetActive(true);

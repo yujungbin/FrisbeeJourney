@@ -12,7 +12,7 @@ public class DiscDurabilityGaugeUI : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Text")]
-    [SerializeField] private string titleText = "³»±¸µµ";
+    [SerializeField] private string titleText = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
     [SerializeField] private string valueFormat = "{0:0} / {1:0}";
 
     [Header("Gauge")]
@@ -20,7 +20,7 @@ public class DiscDurabilityGaugeUI : MonoBehaviour
     [SerializeField] private float smoothSpeed = 12f;
 
     [Header("Input Blocking")]
-    [Tooltip("true¸é ÀÌ UI°¡ ÅÍÄ¡/Å¬¸¯ ÀÔ·ÂÀ» ¸·Áö ¾Ê½À´Ï´Ù.")]
+    [Tooltip("trueï¿½ï¿½ ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½Ä¡/Å¬ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.")]
     [SerializeField] private bool ignorePointerInput = true;
 
     private float targetNormalized = 1f;

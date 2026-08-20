@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -27,9 +27,9 @@ public class ResultPanelView : MonoBehaviour
     [TextArea]
     [SerializeField]
     private string statsFormat =
-        "ÀÌ¹ø ºñÇà °Å¸®: {0:0}m\n" +
-        "´©Àû ºñÇà °Å¸®: {1:0}m\n" +
-        "´©Àû ÄÚÀÎ °³¼ö: {2}°³";
+        "ì´ë²ˆ ë¹„í–‰ ê±°ë¦¬: {0:0}m\n" +
+        "ëˆ„ì  ë¹„í–‰ ê±°ë¦¬: {1:0}m\n" +
+        "ëˆ„ì  ì½”ì¸ ê°œìˆ˜: {2}ê°œ";
 
     private UnityAction cachedPrimaryAction;
     private UnityAction cachedSecondaryAction;
@@ -53,8 +53,8 @@ public class ResultPanelView : MonoBehaviour
     ResultScreenTheme theme)
     {
         /*
-         * FinalResultPanelÀÌ Hierarchy¿¡¼­ ºñÈ°¼ºÈ­µÇ¾î ÀÖ¾îµµ
-         * °á°ú¸¦ Ç¥½ÃÇÒ ¼ö ÀÖ°Ô ÇÕ´Ï´Ù.
+         * FinalResultPanelì´ Hierarchyì—ì„œ ë¹„í™œì„±í™”ë˜ì–´ ìžˆì–´ë„
+         * ê²°ê³¼ë¥¼ í‘œì‹œí•  ìˆ˜ ìžˆê²Œ í•©ë‹ˆë‹¤.
          */
         if (!gameObject.activeSelf)
             gameObject.SetActive(true);
@@ -149,21 +149,35 @@ public class ResultPanelView : MonoBehaviour
         if (theme == null)
             return;
 
-        ApplyImageTheme(
+
+        ApplyOptionalSprite(
             panelBackground,
-            theme.panelSprite,
+            theme.panelSprite
+        );
+
+        ApplyOptionalSprite(
+            primaryButtonImage,
+            theme.primaryButtonSprite
+        );
+
+        ApplyOptionalSprite(
+            secondaryButtonImage,
+            theme.secondaryButtonSprite
+        );
+
+
+        ApplyImageColor(
+            panelBackground,
             theme.panelColor
         );
 
-        ApplyImageTheme(
+        ApplyImageColor(
             primaryButtonImage,
-            theme.primaryButtonSprite,
             theme.primaryButtonColor
         );
 
-        ApplyImageTheme(
+        ApplyImageColor(
             secondaryButtonImage,
-            theme.secondaryButtonSprite,
             theme.secondaryButtonColor
         );
 
@@ -212,4 +226,27 @@ public class ResultPanelView : MonoBehaviour
 
         image.color = color;
     }
-}
+
+    private void ApplyOptionalSprite(
+        Image image,
+        Sprite sprite)
+    {
+        if (image == null)
+            return;
+
+        if (sprite == null)
+            return;
+        image.sprite = sprite;
+        bool hasBorder = sprite.border.sqrMagnitude > 0.001f;
+        image.type = hasBorder
+            ? Image.Type.Sliced : Image.Type.Simple;
+    }
+    private void ApplyImageColor(
+        Image image,
+        Color color)
+    {
+        if(image == null)
+            return;
+        image.color = color;
+    }
+}   

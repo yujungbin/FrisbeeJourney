@@ -1,22 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 public sealed class GameSceneNavigator : MonoBehaviour
 {
     [Header("Scene")]
-    [Tooltip("µ¹¾Æ°¥ ½ÃÀÛ SceneÀÇ Á¤È®ÇÑ ÀÌ¸§ÀÔ´Ï´Ù. .unity´Â ºÙÀÌÁö ¾Ê½À´Ï´Ù.")]
+    [Tooltip("ëŒì•„ê°ˆ ì‹œì‘ Sceneì˜ ì •í™•í•œ ì´ë¦„ì…ë‹ˆë‹¤. .unityëŠ” ë¶™ì´ì§€ ì•ŠìŠµë‹ˆë‹¤.")]
     [SerializeField]
     private string startSceneName = "StartScene";
 
     [Header("Run Reward")]
-    [Tooltip("PlayScene¿¡¼­ ÀÓ½Ã ÄÚÀÎÀ» °ü¸®ÇÏ´Â RunCoinBankÀÔ´Ï´Ù.")]
+    [Tooltip("PlaySceneì—ì„œ ì„ì‹œ ì½”ì¸ì„ ê´€ë¦¬í•˜ëŠ” RunCoinBankì…ë‹ˆë‹¤.")]
     [SerializeField]
     private RunCoinBank runCoinBank;
 
     [Tooltip(
-        "StartSceneÀ¸·Î ÀÌµ¿ÇÏ±â Àü¿¡ RunCoinBankÀÇ ÀÓ½Ã ÄÚÀÎÀ» " +
-        "DiscProgressionStore¿¡ Á¤»êÇÕ´Ï´Ù."
+        "StartSceneìœ¼ë¡œ ì´ë™í•˜ê¸° ì „ì— RunCoinBankì˜ ì„ì‹œ ì½”ì¸ì„ " +
+        "DiscProgressionStoreì— ì •ì‚°í•©ë‹ˆë‹¤."
     )]
     [SerializeField]
     private bool commitPendingCoinsBeforeReturn = true;
@@ -28,8 +28,8 @@ public sealed class GameSceneNavigator : MonoBehaviour
     private bool isLoading;
 
     /// <summary>
-    /// ÀÓ½Ã ÄÚÀÎÀ» ¿µ±¸ ÄÚÀÎÀ¸·Î Á¤»êÇÑ µÚ StartSceneÀ¸·Î µ¹¾Æ°©´Ï´Ù.
-    /// °á°ú È­¸éÀÇ QUIT / COLLECT ¹öÆ°¿¡¼­ ÀÌ ¸Ş¼­µå¸¦ È£ÃâÇÕ´Ï´Ù.
+    /// ì„ì‹œ ì½”ì¸ì„ ì˜êµ¬ ì½”ì¸ìœ¼ë¡œ ì •ì‚°í•œ ë’¤ StartSceneìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.
+    /// ê²°ê³¼ í™”ë©´ì˜ QUIT / COLLECT ë²„íŠ¼ì—ì„œ ì´ ë©”ì„œë“œë¥¼ í˜¸ì¶œí•©ë‹ˆë‹¤.
     /// </summary>
     //public void ReturnToStartScene()
     //{
@@ -51,8 +51,8 @@ public sealed class GameSceneNavigator : MonoBehaviour
     //        if (runCoinBank == null)
     //        {
     //            Debug.LogError(
-    //                "GameSceneNavigator: RunCoinBank°¡ ¿¬°áµÇÁö ¾Ê¾Æ " +
-    //                "ÄÚÀÎÀ» Á¤»êÇÏÁö ¾Ê°í SceneÀ» ÀÌµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù.",
+    //                "GameSceneNavigator: RunCoinBankê°€ ì—°ê²°ë˜ì§€ ì•Šì•„ " +
+    //                "ì½”ì¸ì„ ì •ì‚°í•˜ì§€ ì•Šê³  Sceneì„ ì´ë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.",
     //                this
     //            );
 
@@ -66,8 +66,8 @@ public sealed class GameSceneNavigator : MonoBehaviour
     //        if (!committed)
     //        {
     //            Debug.LogError(
-    //                "GameSceneNavigator: ÄÚÀÎ Á¤»ê¿¡ ½ÇÆĞÇÏ¿© " +
-    //                "StartScene ÀÌµ¿À» Ãë¼ÒÇß½À´Ï´Ù.",
+    //                "GameSceneNavigator: ì½”ì¸ ì •ì‚°ì— ì‹¤íŒ¨í•˜ì—¬ " +
+    //                "StartScene ì´ë™ì„ ì·¨ì†Œí–ˆìŠµë‹ˆë‹¤.",
     //                this
     //            );
 
@@ -76,7 +76,7 @@ public sealed class GameSceneNavigator : MonoBehaviour
     //        }
     //    }
 
-    //    // °á°ú UI¿¡¼­ Time.timeScaleÀ» 0À¸·Î ¼³Á¤ÇßÀ» °æ¿ì º¹±¸ÇÕ´Ï´Ù.
+    //    // ê²°ê³¼ UIì—ì„œ Time.timeScaleì„ 0ìœ¼ë¡œ ì„¤ì •í–ˆì„ ê²½ìš° ë³µêµ¬í•©ë‹ˆë‹¤.
     //    Time.timeScale = 1f;
 
     //    if (logNavigation)
@@ -118,7 +118,7 @@ public sealed class GameSceneNavigator : MonoBehaviour
         if (string.IsNullOrWhiteSpace(startSceneName))
         {
             Debug.LogError(
-                "GameSceneNavigator: Start Scene ÀÌ¸§ÀÌ ºñ¾î ÀÖ½À´Ï´Ù.",
+                "GameSceneNavigator: Start Scene ì´ë¦„ì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.",
                 this
             );
 
@@ -128,9 +128,9 @@ public sealed class GameSceneNavigator : MonoBehaviour
         if (!Application.CanStreamedLevelBeLoaded(startSceneName))
         {
             Debug.LogError(
-                $"GameSceneNavigator: '{startSceneName}' SceneÀ» " +
-                "·ÎµåÇÒ ¼ö ¾ø½À´Ï´Ù. Scene ÀÌ¸§°ú Build ProfilesÀÇ " +
-                "Scene ¸ñ·ÏÀ» È®ÀÎÇÏ¼¼¿ä.",
+                $"GameSceneNavigator: '{startSceneName}' Sceneì„ " +
+                "ë¡œë“œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. Scene ì´ë¦„ê³¼ Build Profilesì˜ " +
+                "Scene ëª©ë¡ì„ í™•ì¸í•˜ì„¸ìš”.",
                 this
             );
 

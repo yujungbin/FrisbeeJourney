@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -18,7 +18,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     [FormerlySerializedAs("initialThrustText")]
     [SerializeField]
-    private TextMeshProUGUI flightPowerText;
+    private TextMeshProUGUI liftText;
 
     [SerializeField]
     private TextMeshProUGUI durabilityText;
@@ -28,9 +28,9 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     private TextMeshProUGUI incomeText;
 
     [Header("Buttons")]
-    [FormerlySerializedAs("initialThrustButton")]
+    [FormerlySerializedAs("LiftButton")]
     [SerializeField]
-    private Button flightPowerButton;
+    private Button liftButton;
 
     [SerializeField]
     private Button durabilityButton;
@@ -71,8 +71,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (progressionStore == null)
             return;
 
-        // OnChanged�� �ƴ϶� Changed�Դϴ�.
-        // �ߺ� ������ �����ϱ� ���� ���� �����մϴ�.
+    
         progressionStore.Changed -= Refresh;
         progressionStore.Changed += Refresh;
     }
@@ -92,14 +91,14 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     private void RegisterButtonEvents()
     {
-        if (flightPowerButton != null)
+        if (liftButton != null)
         {
-            flightPowerButton.onClick.RemoveListener(
-                UpgradeFlightPower
+            liftButton.onClick.RemoveListener(
+                UpgradeLift
             );
 
-            flightPowerButton.onClick.AddListener(
-                UpgradeFlightPower
+            liftButton.onClick.AddListener(
+                UpgradeLift
             );
         }
 
@@ -128,10 +127,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     private void UnregisterButtonEvents()
     {
-        if (flightPowerButton != null)
+        if (liftButton != null)
         {
-            flightPowerButton.onClick.RemoveListener(
-                UpgradeFlightPower
+            liftButton.onClick.RemoveListener(
+                UpgradeLift
             );
         }
 
@@ -155,9 +154,9 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     #region Public Upgrade Buttons
 
-    public void UpgradeFlightPower()
+    public void UpgradeLift()
     {
-        TryUpgrade(DiscUpgradeType.FlightPower);
+        TryUpgrade(DiscUpgradeType.Lift);
     }
 
     public void UpgradeDurability()
@@ -181,46 +180,39 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         {
             Debug.LogWarning(
                 "DiscUpgradePanel: " +
-                "Progression Store�� ����Ǿ� ���� �ʽ��ϴ�."
+                "Progression Store is not connected."
             );
 
             Refresh();
             return;
         }
 
-        // UI �ܰ��� ���� �˻��Դϴ�.
+
         if (!CanUpgrade(upgradeType))
         {
             Debug.Log(
-                $"{GetUpgradeDisplayName(upgradeType)} ���׷��̵� �Ұ�. " +
-                "������ �����ϰų� �ִ� �����Դϴ�."
+                $"{GetUpgradeDisplayName(upgradeType)} Cannot upgrade. " +
+                "Ran out of coin or max level."
             );
 
             Refresh();
             return;
         }
 
-        /*
-         * Store.TryUpgrade() ���ο����� CanUpgrade()�� �ٽ� �˻��մϴ�.
-         * Panel �˻�� UI���̰�, Store �˻�� ���� ������ ��ȣ���Դϴ�.
-         */
         bool upgraded =
             progressionStore.TryUpgrade(upgradeType);
 
         if (!upgraded)
         {
             Debug.LogWarning(
-                $"{GetUpgradeDisplayName(upgradeType)} ���׷��̵尡 " +
-                "���� �˻翡�� �����߽��ϴ�."
+                $"{GetUpgradeDisplayName(upgradeType)} 업그레이드가 " +
+                "Failed at final test."
             );
 
             Refresh();
         }
 
-        /*
-         * ������ ��� DiscProgressionStore.NotifyChanged()��
-         * Changed �̺�Ʈ�� ȣ���ϰ�, �� �̺�Ʈ�� Refresh()�� ����˴ϴ�.
-         */
+
     }
 
     private bool CanUpgrade(DiscUpgradeType upgradeType)
@@ -241,17 +233,17 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             SetAllButtonsInteractable(false);
 
             if (coinsText != null)
-                coinsText.text = "����: -";
+                coinsText.text = "Coin: -";
 
-            if (flightPowerText != null)
-                flightPowerText.text = "�����\n������� ����";
+            if (liftText != null)
+                liftText.text = "Lift\nNo data";
 
             if (durabilityText != null)
-                durabilityText.text = "������\n������� ����";
+                durabilityText.text = "Durability\nNo data";
 
             if (incomeText != null)
-                incomeText.text = "����\n������� ����";
-
+                incomeText.text = "Income\nNo data";
+            
             return;
         }
 
@@ -265,10 +257,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         }
 
         // �� ���� ����
-        if (flightPowerText != null)
+        if (liftText != null)
         {
-            flightPowerText.text = BuildUpgradeText(
-                DiscUpgradeType.FlightPower
+            liftText.text = BuildUpgradeText(
+                DiscUpgradeType.Lift
             );
         }
 
@@ -287,10 +279,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         }
 
         // �� ��ư�� Ȱ��ȭ ����
-        if (flightPowerButton != null)
+        if (liftButton != null)
         {
-            flightPowerButton.interactable =
-                CanUpgrade(DiscUpgradeType.FlightPower);
+            liftButton.interactable =
+                CanUpgrade(DiscUpgradeType.Lift);
         }
 
         if (durabilityButton != null)
@@ -308,8 +300,8 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     private void SetAllButtonsInteractable(bool interactable)
     {
-        if (flightPowerButton != null)
-            flightPowerButton.interactable = interactable;
+        if (liftButton != null)
+            liftButton.interactable = interactable;
 
         if (durabilityButton != null)
             durabilityButton.interactable = interactable;
@@ -327,7 +319,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         DiscUpgradeType upgradeType)
     {
         if (progressionStore == null)
-            return "������� ����";
+            return "No data";
 
         string displayName =
             GetUpgradeDisplayName(upgradeType);
@@ -344,7 +336,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (isMaxLevel)
         {
             return
-                $"{displayName} Lv.{currentLevel}\n" +
+                $"{displayName}\n" +
                 $"{FormatUpgradeValue(upgradeType, currentValue)}\n" +
                 "MAX";
         }
@@ -356,10 +348,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             progressionStore.GetUpgradeCost(upgradeType);
 
         return
-            $"{displayName} Lv.{currentLevel}\n" +
+            $"{displayName}\n" +
             $"{FormatUpgradeValue(upgradeType, currentValue)}" +
-            $" �� {FormatUpgradeValue(upgradeType, nextValue)}\n" +
-            $"���: {upgradeCost:N0}";
+            $" -> {FormatUpgradeValue(upgradeType, nextValue)}\n" +
+            $"Cost: {upgradeCost:N0}";
     }
 
     private string GetUpgradeDisplayName(
@@ -367,17 +359,17 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     {
         switch (upgradeType)
         {
-            case DiscUpgradeType.FlightPower:
-                return "�����";
+            case DiscUpgradeType.Lift:
+                return "Lift";
 
             case DiscUpgradeType.Durability:
-                return "������";
+                return "Durability";
 
             case DiscUpgradeType.Income:
-                return "����";
+                return "Income";
 
             default:
-                return "�� �� ����";
+                return "Unknown";
         }
     }
 
@@ -387,16 +379,16 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     {
         switch (upgradeType)
         {
-            case DiscUpgradeType.FlightPower:
-                // initialThrust ��
-                return value.ToString("0.0");
+            case DiscUpgradeType.Lift:
+                
+                return value.ToString("0.00");
 
             case DiscUpgradeType.Durability:
-                // �ִ� ������
+                
                 return value.ToString("0");
 
             case DiscUpgradeType.Income:
-                // ���� ȹ�� ���
+                
                 return $"{value:0.00}��";
 
             default:

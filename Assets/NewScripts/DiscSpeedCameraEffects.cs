@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Unity.Cinemachine;
 
 [DisallowMultipleComponent]
@@ -11,70 +11,70 @@ public sealed class DiscSpeedCameraEffects : MonoBehaviour
     }
 
     [Header("References")]
-    [Tooltip("CM_DiscFollowÀÇ CinemachineCamera ÄÄÆ÷³ÍÆ®ÀÔ´Ï´Ù.")]
+    [Tooltip("CM_DiscFollowì˜ CinemachineCamera ì»´í¬ë„ŒíŠ¸ì…ë‹ˆë‹¤.")]
     [SerializeField] private CinemachineCamera followCamera;
 
-    [Tooltip("CM_DiscFollowÀÇ CinemachineFollow ÄÄÆ÷³ÍÆ®ÀÔ´Ï´Ù.")]
+    [Tooltip("CM_DiscFollowì˜ CinemachineFollow ì»´í¬ë„ŒíŠ¸ì…ë‹ˆë‹¤.")]
     [SerializeField] private CinemachineFollow followComponent;
 
-    [Tooltip("Disc ·çÆ®ÀÇ RigidbodyÀÔ´Ï´Ù.")]
+    [Tooltip("Disc ë£¨íŠ¸ì˜ Rigidbodyì…ë‹ˆë‹¤.")]
     [SerializeField] private Rigidbody discRigidbody;
 
     [Header("Update")]
     [Tooltip(
-        "CameraRigUpdateDriver¸¦ »ç¿ëÇÏ¸é Manual, " +
-        "ÀÏ¹İ Smart Update ±¸Á¶¶ó¸é LateUpdate¸¦ »ç¿ëÇÕ´Ï´Ù."
+        "CameraRigUpdateDriverë¥¼ ì‚¬ìš©í•˜ë©´ Manual, " +
+        "ì¼ë°˜ Smart Update êµ¬ì¡°ë¼ë©´ LateUpdateë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤."
     )]
     [SerializeField] private UpdateMode updateMode = UpdateMode.Manual;
 
     [Header("Speed Measurement")]
     [Tooltip(
-        "ÄÑ¸é ¼öÆò ¼Óµµ¸¸ »ç¿ëÇÕ´Ï´Ù. " +
-        "³«ÇÏ³ª Æ¨±èÀ¸·Î ÀÎÇÑ ¼öÁ÷ ¼Óµµ°¡ FOV¿¡ ¿µÇâÀ» ÁÖÁö ¾Ê°Ô ÇÕ´Ï´Ù."
+        "ì¼œë©´ ìˆ˜í‰ ì†ë„ë§Œ ì‚¬ìš©í•©ë‹ˆë‹¤. " +
+        "ë‚™í•˜ë‚˜ íŠ•ê¹€ìœ¼ë¡œ ì¸í•œ ìˆ˜ì§ ì†ë„ê°€ FOVì— ì˜í–¥ì„ ì£¼ì§€ ì•Šê²Œ í•©ë‹ˆë‹¤."
     )]
     [SerializeField] private bool useHorizontalSpeed = true;
 
-    [Tooltip("ÀÌ ¼Óµµ ÀÌÇÏ¿¡¼­´Â ±âº» FOV¿Í ±âº» °Å¸®¸¦ »ç¿ëÇÕ´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ ì´í•˜ì—ì„œëŠ” ê¸°ë³¸ FOVì™€ ê¸°ë³¸ ê±°ë¦¬ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.")]
     [SerializeField] private float effectStartSpeed = 2f;
 
-    [Tooltip("ÀÌ ¼Óµµ ÀÌ»ó¿¡¼­´Â ÃÖ´ë FOV¿Í ÃÖ´ë Ä«¸Ş¶ó °Å¸®¸¦ »ç¿ëÇÕ´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ ì´ìƒì—ì„œëŠ” ìµœëŒ€ FOVì™€ ìµœëŒ€ ì¹´ë©”ë¼ ê±°ë¦¬ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.")]
     [SerializeField] private float fullEffectSpeed = 20f;
 
     [Tooltip(
-        "¼Óµµ¸¦ Ä«¸Ş¶ó È¿°ú °­µµ 0~1·Î º¯È¯ÇÏ´Â °î¼±ÀÔ´Ï´Ù. " +
-        "±âº» EaseInOutÀº Àú¼Ó°ú °í¼Ó ±¸°£ÀÇ º¯È­¸¦ ºÎµå·´°Ô ÇÕ´Ï´Ù."
+        "ì†ë„ë¥¼ ì¹´ë©”ë¼ íš¨ê³¼ ê°•ë„ 0~1ë¡œ ë³€í™˜í•˜ëŠ” ê³¡ì„ ì…ë‹ˆë‹¤. " +
+        "ê¸°ë³¸ EaseInOutì€ ì €ì†ê³¼ ê³ ì† êµ¬ê°„ì˜ ë³€í™”ë¥¼ ë¶€ë“œëŸ½ê²Œ í•©ë‹ˆë‹¤."
     )]
     [SerializeField]
     private AnimationCurve speedResponseCurve =
         AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     [Header("Field Of View")]
-    [Tooltip("ÃÖ°í ¼Óµµ¿¡¼­ ±âº» FOV¿¡ Ãß°¡µÇ´Â °ªÀÔ´Ï´Ù.")]
+    [Tooltip("ìµœê³  ì†ë„ì—ì„œ ê¸°ë³¸ FOVì— ì¶”ê°€ë˜ëŠ” ê°’ì…ë‹ˆë‹¤.")]
     [SerializeField] private float additionalFovAtMaxSpeed = 12f;
 
-    [Tooltip("ÃÖÁ¾ FOVÀÇ ÃÖ¼Ò Á¦ÇÑÀÔ´Ï´Ù.")]
+    [Tooltip("ìµœì¢… FOVì˜ ìµœì†Œ ì œí•œì…ë‹ˆë‹¤.")]
     [SerializeField] private float minimumFov = 20f;
 
-    [Tooltip("ÃÖÁ¾ FOVÀÇ ÃÖ´ë Á¦ÇÑÀÔ´Ï´Ù.")]
+    [Tooltip("ìµœì¢… FOVì˜ ìµœëŒ€ ì œí•œì…ë‹ˆë‹¤.")]
     [SerializeField] private float maximumFov = 90f;
 
     [Header("Follow Distance")]
     [Tooltip(
-        "ÃÖ°í ¼Óµµ¿¡¼­ Ä«¸Ş¶ó°¡ ±âº» Follow Offsetº¸´Ù " +
-        "Ãß°¡·Î ¸Ö¾îÁö´Â °Å¸®ÀÔ´Ï´Ù."
+        "ìµœê³  ì†ë„ì—ì„œ ì¹´ë©”ë¼ê°€ ê¸°ë³¸ Follow Offsetë³´ë‹¤ " +
+        "ì¶”ê°€ë¡œ ë©€ì–´ì§€ëŠ” ê±°ë¦¬ì…ë‹ˆë‹¤."
     )]
     [SerializeField] private float additionalDistanceAtMaxSpeed = 2.5f;
 
     [Header("Response")]
     [Tooltip(
-        "°¡¼ÓÇÒ ¶§ Ä«¸Ş¶ó°¡ ¸Ö¾îÁö°í FOV°¡ ³Ğ¾îÁö´Â ¹İÀÀ ¼ÓµµÀÔ´Ï´Ù. " +
-        "°ªÀÌ Å¬¼ö·Ï ºü¸£°Ô ¹İÀÀÇÕ´Ï´Ù."
+        "ê°€ì†í•  ë•Œ ì¹´ë©”ë¼ê°€ ë©€ì–´ì§€ê³  FOVê°€ ë„“ì–´ì§€ëŠ” ë°˜ì‘ ì†ë„ì…ë‹ˆë‹¤. " +
+        "ê°’ì´ í´ìˆ˜ë¡ ë¹ ë¥´ê²Œ ë°˜ì‘í•©ë‹ˆë‹¤."
     )]
     [SerializeField] private float zoomOutSharpness = 8f;
 
     [Tooltip(
-        "°¨¼ÓÇÒ ¶§ Ä«¸Ş¶ó°¡ °¡±î¿öÁö°í FOV°¡ Á¼¾ÆÁö´Â ¹İÀÀ ¼ÓµµÀÔ´Ï´Ù. " +
-        "°ªÀÌ Å¬¼ö·Ï ºü¸£°Ô ¿ø·¡ ±¸µµ·Î µ¹¾Æ¿É´Ï´Ù."
+        "ê°ì†í•  ë•Œ ì¹´ë©”ë¼ê°€ ê°€ê¹Œì›Œì§€ê³  FOVê°€ ì¢ì•„ì§€ëŠ” ë°˜ì‘ ì†ë„ì…ë‹ˆë‹¤. " +
+        "ê°’ì´ í´ìˆ˜ë¡ ë¹ ë¥´ê²Œ ì›ë˜ êµ¬ë„ë¡œ ëŒì•„ì˜µë‹ˆë‹¤."
     )]
     [SerializeField] private float zoomInSharpness = 5f;
 
@@ -142,8 +142,8 @@ public sealed class DiscSpeedCameraEffects : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç Follow Offset°ú FOV¸¦ Àú¼Ó ±âÁØ°ªÀ¸·Î ´Ù½Ã ÀúÀåÇÕ´Ï´Ù.
-    /// Inspector¿¡¼­ ±âº» Ä«¸Ş¶ó ±¸µµ¸¦ ¹Ù²Û µÚ È£ÃâÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    /// í˜„ì¬ Follow Offsetê³¼ FOVë¥¼ ì €ì† ê¸°ì¤€ê°’ìœ¼ë¡œ ë‹¤ì‹œ ì €ì¥í•©ë‹ˆë‹¤.
+    /// Inspectorì—ì„œ ê¸°ë³¸ ì¹´ë©”ë¼ êµ¬ë„ë¥¼ ë°”ê¾¼ ë’¤ í˜¸ì¶œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
     /// </summary>
     public void CaptureBaseSettings()
     {
@@ -153,7 +153,7 @@ public sealed class DiscSpeedCameraEffects : MonoBehaviour
         {
             Debug.LogError(
                 "DiscSpeedCameraEffects: " +
-                "Follow Camera ¶Ç´Â Cinemachine Follow°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù."
+                "Follow Camera ë˜ëŠ” Cinemachine Followê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
             );
 
             initialized = false;
@@ -173,8 +173,8 @@ public sealed class DiscSpeedCameraEffects : MonoBehaviour
     }
 
     /// <summary>
-    /// FOV¿Í Follow OffsetÀ» Áï½Ã ±âº»°ªÀ¸·Î µÇµ¹¸³´Ï´Ù.
-    /// °ÔÀÓ ¸®¼ÂÀÌ³ª »õ ÆÇ ½ÃÀÛ ½Ã »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    /// FOVì™€ Follow Offsetì„ ì¦‰ì‹œ ê¸°ë³¸ê°’ìœ¼ë¡œ ë˜ëŒë¦½ë‹ˆë‹¤.
+    /// ê²Œì„ ë¦¬ì…‹ì´ë‚˜ ìƒˆ íŒ ì‹œì‘ ì‹œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
     /// </summary>
     public void ResetImmediately()
     {
@@ -219,7 +219,7 @@ public sealed class DiscSpeedCameraEffects : MonoBehaviour
             speedResponseCurve.Evaluate(rawEffect01)
         );
 
-        // °¡¼ÓÇÒ ¶§¿Í °¨¼ÓÇÒ ¶§ ¼­·Î ´Ù¸¥ ¹İÀÀ ¼Óµµ¸¦ »ç¿ëÇÕ´Ï´Ù.
+        // ê°€ì†í•  ë•Œì™€ ê°ì†í•  ë•Œ ì„œë¡œ ë‹¤ë¥¸ ë°˜ì‘ ì†ë„ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
         float sharpness =
             targetEffect01 > currentEffect01
                 ? zoomOutSharpness
@@ -309,11 +309,11 @@ public sealed class DiscSpeedCameraEffects : MonoBehaviour
         Vector3 farOffset = baseFollowOffset;
 
         /*
-         * ÀÏ¹İÀûÀÎ Follow OffsetÀº Z°¡ À½¼öÀÔ´Ï´Ù.
-         * ¿¹: (0, 2.5, -6)
+         * ì¼ë°˜ì ì¸ Follow Offsetì€ Zê°€ ìŒìˆ˜ì…ë‹ˆë‹¤.
+         * ì˜ˆ: (0, 2.5, -6)
          *
-         * ±âº» Z°¡ À½¼öÀÌ¸é ´õ ¸Ö¾îÁú¼ö·Ï ´õ À½¼ö°¡ µÇ°í,
-         * ±âº» Z°¡ ¾ç¼öÀÌ¸é ´õ ¸Ö¾îÁú¼ö·Ï ´õ ¾ç¼ö°¡ µË´Ï´Ù.
+         * ê¸°ë³¸ Zê°€ ìŒìˆ˜ì´ë©´ ë” ë©€ì–´ì§ˆìˆ˜ë¡ ë” ìŒìˆ˜ê°€ ë˜ê³ ,
+         * ê¸°ë³¸ Zê°€ ì–‘ìˆ˜ì´ë©´ ë” ë©€ì–´ì§ˆìˆ˜ë¡ ë” ì–‘ìˆ˜ê°€ ë©ë‹ˆë‹¤.
          */
         float zDirection =
             Mathf.Abs(baseFollowOffset.z) > 0.001f
