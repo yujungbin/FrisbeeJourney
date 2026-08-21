@@ -20,8 +20,8 @@ MonoBehaviour:
   liftUpgradeCost:
     baseCost: 1
     costGrowthPerLevel: 2
-  baseMaxDurability: 1000
-  durabilityPerLevel: 50
+  baseMaxDurability: 100
+  durabilityPerLevel: 10
   durabilityMaxLevel: 20
   durabilityUpgradeCost:
     baseCost: 1

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3245847f6f162497cb422896fa4f9424
+guid: 29c9fb5cd0dd8de4d803023cb7ff3470
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 161, y: 0, z: 77, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -108,21 +108,84 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "1 \uCF54\uC778_0"
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 50
+        width: 1423
+        height: 702
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9efbba6e28ebd0448bd0bcda0b02bd17
+      internalID: -457709177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "1 \uCF54\uC778_3"
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 127
+        width: 529
+        height: 608
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fc4e35c6b66a8c4097939bb2352370a
+      internalID: -1477933379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: c43eab7b7f8c1974da033c6401484ce5
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
-    nameFileIdTable: {}
+      entries:
+      - key: SpriteEditor.SliceOnImport
+        value: False
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "1 \uCF54\uC778_0": -457709177
+      "1 \uCF54\uC778_1": 351153616
+      "1 \uCF54\uC778_10": -518003707
+      "1 \uCF54\uC778_11": -455086333
+      "1 \uCF54\uC778_12": -1169608115
+      "1 \uCF54\uC778_13": -1348153043
+      "1 \uCF54\uC778_14": 1198008210
+      "1 \uCF54\uC778_2": -352368949
+      "1 \uCF54\uC778_3": -1477933379
+      "1 \uCF54\uC778_4": 452463300
+      "1 \uCF54\uC778_5": -371349339
+      "1 \uCF54\uC778_6": 1531308113
+      "1 \uCF54\uC778_7": 335630542
+      "1 \uCF54\uC778_8": -1277161332
+      "1 \uCF54\uC778_9": -1530964226
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
