@@ -348,10 +348,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             progressionStore.GetUpgradeCost(upgradeType);
 
         return
-            $"{displayName}\n" +
-            $"{FormatUpgradeValue(upgradeType, currentValue)}" +
-            $" -> {FormatUpgradeValue(upgradeType, nextValue)}\n" +
-            $"Cost: {upgradeCost:N0}";
+            //$"{displayName}\n" +
+            //$"{FormatUpgradeValue(upgradeType, currentValue)}" +
+            //$" -> {FormatUpgradeValue(upgradeType, nextValue)}\n" +
+            $"{upgradeCost:N0}";
     }
 
     private string GetUpgradeDisplayName(
