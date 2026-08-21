@@ -2555,7 +2555,7 @@ GameObject:
   - component: {fileID: 964598529}
   - component: {fileID: 964598528}
   m_Layer: 5
-  m_Name: PowerButton
+  m_Name: LiftButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3275,7 +3275,7 @@ MonoBehaviour:
   liftText: {fileID: 2124542370}
   durabilityText: {fileID: 384233151}
   incomeText: {fileID: 619818592}
-  liftButton: {fileID: 0}
+  liftButton: {fileID: 964598528}
   durabilityButton: {fileID: 1966470518}
   incomeButton: {fileID: 2091073373}
   coinsFormat: "\uFFFD\uFFFD\uFFFD\uFFFD: {0:N0}"
@@ -3784,7 +3784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD30C\uC6CC \uAC15\uD654"
+  m_text: "\uBE44\uD589 \uAC15\uD654"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e43a509e4f8b0c4081548eac7a54498, type: 2}
   m_sharedMaterial: {fileID: -259542569194731284, guid: 5e43a509e4f8b0c4081548eac7a54498, type: 2}
