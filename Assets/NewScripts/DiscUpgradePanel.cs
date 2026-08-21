@@ -16,16 +16,15 @@ public sealed class DiscUpgradePanel : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI coinsText;
 
-    [FormerlySerializedAs("initialThrustText")]
-    [SerializeField]
-    private TextMeshProUGUI liftText;
+    [Header("Upgrade Title / Level")]
+    [SerializeField] private TextMeshProUGUI liftTitleText;
+    [SerializeField] private TextMeshProUGUI durabilityTitleText;
+    [SerializeField] private TextMeshProUGUI incomeTitleText;
 
-    [SerializeField]
-    private TextMeshProUGUI durabilityText;
-
-    [FormerlySerializedAs("liftText")]
-    [SerializeField]
-    private TextMeshProUGUI incomeText;
+    [Header("Upgrade Cost")]
+    [SerializeField] private TextMeshProUGUI liftCostText;
+    [SerializeField] private TextMeshProUGUI durabilityCostText;
+    [SerializeField] private TextMeshProUGUI incomeCostText;
 
     [Header("Buttons")]
     [FormerlySerializedAs("LiftButton")]
@@ -232,18 +231,24 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         {
             SetAllButtonsInteractable(false);
 
-            if (coinsText != null)
-                coinsText.text = "Coin: -";
+            if (liftTitleText != null)
+                liftTitleText.text = "비행 강화 -";
 
-            if (liftText != null)
-                liftText.text = "Lift\nNo data";
+            if (durabilityTitleText != null)
+                durabilityTitleText.text = "내구도 강화 -";
 
-            if (durabilityText != null)
-                durabilityText.text = "Durability\nNo data";
+            if (incomeTitleText != null)
+                incomeTitleText.text = "수입 강화 -";
 
-            if (incomeText != null)
-                incomeText.text = "Income\nNo data";
-            
+            if (liftCostText != null)
+                liftCostText.text = "-";
+
+            if (durabilityCostText != null)
+                durabilityCostText.text = "-";
+
+            if (incomeCostText != null)
+                incomeCostText.text = "-";
+
             return;
         }
 
@@ -257,25 +262,43 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         }
 
         // �� ���� ����
-        if (liftText != null)
+        // 비행 강화
+        if (liftTitleText != null)
         {
-            liftText.text = BuildUpgradeText(
-                DiscUpgradeType.Lift
-            );
+            liftTitleText.text =
+                BuildTitleLevelText(DiscUpgradeType.Lift);
         }
 
-        if (durabilityText != null)
+        if (liftCostText != null)
         {
-            durabilityText.text = BuildUpgradeText(
-                DiscUpgradeType.Durability
-            );
+            liftCostText.text =
+                BuildCostText(DiscUpgradeType.Lift);
         }
 
-        if (incomeText != null)
+        // 내구도 강화
+        if (durabilityTitleText != null)
         {
-            incomeText.text = BuildUpgradeText(
-                DiscUpgradeType.Income
-            );
+            durabilityTitleText.text =
+                BuildTitleLevelText(DiscUpgradeType.Durability);
+        }
+
+        if (durabilityCostText != null)
+        {
+            durabilityCostText.text =
+                BuildCostText(DiscUpgradeType.Durability);
+        }
+
+        // 수입 강화
+        if (incomeTitleText != null)
+        {
+            incomeTitleText.text =
+                BuildTitleLevelText(DiscUpgradeType.Income);
+        }
+
+        if (incomeCostText != null)
+        {
+            incomeCostText.text =
+                BuildCostText(DiscUpgradeType.Income);
         }
 
         // �� ��ư�� Ȱ��ȭ ����
@@ -315,11 +338,11 @@ public sealed class DiscUpgradePanel : MonoBehaviour
 
     #region Text Building
 
-    private string BuildUpgradeText(
-        DiscUpgradeType upgradeType)
+    private string BuildTitleLevelText(
+    DiscUpgradeType upgradeType)
     {
         if (progressionStore == null)
-            return "No data";
+            return "-";
 
         string displayName =
             GetUpgradeDisplayName(upgradeType);
@@ -327,31 +350,26 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         int currentLevel =
             progressionStore.GetLevel(upgradeType);
 
-        float currentValue =
-            progressionStore.GetCurrentValue(upgradeType);
+        // 내부 레벨은 0부터 시작하지만
+        // 화면에는 LV.1부터 표시
+        int displayLevel = currentLevel + 1;
 
-        bool isMaxLevel =
-            progressionStore.IsMaxLevel(upgradeType);
+        return $"{displayName}\n LV.{displayLevel}";
+    }
 
-        if (isMaxLevel)
-        {
-            return
-                $"{displayName}\n" +
-                $"{FormatUpgradeValue(upgradeType, currentValue)}\n" +
-                "MAX";
-        }
+    private string BuildCostText(
+        DiscUpgradeType upgradeType)
+    {
+        if (progressionStore == null)
+            return "-";
 
-        float nextValue =
-            progressionStore.GetNextValue(upgradeType);
+        if (progressionStore.IsMaxLevel(upgradeType))
+            return "MAX";
 
         int upgradeCost =
             progressionStore.GetUpgradeCost(upgradeType);
 
-        return
-            //$"{displayName}\n" +
-            //$"{FormatUpgradeValue(upgradeType, currentValue)}" +
-            //$" -> {FormatUpgradeValue(upgradeType, nextValue)}\n" +
-            $"{upgradeCost:N0}";
+        return $"{upgradeCost:N0}";
     }
 
     private string GetUpgradeDisplayName(
@@ -360,41 +378,20 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         switch (upgradeType)
         {
             case DiscUpgradeType.Lift:
-                return "Lift";
+                return "비행 강화";
 
             case DiscUpgradeType.Durability:
-                return "Durability";
+                return "내구도 강화";
 
             case DiscUpgradeType.Income:
-                return "Income";
+                return "수입 강화";
 
             default:
-                return "Unknown";
+                return "알 수 없음";
         }
     }
 
-    private string FormatUpgradeValue(
-        DiscUpgradeType upgradeType,
-        float value)
-    {
-        switch (upgradeType)
-        {
-            case DiscUpgradeType.Lift:
-                
-                return value.ToString("0.00");
-
-            case DiscUpgradeType.Durability:
-                
-                return value.ToString("0");
-
-            case DiscUpgradeType.Income:
-                
-                return $"{value:0.00}��";
-
-            default:
-                return value.ToString("0.##");
-        }
-    }
+  
 
     #endregion
 
