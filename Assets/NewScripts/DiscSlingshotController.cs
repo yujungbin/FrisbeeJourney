@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -44,7 +44,7 @@ public class DiscSlingshotController : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private DiscCinemachineSwitcher cameraSwitcher;
 
-    [Tooltip("true¸é ¼ÕÀ» ³õ°í ¹ß»ç°¡ ¿¹¾àµÇ´Â ¼ø°£ ¹Ù·Î Follow Camera·Î ÀüÈ¯ÇÕ´Ï´Ù.")]
+    [Tooltip("trueë©´ ì†ì„ ë†“ê³  ë°œì‚¬ê°€ ì˜ˆì•½ë˜ëŠ” ìˆœê°„ ë°”ë¡œ Follow Cameraë¡œ ì „í™˜í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool beginCameraFollowImmediatelyOnRelease = true;
 
     #endregion
@@ -68,28 +68,28 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField] private float maxDragPixels = 500f;
     [SerializeField] private float minDragPixelsToThrow = 45f;
 
-    [Tooltip("ÀÌ ¼Óµµº¸´Ù ºü¸£¸é ÇÃ¸¯ ´øÁö±â·Î ÀÎÁ¤ÇÕ´Ï´Ù. ´ÜÀ§: pixels/second")]
+    [Tooltip("ì´ ì†ë„ë³´ë‹¤ ë¹ ë¥´ë©´ í”Œë¦­ ë˜ì§€ê¸°ë¡œ ì¸ì •í•©ë‹ˆë‹¤. ë‹¨ìœ„: pixels/second")]
     [SerializeField] private float minFlickPixelsPerSecond = 250f;
 
-    [Tooltip("ÀÌ ¼Óµµ ÀÌ»óÀÌ¸é ÃÖ´ë ÇÃ¸¯ ÆÄ¿ö·Î Ãë±ŞÇÕ´Ï´Ù. ´ÜÀ§: pixels/second")]
+    [Tooltip("ì´ ì†ë„ ì´ìƒì´ë©´ ìµœëŒ€ í”Œë¦­ íŒŒì›Œë¡œ ì·¨ê¸‰í•©ë‹ˆë‹¤. ë‹¨ìœ„: pixels/second")]
     [SerializeField] private float maxFlickPixelsPerSecond = 1800f;
 
-    [Tooltip("¸¶Áö¸· ¸î ÃÊ µ¿¾ÈÀÇ ¼Õ°¡¶ô ÀÌµ¿À¸·Î ÇÃ¸¯ ¼Óµµ¸¦ °è»êÇÒÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ë§ˆì§€ë§‰ ëª‡ ì´ˆ ë™ì•ˆì˜ ì†ê°€ë½ ì´ë™ìœ¼ë¡œ í”Œë¦­ ì†ë„ë¥¼ ê³„ì‚°í• ì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private float releaseVelocitySampleTime = 0.12f;
 
-    [Tooltip("ÃµÃµÈ÷ ±æ°Ô µå·¡±×ÇßÀ» ¶§µµ ¾î´À Á¤µµ ÈûÀÌ µé¾î°¡°Ô ÇÏ´Â º¸Á¤°ªÀÔ´Ï´Ù.")]
+    [Tooltip("ì²œì²œíˆ ê¸¸ê²Œ ë“œë˜ê·¸í–ˆì„ ë•Œë„ ì–´ëŠ ì •ë„ í˜ì´ ë“¤ì–´ê°€ê²Œ í•˜ëŠ” ë³´ì •ê°’ì…ë‹ˆë‹¤.")]
     [SerializeField, Range(0f, 1f)] private float slowDragPowerAssist = 0.45f;
 
-    [Tooltip("µå·¡±× Áß ¼Õ°¡¶ô°ú ¿ø¹İ Áß½ÉÀÇ Ã³À½ ¿ÀÇÁ¼ÂÀ» À¯ÁöÇÕ´Ï´Ù.")]
+    [Tooltip("ë“œë˜ê·¸ ì¤‘ ì†ê°€ë½ê³¼ ì›ë°˜ ì¤‘ì‹¬ì˜ ì²˜ìŒ ì˜¤í”„ì…‹ì„ ìœ ì§€í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool keepFingerOffset = true;
 
-    [Tooltip("µå·¡±× Áß ¿ø¹İÀÌ ½ÃÀÛÁ¡¿¡¼­ ³Ê¹« ¸Ö¸® ÀÌµ¿ÇÏÁö ¾Êµµ·Ï Á¦ÇÑÇÕ´Ï´Ù.")]
+    [Tooltip("ë“œë˜ê·¸ ì¤‘ ì›ë°˜ì´ ì‹œì‘ì ì—ì„œ ë„ˆë¬´ ë©€ë¦¬ ì´ë™í•˜ì§€ ì•Šë„ë¡ ì œí•œí•©ë‹ˆë‹¤.")]
     [SerializeField] private float maxDragWorldDistance = 4.5f;
 
-    [Tooltip("µå·¡±× Áß ¿ø¹İÀÇ ÃÖ¼Ò ³ôÀÌÀÔ´Ï´Ù. LaunchAnchor ±âÁØ »ó´ë YÀÔ´Ï´Ù.")]
+    [Tooltip("ë“œë˜ê·¸ ì¤‘ ì›ë°˜ì˜ ìµœì†Œ ë†’ì´ì…ë‹ˆë‹¤. LaunchAnchor ê¸°ì¤€ ìƒëŒ€ Yì…ë‹ˆë‹¤.")]
     [SerializeField] private float minDragYOffset = -0.2f;
 
-    [Tooltip("µå·¡±× Áß ¿ø¹İÀÇ ÃÖ´ë ³ôÀÌÀÔ´Ï´Ù. LaunchAnchor ±âÁØ »ó´ë YÀÔ´Ï´Ù.")]
+    [Tooltip("ë“œë˜ê·¸ ì¤‘ ì›ë°˜ì˜ ìµœëŒ€ ë†’ì´ì…ë‹ˆë‹¤. LaunchAnchor ê¸°ì¤€ ìƒëŒ€ Yì…ë‹ˆë‹¤.")]
     [SerializeField] private float maxDragYOffset = 2.5f;
 
     #endregion
@@ -97,17 +97,17 @@ public class DiscSlingshotController : MonoBehaviour
     #region Inspector - Throw Power / Direction
 
     [Header("Throw Power Scaling")]
-    [Tooltip("´øÁö´Â ¼¼±â°¡ ÃÊ±â ÃßÁø·Â¿¡ ¾ó¸¶³ª ¿µÇâÀ» ÁÙÁöÀÔ´Ï´Ù. 0ÀÌ¸é Ç×»ó ÃÖ´ë ÃßÁø·Â, 1ÀÌ¸é ¿ÏÀüÈ÷ ´øÁö´Â ¼¼±â¿¡ ºñ·ÊÇÕ´Ï´Ù.")]
+    [Tooltip("ë˜ì§€ëŠ” ì„¸ê¸°ê°€ ì´ˆê¸° ì¶”ì§„ë ¥ì— ì–¼ë§ˆë‚˜ ì˜í–¥ì„ ì¤„ì§€ì…ë‹ˆë‹¤. 0ì´ë©´ í•­ìƒ ìµœëŒ€ ì¶”ì§„ë ¥, 1ì´ë©´ ì™„ì „íˆ ë˜ì§€ëŠ” ì„¸ê¸°ì— ë¹„ë¡€í•©ë‹ˆë‹¤.")]
     [SerializeField, Range(0f, 1f)] private float throwPowerToInitialThrust = 1f;
 
-    [Tooltip("´øÁö´Â ¼¼±â ¹İÀÀ °î¼±ÀÔ´Ï´Ù. 1ÀÌ¸é ¼±Çü, 2 ÀÌ»óÀÌ¸é ¾àÇÑ ´øÁö±â°¡ ´õ ¾àÇØÁı´Ï´Ù.")]
+    [Tooltip("ë˜ì§€ëŠ” ì„¸ê¸° ë°˜ì‘ ê³¡ì„ ì…ë‹ˆë‹¤. 1ì´ë©´ ì„ í˜•, 2 ì´ìƒì´ë©´ ì•½í•œ ë˜ì§€ê¸°ê°€ ë” ì•½í•´ì§‘ë‹ˆë‹¤.")]
     [SerializeField] private float throwPowerResponseExponent = 1f;
 
-    [Tooltip("ºñÇà Áß targetForwardSpeedµµ ´øÁö´Â ¼¼±â¿¡ ¸ÂÃç ³·ÃâÁöÀÔ´Ï´Ù.")]
+    [Tooltip("ë¹„í–‰ ì¤‘ targetForwardSpeedë„ ë˜ì§€ëŠ” ì„¸ê¸°ì— ë§ì¶° ë‚®ì¶œì§€ì…ë‹ˆë‹¤.")]
     [SerializeField] private bool scaleForwardTargetSpeedWithThrowPower = true;
 
     [Header("Throw Direction")]
-    [Tooltip("false¸é ¾Æ·¡·Î µå·¡±×ÇØµµ µÚ·Î ³¯¾Æ°¡Áö ¾Ê°í ÃÖ¼ÒÇÑ ¾ÕÀ¸·Î º¸Á¤µË´Ï´Ù.")]
+    [Tooltip("falseë©´ ì•„ë˜ë¡œ ë“œë˜ê·¸í•´ë„ ë’¤ë¡œ ë‚ ì•„ê°€ì§€ ì•Šê³  ìµœì†Œí•œ ì•ìœ¼ë¡œ ë³´ì •ë©ë‹ˆë‹¤.")]
     [SerializeField] private bool allowBackwardThrow = false;
 
     [SerializeField, Range(0f, 0.5f)] private float minForwardInputWhenBackwardDisabled = 0.05f;
@@ -117,27 +117,27 @@ public class DiscSlingshotController : MonoBehaviour
 
     [Header("Throw Height Control")]
     [Tooltip(
-    "°ªÀÌ Å¬¼ö·Ï À§ÂÊÀ¸·Î °­ÇÏ°Ô µå·¡±×ÇßÀ» ¶§¸¸ " +
-    "Max Throw Up Angle¿¡ °¡±î¿öÁı´Ï´Ù."
+    "ê°’ì´ í´ìˆ˜ë¡ ìœ„ìª½ìœ¼ë¡œ ê°•í•˜ê²Œ ë“œë˜ê·¸í–ˆì„ ë•Œë§Œ " +
+    "Max Throw Up Angleì— ê°€ê¹Œì›Œì§‘ë‹ˆë‹¤."
 )]
     [SerializeField, Min(0.1f)]
     private float throwUpInputExponent = 2f;
 
     [Tooltip(
-        "°­ÇÑ ÅõÃ´¿¡¼­µµ Çã¿ëÇÒ ÃÖ´ë ÃÊ±â »ó½Â ¼ÓµµÀÔ´Ï´Ù. " +
-        "Max Throw Angle°ú º°µµ·Î Àû¿ëµË´Ï´Ù."
+        "ê°•í•œ íˆ¬ì²™ì—ì„œë„ í—ˆìš©í•  ìµœëŒ€ ì´ˆê¸° ìƒìŠ¹ ì†ë„ì…ë‹ˆë‹¤. " +
+        "Max Throw Angleê³¼ ë³„ë„ë¡œ ì ìš©ë©ë‹ˆë‹¤."
     )]
     [SerializeField, Min(0f)]
     private float maxInitialUpwardSpeed = 0.75f;
 
     [Header("Throw Direction Preservation")]
-    [Tooltip("´øÁø ¹æÇâÀ» ¾ó¸¶³ª TrackForward ÂÊÀ¸·Î º¸Á¤ÇÒÁöÀÔ´Ï´Ù. 0ÀÌ¸é ´øÁø ¹æÇâ À¯Áö, 1ÀÌ¸é ±âÁ¸Ã³·³ ¾ÕÀ¸·Î °­ÇÏ°Ô º¸Á¤ÇÕ´Ï´Ù.")]
+    [Tooltip("ë˜ì§„ ë°©í–¥ì„ ì–¼ë§ˆë‚˜ TrackForward ìª½ìœ¼ë¡œ ë³´ì •í• ì§€ì…ë‹ˆë‹¤. 0ì´ë©´ ë˜ì§„ ë°©í–¥ ìœ ì§€, 1ì´ë©´ ê¸°ì¡´ì²˜ëŸ¼ ì•ìœ¼ë¡œ ê°•í•˜ê²Œ ë³´ì •í•©ë‹ˆë‹¤.")]
     [SerializeField, Range(0f, 1f)] private float forwardCorrectionStrength = 0.25f;
 
-    [Tooltip("ºñÇà Áß ½Ã°£ÀÌ Áö³ª¸é¼­ TrackForward ÂÊÀ¸·Î ¼­¼­È÷ µ¹¾Æ°¡´Â ¼ÓµµÀÔ´Ï´Ù. 0ÀÌ¸é Ãß°¡ º¸Á¤ ¾øÀ½. ´ÜÀ§: degrees/second")]
+    [Tooltip("ë¹„í–‰ ì¤‘ ì‹œê°„ì´ ì§€ë‚˜ë©´ì„œ TrackForward ìª½ìœ¼ë¡œ ì„œì„œíˆ ëŒì•„ê°€ëŠ” ì†ë„ì…ë‹ˆë‹¤. 0ì´ë©´ ì¶”ê°€ ë³´ì • ì—†ìŒ. ë‹¨ìœ„: degrees/second")]
     [SerializeField] private float forwardCorrectionTurnSpeed = 0f;
 
-    [Tooltip("ÁÂ¿ì Á¶Á¾ ¹æÇâµµ ´øÁø ¹æÇâ ±âÁØÀ¸·Î ÇÒÁöÀÔ´Ï´Ù. false¸é Æ®·¢ ±âÁØ ÁÂ¿ì Á¶Á¾À» À¯ÁöÇÕ´Ï´Ù.")]
+    [Tooltip("ì¢Œìš° ì¡°ì¢… ë°©í–¥ë„ ë˜ì§„ ë°©í–¥ ê¸°ì¤€ìœ¼ë¡œ í• ì§€ì…ë‹ˆë‹¤. falseë©´ íŠ¸ë™ ê¸°ì¤€ ì¢Œìš° ì¡°ì¢…ì„ ìœ ì§€í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool steeringRelativeToThrowDirection = false;
 
     #endregion
@@ -145,37 +145,37 @@ public class DiscSlingshotController : MonoBehaviour
     #region Inspector - Flight
     [Header("Lift Rise Limiter")]
     [Tooltip(
-    "¼öÁ÷ »ó½Â ¼Óµµ°¡ ÀÌ °ªºÎÅÍ Lift°¡ °¨¼ÒÇÏ±â ½ÃÀÛÇÕ´Ï´Ù."
+    "ìˆ˜ì§ ìƒìŠ¹ ì†ë„ê°€ ì´ ê°’ë¶€í„° Liftê°€ ê°ì†Œí•˜ê¸° ì‹œì‘í•©ë‹ˆë‹¤."
 )]
     [SerializeField]
     private float liftFadeStartUpSpeed = 0f;
 
     [Tooltip(
-        "¼öÁ÷ »ó½Â ¼Óµµ°¡ ÀÌ °ª ÀÌ»óÀÌ¸é " +
-        "Lift°¡ Lift Scale At Cutoff ¼öÁØ±îÁö °¨¼ÒÇÕ´Ï´Ù."
+        "ìˆ˜ì§ ìƒìŠ¹ ì†ë„ê°€ ì´ ê°’ ì´ìƒì´ë©´ " +
+        "Liftê°€ Lift Scale At Cutoff ìˆ˜ì¤€ê¹Œì§€ ê°ì†Œí•©ë‹ˆë‹¤."
     )]
     [SerializeField, Min(0.01f)]
     private float liftCutoffUpSpeed = 1f;
 
     [Tooltip(
-        "ºü¸£°Ô »ó½ÂÇÒ ¶§ À¯ÁöÇÒ ÃÖ¼Ò Lift ºñÀ²ÀÔ´Ï´Ù. " +
-        "0ÀÌ¸é »ó½Â Áß Lift¸¦ ¿ÏÀüÈ÷ ²ü´Ï´Ù."
+        "ë¹ ë¥´ê²Œ ìƒìŠ¹í•  ë•Œ ìœ ì§€í•  ìµœì†Œ Lift ë¹„ìœ¨ì…ë‹ˆë‹¤. " +
+        "0ì´ë©´ ìƒìŠ¹ ì¤‘ Liftë¥¼ ì™„ì „íˆ ë•ë‹ˆë‹¤."
     )]
     [SerializeField, Range(0f, 1f)]
     private float liftScaleAtCutoff = 0.05f;
 
     [Tooltip(
-        "LiftÀÇ ÃÖ´ë À§ÂÊ °¡¼Óµµ¸¦ Áß·ÂÀÇ ¸î ¹è±îÁö Çã¿ëÇÒÁöÀÔ´Ï´Ù. " +
-        "1º¸´Ù ³·À¸¸é Lift¸¸À¸·Î °è¼Ó »ó½ÂÇÏÁö ¾Ê½À´Ï´Ù."
+        "Liftì˜ ìµœëŒ€ ìœ„ìª½ ê°€ì†ë„ë¥¼ ì¤‘ë ¥ì˜ ëª‡ ë°°ê¹Œì§€ í—ˆìš©í• ì§€ì…ë‹ˆë‹¤. " +
+        "1ë³´ë‹¤ ë‚®ìœ¼ë©´ Liftë§Œìœ¼ë¡œ ê³„ì† ìƒìŠ¹í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."
     )]
     [SerializeField, Range(0f, 1f)]
     private float maxLiftToGravityRatio = 0.97f;
 
     [Header("Flight")]
-    [Tooltip("ÃÖ¼Ò ¹ß»ç ¼Óµµ = ÃÊ±â ÃßÁø·Â ¡¿ ÀÌ °ª")]
+    [Tooltip("ìµœì†Œ ë°œì‚¬ ì†ë„ = ì´ˆê¸° ì¶”ì§„ë ¥ Ã— ì´ ê°’")]
     [SerializeField, Range(0f, 1f)] private float minLaunchSpeedRatio = 0.25f;
 
-    [Tooltip("ºñÇà Áß À¯ÁöÇÏ·Á´Â ±âº» Àü¹æ ¼Óµµ = ÃÊ±â ÃßÁø·Â ¡¿ ÀÌ °ª")]
+    [Tooltip("ë¹„í–‰ ì¤‘ ìœ ì§€í•˜ë ¤ëŠ” ê¸°ë³¸ ì „ë°© ì†ë„ = ì´ˆê¸° ì¶”ì§„ë ¥ Ã— ì´ ê°’")]
     [SerializeField] private float targetForwardSpeedRatio = 0.85f;
 
     [SerializeField] private float forwardSpeedGain = 4f;
@@ -192,48 +192,48 @@ public class DiscSlingshotController : MonoBehaviour
     #region Inspector - Post Impact
 
     [Header("Post Impact Control")]
-    [Tooltip("Ãæµ¹ ÈÄ¿¡µµ ÀÌ ¼Óµµº¸´Ù ºü¸£¸é ¾àÇÑ ºñÇà Á¦¾î¸¦ À¯ÁöÇÕ´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ í›„ì—ë„ ì´ ì†ë„ë³´ë‹¤ ë¹ ë¥´ë©´ ì•½í•œ ë¹„í–‰ ì œì–´ë¥¼ ìœ ì§€í•©ë‹ˆë‹¤.")]
     [SerializeField] private float postImpactControlOffSpeed = 0.2f;
 
     [SerializeField]
     private bool allowPostImpactSteering = true;
 
-    [Tooltip("Ãæµ¹ ÈÄ ÁÂ¿ì Á¶Á¾ÀÌ ¾ó¸¶³ª ³²¾Æ ÀÖÀ»ÁöÀÔ´Ï´Ù. 0ÀÌ¸é Á¶Á¾ ¾øÀ½.")]
+    [Tooltip("ì¶©ëŒ í›„ ì¢Œìš° ì¡°ì¢…ì´ ì–¼ë§ˆë‚˜ ë‚¨ì•„ ìˆì„ì§€ì…ë‹ˆë‹¤. 0ì´ë©´ ì¡°ì¢… ì—†ìŒ.")]
     [SerializeField, Range(0f, 1f)] private float postImpactSteeringMultiplier = 0.15f;
     [Tooltip(
-    "Ãæµ¹ ÈÄ ÀÌ ¼Óµµ ÀÌ»óÀÌ¸é Post Impact SteeringÀÌ " +
-    "¼³Á¤µÈ ÃÖ´ë °­µµ·Î Àû¿ëµË´Ï´Ù."
+    "ì¶©ëŒ í›„ ì´ ì†ë„ ì´ìƒì´ë©´ Post Impact Steeringì´ " +
+    "ì„¤ì •ëœ ìµœëŒ€ ê°•ë„ë¡œ ì ìš©ë©ë‹ˆë‹¤."
 )]
     [SerializeField, Min(0.01f)]
     private float postImpactSteeringFullEffectSpeed = 8f;
 
-    [Tooltip("Ãæµ¹ ÈÄ ¾ç·ÂÀ» ¾ó¸¶³ª ³²±æÁöÀÔ´Ï´Ù. ÀÚ¿¬½º·´°Ô ¶³¾îÁ® ¸ØÃß°Ô ÇÏ·Á¸é 0 ÃßÃµ.")]
+    [Tooltip("ì¶©ëŒ í›„ ì–‘ë ¥ì„ ì–¼ë§ˆë‚˜ ë‚¨ê¸¸ì§€ì…ë‹ˆë‹¤. ìì—°ìŠ¤ëŸ½ê²Œ ë–¨ì–´ì ¸ ë©ˆì¶”ê²Œ í•˜ë ¤ë©´ 0 ì¶”ì²œ.")]
     [SerializeField, Range(0f, 1f)] private float postImpactLiftMultiplier = 0f;
 
-    [Tooltip("Ãæµ¹ ÈÄ¿¡µµ ¼Óµµ¿¡ ºñ·ÊÇØ¼­ ½Ã°¢Àû È¸ÀüÀ» Àá±ñ À¯ÁöÇÕ´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ í›„ì—ë„ ì†ë„ì— ë¹„ë¡€í•´ì„œ ì‹œê°ì  íšŒì „ì„ ì ê¹ ìœ ì§€í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool spinWhilePostImpactMoving = true;
 
     [Header("Post Impact Forward Assist")]
-    [Tooltip("Ãæµ¹ ÀÌÈÄ ÇöÀç ¼Óµµ¿¡ ºñ·ÊÇØ Àü¹æ °¡¼ÓÀ» Ãß°¡ÇÕ´Ï´Ù. 0ÀÌ¸é ºñÈ°¼ºÈ­µË´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ ì´í›„ í˜„ì¬ ì†ë„ì— ë¹„ë¡€í•´ ì „ë°© ê°€ì†ì„ ì¶”ê°€í•©ë‹ˆë‹¤. 0ì´ë©´ ë¹„í™œì„±í™”ë©ë‹ˆë‹¤.")]
     [SerializeField] private float postImpactForwardAccelerationCoefficient = 0.15f;
 
-    [Tooltip("Ãæµ¹ ÀÌÈÄ Àü¹æ °¡¼ÓÀÇ ÃÖ´ë°ªÀÔ´Ï´Ù. 0 ÀÌÇÏÀÌ¸é Á¦ÇÑÇÏÁö ¾Ê½À´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ ì´í›„ ì „ë°© ê°€ì†ì˜ ìµœëŒ€ê°’ì…ë‹ˆë‹¤. 0 ì´í•˜ì´ë©´ ì œí•œí•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")]
     [SerializeField] private float postImpactMaxForwardAcceleration = 2.5f;
 
-    [Tooltip("¼Óµµ°¡ ÀÌ °ª ÀÌÇÏÀÌ¸é Ãæµ¹ ÈÄ Àü¹æ °¡¼ÓÀ» ²ü´Ï´Ù.")]
+    [Tooltip("ì†ë„ê°€ ì´ ê°’ ì´í•˜ì´ë©´ ì¶©ëŒ í›„ ì „ë°© ê°€ì†ì„ ë•ë‹ˆë‹¤.")]
     [SerializeField] private float postImpactForwardAccelerationMinSpeed = 0.2f;
 
     [Header("Post Impact Rotation")]
-    [Tooltip("Ã¹ Ãæµ¹ ÀÌÈÄ Á¶°Ç¿¡ µû¶ó Rigidbody Freeze RotationÀ» ÇØÁ¦ÇÕ´Ï´Ù.")]
+    [Tooltip("ì²« ì¶©ëŒ ì´í›„ ì¡°ê±´ì— ë”°ë¼ Rigidbody Freeze Rotationì„ í•´ì œí•©ë‹ˆë‹¤.")]
     [SerializeField] private bool unlockRotationAfterFirstImpact = true;
 
-    [Tooltip("ÀÓ°è¼Óµµ 1. Ã¹ Ãæµ¹ ÀÌÈÄ ÇöÀç ¼Óµµ°¡ ÀÌ °ª ÀÌÇÏ·Î ¶³¾îÁö¸é Freeze RotationÀ» ÇØÁ¦ÇÕ´Ï´Ù.")]
+    [Tooltip("ì„ê³„ì†ë„ 1. ì²« ì¶©ëŒ ì´í›„ í˜„ì¬ ì†ë„ê°€ ì´ ê°’ ì´í•˜ë¡œ ë–¨ì–´ì§€ë©´ Freeze Rotationì„ í•´ì œí•©ë‹ˆë‹¤.")]
     [SerializeField] private float unlockRotationCurrentSpeedThreshold = 1f;
 
-    [Tooltip("ÀÓ°è¼Óµµ 2. Ã¹ Ãæµ¹ ¼ø°£ÀÇ ¼Óµµ°¡ ÀÌ °ª ÀÌÇÏÀÌ¸é Áï½Ã Freeze RotationÀ» ÇØÁ¦ÇÕ´Ï´Ù.")]
+    [Tooltip("ì„ê³„ì†ë„ 2. ì²« ì¶©ëŒ ìˆœê°„ì˜ ì†ë„ê°€ ì´ ê°’ ì´í•˜ì´ë©´ ì¦‰ì‹œ Freeze Rotationì„ í•´ì œí•©ë‹ˆë‹¤.")]
     [SerializeField] private float unlockRotationImpactSpeedThreshold = 2f;
 
-    [Tooltip("Freeze Rotation ÇØÁ¦ ÈÄ »ç¿ëÇÒ È¸Àü °¨¼èÀÔ´Ï´Ù.")]
+    [Tooltip("Freeze Rotation í•´ì œ í›„ ì‚¬ìš©í•  íšŒì „ ê°ì‡ ì…ë‹ˆë‹¤.")]
     [SerializeField] private float unlockedRotationAngularDamping = 1.5f;
 
     #endregion
@@ -244,27 +244,27 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField] private float settlingLinearDamping = 2.5f;
     [SerializeField] private float settlingAngularDamping = 8f;
 
-    [Tooltip("Ãæµ¹ ÈÄ ¹Ù´Ú¿¡¼­ °è¼Ó ¹Ì²ô·¯ÁöÁö ¾Êµµ·Ï ¼öÆò ¼Óµµ¸¦ ÁÙÀÌ´Â °ªÀÔ´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ í›„ ë°”ë‹¥ì—ì„œ ê³„ì† ë¯¸ë„ëŸ¬ì§€ì§€ ì•Šë„ë¡ ìˆ˜í‰ ì†ë„ë¥¼ ì¤„ì´ëŠ” ê°’ì…ë‹ˆë‹¤.")]
     [SerializeField] private float settlingHorizontalBrake = 12f;
 
     [Header("Settling Stop Condition")]
-    [Tooltip("Ãæµ¹ ÈÄ ÀÌ ½Ã°£ Àü¿¡´Â Á¤Áö ÆÇÁ¤À» ÇÏÁö ¾Ê½À´Ï´Ù.")]
+    [Tooltip("ì¶©ëŒ í›„ ì´ ì‹œê°„ ì „ì—ëŠ” ì •ì§€ íŒì •ì„ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")]
     [SerializeField] private float minSettlingTimeBeforeStop = 0.35f;
 
-    [Tooltip("ÀÌ ¼Óµµ ÀÌÇÏ¸¦ Àú¼Ó »óÅÂ·Î º¾´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ ì´í•˜ë¥¼ ì €ì† ìƒíƒœë¡œ ë´…ë‹ˆë‹¤.")]
     [SerializeField] private float stopLinearSpeed = 0.55f;
 
-    [Tooltip("Àú¼Ó »óÅÂ°¡ ÀÌ ½Ã°£¸¸Å­ ¿¬¼Ó À¯ÁöµÇ¾î¾ß Á¤Áö Ã³¸®µË´Ï´Ù.")]
+    [Tooltip("ì €ì† ìƒíƒœê°€ ì´ ì‹œê°„ë§Œí¼ ì—°ì† ìœ ì§€ë˜ì–´ì•¼ ì •ì§€ ì²˜ë¦¬ë©ë‹ˆë‹¤.")]
     [SerializeField] private float requiredLowSpeedDurationToStop = 0.8f;
 
     [Header("Rotation Stop After Low Speed")]
-    [Tooltip("Àú¼Ó »óÅÂ°¡ Required Low Speed Duration µ¿¾È À¯ÁöµÇ¸é È¸ÀüÀ» °­Á¦·Î ¸ØÃä´Ï´Ù.")]
+    [Tooltip("ì €ì† ìƒíƒœê°€ Required Low Speed Duration ë™ì•ˆ ìœ ì§€ë˜ë©´ íšŒì „ì„ ê°•ì œë¡œ ë©ˆì¶¥ë‹ˆë‹¤.")]
     [SerializeField] private bool stopRotationWhenLowSpeedStable = true;
 
-    [Tooltip("Àú¼Ó Áö¼Ó Á¶°ÇÀ» ¸¸Á·ÇÑ ¼ø°£ Rigidbody È¸ÀüÀ» ´Ù½Ã °íÁ¤ÇÕ´Ï´Ù.")]
+    [Tooltip("ì €ì† ì§€ì† ì¡°ê±´ì„ ë§Œì¡±í•œ ìˆœê°„ Rigidbody íšŒì „ì„ ë‹¤ì‹œ ê³ ì •í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool freezeRotationWhenLowSpeedStable = true;
 
-    [Tooltip("Àú¼Ó Áö¼Ó Á¶°ÇÀ» ¸¸Á·ÇÑ µÚ Àû¿ëÇÒ È¸Àü °¨¼è°ªÀÔ´Ï´Ù.")]
+    [Tooltip("ì €ì† ì§€ì† ì¡°ê±´ì„ ë§Œì¡±í•œ ë’¤ ì ìš©í•  íšŒì „ ê°ì‡ ê°’ì…ë‹ˆë‹¤.")]
     [SerializeField] private float lowSpeedStableAngularDamping = 20f;
 
     [Header("Settling Debug")]
@@ -635,9 +635,9 @@ public class DiscSlingshotController : MonoBehaviour
         {
             Debug.LogError(
                 "DiscSlingshotController: " +
-                "Runtime Stats°¡ Àû¿ëµÇÁö ¾Ê¾Ò½À´Ï´Ù. " +
-                "DiscRunManagerÀÇ Progression Store¿Í " +
-                "DiscProgressionConfig ¿¬°áÀ» È®ÀÎÇÏ¼¼¿ä.",
+                "Runtime Statsê°€ ì ìš©ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. " +
+                "DiscRunManagerì˜ Progression Storeì™€ " +
+                "DiscProgressionConfig ì—°ê²°ì„ í™•ì¸í•˜ì„¸ìš”.",
                 this
             );
 
@@ -697,7 +697,7 @@ public class DiscSlingshotController : MonoBehaviour
         if (!runtimeStatsInitialized)
         {
             Debug.LogError(
-                "Runtime Stats°¡ Àû¿ëµÇÁö ¾Ê¾Æ ¹ß»ç¸¦ Ãë¼ÒÇÕ´Ï´Ù.",
+                "Runtime Statsê°€ ì ìš©ë˜ì§€ ì•Šì•„ ë°œì‚¬ë¥¼ ì·¨ì†Œí•©ë‹ˆë‹¤.",
                 this
             );
 
@@ -839,8 +839,8 @@ public class DiscSlingshotController : MonoBehaviour
 
         Launched?.Invoke();
 
-        // Ä«¸Ş¶ó´Â ReleaseDrag¿¡¼­ Áï½Ã ÀüÈ¯ÇÕ´Ï´Ù.
-        // onLaunched¿¡´Â »ç¿îµå, UI, ÆÄÆ¼Å¬ °°Àº ºÎ°¡ ÀÌº¥Æ®¸¸ ¿¬°áÇÏ´Â °ÍÀ» ÃßÃµÇÕ´Ï´Ù.
+        // ì¹´ë©”ë¼ëŠ” ReleaseDragì—ì„œ ì¦‰ì‹œ ì „í™˜í•©ë‹ˆë‹¤.
+        // onLaunchedì—ëŠ” ì‚¬ìš´ë“œ, UI, íŒŒí‹°í´ ê°™ì€ ë¶€ê°€ ì´ë²¤íŠ¸ë§Œ ì—°ê²°í•˜ëŠ” ê²ƒì„ ì¶”ì²œí•©ë‹ˆë‹¤.
         onLaunched.Invoke();
     }
 
@@ -972,7 +972,7 @@ public class DiscSlingshotController : MonoBehaviour
         float rawUpward01 =
             Mathf.Clamp01(input.y);
 
-        // À§ÂÊ ÀÔ·ÂÀÌ ÃæºĞÈ÷ Å¬ ¶§¸¸ ÃÖ´ë »ó½Â°¢¿¡ Á¢±Ù
+        // ìœ„ìª½ ì…ë ¥ì´ ì¶©ë¶„íˆ í´ ë•Œë§Œ ìµœëŒ€ ìƒìŠ¹ê°ì— ì ‘ê·¼
         float shapedUpward01 =
             Mathf.Pow(
                 rawUpward01,
@@ -1058,7 +1058,7 @@ public class DiscSlingshotController : MonoBehaviour
     private Vector3 ClampInitialUpwardSpeed(
     Vector3 launchVelocity)
     {
-        // ¾Æ·¡ ¹æÇâ ÅõÃ´ÀÌ³ª ÀÌ¹Ì ³·Àº Y ¼Óµµ´Â ±×´ë·Î À¯Áö
+        // ì•„ë˜ ë°©í–¥ íˆ¬ì²™ì´ë‚˜ ì´ë¯¸ ë‚®ì€ Y ì†ë„ëŠ” ê·¸ëŒ€ë¡œ ìœ ì§€
         if (launchVelocity.y <= maxInitialUpwardSpeed)
             return launchVelocity;
 
@@ -1095,11 +1095,11 @@ public class DiscSlingshotController : MonoBehaviour
             );
 
         /*
-         * ÀüÃ¼ ¹ß»ç ¼Óµµ´Â À¯ÁöÇÏ°í,
-         * ÁÙ¾îµç Y ¼Óµµ¸¸Å­ ¼öÆò ¼Óµµ·Î ÀçºĞ¹èÇÕ´Ï´Ù.
+         * ì „ì²´ ë°œì‚¬ ì†ë„ëŠ” ìœ ì§€í•˜ê³ ,
+         * ì¤„ì–´ë“  Y ì†ë„ë§Œí¼ ìˆ˜í‰ ì†ë„ë¡œ ì¬ë¶„ë°°í•©ë‹ˆë‹¤.
          *
-         * °­ÇÑ ÅõÃ´:
-         * ´õ ³ôÀÌ ¶ß´Â ´ë½Å ´õ ¸Ö¸® ³¯¾Æ°¡°Ô µË´Ï´Ù.
+         * ê°•í•œ íˆ¬ì²™:
+         * ë” ë†’ì´ ëœ¨ëŠ” ëŒ€ì‹  ë” ë©€ë¦¬ ë‚ ì•„ê°€ê²Œ ë©ë‹ˆë‹¤.
          */
         float newHorizontalSpeed =
             Mathf.Sqrt(
@@ -1305,8 +1305,8 @@ public class DiscSlingshotController : MonoBehaviour
             riseScale;
 
         /*
-         * ÇöÀç World Up ±âÁØ ¾Æ·¡ÂÊ Áß·Â °¡¼Óµµ Å©±â.
-         * ±âº» Áß·Â¿¡¼­´Â ¾à 9.81ÀÔ´Ï´Ù.
+         * í˜„ì¬ World Up ê¸°ì¤€ ì•„ë˜ìª½ ì¤‘ë ¥ ê°€ì†ë„ í¬ê¸°.
+         * ê¸°ë³¸ ì¤‘ë ¥ì—ì„œëŠ” ì•½ 9.81ì…ë‹ˆë‹¤.
          */
         float downwardGravityAcceleration =
             Mathf.Max(
@@ -1409,8 +1409,8 @@ public class DiscSlingshotController : MonoBehaviour
         }
 
         /*
-         * postImpactControlOffSpeed¿¡¼­´Â 0,
-         * postImpactSteeringFullEffectSpeed¿¡¼­´Â 1ÀÌ µË´Ï´Ù.
+         * postImpactControlOffSpeedì—ì„œëŠ” 0,
+         * postImpactSteeringFullEffectSpeedì—ì„œëŠ” 1ì´ ë©ë‹ˆë‹¤.
          */
         float safeFullEffectSpeed =
             Mathf.Max(
@@ -1560,8 +1560,8 @@ public class DiscSlingshotController : MonoBehaviour
                 horizontalSpeed
             ) * Mathf.Rad2Deg;
 
-        // À§ÂÊ °¢µµ¸¸ maxThrowAngle·Î Á¦ÇÑÇÕ´Ï´Ù.
-        // ¾Æ·¡·Î ´øÁö´Â ÀÔ·ÂÀº ±×´ë·Î Çã¿ëÇÕ´Ï´Ù.
+        // ìœ„ìª½ ê°ë„ë§Œ maxThrowAngleë¡œ ì œí•œí•©ë‹ˆë‹¤.
+        // ì•„ë˜ë¡œ ë˜ì§€ëŠ” ì…ë ¥ì€ ê·¸ëŒ€ë¡œ í—ˆìš©í•©ë‹ˆë‹¤.
         float clampedAngle =
             Mathf.Min(
                 currentAngle,
@@ -1608,7 +1608,7 @@ public class DiscSlingshotController : MonoBehaviour
             Mathf.Clamp01(throwPower01);
 
         /*
-         * ÇöÀç ÅõÃ´ ¼¼±â¿¡ ÇØ´çÇÏ´Â Á¤»ó ¹ß»ç ¼ÓµµÀÔ´Ï´Ù.
+         * í˜„ì¬ íˆ¬ì²™ ì„¸ê¸°ì— í•´ë‹¹í•˜ëŠ” ì •ìƒ ë°œì‚¬ ì†ë„ì…ë‹ˆë‹¤.
          */
         float currentThrustRatio;
 
@@ -1619,10 +1619,10 @@ public class DiscSlingshotController : MonoBehaviour
             );
 
         /*
-         * Throw Power 01ÀÌ 1ÀÏ ¶§ÀÇ ÃÖ´ë ¹ß»ç ¼ÓµµÀÔ´Ï´Ù.
+         * Throw Power 01ì´ 1ì¼ ë•Œì˜ ìµœëŒ€ ë°œì‚¬ ì†ë„ì…ë‹ˆë‹¤.
          *
-         * ±âÁ¸¿¡ °¡Á¤Çß´ø maxThrowPower¸¦
-         * ÀÌ °ªÀÌ ´ë½ÅÇÕ´Ï´Ù.
+         * ê¸°ì¡´ì— ê°€ì •í–ˆë˜ maxThrowPowerë¥¼
+         * ì´ ê°’ì´ ëŒ€ì‹ í•©ë‹ˆë‹¤.
          */
         float maximumThrustRatio;
 
@@ -1656,14 +1656,14 @@ public class DiscSlingshotController : MonoBehaviour
             Mathf.Deg2Rad;
 
         /*
-         * Y ¼Óµµ °è»ê¿¡ »ç¿ëÇÒ ±âÁØ ¼ÓµµÀÔ´Ï´Ù.
+         * Y ì†ë„ ê³„ì‚°ì— ì‚¬ìš©í•  ê¸°ì¤€ ì†ë„ì…ë‹ˆë‹¤.
          *
-         * 1. ½ÇÁ¦ ÃÖÁ¾ Velocityº¸´Ù Å¬ ¼ö ¾øÀ½
-         * 2. ÇöÀç ÅõÃ´ ¼¼±â·Î °è»êµÈ ¼Óµµº¸´Ù Å¬ ¼ö ¾øÀ½
-         * 3. ÃÖ´ë ÅõÃ´ ¼¼±âÀÇ ¼Óµµº¸´Ù Å¬ ¼ö ¾øÀ½
+         * 1. ì‹¤ì œ ìµœì¢… Velocityë³´ë‹¤ í´ ìˆ˜ ì—†ìŒ
+         * 2. í˜„ì¬ íˆ¬ì²™ ì„¸ê¸°ë¡œ ê³„ì‚°ëœ ì†ë„ë³´ë‹¤ í´ ìˆ˜ ì—†ìŒ
+         * 3. ìµœëŒ€ íˆ¬ì²™ ì„¸ê¸°ì˜ ì†ë„ë³´ë‹¤ í´ ìˆ˜ ì—†ìŒ
          *
-         * µû¶ó¼­ ¾àÇÑ ÅõÃ´°ú °­ÇÑ ÅõÃ´ ¸ğµÎ
-         * Max Throw Up AngleÀ» ³ÑÁö ¾Ê½À´Ï´Ù.
+         * ë”°ë¼ì„œ ì•½í•œ íˆ¬ì²™ê³¼ ê°•í•œ íˆ¬ì²™ ëª¨ë‘
+         * Max Throw Up Angleì„ ë„˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
          */
         float upwardSpeedReference =
             Mathf.Min(
@@ -1675,18 +1675,18 @@ public class DiscSlingshotController : MonoBehaviour
             );
 
         /*
-         * ÃÖ´ë Çã¿ë Y ¼Óµµ:
+         * ìµœëŒ€ í—ˆìš© Y ì†ë„:
          *
-         * ÇöÀç ÅõÃ´ ¼Óµµ
-         * ¡¿ sin(Max Throw Up Angle)
+         * í˜„ì¬ íˆ¬ì²™ ì†ë„
+         * Ã— sin(Max Throw Up Angle)
          */
         float maximumAllowedUpwardSpeed =
             upwardSpeedReference *
             Mathf.Sin(maximumAngleRadians);
 
         /*
-         * ¾Æ·¡·Î ³¯¾Æ°¡´Â Y ¼Óµµ´Â Á¦ÇÑÇÏÁö ¾Ê½À´Ï´Ù.
-         * ÀÌ¹Ì ÃÖ´ë Y ¼Óµµ ÀÌÇÏ¶ó¸é ±×´ë·Î ¹İÈ¯ÇÕ´Ï´Ù.
+         * ì•„ë˜ë¡œ ë‚ ì•„ê°€ëŠ” Y ì†ë„ëŠ” ì œí•œí•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+         * ì´ë¯¸ ìµœëŒ€ Y ì†ë„ ì´í•˜ë¼ë©´ ê·¸ëŒ€ë¡œ ë°˜í™˜í•©ë‹ˆë‹¤.
          */
         if (launchVelocity.y <=
             maximumAllowedUpwardSpeed)
@@ -1727,13 +1727,13 @@ public class DiscSlingshotController : MonoBehaviour
         }
 
         /*
-         * ÀüÃ¼ ½ÇÁ¦ ¼Ó·ÂÀº À¯ÁöÇÕ´Ï´Ù.
+         * ì „ì²´ ì‹¤ì œ ì†ë ¥ì€ ìœ ì§€í•©ë‹ˆë‹¤.
          *
-         * ÃÊ°úÇÑ Y ¼Óµµ´Â ¹ö¸®´Â °ÍÀÌ ¾Æ´Ï¶ó
-         * ¼öÆò ¼Óµµ·Î ÀçºĞ¹èÇÕ´Ï´Ù.
+         * ì´ˆê³¼í•œ Y ì†ë„ëŠ” ë²„ë¦¬ëŠ” ê²ƒì´ ì•„ë‹ˆë¼
+         * ìˆ˜í‰ ì†ë„ë¡œ ì¬ë¶„ë°°í•©ë‹ˆë‹¤.
          *
-         * µû¶ó¼­ °­ÇÑ ÅõÃ´Àº ³ôÀÌ ¶ß´Â ´ë½Å
-         * ¾ÕÀ¸·Î ´õ ¸Ö¸® ³ª°©´Ï´Ù.
+         * ë”°ë¼ì„œ ê°•í•œ íˆ¬ì²™ì€ ë†’ì´ ëœ¨ëŠ” ëŒ€ì‹ 
+         * ì•ìœ¼ë¡œ ë” ë©€ë¦¬ ë‚˜ê°‘ë‹ˆë‹¤.
          */
         float newHorizontalSpeed = horizontalVelocity.magnitude;
             //Mathf.Sqrt(
@@ -2152,8 +2152,8 @@ public class DiscSlingshotController : MonoBehaviour
     public void ApplyStats(DiscRuntimeStats stats)
     {
         /*
-         * DiscSlingshotController´Â ºñÇà ¹°¸®¸¸ ´ã´çÇÕ´Ï´Ù.
-         * maxDurability¿Í incomeMultiplier´Â ¿©±â¼­ »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.
+         * DiscSlingshotControllerëŠ” ë¹„í–‰ ë¬¼ë¦¬ë§Œ ë‹´ë‹¹í•©ë‹ˆë‹¤.
+         * maxDurabilityì™€ incomeMultiplierëŠ” ì—¬ê¸°ì„œ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
          */
 
         runtimeStats = stats;
@@ -2202,42 +2202,42 @@ public class DiscSlingshotController : MonoBehaviour
 
         Quaternion targetRotation = GetReadyRotation();
 
-        // ÀÔ·Â »óÅÂ ÃÊ±âÈ­
+        // ì…ë ¥ ìƒíƒœ ì´ˆê¸°í™”
         activeFingerId = -1;
         mouseDragging = false;
 
-        // ¹ß»ç ¿¹¾à »óÅÂ ÃÊ±âÈ­
+        // ë°œì‚¬ ì˜ˆì•½ ìƒíƒœ ì´ˆê¸°í™”
         hasPendingLaunch = false;
         launchEventsPending = false;
         pendingLaunchVelocity = Vector3.zero;
 
-        // ºñÇà / Ãæµ¹ ÈÄ Á¦¾î »óÅÂ ÃÊ±âÈ­
+        // ë¹„í–‰ / ì¶©ëŒ í›„ ì œì–´ ìƒíƒœ ì´ˆê¸°í™”
         flightControlEnabled = false;
         forwardAssistEnabled = false;
 
-        // Á¶Á¾ ÀÔ·Â ÃÊ±âÈ­
+        // ì¡°ì¢… ì…ë ¥ ì´ˆê¸°í™”
         steerInput = 0f;
 
-        // ´øÁö±â ¼¼±â / ¸ñÇ¥ ¼Óµµ ÃÊ±âÈ­
+        // ë˜ì§€ê¸° ì„¸ê¸° / ëª©í‘œ ì†ë„ ì´ˆê¸°í™”
         activeTargetForwardSpeed = 0f;
         lastThrowPower01 = 0f;
         lastThrowThrustRatio = 1f;
 
-        // ÀÌ¹ø ÅõÃ´ÀÇ ±âÁØ ºñÇà ¹æÇâ ÃÊ±âÈ­
+        // ì´ë²ˆ íˆ¬ì²™ì˜ ê¸°ì¤€ ë¹„í–‰ ë°©í–¥ ì´ˆê¸°í™”
         activeFlightForward = GetTrackForward();
         activeFlightRight = GetTrackRight();
 
-        // Settling / Á¤Áö ÆÇÁ¤ »óÅÂ ÃÊ±âÈ­
+        // Settling / ì •ì§€ íŒì • ìƒíƒœ ì´ˆê¸°í™”
         lowSpeedTimer = 0f;
         settlingStopReady = false;
         rotationStoppedAfterLowSpeed = false;
         postImpactRotationUnlocked = false;
 
-        // µå·¡±× »óÅÂ ÃÊ±âÈ­
+        // ë“œë˜ê·¸ ìƒíƒœ ì´ˆê¸°í™”
         totalDragScreen = Vector2.zero;
         pointerSamples.Clear();
 
-        // ¹°¸® »óÅÂ ÃÊ±âÈ­
+        // ë¬¼ë¦¬ ìƒíƒœ ì´ˆê¸°í™”
         rb.isKinematic = false;
 
         SetLinearVelocity(Vector3.zero);
@@ -2248,13 +2248,13 @@ public class DiscSlingshotController : MonoBehaviour
 
         rb.useGravity = true;
 
-        // Y ÀÌµ¿Àº Çã¿ë
+        // Y ì´ë™ì€ í—ˆìš©
         rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
 
-        // Ready »óÅÂ¿¡¼­´Â È¸ÀüÀ» Àá°¡¼­ ½ÃÀÛ ÀÚ¼¼¸¦ ¾ÈÁ¤ÀûÀ¸·Î À¯Áö
+        // Ready ìƒíƒœì—ì„œëŠ” íšŒì „ì„ ì ê°€ì„œ ì‹œì‘ ìì„¸ë¥¼ ì•ˆì •ì ìœ¼ë¡œ ìœ ì§€
         rb.constraints |= RigidbodyConstraints.FreezeRotation;
 
-        // ÇÙ½É: À§Ä¡»Ó ¾Æ´Ï¶ó È¸Àüµµ ¹İµå½Ã ÃÊ±âÈ­
+        // í•µì‹¬: ìœ„ì¹˜ë¿ ì•„ë‹ˆë¼ íšŒì „ë„ ë°˜ë“œì‹œ ì´ˆê¸°í™”
         rb.position = targetPosition;
         rb.rotation = targetRotation;
 
@@ -2266,17 +2266,17 @@ public class DiscSlingshotController : MonoBehaviour
         dragTargetPosition = targetPosition;
         anchorPosition = targetPosition;
 
-        // Ready »óÅÂ¿¡¼­´Â µå·¡±× Àü±îÁö ¹°¸® ½Ã¹Ä·¹ÀÌ¼Ç¿¡ ÀÇÇØ ¿òÁ÷ÀÌÁö ¾Ê°Ô ÇÔ
+        // Ready ìƒíƒœì—ì„œëŠ” ë“œë˜ê·¸ ì „ê¹Œì§€ ë¬¼ë¦¬ ì‹œë®¬ë ˆì´ì…˜ì— ì˜í•´ ì›€ì§ì´ì§€ ì•Šê²Œ í•¨
         rb.isKinematic = true;
 
-        // Visual ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ ½Ã°¢Àû È¸Àüµµ ÃÊ±âÈ­
+        // Visual ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ ì‹œê°ì  íšŒì „ë„ ì´ˆê¸°í™”
         ResetVisualPose();
 
         state = readyForInput
             ? DiscState.Ready
             : DiscState.Stopped;
 
-        // Transform°ú Physics »óÅÂ µ¿±âÈ­
+        // Transformê³¼ Physics ìƒíƒœ ë™ê¸°í™”
         Physics.SyncTransforms();
     }
 

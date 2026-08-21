@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CoinPickup : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class CoinPickup : MonoBehaviour
 
         if (progressionStore == null)
         {
-            Debug.LogWarning("CoinPickup¿¡ DiscProgressionStore°¡ ¿¬°áµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.");
+            Debug.LogWarning("CoinPickupì— DiscProgressionStoreê°€ ì—°ê²°ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 

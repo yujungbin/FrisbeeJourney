@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class DiscTrailController : MonoBehaviour
@@ -10,53 +10,53 @@ public class DiscTrailController : MonoBehaviour
     [SerializeField]
     private Rigidbody discRigidbody;
 
-    [Tooltip("¿ø¹İ ¾çÂÊÀÇ Trail Renderer¸¦ ¿¬°áÇÏ¼¼¿ä.")]
+    [Tooltip("ì›ë°˜ ì–‘ìª½ì˜ Trail Rendererë¥¼ ì—°ê²°í•˜ì„¸ìš”.")]
     [SerializeField]
     private TrailRenderer[] trailRenderers;
 
 
     [Header("State Control")]
-    [Tooltip("Ã¹ Ãæµ¹ ÀÌÈÄ Settling »óÅÂ¿¡¼­µµ TrailÀ» Ç¥½ÃÇÕ´Ï´Ù.")]
+    [Tooltip("ì²« ì¶©ëŒ ì´í›„ Settling ìƒíƒœì—ì„œë„ Trailì„ í‘œì‹œí•©ë‹ˆë‹¤.")]
     [SerializeField]
     private bool emitWhileSettling = true;
 
-    [Tooltip("¿ø¹İÀÌ Á¤ÁöÇÏ°Å³ª Ready »óÅÂ·Î µ¹¾Æ°¡¸é ÀÌÀü TrailÀ» Áï½Ã »èÁ¦ÇÕ´Ï´Ù.")]
+    [Tooltip("ì›ë°˜ì´ ì •ì§€í•˜ê±°ë‚˜ Ready ìƒíƒœë¡œ ëŒì•„ê°€ë©´ ì´ì „ Trailì„ ì¦‰ì‹œ ì‚­ì œí•©ë‹ˆë‹¤.")]
     [SerializeField]
     private bool clearWhenThrowEnds = true;
 
-    [Tooltip("ÄÄÆ÷³ÍÆ®°¡ ºñÈ°¼ºÈ­µÉ ¶§ TrailÀ» »èÁ¦ÇÕ´Ï´Ù.")]
+    [Tooltip("ì»´í¬ë„ŒíŠ¸ê°€ ë¹„í™œì„±í™”ë  ë•Œ Trailì„ ì‚­ì œí•©ë‹ˆë‹¤.")]
     [SerializeField]
     private bool clearOnDisable = true;
 
 
     [Header("Speed Thresholds")]
-    [Tooltip("ÀÌ ¼Óµµ ¹Ì¸¸¿¡¼­´Â TrailÀ» »ı¼ºÇÏÁö ¾Ê½À´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ ë¯¸ë§Œì—ì„œëŠ” Trailì„ ìƒì„±í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")]
     [SerializeField]
     private float minSpeed = 2f;
 
-    [Tooltip("ÀÌ ¼Óµµ ÀÌ»ó¿¡¼­´Â ÃÖ´ë Trail TimeÀ» »ç¿ëÇÕ´Ï´Ù.")]
+    [Tooltip("ì´ ì†ë„ ì´ìƒì—ì„œëŠ” ìµœëŒ€ Trail Timeì„ ì‚¬ìš©í•©ë‹ˆë‹¤.")]
     [SerializeField]
     private float maxSpeed = 25f;
 
-    [Tooltip("³«ÇÏ ¼Óµµ¸¦ Á¦¿ÜÇÏ°í ¼öÆò ¼Óµµ¸¸ »ç¿ëÇÒÁö ¿©ºÎÀÔ´Ï´Ù.")]
+    [Tooltip("ë‚™í•˜ ì†ë„ë¥¼ ì œì™¸í•˜ê³  ìˆ˜í‰ ì†ë„ë§Œ ì‚¬ìš©í• ì§€ ì—¬ë¶€ì…ë‹ˆë‹¤.")]
     [SerializeField]
     private bool useHorizontalSpeed = false;
 
 
     [Header("Trail Length")]
-    [Tooltip("Min Speed ºÎ±Ù¿¡¼­ÀÇ Trail ÀÜ»ó ½Ã°£ÀÔ´Ï´Ù.")]
+    [Tooltip("Min Speed ë¶€ê·¼ì—ì„œì˜ Trail ì”ìƒ ì‹œê°„ì…ë‹ˆë‹¤.")]
     [SerializeField]
     private float minTrailTime = 0.05f;
 
-    [Tooltip("Max Speed ÀÌ»ó¿¡¼­ÀÇ Trail ÀÜ»ó ½Ã°£ÀÔ´Ï´Ù.")]
+    [Tooltip("Max Speed ì´ìƒì—ì„œì˜ Trail ì”ìƒ ì‹œê°„ì…ë‹ˆë‹¤.")]
     [SerializeField]
     private float maxTrailTime = 0.35f;
 
-    [Tooltip("Trail TimeÀÌ ¸ñÇ¥°ªÀ¸·Î º¯ÇÏ´Â ¼ÓµµÀÔ´Ï´Ù. 0ÀÌ¸é Áï½Ã º¯°æµË´Ï´Ù.")]
+    [Tooltip("Trail Timeì´ ëª©í‘œê°’ìœ¼ë¡œ ë³€í•˜ëŠ” ì†ë„ì…ë‹ˆë‹¤. 0ì´ë©´ ì¦‰ì‹œ ë³€ê²½ë©ë‹ˆë‹¤.")]
     [SerializeField]
     private float trailTimeResponse = 12f;
 
-    [Tooltip("¼Óµµ¿¡ µû¸¥ Trail ±æÀÌ º¯È­ °î¼±ÀÔ´Ï´Ù.")]
+    [Tooltip("ì†ë„ì— ë”°ë¥¸ Trail ê¸¸ì´ ë³€í™” ê³¡ì„ ì…ë‹ˆë‹¤.")]
     [SerializeField]
     private AnimationCurve speedToTrailCurve =
         AnimationCurve.Linear(0f, 0f, 1f, 1f);
@@ -64,8 +64,8 @@ public class DiscTrailController : MonoBehaviour
 
     [Header("Low Speed")]
     [Tooltip(
-        "¼Óµµ°¡ Min Speed ¾Æ·¡·Î ¶³¾îÁú ¶§ ±âÁ¸ ÀÜ»ó±îÁö Áï½Ã Áö¿ó´Ï´Ù. " +
-        "²ô¸é ±âÁ¸ ÀÜ»óÀº Trail Time¿¡ µû¶ó ÀÚ¿¬½º·´°Ô »ç¶óÁı´Ï´Ù."
+        "ì†ë„ê°€ Min Speed ì•„ë˜ë¡œ ë–¨ì–´ì§ˆ ë•Œ ê¸°ì¡´ ì”ìƒê¹Œì§€ ì¦‰ì‹œ ì§€ì›ë‹ˆë‹¤. " +
+        "ë„ë©´ ê¸°ì¡´ ì”ìƒì€ Trail Timeì— ë”°ë¼ ìì—°ìŠ¤ëŸ½ê²Œ ì‚¬ë¼ì§‘ë‹ˆë‹¤."
     )]
     [SerializeField]
     private bool clearWhenBelowMinSpeed = false;
@@ -153,8 +153,8 @@ public class DiscTrailController : MonoBehaviour
 
         bool validThrowState = IsValidTrailState();
 
-        // ½ÇÁ¦ ¹ß»ç ÀÌº¥Æ®°¡ ¹ß»ıÇÏÁö ¾Ê¾Ò°Å³ª
-        // Flying/Settling »óÅÂ°¡ ¾Æ´Ï¶ó¸é TrailÀ» ²ü´Ï´Ù.
+        // ì‹¤ì œ ë°œì‚¬ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ì§€ ì•Šì•˜ê±°ë‚˜
+        // Flying/Settling ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ Trailì„ ë•ë‹ˆë‹¤.
         if (!hasActuallyLaunched || !validThrowState)
         {
             if (isEmitting)
@@ -180,7 +180,7 @@ public class DiscTrailController : MonoBehaviour
     {
         hasActuallyLaunched = true;
 
-        // Ready/Dragging Áß ¸¸µé¾îÁ³À» ¼ö ÀÖ´Â ÈçÀûÀ» »èÁ¦ÇÕ´Ï´Ù.
+        // Ready/Dragging ì¤‘ ë§Œë“¤ì–´ì¡Œì„ ìˆ˜ ìˆëŠ” í”ì ì„ ì‚­ì œí•©ë‹ˆë‹¤.
         SetEmission(false, true);
 
         currentTrailTime = minTrailTime;
@@ -191,7 +191,7 @@ public class DiscTrailController : MonoBehaviour
         if (logStateChanges)
         {
             Debug.Log(
-                "DiscTrailController: ½ÇÁ¦ ¹ß»ç ¿Ï·á. Trail Á¦¾î ½ÃÀÛ."
+                "DiscTrailController: ì‹¤ì œ ë°œì‚¬ ì™„ë£Œ. Trail ì œì–´ ì‹œì‘."
             );
         }
     }
@@ -253,7 +253,7 @@ public class DiscTrailController : MonoBehaviour
 
         if (!isEmitting)
         {
-            // TrailÀ» ´Ù½Ã ÄÓ ¶§ ÀÌÀü À§Ä¡¿Í ¿¬°áµÇ´Â ±ä ¼±À» ¹æÁöÇÕ´Ï´Ù.
+            // Trailì„ ë‹¤ì‹œ ì¼¤ ë•Œ ì´ì „ ìœ„ì¹˜ì™€ ì—°ê²°ë˜ëŠ” ê¸´ ì„ ì„ ë°©ì§€í•©ë‹ˆë‹¤.
             SetEmission(true, true);
         }
     }
@@ -339,8 +339,8 @@ public class DiscTrailController : MonoBehaviour
             if (trail == null)
                 continue;
 
-            // Clear Àü¿¡ emissionÀ» ¸ÕÀú ²¨¾ß
-            // °°Àº ÇÁ·¹ÀÓ¿¡ ÈçÀûÀÌ ´Ù½Ã »ı¼ºµÇÁö ¾Ê½À´Ï´Ù.
+            // Clear ì „ì— emissionì„ ë¨¼ì € êº¼ì•¼
+            // ê°™ì€ í”„ë ˆì„ì— í”ì ì´ ë‹¤ì‹œ ìƒì„±ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
             trail.emitting = false;
 
             if (clear)

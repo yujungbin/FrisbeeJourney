@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Unity.Cinemachine;
 
 [DefaultExecutionOrder(20000)]
@@ -9,10 +9,10 @@ public class CameraRigUpdateDriver : MonoBehaviour
     [SerializeField] private DiscCameraTargetFollower followTargetFollower;
 
     [Header("Manual Update")]
-    [Tooltip("Cinemachine BrainÀÇ Update Method¸¦ Manual Update·Î ¼³Á¤ÇßÀ» ¶§ true·Î µÓ´Ï´Ù.")]
+    [Tooltip("Cinemachine Brainì˜ Update Methodë¥¼ Manual Updateë¡œ ì„¤ì •í–ˆì„ ë•Œ trueë¡œ ë‘¡ë‹ˆë‹¤.")]
     [SerializeField] private bool manualUpdateCinemachine = true;
 
-    [Tooltip("CinemachineÀ» °»½ÅÇÏ±â Á÷Àü¿¡ Follow TargetÀ» ¸ÕÀú °»½ÅÇÕ´Ï´Ù.")]
+    [Tooltip("Cinemachineì„ ê°±ì‹ í•˜ê¸° ì§ì „ì— Follow Targetì„ ë¨¼ì € ê°±ì‹ í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool updateFollowTargetBeforeBrain = true;
     [SerializeField] private DiscSpeedCameraEffects speedCameraEffects;
 
@@ -24,7 +24,7 @@ public class CameraRigUpdateDriver : MonoBehaviour
 
     private void LateUpdate()
     {
-        // 1. DiscCameraTargetÀÇ À§Ä¡¿Í È¸ÀüºÎÅÍ °»½Å
+        // 1. DiscCameraTargetì˜ ìœ„ì¹˜ì™€ íšŒì „ë¶€í„° ê°±ì‹ 
         if (updateFollowTargetBeforeBrain &&
             followTargetFollower != null)
         {
@@ -34,7 +34,7 @@ public class CameraRigUpdateDriver : MonoBehaviour
             );
         }
 
-        // 2. ¼Óµµ ±â¹İ FOV¿Í Follow Offset °»½Å
+        // 2. ì†ë„ ê¸°ë°˜ FOVì™€ Follow Offset ê°±ì‹ 
         if (speedCameraEffects != null)
         {
             speedCameraEffects.ManualUpdateEffect(
@@ -42,7 +42,7 @@ public class CameraRigUpdateDriver : MonoBehaviour
             );
         }
 
-        // 3. ¸¶Áö¸·À¸·Î CinemachineÀÌ Ä«¸Ş¶ó À§Ä¡¸¦ °è»ê
+        // 3. ë§ˆì§€ë§‰ìœ¼ë¡œ Cinemachineì´ ì¹´ë©”ë¼ ìœ„ì¹˜ë¥¼ ê³„ì‚°
         if (manualUpdateCinemachine && brain != null)
         {
             brain.ManualUpdate();

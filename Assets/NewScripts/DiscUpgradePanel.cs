@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -71,8 +71,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (progressionStore == null)
             return;
 
-        // OnChanged�� �ƴ϶� Changed�Դϴ�.
-        // �ߺ� ������ �����ϱ� ���� ���� �����մϴ�.
+    
         progressionStore.Changed -= Refresh;
         progressionStore.Changed += Refresh;
     }
@@ -181,46 +180,39 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         {
             Debug.LogWarning(
                 "DiscUpgradePanel: " +
-                "Progression Store�� ����Ǿ� ���� �ʽ��ϴ�."
+                "Progression Store is not connected."
             );
 
             Refresh();
             return;
         }
 
-        // UI �ܰ��� ���� �˻��Դϴ�.
+
         if (!CanUpgrade(upgradeType))
         {
             Debug.Log(
-                $"{GetUpgradeDisplayName(upgradeType)} ���׷��̵� �Ұ�. " +
-                "������ �����ϰų� �ִ� �����Դϴ�."
+                $"{GetUpgradeDisplayName(upgradeType)} Cannot upgrade. " +
+                "Ran out of coin or max level."
             );
 
             Refresh();
             return;
         }
 
-        /*
-         * Store.TryUpgrade() ���ο����� CanUpgrade()�� �ٽ� �˻��մϴ�.
-         * Panel �˻�� UI���̰�, Store �˻�� ���� ������ ��ȣ���Դϴ�.
-         */
         bool upgraded =
             progressionStore.TryUpgrade(upgradeType);
 
         if (!upgraded)
         {
             Debug.LogWarning(
-                $"{GetUpgradeDisplayName(upgradeType)} ���׷��̵尡 " +
-                "���� �˻翡�� �����߽��ϴ�."
+                $"{GetUpgradeDisplayName(upgradeType)} 업그레이드가 " +
+                "Failed at final test."
             );
 
             Refresh();
         }
 
-        /*
-         * ������ ��� DiscProgressionStore.NotifyChanged()��
-         * Changed �̺�Ʈ�� ȣ���ϰ�, �� �̺�Ʈ�� Refresh()�� ����˴ϴ�.
-         */
+
     }
 
     private bool CanUpgrade(DiscUpgradeType upgradeType)
@@ -241,17 +233,17 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             SetAllButtonsInteractable(false);
 
             if (coinsText != null)
-                coinsText.text = "����: -";
+                coinsText.text = "Coin: -";
 
             if (liftText != null)
-                liftText.text = "�����\n������� ����";
+                liftText.text = "Lift\nNo data";
 
             if (durabilityText != null)
-                durabilityText.text = "������\n������� ����";
+                durabilityText.text = "Durability\nNo data";
 
             if (incomeText != null)
-                incomeText.text = "����\n������� ����";
-
+                incomeText.text = "Income\nNo data";
+            
             return;
         }
 
@@ -327,7 +319,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         DiscUpgradeType upgradeType)
     {
         if (progressionStore == null)
-            return "������� ����";
+            return "No data";
 
         string displayName =
             GetUpgradeDisplayName(upgradeType);
@@ -344,7 +336,7 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         if (isMaxLevel)
         {
             return
-                $"{displayName} Lv.{currentLevel}\n" +
+                $"{displayName}\n" +
                 $"{FormatUpgradeValue(upgradeType, currentValue)}\n" +
                 "MAX";
         }
@@ -356,10 +348,10 @@ public sealed class DiscUpgradePanel : MonoBehaviour
             progressionStore.GetUpgradeCost(upgradeType);
 
         return
-            $"{displayName} Lv.{currentLevel}\n" +
+            $"{displayName}\n" +
             $"{FormatUpgradeValue(upgradeType, currentValue)}" +
-            $" �� {FormatUpgradeValue(upgradeType, nextValue)}\n" +
-            $"���: {upgradeCost:N0}";
+            $" -> {FormatUpgradeValue(upgradeType, nextValue)}\n" +
+            $"Cost: {upgradeCost:N0}";
     }
 
     private string GetUpgradeDisplayName(
@@ -368,16 +360,16 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         switch (upgradeType)
         {
             case DiscUpgradeType.Lift:
-                return "�����";
+                return "Lift";
 
             case DiscUpgradeType.Durability:
-                return "������";
+                return "Durability";
 
             case DiscUpgradeType.Income:
-                return "����";
+                return "Income";
 
             default:
-                return "�� �� ����";
+                return "Unknown";
         }
     }
 
@@ -388,15 +380,15 @@ public sealed class DiscUpgradePanel : MonoBehaviour
         switch (upgradeType)
         {
             case DiscUpgradeType.Lift:
-                // initialThrust ��
+                
                 return value.ToString("0.00");
 
             case DiscUpgradeType.Durability:
-                // �ִ� ������
+                
                 return value.ToString("0");
 
             case DiscUpgradeType.Income:
-                // ���� ȹ�� ���
+                
                 return $"{value:0.00}��";
 
             default:

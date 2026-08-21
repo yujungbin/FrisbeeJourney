@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
 public class DiscThrowCountUI : MonoBehaviour
@@ -8,8 +8,8 @@ public class DiscThrowCountUI : MonoBehaviour
     //[SerializeField] private DiscRunManager discRunManager;
 
     [Header("Text")]
-    [SerializeField] private string limitedFormat = "³²Àº ÅõÃ´: {0} / {1}";
-    [SerializeField] private string unlimitedFormat = "´øÁø È½¼ö: {0} / Á¦ÇÑ ¾øÀ½";
+    [SerializeField] private string limitedFormat = "ë‚¨ì€ íˆ¬ì²™: {0} / {1}";
+    [SerializeField] private string unlimitedFormat = "ë˜ì§„ íšŸìˆ˜: {0} / ì œí•œ ì—†ìŒ";
 
    // private int maxThrows;
     //private int usedThrows;
@@ -50,11 +50,11 @@ public class DiscThrowCountUI : MonoBehaviour
 
         if (remainingThrows < 0)
         {
-            throwCountText.text = "ÅõÃ´ Á¦ÇÑ ¾øÀ½";
+            throwCountText.text = "íˆ¬ì²™ ì œí•œ ì—†ìŒ";
             return;
         }
 
-        throwCountText.text = $"³²Àº ÅõÃ´: {remainingThrows}";
+        throwCountText.text = $"ë‚¨ì€ íˆ¬ì²™: {remainingThrows}";
     }
 
     public void Clear()

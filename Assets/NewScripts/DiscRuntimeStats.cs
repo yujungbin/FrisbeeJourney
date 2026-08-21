@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 [Serializable]
@@ -9,7 +9,7 @@ public struct DiscRuntimeStats
     [Min(0f)] public float lift;
     [Min(0f)] public float incomeMultiplier;
 
-    // ±âÁ¸ ÄÚµå¿Í È£È¯µÇ´Â »ı¼ºÀÚ
+    // ê¸°ì¡´ ì½”ë“œì™€ í˜¸í™˜ë˜ëŠ” ìƒì„±ì
     public DiscRuntimeStats(
         float initialThrust,
         float maxDurability,
@@ -22,7 +22,7 @@ public struct DiscRuntimeStats
     {
     }
 
-    // ¼öÀÔ ¹è¼ö±îÁö Æ÷ÇÔÇÑ »õ »ı¼ºÀÚ
+    // ìˆ˜ì… ë°°ìˆ˜ê¹Œì§€ í¬í•¨í•œ ìƒˆ ìƒì„±ì
     public DiscRuntimeStats(
         float initialThrust,
         float maxDurability,
