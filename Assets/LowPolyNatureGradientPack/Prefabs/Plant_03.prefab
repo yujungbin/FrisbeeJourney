@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 4737191628526868562}
   - component: {fileID: 1856103109992817764}
   - component: {fileID: 6694286661707968189}
+  - component: {fileID: 992446034722157232}
   m_Layer: 0
   m_Name: Plant_03_LOD0
   m_TagString: Untagged
@@ -254,7 +255,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.7, y: 0.33618414, z: 0.7}
   m_Center: {x: 0, y: 0.16190696, z: 0}
@@ -271,12 +272,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
-  endThrowOnImpact: 1
-  baseDamage: 5
-  damagePerSpeed: 1
+  endThrowOnImpact: 0
+  baseDamage: 0.3
+  damagePerSpeed: 0.15
   minDamageSpeed: 0.5
   maxDamage: 50
   damageMultiplier: 1
   glancingDamageMultiplier: 0.35
   angleExponent: 1.5
   instantBreak: 0
+--- !u!64 &992446034722157232
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8752611808137413326}
+  m_Material: {fileID: 13400000, guid: 8f7203a75da7ad54e8eef91d8691869e, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7438206163536680774, guid: cc550b607a7248441a62d8c2abc2a9dd, type: 3}
