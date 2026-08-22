@@ -484,7 +484,8 @@ public class DiscSlingshotController : MonoBehaviour
     {
         if (state == DiscState.Dragging && rb.isKinematic)
         {
-            rb.MovePosition(dragTargetPosition);
+            //rb.MovePosition(dragTargetPosition);
+            rb.position = dragTargetPosition;
         }
 
         bool launchedThisStep = false;
