@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8939217214134466821}
   - component: {fileID: 7149722946372550129}
   - component: {fileID: 264169960434521804}
+  - component: {fileID: -8760015757405618765}
   m_Layer: 0
   m_Name: RoadTile_03_6
   m_TagString: Untagged
@@ -116,6 +117,19 @@ MonoBehaviour:
   glancingDamageMultiplier: 0.35
   angleExponent: 1.5
   instantBreak: 0
+--- !u!114 &-8760015757405618765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665198758057169750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305567ba8b7d8174ca9774bcb796498b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoadTileSettings
+  yOffset: -95
 --- !u!1 &5206963386204218448
 GameObject:
   m_ObjectHideFlags: 0

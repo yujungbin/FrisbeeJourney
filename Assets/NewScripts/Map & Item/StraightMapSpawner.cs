@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class StraightMapSpawner : MonoBehaviour
@@ -123,9 +123,19 @@ public class StraightMapSpawner : MonoBehaviour
             return;
         }
 
+        float spawnY = 0f;
+
+        RoadTileSettings tileSettings =
+            tilePrefab.GetComponent<RoadTileSettings>();
+
+        if (tileSettings != null)
+        {
+            spawnY = tileSettings.yOffset;
+        }
+
         Vector3 spawnPosition = new Vector3(
             mapSpawnX,
-            0f,
+            spawnY,
             nextSpawnZ
         );
 
