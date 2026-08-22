@@ -32,4 +32,4 @@ MonoBehaviour:
   incomeUpgradeCost:
     baseCost: 1
     costGrowthPerLevel: 2
-  fixedInitialThrust: 10
+  fixedInitialThrust: 15

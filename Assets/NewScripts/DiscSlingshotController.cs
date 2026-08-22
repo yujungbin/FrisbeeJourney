@@ -744,14 +744,14 @@ public class DiscSlingshotController : MonoBehaviour
         rb.position = dragTargetPosition;
 
         pendingLaunchVelocity = throwDirection * launchSpeed;
-        pendingLaunchVelocity =
-    ClampFinalLaunchAngle(
-        pendingLaunchVelocity
-    );
-        pendingLaunchVelocity =
-    ClampInitialUpwardSpeed(
-        pendingLaunchVelocity
-    );
+        //pendingLaunchVelocity =
+   // ClampFinalLaunchAngle(
+       // pendingLaunchVelocity
+    //);
+        //pendingLaunchVelocity =
+   // ClampInitialUpwardSpeed(
+       // pendingLaunchVelocity
+   // );
         //pendingLaunchVelocity =
    // ClampFinalLaunchVelocity(
        // pendingLaunchVelocity,
