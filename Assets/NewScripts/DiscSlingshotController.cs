@@ -484,7 +484,8 @@ public class DiscSlingshotController : MonoBehaviour
     {
         if (state == DiscState.Dragging && rb.isKinematic)
         {
-            rb.MovePosition(dragTargetPosition);
+            //rb.MovePosition(dragTargetPosition);
+            rb.position = dragTargetPosition;
         }
 
         bool launchedThisStep = false;
@@ -706,7 +707,10 @@ public class DiscSlingshotController : MonoBehaviour
         }
 
         Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
-
+        if (releaseVelocityScreen.magnitude >= maxFlickPixelsPerSecond)
+        {
+            releaseVelocityScreen = releaseVelocityScreen.normalized * maxFlickPixelsPerSecond;
+        }
         bool hasEnoughDistance =
             totalDragScreen.magnitude >= minDragPixelsToThrow;
 
@@ -738,25 +742,21 @@ public class DiscSlingshotController : MonoBehaviour
         activeTargetForwardSpeed = CalculateActiveTargetForwardSpeed(thrustRatio);
 
         rb.position = dragTargetPosition;
-        lastThrowPower01 = power01;
-
-        lastThrowThrustRatio =
-            thrustRatio;
 
         pendingLaunchVelocity = throwDirection * launchSpeed;
-        pendingLaunchVelocity =
-    ClampFinalLaunchAngle(
-        pendingLaunchVelocity
-    );
-        pendingLaunchVelocity =
-    ClampInitialUpwardSpeed(
-        pendingLaunchVelocity
-    );
-        pendingLaunchVelocity =
-    ClampFinalLaunchVelocity(
-        pendingLaunchVelocity,
-        lastThrowPower01
-    );
+        //pendingLaunchVelocity =
+    //ClampFinalLaunchAngle(
+        //pendingLaunchVelocity
+    //);
+        //pendingLaunchVelocity =
+   // ClampInitialUpwardSpeed(
+       // pendingLaunchVelocity
+   // );
+        //pendingLaunchVelocity =
+   // ClampFinalLaunchVelocity(
+       // pendingLaunchVelocity,
+        //lastThrowPower01
+    //);
         hasPendingLaunch = true;
         launchEventsPending = true;
 
@@ -793,16 +793,20 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ExecutePhysicsLaunch()
     {
-        Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
-        float power01 = CalculateThrowPower01(totalDragScreen, releaseVelocityScreen);
+        //Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
+       // if(releaseVelocityScreen.magnitude >= maxFlickPixelsPerSecond)
+      //  {
+        //    releaseVelocityScreen = releaseVelocityScreen.normalized * maxFlickPixelsPerSecond;
+       // }
+        //float power01 = CalculateThrowPower01(totalDragScreen, releaseVelocityScreen);
         //lastThrowPower01 = power01;
-        Vector3 finalLaunchVelocity =
-        ClampFinalLaunchVelocity(
-            pendingLaunchVelocity,
-            power01
-        );
+       // Vector3 finalLaunchVelocity =
+       // ClampFinalLaunchVelocity(
+          //  pendingLaunchVelocity,
+           // power01
+        //);
 
-        pendingLaunchVelocity = finalLaunchVelocity;
+        //pendingLaunchVelocity = finalLaunchVelocity;
         rb.isKinematic = false;
 
         //SetLinearVelocity(Vector3.zero);
@@ -823,7 +827,16 @@ public class DiscSlingshotController : MonoBehaviour
         settlingStopReady = false;
         lowSpeedTimer = 0f;
 
-        rb.AddForce(finalLaunchVelocity, ForceMode.VelocityChange);
+        rb.AddForce(pendingLaunchVelocity, ForceMode.VelocityChange);
+        Debug.Log(
+    $"Execute LAUNCH | " +
+    $"power: {lastThrowPower01:F2}, " +
+    $"thrustRatio: {lastThrowThrustRatio:F2}, " +
+    $"velocity: {pendingLaunchVelocity}, " +
+    $"maxAngle: {maxThrowUpAngle:F2}",
+    this
+);
+
 
         hasPendingLaunch = false;
 
@@ -1094,22 +1107,16 @@ public class DiscSlingshotController : MonoBehaviour
                 totalSpeed
             );
 
-        /*
-         * 전체 발사 속도는 유지하고,
-         * 줄어든 Y 속도만큼 수평 속도로 재분배합니다.
-         *
-         * 강한 투척:
-         * 더 높이 뜨는 대신 더 멀리 날아가게 됩니다.
-         */
-        float newHorizontalSpeed =
-            Mathf.Sqrt(
-                Mathf.Max(
-                    0f,
-                    totalSpeed * totalSpeed -
-                    clampedUpwardSpeed *
-                    clampedUpwardSpeed
-                )
-            );
+
+        float newHorizontalSpeed = horizontalVelocity.magnitude;
+        //Mathf.Sqrt(
+        //Mathf.Max(
+        //    0f,
+        //   totalSpeed * totalSpeed -
+        //  clampedUpwardSpeed *
+        //  clampedUpwardSpeed
+        // )
+        // );
 
         return
             horizontalVelocity *
