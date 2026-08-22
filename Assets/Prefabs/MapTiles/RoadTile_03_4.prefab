@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GuidePathSpawner
   itemPrefab: {fileID: 4832061494969583964, guid: 0abda0e3617b8a64084546b7496678a9, type: 3}
   pathRoot: {fileID: 30838253058925133}
-  itemSpacing: 10
+  itemSpacing: 23
   baseHeight: 1
   arcHeight: 5
   arcCount: 2
@@ -2750,7 +2750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GuidePathSpawner
   itemPrefab: {fileID: 4832061494969583964, guid: 0abda0e3617b8a64084546b7496678a9, type: 3}
   pathRoot: {fileID: 3228997828072189162}
-  itemSpacing: 10
+  itemSpacing: 23
   baseHeight: 1
   arcHeight: 5
   arcCount: 2
