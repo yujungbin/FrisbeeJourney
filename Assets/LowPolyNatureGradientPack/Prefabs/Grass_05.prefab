@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 702553854739032110}
   - component: {fileID: 7888506881993370353}
   - component: {fileID: 5137422362765153124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grass_05_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2642299753754656145}
   - component: {fileID: 4951377227580085746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grass_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 2889121547401000668}
   - component: {fileID: 4823539056629871082}
   - component: {fileID: 6816293543278277593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grass_05_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

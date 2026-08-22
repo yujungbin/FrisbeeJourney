@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 550749511122384726}
   - component: {fileID: 1553522912139637828}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grass 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +122,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5692732296ef05241a829e7da9088fdf, type: 3}
       propertyPath: m_Name
       value: Grass_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5692732296ef05241a829e7da9088fdf, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
