@@ -476,11 +476,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StraightMapSpawner
   discTarget: {fileID: 465174908}
   roadTilePrefabs:
-  - {fileID: 799260265057923084, guid: a2ec2d9d10defa349971812a01a7e2c3, type: 3}
-  - {fileID: 8404205008244336420, guid: 3ba0b60af457c6b4592a24eef12dd852, type: 3}
-  - {fileID: 6471189150524662765, guid: f9a451dc4454b264b9aeced52937addc, type: 3}
-  - {fileID: 859781705433197144, guid: 83e69538a0816b34ba93c7343ef66c7c, type: 3}
-  initialSpawnCount: 2
+  - {fileID: 6186599822154479691, guid: e0f62ba2da9d6a14da47bf114005b458, type: 3}
+  - {fileID: 1631898305827001755, guid: db7a286af39a4f6408851377d0108c07, type: 3}
+  - {fileID: 2777796688955068271, guid: 4dbf775d89140a24b8c951cbebc0ac55, type: 3}
+  - {fileID: 8852508640730425535, guid: 940b9801734db2e4ca94447ff0f1cdb1, type: 3}
+  - {fileID: 6568847001774785244, guid: 61079ccc34daba6459646ded9d27156c, type: 3}
+  - {fileID: 3665198758057169750, guid: 6c1e43af8e2b9bf43b3623b20ebb096c, type: 3}
+  - {fileID: 7424622879608049707, guid: 8e7ff8b8dc407654e94ab0e02c500f8a, type: 3}
+  - {fileID: 210870329107319452, guid: b626a63314a883b4a844072c93cd0f75, type: 3}
+  - {fileID: 6059375329219970234, guid: 898c836ea4be63b4dba275ea07751781, type: 3}
+  initialSpawnCount: 9
   tileLength: 250
   startZ: 120
   mapXOffset: 12
