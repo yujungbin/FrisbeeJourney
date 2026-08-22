@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Surface
   endThrowOnImpact: 0
-  baseDamage: 5
+  baseDamage: 3
   damagePerSpeed: 1
   minDamageSpeed: 0.5
   maxDamage: 50

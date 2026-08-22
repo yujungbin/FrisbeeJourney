@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 8360388102724702198}
   - component: {fileID: 6539311194558750260}
   - component: {fileID: 4565276886942414215}
+  - component: {fileID: 8600057611864020140}
   m_Layer: 0
   m_Name: Mushroom_02_LOD0
   m_TagString: Untagged
@@ -254,7 +255,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.22989726, z: 0.1}
   m_Center: {x: 0, y: 0.11494863, z: 0}
@@ -272,11 +273,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
   endThrowOnImpact: 1
-  baseDamage: 5
-  damagePerSpeed: 1
+  baseDamage: 0.5
+  damagePerSpeed: 0.3
   minDamageSpeed: 0.5
   maxDamage: 50
   damageMultiplier: 1
   glancingDamageMultiplier: 0.35
   angleExponent: 1.5
   instantBreak: 0
+--- !u!64 &8600057611864020140
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8258542438926114849}
+  m_Material: {fileID: 13400000, guid: e364b5656ce049c438e06f11b17bdb13, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6106420856457805189, guid: 6c890c97a154a474082af84a379dffce, type: 3}

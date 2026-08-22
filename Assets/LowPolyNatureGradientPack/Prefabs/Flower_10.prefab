@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 512924943373225302}
   - component: {fileID: 8433342827759515036}
   - component: {fileID: 6733557154246092669}
+  - component: {fileID: 8903830649204099966}
   m_Layer: 0
   m_Name: Flower_10_LOD0
   m_TagString: Untagged
@@ -197,7 +198,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.29965726, y: 0.035547253, z: 0.29965726}
   m_Center: {x: 0, y: 0.019821612, z: 0}
@@ -214,15 +215,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
-  endThrowOnImpact: 1
-  baseDamage: 5
-  damagePerSpeed: 1
+  endThrowOnImpact: 0
+  baseDamage: 0.3
+  damagePerSpeed: 0.1
   minDamageSpeed: 0.5
   maxDamage: 50
   damageMultiplier: 1
   glancingDamageMultiplier: 0.35
   angleExponent: 1.5
   instantBreak: 0
+--- !u!64 &8903830649204099966
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4200366709884516354}
+  m_Material: {fileID: 13400000, guid: 5c245a55a521af24c98a4d799c457a10, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7137711978710374308, guid: 39659a1a1de416f4997717887be5b75a, type: 3}
 --- !u!1 &6335759968037400204
 GameObject:
   m_ObjectHideFlags: 0

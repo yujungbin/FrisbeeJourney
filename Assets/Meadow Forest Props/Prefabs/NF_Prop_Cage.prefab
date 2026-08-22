@@ -128,7 +128,7 @@ MonoBehaviour:
   surfaceName: Obstacle
   endThrowOnImpact: 1
   baseDamage: 5
-  damagePerSpeed: 1
+  damagePerSpeed: 2.2
   minDamageSpeed: 0.5
   maxDamage: 50
   damageMultiplier: 1

@@ -216,8 +216,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImpactDamageProfile
   surfaceName: Obstacle
   endThrowOnImpact: 1
-  baseDamage: 5
-  damagePerSpeed: 1
+  baseDamage: 0.6
+  damagePerSpeed: 0.3
   minDamageSpeed: 0.5
   maxDamage: 50
   damageMultiplier: 1
