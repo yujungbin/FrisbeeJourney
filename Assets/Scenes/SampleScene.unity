@@ -4155,8 +4155,8 @@ MonoBehaviour:
   scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 10
-  maxThrowUpAngle: 15
+  minThrowUpAngle: 90
+  maxThrowUpAngle: 90
   throwUpInputExponent: 2
   maxInitialUpwardSpeed: 0.75
   forwardCorrectionStrength: 0.25
@@ -4168,7 +4168,7 @@ MonoBehaviour:
   maxLiftToGravityRatio: 0.97
   minLaunchSpeedRatio: 0.25
   targetForwardSpeedRatio: 0.85
-  forwardSpeedGain: 0
+  forwardSpeedGain: 30
   lateralAcceleration: 30
   maxLateralSpeed: 50
   laneHalfWidth: 500

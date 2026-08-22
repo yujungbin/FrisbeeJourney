@@ -745,8 +745,8 @@ public class DiscSlingshotController : MonoBehaviour
 
         pendingLaunchVelocity = throwDirection * launchSpeed;
         //pendingLaunchVelocity =
-   // ClampFinalLaunchAngle(
-       // pendingLaunchVelocity
+    //ClampFinalLaunchAngle(
+        //pendingLaunchVelocity
     //);
         //pendingLaunchVelocity =
    // ClampInitialUpwardSpeed(
@@ -793,20 +793,20 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ExecutePhysicsLaunch()
     {
-        Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
-        if(releaseVelocityScreen.magnitude >= maxFlickPixelsPerSecond)
-        {
-            releaseVelocityScreen = releaseVelocityScreen.normalized * maxFlickPixelsPerSecond;
-        }
-        float power01 = CalculateThrowPower01(totalDragScreen, releaseVelocityScreen);
+        //Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
+       // if(releaseVelocityScreen.magnitude >= maxFlickPixelsPerSecond)
+      //  {
+        //    releaseVelocityScreen = releaseVelocityScreen.normalized * maxFlickPixelsPerSecond;
+       // }
+        //float power01 = CalculateThrowPower01(totalDragScreen, releaseVelocityScreen);
         //lastThrowPower01 = power01;
-        Vector3 finalLaunchVelocity =
-        ClampFinalLaunchVelocity(
-            pendingLaunchVelocity,
-            power01
-        );
+       // Vector3 finalLaunchVelocity =
+       // ClampFinalLaunchVelocity(
+          //  pendingLaunchVelocity,
+           // power01
+        //);
 
-        pendingLaunchVelocity = finalLaunchVelocity;
+        //pendingLaunchVelocity = finalLaunchVelocity;
         rb.isKinematic = false;
 
         //SetLinearVelocity(Vector3.zero);
@@ -828,6 +828,15 @@ public class DiscSlingshotController : MonoBehaviour
         lowSpeedTimer = 0f;
 
         rb.AddForce(pendingLaunchVelocity, ForceMode.VelocityChange);
+        Debug.Log(
+    $"Execute LAUNCH | " +
+    $"power: {lastThrowPower01:F2}, " +
+    $"thrustRatio: {lastThrowThrustRatio:F2}, " +
+    $"velocity: {pendingLaunchVelocity}, " +
+    $"maxAngle: {maxThrowUpAngle:F2}",
+    this
+);
+
 
         hasPendingLaunch = false;
 
