@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3570942692231966026}
   - component: {fileID: 2421123804188452986}
   - component: {fileID: 8425491515448503547}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flower_01_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2760442404587507439}
   - component: {fileID: 4560738099088269632}
   - component: {fileID: 5377271761206151726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flower_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6406759009821107173}
   - component: {fileID: 7729907476875621171}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flower_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
