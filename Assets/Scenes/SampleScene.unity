@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1011,6 +1011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResultScreenController
   intermediatePanel: {fileID: 76276165}
   finalPanel: {fileID: 1995773418}
+  completePanel: {fileID: 0}
   overlayCanvasGroup: {fileID: 372113073}
   dimmedBackground: {fileID: 786270750}
   progressTracker: {fileID: 1899608845}
