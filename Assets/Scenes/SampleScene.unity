@@ -485,7 +485,7 @@ MonoBehaviour:
   - {fileID: 7424622879608049707, guid: 8e7ff8b8dc407654e94ab0e02c500f8a, type: 3}
   - {fileID: 210870329107319452, guid: b626a63314a883b4a844072c93cd0f75, type: 3}
   - {fileID: 6059375329219970234, guid: 898c836ea4be63b4dba275ea07751781, type: 3}
-  initialSpawnCount: 9
+  initialSpawnCount: 2
   tileLength: 250
   startZ: 120
   mapXOffset: 12
@@ -4155,8 +4155,8 @@ MonoBehaviour:
   scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 10
-  maxThrowUpAngle: 15
+  minThrowUpAngle: 15
+  maxThrowUpAngle: 25
   throwUpInputExponent: 2
   maxInitialUpwardSpeed: 0.75
   forwardCorrectionStrength: 0.25
