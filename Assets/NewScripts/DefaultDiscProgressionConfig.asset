@@ -19,17 +19,17 @@ MonoBehaviour:
   liftMaxLevel: 20
   liftUpgradeCost:
     baseCost: 1
-    costGrowthPerLevel: 2
+    costGrowthPerLevel: 1.5
   baseMaxDurability: 50
   durabilityPerLevel: 10
   durabilityMaxLevel: 20
   durabilityUpgradeCost:
     baseCost: 1
-    costGrowthPerLevel: 2
+    costGrowthPerLevel: 1.5
   baseIncomeMultiplier: 1
   incomeMultiplierPerLevel: 0.1
   incomeMaxLevel: 20
   incomeUpgradeCost:
     baseCost: 1
-    costGrowthPerLevel: 2
+    costGrowthPerLevel: 1.5
   fixedInitialThrust: 30
