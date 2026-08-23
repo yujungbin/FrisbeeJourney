@@ -4155,8 +4155,8 @@ MonoBehaviour:
   scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 10
-  maxThrowUpAngle: 15
+  minThrowUpAngle: 30
+  maxThrowUpAngle: 35
   throwUpInputExponent: 2
   maxInitialUpwardSpeed: 0.75
   forwardCorrectionStrength: 0.25
