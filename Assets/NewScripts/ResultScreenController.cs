@@ -7,6 +7,7 @@ public class ResultScreenController : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private ResultPanelView intermediatePanel;
     [SerializeField] private ResultPanelView finalPanel;
+    [SerializeField] private ResultPanelView completePanel;
 
     [Header("Overlay")]
     [SerializeField] private CanvasGroup overlayCanvasGroup;

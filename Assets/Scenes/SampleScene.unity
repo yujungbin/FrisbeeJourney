@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -485,7 +485,7 @@ MonoBehaviour:
   - {fileID: 7424622879608049707, guid: 8e7ff8b8dc407654e94ab0e02c500f8a, type: 3}
   - {fileID: 210870329107319452, guid: b626a63314a883b4a844072c93cd0f75, type: 3}
   - {fileID: 6059375329219970234, guid: 898c836ea4be63b4dba275ea07751781, type: 3}
-  initialSpawnCount: 9
+  initialSpawnCount: 2
   tileLength: 250
   startZ: 120
   mapXOffset: 12
@@ -1011,6 +1011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResultScreenController
   intermediatePanel: {fileID: 76276165}
   finalPanel: {fileID: 1995773418}
+  completePanel: {fileID: 0}
   overlayCanvasGroup: {fileID: 372113073}
   dimmedBackground: {fileID: 786270750}
   progressTracker: {fileID: 1899608845}
@@ -4155,8 +4156,8 @@ MonoBehaviour:
   scaleForwardTargetSpeedWithThrowPower: 1
   allowBackwardThrow: 0
   minForwardInputWhenBackwardDisabled: 0.05
-  minThrowUpAngle: 30
-  maxThrowUpAngle: 35
+  minThrowUpAngle: 15
+  maxThrowUpAngle: 25
   throwUpInputExponent: 2
   maxInitialUpwardSpeed: 0.75
   forwardCorrectionStrength: 0.25
