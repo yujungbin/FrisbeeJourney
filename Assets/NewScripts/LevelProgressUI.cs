@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +37,7 @@ public class LevelProgressUI : MonoBehaviour
         {
             distanceText.text = string.Format(
                 distanceFormat,
-                progressTracker.TotalDistance
+                progressTracker.TotalForwardDistance
             );
         }
     }
