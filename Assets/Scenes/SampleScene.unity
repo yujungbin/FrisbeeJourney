@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 6df435a574886714fb164d6f42e79025, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -4177,7 +4177,7 @@ MonoBehaviour:
   boundaryDamping: 10
   postImpactControlOffSpeed: 0.2
   allowPostImpactSteering: 1
-  postImpactSteeringMultiplier: 0.762
+  postImpactSteeringMultiplier: 1
   postImpactSteeringFullEffectSpeed: 10
   postImpactLiftMultiplier: 0
   spinWhilePostImpactMoving: 1
@@ -6242,7 +6242,7 @@ MonoBehaviour:
   disc: {fileID: 465174908}
   trackRoot: {fileID: 2097020924}
   levelOrigin: {fileID: 540757803}
-  levelLength: 1000
+  levelLength: 1300
 --- !u!114 &1899608846
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -340,6 +340,8 @@ public class DiscSlingshotController : MonoBehaviour
 
     private bool runtimeStatsInitialized;
 
+    private bool decreaseSteeringSpeed;
+
     #endregion
 
     #region Public Properties
@@ -1340,8 +1342,11 @@ public class DiscSlingshotController : MonoBehaviour
         bool applyBoundary,
         float steeringInputScale = 1f)
     {
+        
+
         if (state != DiscState.Flying && state != DiscState.Settling)
             return;
+        
 
         Vector3 forward = GetActiveFlightForward();
         Vector3 sideClampRight = GetActiveFlightRight();
@@ -1356,9 +1361,16 @@ public class DiscSlingshotController : MonoBehaviour
 
         float sideSpeed = Vector3.Dot(velocity, sideClampRight);
 
-        if (Mathf.Abs(sideSpeed) > maxLateralSpeed)
+        float effectiveMaxLateralSpeed = maxLateralSpeed;
+
+        if (state == DiscState.Settling)
         {
-            float clampedSideSpeed = Mathf.Sign(sideSpeed) * maxLateralSpeed;
+            effectiveMaxLateralSpeed = maxLateralSpeed * Mathf.Clamp01(steeringInputScale);
+        }
+
+        if (Mathf.Abs(sideSpeed) > effectiveMaxLateralSpeed)
+        {
+            float clampedSideSpeed = Mathf.Sign(sideSpeed) * effectiveMaxLateralSpeed;
             velocity -= sideClampRight * (sideSpeed - clampedSideSpeed);
             SetLinearVelocity(velocity);
         }
@@ -1375,18 +1387,19 @@ public class DiscSlingshotController : MonoBehaviour
                 ForceMode.Acceleration
             );
         }
+        
 
         if (steeringMultiplier > 0f)
         {
             float effectiveSteerInput =
-            steerInput *
-            Mathf.Clamp01(steeringInputScale);
+            steerInput * Mathf.Clamp01(steeringInputScale);
             rb.AddForce(
                 steeringRight *
                 (effectiveSteerInput * lateralAcceleration * steeringMultiplier),
                 ForceMode.Acceleration
             );
         }
+
 
         if (liftMultiplier > 0f)
             ApplyLift(liftMultiplier);
@@ -1407,6 +1420,8 @@ public class DiscSlingshotController : MonoBehaviour
             velocity,
             Vector3.up
          ).magnitude;
+        Vector3 forward = GetActiveFlightForward();
+        float forwardSpeed = Mathf.Max(0f, Vector3.Dot(velocity, forward));
 
         if (speed <= postImpactControlOffSpeed)
         {
@@ -1429,7 +1444,7 @@ public class DiscSlingshotController : MonoBehaviour
             Mathf.InverseLerp(
                 postImpactControlOffSpeed,
                 safeFullEffectSpeed,
-                steeringSpeed
+                forwardSpeed
             );
 
         ApplyFlightControl(

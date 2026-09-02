@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RunProgressTracker : MonoBehaviour
 {
@@ -17,10 +17,12 @@ public class RunProgressTracker : MonoBehaviour
 
     private float currentThrowDistance;
     private float totalDistance;
+    private float totalForwardDistance;
     private float maxForwardDistance;
 
     public float CurrentThrowDistance => currentThrowDistance;
     public float TotalDistance => totalDistance;
+    public float TotalForwardDistance => totalForwardDistance;
     public float MaxForwardDistance => maxForwardDistance;
 
     public float LevelProgress01
@@ -103,6 +105,7 @@ public class RunProgressTracker : MonoBehaviour
             currentPosition - runOriginPosition,
             forward
         );
+        totalForwardDistance = forwardDistance;
 
         maxForwardDistance = Mathf.Max(
             maxForwardDistance,
