@@ -4596,7 +4596,7 @@ Mesh:
   m_CookingOptions: 30
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 7434731
+  'm_MeshMetrics[0]': 7434678
   'm_MeshMetrics[1]': 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
@@ -10478,7 +10478,7 @@ PrefabInstance:
       objectReference: {fileID: 924276928}
     - target: {fileID: 6379223252063864680, guid: 4dbf775d89140a24b8c951cbebc0ac55, type: 3}
       propertyPath: m_VersionIndex
-      value: 851
+      value: 863
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
