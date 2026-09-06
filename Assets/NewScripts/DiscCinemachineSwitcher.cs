@@ -22,6 +22,16 @@ public class DiscCinemachineSwitcher : MonoBehaviour
     [SerializeField] private int followCameraBeforeLaunchPriority = 0;
     [SerializeField] private int followCameraAfterLaunchPriority = 30;
 
+    [Header("Launch Camera Panning")]
+    [Tooltip("Ready 카메라가 좌우로 회전할 수 있는 최대 각도입니다.")]
+    [SerializeField, Range(0f, 90f)]
+    private float maxLaunchPanAngle = 90f;
+
+    private float currentLaunchPanAngle;
+
+    public float CurrentLaunchPanAngle =>
+        currentLaunchPanAngle;
+
     [Header("Debug")]
     [SerializeField] private bool logCameraSwitch = true;
 
@@ -44,6 +54,12 @@ public class DiscCinemachineSwitcher : MonoBehaviour
         ShowLaunchCamera();
     }
 
+    private void OnValidate()
+    {
+        maxLaunchPanAngle =
+            Mathf.Clamp(maxLaunchPanAngle, 0f, 90f);
+    }
+
     private void CaptureOriginalLaunchPose()
     {
         if (launchCamera == null || launchAnchor == null)
@@ -64,8 +80,13 @@ public class DiscCinemachineSwitcher : MonoBehaviour
         if (!hasOriginalLaunchPose)
             CaptureOriginalLaunchPose();
 
+        currentLaunchPanAngle = 0f;
+
         if (preserveInitialLaunchCameraPose)
-            RepositionLaunchCameraByAnchorDelta();
+            ApplyLaunchCameraPose();
+
+        //if (preserveInitialLaunchCameraPose)
+        //    RepositionLaunchCameraByAnchorDelta();
 
         if (launchCamera != null)
         {
@@ -154,21 +175,66 @@ public class DiscCinemachineSwitcher : MonoBehaviour
         }
     }
 
-    private void RepositionLaunchCameraByAnchorDelta()
+    //private void RepositionLaunchCameraByAnchorDelta()
+    //{
+    //    if (launchCamera == null || launchAnchor == null || !hasOriginalLaunchPose)
+    //        return;
+
+    //    Vector3 anchorDelta =
+    //        launchAnchor.position - originalLaunchAnchorPosition;
+
+    //    launchCamera.transform.position =
+    //        originalLaunchCameraPosition + anchorDelta;
+
+    //    launchCamera.transform.rotation =
+    //        originalLaunchCameraRotation;
+    //}
+    private void ApplyLaunchCameraPose()
     {
-        if (launchCamera == null || launchAnchor == null || !hasOriginalLaunchPose)
+        if (launchCamera == null ||
+            launchAnchor == null ||
+            !hasOriginalLaunchPose)
+        {
             return;
+        }
 
-        Vector3 anchorDelta =
-            launchAnchor.position - originalLaunchAnchorPosition;
+        Vector3 originalOffset =
+            originalLaunchCameraPosition -
+            originalLaunchAnchorPosition;
 
+        Quaternion yawRotation =
+            Quaternion.AngleAxis(
+                currentLaunchPanAngle,
+                Vector3.up
+            );
+
+        // LaunchAnchor를 중심으로 카메라 위치를 좌우로 회전
         launchCamera.transform.position =
-            originalLaunchCameraPosition + anchorDelta;
+            launchAnchor.position +
+            yawRotation * originalOffset;
 
+        // 기존 상하 각도는 유지하고 yaw만 추가
         launchCamera.transform.rotation =
+            yawRotation *
             originalLaunchCameraRotation;
     }
 
+    public void SetLaunchPanAngle(float angle)
+    {
+        currentLaunchPanAngle = Mathf.Clamp(
+            angle,
+            -maxLaunchPanAngle,
+            maxLaunchPanAngle
+        );
+
+        ApplyLaunchCameraPose();
+    }
+
+    public void ResetLaunchPan()
+    {
+        currentLaunchPanAngle = 0f;
+        ApplyLaunchCameraPose();
+    }
     public void RecaptureCurrentLaunchPose()
     {
         CaptureOriginalLaunchPose();
