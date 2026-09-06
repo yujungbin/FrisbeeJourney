@@ -14,6 +14,9 @@ public class DiscTrailController : MonoBehaviour
     [SerializeField]
     private TrailRenderer[] trailRenderers;
 
+    [SerializeField]
+    private Transform trailRig;
+
 
     [Header("State Control")]
     [Tooltip("첫 충돌 이후 Settling 상태에서도 Trail을 표시합니다.")]
@@ -42,6 +45,26 @@ public class DiscTrailController : MonoBehaviour
     [SerializeField]
     private bool useHorizontalSpeed = false;
 
+    
+    [Header("Trail Direction")]
+
+    [Tooltip(
+        "Flying 상태에서 TrailRig가 Active Forward를 따라가는 최대 회전 속도입니다. " +
+        "0이면 즉시 회전합니다."
+    )]
+    [SerializeField]
+    private float trailRigTurnSpeed = 40f;
+
+    [Tooltip("Ready 상태에서는 발사 방향으로 즉시 정렬합니다.")]
+    [SerializeField]
+    private bool snapTrailRigWhileReady = true;
+
+    [Tooltip(
+        "충돌 순간의 TrailRig 월드 방향을 Settling 동안 유지합니다. " +
+        "부모 Rigidbody가 회전해도 Trail 기준 방향은 바뀌지 않습니다."
+    )]
+    [SerializeField]
+    private bool freezeTrailRigAfterImpact = true;
 
     [Header("Trail Length")]
     [Tooltip("Min Speed 부근에서의 Trail 잔상 시간입니다.")]
@@ -83,6 +106,9 @@ public class DiscTrailController : MonoBehaviour
     private float currentSpeed;
     private float currentTrailTime;
 
+    private bool hasFrozenTrailRigRotation;
+    private Quaternion frozenTrailRigWorldRotation;
+
     private Vector3 lastPosition;
 
 
@@ -100,6 +126,10 @@ public class DiscTrailController : MonoBehaviour
 
         SetEmission(false, true);
         SetAllTrailTimes(minTrailTime);
+    }
+    private void LateUpdate()
+    {
+        UpdateTrailRigDirection();
     }
 
     private void OnEnable()
@@ -145,6 +175,8 @@ public class DiscTrailController : MonoBehaviour
             0f,
             trailTimeResponse
         );
+        trailRigTurnSpeed =
+    Mathf.Max(0f, trailRigTurnSpeed);
     }
 
     private void Update()
@@ -196,10 +228,100 @@ public class DiscTrailController : MonoBehaviour
         }
     }
 
+    private void UpdateTrailRigDirection()
+    {
+        if (trailRig == null ||
+            discController == null)
+        {
+            return;
+        }
 
-    // --------------------------------------------------
-    // Speed control
-    // --------------------------------------------------
+        /*
+         * 충돌 이후:
+         * TrailRig의 월드 방향을 충돌 순간 상태로 유지합니다.
+         *
+         * 단순히 아무 작업도 하지 않으면 부모 Rigidbody의 회전을
+         * 그대로 상속하므로 월드 방향은 실제로 고정되지 않습니다.
+         */
+        if (discController.IsSettling)
+        {
+            if (!freezeTrailRigAfterImpact)
+                return;
+
+            if (!hasFrozenTrailRigRotation)
+            {
+                frozenTrailRigWorldRotation =
+                    trailRig.rotation;
+
+                hasFrozenTrailRigRotation = true;
+            }
+
+            trailRig.rotation =
+                frozenTrailRigWorldRotation;
+
+            return;
+        }
+
+        hasFrozenTrailRigRotation = false;
+
+        /*
+         * Ready 상태에서는 Trail이 보이지 않으므로
+         * 카메라 버튼으로 정한 발사 방향에 즉시 맞춰도 안전합니다.
+         */
+        if (discController.IsReady)
+        {
+            RotateTrailRigToward(
+                discController.CurrentLaunchAimForward,
+                snapTrailRigWhileReady
+            );
+
+            return;
+        }
+
+        /*
+         * 비행 중에만 Active Forward를 부드럽게 추적합니다.
+         */
+        if (discController.IsFlying)
+        {
+            RotateTrailRigToward(
+                discController.CurrentActiveFlightForward,
+                false
+            );
+        }
+    }
+
+    private void RotateTrailRigToward(
+        Vector3 worldForward,
+        bool snap)
+    {
+        Vector3 planarForward =
+            Vector3.ProjectOnPlane(
+                worldForward,
+                Vector3.up
+            );
+
+        if (planarForward.sqrMagnitude < 0.0001f)
+            return;
+
+        Quaternion targetRotation =
+            Quaternion.LookRotation(
+                planarForward.normalized,
+                Vector3.up
+            );
+
+        if (snap || trailRigTurnSpeed <= 0f)
+        {
+            trailRig.rotation = targetRotation;
+            return;
+        }
+
+        trailRig.rotation =
+            Quaternion.RotateTowards(
+                trailRig.rotation,
+                targetRotation,
+                trailRigTurnSpeed * Time.deltaTime
+            );
+    }
 
     private void UpdateTrailFromSpeed()
     {
@@ -296,10 +418,6 @@ public class DiscTrailController : MonoBehaviour
         currentSpeed = velocity.magnitude;
     }
 
-
-    // --------------------------------------------------
-    // State
-    // --------------------------------------------------
 
     private bool IsValidTrailState()
     {
@@ -399,6 +517,10 @@ public class DiscTrailController : MonoBehaviour
         {
             trailRenderers =
                 GetComponentsInChildren<TrailRenderer>(true);
+        }
+        if (trailRig == null)
+        {
+            trailRig = transform.Find("TrailRig");
         }
     }
 

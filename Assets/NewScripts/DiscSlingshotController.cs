@@ -1269,6 +1269,22 @@ public class DiscSlingshotController : MonoBehaviour
 
         return true;
     }
+    public Vector3 CurrentActiveFlightForward
+    {
+        get
+        {
+            Vector3 forward =
+                Vector3.ProjectOnPlane(
+                    activeFlightForward,
+                    Vector3.up
+                );
+
+            if (forward.sqrMagnitude < 0.0001f)
+                forward = GetTrackForward();
+
+            return forward.normalized;
+        }
+    }
 
     private Vector3 GetActiveFlightForward()
     {
