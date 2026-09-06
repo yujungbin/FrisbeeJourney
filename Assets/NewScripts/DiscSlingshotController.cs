@@ -246,6 +246,33 @@ public class DiscSlingshotController : MonoBehaviour
 
     [Tooltip("Freeze Rotation 해제 후 사용할 회전 감쇠입니다.")]
     [SerializeField] private float unlockedRotationAngularDamping = 1.5f;
+    [Header("Post Impact View Panning")]
+
+    [Tooltip(
+    "충돌 후 터치 입력으로 카메라와 조향 기준 방향을 회전시킵니다."
+)]
+    [SerializeField]
+    private bool allowPostImpactViewPanning = true;
+
+    [Tooltip(
+        "충돌 후 카메라/Forward가 터치 입력에 따라 회전하는 속도입니다. " +
+        "단위는 degrees/second입니다."
+    )]
+    [SerializeField, Min(0f)]
+    private float postImpactViewPanDegreesPerSecond = 40f;
+
+    [Tooltip("충돌 후 카메라 패닝 입력의 데드존입니다.")]
+    [SerializeField, Range(0f, 0.95f)]
+    private float postImpactViewPanDeadZone = 0.08f;
+
+    [Tooltip(
+        "1보다 크면 화면 중앙 부근의 패닝이 부드러워집니다."
+    )]
+    [SerializeField, Min(0.05f)]
+    private float postImpactViewPanExponent = 1.2f;
+
+    [SerializeField]
+    private bool invertPostImpactViewPan = false;
 
     #endregion
 
@@ -477,6 +504,24 @@ public class DiscSlingshotController : MonoBehaviour
         0f,
         minPlanarSpeedForActiveDirection
     );
+        postImpactViewPanDegreesPerSecond =
+    Mathf.Max(
+        0f,
+        postImpactViewPanDegreesPerSecond
+    );
+
+        postImpactViewPanDeadZone =
+            Mathf.Clamp(
+                postImpactViewPanDeadZone,
+                0f,
+                0.95f
+            );
+
+        postImpactViewPanExponent =
+            Mathf.Max(
+                0.05f,
+                postImpactViewPanExponent
+            );
     }
 
     private void Update()
@@ -493,11 +538,25 @@ public class DiscSlingshotController : MonoBehaviour
                 break;
 
             case DiscState.Settling:
-                if (allowPostImpactSteering)
-                    ReadSteeringInput();
-                else
-                    steerInput = 0f;
-                break;
+                {
+                    bool needsPostImpactInput =
+                        allowPostImpactSteering ||
+                        allowPostImpactViewPanning;
+
+                    if (needsPostImpactInput)
+                        ReadSteeringInput();
+                    else
+                        steerInput = 0f;
+
+                    if (allowPostImpactViewPanning)
+                    {
+                        UpdatePostImpactViewDirection(
+                            Time.deltaTime
+                        );
+                    }
+
+                    break;
+                }
 
             default:
                 steerInput = 0f;
@@ -1227,6 +1286,99 @@ public class DiscSlingshotController : MonoBehaviour
             activeFlightRight =
                 GetTrackRight();
         }
+    }
+    private void UpdatePostImpactViewDirection(
+    float deltaTime)
+    {
+        if (state != DiscState.Settling)
+            return;
+
+        if (!allowPostImpactViewPanning)
+            return;
+
+        if (postImpactViewPanDegreesPerSecond <= 0f ||
+            deltaTime <= 0f)
+        {
+            return;
+        }
+
+        float inputMagnitude =
+            Mathf.Abs(steerInput);
+
+        if (inputMagnitude <=
+            postImpactViewPanDeadZone)
+        {
+            return;
+        }
+
+        /*
+         * 데드존 바깥 부분을 다시 0~1로 정규화합니다.
+         * 따라서 데드존 경계에서 갑자기 강한 회전이 발생하지 않습니다.
+         */
+        float normalizedMagnitude =
+            Mathf.InverseLerp(
+                postImpactViewPanDeadZone,
+                1f,
+                inputMagnitude
+            );
+
+        float shapedInput =
+            Mathf.Sign(steerInput) *
+            Mathf.Pow(
+                normalizedMagnitude,
+                postImpactViewPanExponent
+            );
+
+        if (invertPostImpactViewPan)
+            shapedInput = -shapedInput;
+
+        float yawDelta =
+            shapedInput *
+            postImpactViewPanDegreesPerSecond *
+            deltaTime;
+
+        Vector3 nextForward =
+            Quaternion.AngleAxis(
+                yawDelta,
+                Vector3.up
+            ) *
+            CurrentActiveFlightForward;
+
+        SetActiveFlightBasis(nextForward);
+    }
+
+    private bool SetActiveFlightBasis(
+        Vector3 worldForward)
+    {
+        Vector3 planarForward =
+            Vector3.ProjectOnPlane(
+                worldForward,
+                Vector3.up
+            );
+
+        if (planarForward.sqrMagnitude < 0.0001f)
+            return false;
+
+        activeFlightForward =
+            planarForward.normalized;
+
+        activeFlightRight =
+            Vector3.Cross(
+                Vector3.up,
+                activeFlightForward
+            );
+
+        if (activeFlightRight.sqrMagnitude < 0.0001f)
+        {
+            activeFlightRight =
+                GetTrackRight();
+        }
+        else
+        {
+            activeFlightRight.Normalize();
+        }
+
+        return true;
     }
     private bool TryUpdateActiveFlightDirectionFromVelocity()
     {
@@ -2037,55 +2189,39 @@ public class DiscSlingshotController : MonoBehaviour
     }
     private void FreezeActiveFlightDirectionForSettling()
     {
-        Vector3 frozenForward = Vector3.zero;
+        Vector3 initialForward = Vector3.zero;
 
-        /*
-         * 사용자가 실제로 보고 있던 카메라 방향을 우선 사용합니다.
-         * 카메라가 충돌 시점에 고정된다면 조향 기준도 정확히 일치합니다.
-         */
         if (inputCamera != null)
         {
-            frozenForward = Vector3.ProjectOnPlane(
-                inputCamera.transform.forward,
-                Vector3.up
-            );
+            initialForward =
+                Vector3.ProjectOnPlane(
+                    inputCamera.transform.forward,
+                    Vector3.up
+                );
         }
 
-        /*
-         * 카메라 방향을 사용할 수 없다면
-         * 충돌 직전까지 사용하던 비행 방향을 사용합니다.
-         */
-        if (frozenForward.sqrMagnitude < 0.0001f)
+        if (initialForward.sqrMagnitude < 0.0001f)
         {
-            frozenForward = Vector3.ProjectOnPlane(
-                activeFlightForward,
-                Vector3.up
-            );
+            initialForward =
+                Vector3.ProjectOnPlane(
+                    activeFlightForward,
+                    Vector3.up
+                );
         }
 
-        /*
-         * 마지막 예비값입니다.
-         */
-        if (frozenForward.sqrMagnitude < 0.0001f)
+        if (initialForward.sqrMagnitude < 0.0001f)
         {
-            frozenForward = Vector3.ProjectOnPlane(
-                GetLinearVelocity(),
-                Vector3.up
-            );
+            initialForward =
+                Vector3.ProjectOnPlane(
+                    GetLinearVelocity(),
+                    Vector3.up
+                );
         }
 
-        if (frozenForward.sqrMagnitude < 0.0001f)
-            frozenForward = GetTrackForward();
+        if (initialForward.sqrMagnitude < 0.0001f)
+            initialForward = GetTrackForward();
 
-        activeFlightForward = frozenForward.normalized;
-
-        activeFlightRight = Vector3.Cross(
-            Vector3.up,
-            activeFlightForward
-        ).normalized;
-
-        if (activeFlightRight.sqrMagnitude < 0.0001f)
-            activeFlightRight = GetTrackRight();
+        SetActiveFlightBasis(initialForward);
     }
     private void ApplySettlingBrake()
     {
