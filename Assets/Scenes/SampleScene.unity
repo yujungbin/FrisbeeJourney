@@ -4831,12 +4831,16 @@ MonoBehaviour:
   discController: {fileID: 1234174329}
   discRigidbody: {fileID: 1574253970}
   trailRenderers: []
+  trailRig: {fileID: 1112890085}
   emitWhileSettling: 1
   clearWhenThrowEnds: 1
   clearOnDisable: 1
   minSpeed: 5
   maxSpeed: 25
   useHorizontalSpeed: 1
+  trailRigTurnSpeed: 40
+  snapTrailRigWhileReady: 1
+  freezeTrailRigAfterImpact: 1
   minTrailTime: 0.01
   maxTrailTime: 0.06
   trailTimeResponse: 2

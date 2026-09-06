@@ -59,12 +59,7 @@ public class DiscTrailController : MonoBehaviour
     [SerializeField]
     private bool snapTrailRigWhileReady = true;
 
-    [Tooltip(
-        "충돌 순간의 TrailRig 월드 방향을 Settling 동안 유지합니다. " +
-        "부모 Rigidbody가 회전해도 Trail 기준 방향은 바뀌지 않습니다."
-    )]
-    [SerializeField]
-    private bool freezeTrailRigAfterImpact = true;
+    
 
     [Header("Trail Length")]
     [Tooltip("Min Speed 부근에서의 Trail 잔상 시간입니다.")]
@@ -106,8 +101,6 @@ public class DiscTrailController : MonoBehaviour
     private float currentSpeed;
     private float currentTrailTime;
 
-    private bool hasFrozenTrailRigRotation;
-    private Quaternion frozenTrailRigWorldRotation;
 
     private Vector3 lastPosition;
 
@@ -204,10 +197,6 @@ public class DiscTrailController : MonoBehaviour
     }
 
 
-    // --------------------------------------------------
-    // Launch event
-    // --------------------------------------------------
-
     private void HandleDiscLaunched()
     {
         hasActuallyLaunched = true;
@@ -236,60 +225,35 @@ public class DiscTrailController : MonoBehaviour
             return;
         }
 
-        /*
-         * 충돌 이후:
-         * TrailRig의 월드 방향을 충돌 순간 상태로 유지합니다.
-         *
-         * 단순히 아무 작업도 하지 않으면 부모 Rigidbody의 회전을
-         * 그대로 상속하므로 월드 방향은 실제로 고정되지 않습니다.
-         */
-        if (discController.IsSettling)
-        {
-            if (!freezeTrailRigAfterImpact)
-                return;
-
-            if (!hasFrozenTrailRigRotation)
-            {
-                frozenTrailRigWorldRotation =
-                    trailRig.rotation;
-
-                hasFrozenTrailRigRotation = true;
-            }
-
-            trailRig.rotation =
-                frozenTrailRigWorldRotation;
-
-            return;
-        }
-
-        hasFrozenTrailRigRotation = false;
-
-        /*
-         * Ready 상태에서는 Trail이 보이지 않으므로
-         * 카메라 버튼으로 정한 발사 방향에 즉시 맞춰도 안전합니다.
-         */
         if (discController.IsReady)
         {
             RotateTrailRigToward(
                 discController.CurrentLaunchAimForward,
-                snapTrailRigWhileReady
+                snap: true
             );
 
             return;
         }
 
-        /*
-         * 비행 중에만 Active Forward를 부드럽게 추적합니다.
-         */
+        if (discController.IsSettling)
+        {
+            
+            RotateTrailRigToward(
+                discController.CurrentActiveFlightForward,
+                snap: true
+            );
+
+            return;
+        }
+
         if (discController.IsFlying)
         {
             RotateTrailRigToward(
                 discController.CurrentActiveFlightForward,
-                false
+                snap: false
             );
         }
     }
-
     private void RotateTrailRigToward(
         Vector3 worldForward,
         bool snap)

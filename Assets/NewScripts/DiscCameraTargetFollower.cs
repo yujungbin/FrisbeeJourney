@@ -46,8 +46,12 @@ public class DiscCameraTargetFollower : MonoBehaviour
     [Tooltip("카메라가 진행 방향으로 좌우 회전하는 최대 속도입니다. 0이면 즉시 회전합니다.")]
     [SerializeField] private float panRotationSpeed = 180f;
 
-    [Tooltip("첫 충돌로 Settling 상태가 되면 충돌 직전의 카메라 방향을 유지합니다.")]
-    [SerializeField] private bool freezeViewAfterImpact = true;
+    [Tooltip(
+    "충돌 후 속도 방향 자동 추적을 중단합니다. " +
+    "Settling에서는 Controller의 수동 Active Forward를 사용합니다."
+)]
+    [SerializeField]
+    private bool freezeViewAfterImpact = true;
 
     [Header("Direction Fallback")]
     [Tooltip("속도 방향을 사용할 수 없을 때 TrackRoot.forward를 사용합니다.")]
@@ -164,9 +168,19 @@ public class DiscCameraTargetFollower : MonoBehaviour
         smoothedBasePosition = GetDesiredBasePosition();
 
         // 충돌 후 snap이 발생해도 고정된 시점을 초기화하지 않습니다.
-        if (!viewFrozenAfterImpact || !initialized)
+        if (viewFrozenAfterImpact &&
+    discController != null &&
+    discController.IsSettling)
+        {
+          
+            SetPlanarForwardImmediately(
+                discController.CurrentActiveFlightForward
+            );
+        }
+        else if (!viewFrozenAfterImpact || !initialized)
         {
             currentScreenLateralOffset = 0f;
+
             SetPlanarForwardImmediately(
                 GetDesiredPlanarForward()
             );
@@ -247,8 +261,19 @@ public class DiscCameraTargetFollower : MonoBehaviour
             );
         }
 
-        if (viewFrozenAfterImpact)
+        if(viewFrozenAfterImpact)
+{
+   
+            if (discController != null &&
+                discController.IsSettling)
+            {
+                SetPlanarForwardImmediately(
+                    discController.CurrentActiveFlightForward
+                );
+            }
+
             return currentPlanarForward;
+        }
 
         Vector3 desiredForward =
             GetDesiredPlanarForward();
