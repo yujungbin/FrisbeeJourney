@@ -493,7 +493,10 @@ public class DiscSlingshotController : MonoBehaviour
                 break;
 
             case DiscState.Settling:
-                ReadSteeringInput();
+                if (allowPostImpactSteering)
+                    ReadSteeringInput();
+                else
+                    steerInput = 0f;
                 break;
 
             default:
@@ -1233,8 +1236,7 @@ public class DiscSlingshotController : MonoBehaviour
         if (rb == null)
             return false;
 
-        if (state != DiscState.Flying &&
-            state != DiscState.Settling)
+        if (state != DiscState.Flying)
         {
             return false;
         }
@@ -1271,7 +1273,7 @@ public class DiscSlingshotController : MonoBehaviour
     private Vector3 GetActiveFlightForward()
     {
         
-        if (state == DiscState.Flying)
+        if (useVelocityAsActiveFlightForward && state == DiscState.Flying)
         {
             Vector3 planarVelocity = Vector3.ProjectOnPlane(
                 GetLinearVelocity(),
@@ -1525,26 +1527,16 @@ public class DiscSlingshotController : MonoBehaviour
     private void ApplyPostImpactFlightControl()
     {
         Vector3 velocity = GetLinearVelocity();
-
         float speed = velocity.magnitude;
 
-        Vector3 planarVelocity = Vector3.ProjectOnPlane(
-            velocity,
-            Vector3.up
-        );
+        Vector3 planarVelocity =
+            Vector3.ProjectOnPlane(
+                velocity,
+                Vector3.up
+            );
 
-        /*
-         * Settling 진입 순간에 고정된 방향입니다.
-         */
-        Vector3 forward = GetActiveFlightForward();
-
-        //float forwardSpeed = Mathf.Max(
-        //    0f,
-        //    Vector3.Dot(planarVelocity, forward)
-        //);
-        float forwardSpeed = Mathf.Abs(
-    Vector3.Dot(planarVelocity, forward)
-);
+        float planarSpeed =
+            planarVelocity.magnitude;
 
         if (speed <= postImpactControlOffSpeed)
         {
@@ -1561,25 +1553,88 @@ public class DiscSlingshotController : MonoBehaviour
         float steeringSpeedScale = Mathf.InverseLerp(
             postImpactControlOffSpeed,
             safeFullEffectSpeed,
-            forwardSpeed
+            planarSpeed
         );
 
-        ApplyFlightControl(
-            allowForwardAssist: false,
-            steeringMultiplier:
-                postImpactSteeringMultiplier,
-            liftMultiplier:
-                postImpactLiftMultiplier,
-            applyBoundary: false,
-            steeringInputScale:
-                steeringSpeedScale
+        ApplyPostImpactSteeringForce(
+            planarVelocity,
+            steeringSpeedScale
         );
+
+        if (postImpactLiftMultiplier > 0f)
+        {
+            ApplyLift(
+                postImpactLiftMultiplier
+            );
+        }
 
         /*
-         * 그대로 유지합니다.
+         * 삭제하지 않습니다.
          * coefficient가 0이면 내부에서 바로 return합니다.
          */
         ApplyPostImpactForwardAcceleration(speed);
+    }
+    private void ApplyPostImpactSteeringForce(
+    Vector3 planarVelocity,
+    float steeringInputScale)
+    {
+        if (!allowPostImpactSteering)
+            return;
+
+        float effectiveSteerInput =
+            steerInput *
+            Mathf.Clamp01(steeringInputScale);
+
+        if (Mathf.Abs(effectiveSteerInput) < 0.0001f)
+            return;
+
+        /*
+         * Settling 진입 시 고정된 카메라 기준 right입니다.
+         */
+        Vector3 steeringRight =
+            GetActiveFlightRight();
+
+        Vector3 steeringAcceleration =
+            steeringRight *
+            (
+                effectiveSteerInput *
+                lateralAcceleration *
+                postImpactSteeringMultiplier
+            );
+
+        if (planarVelocity.sqrMagnitude > 0.0001f)
+        {
+            Vector3 movementDirection =
+                planarVelocity.normalized;
+
+            /*
+             * 양수이면 조향 가속도가 현재 이동 방향으로
+             * 운동에너지를 추가하는 성분입니다.
+             */
+            float accelerationAlongMovement =
+                Vector3.Dot(
+                    steeringAcceleration,
+                    movementDirection
+                );
+
+            /*
+             * 속력을 증가시키는 성분만 제거합니다.
+             *
+             * 수직 성분: 방향 전환이므로 유지
+             * 음수 성분: 반대 조향에 의한 감속이므로 유지
+             */
+            if (accelerationAlongMovement > 0f)
+            {
+                steeringAcceleration -=
+                    movementDirection *
+                    accelerationAlongMovement;
+            }
+        }
+
+        rb.AddForce(
+            steeringAcceleration,
+            ForceMode.Acceleration
+        );
     }
 
 
