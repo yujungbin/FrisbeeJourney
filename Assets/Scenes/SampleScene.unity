@@ -4642,12 +4642,14 @@ MonoBehaviour:
   forwardSpeedGain: 0
   lateralAcceleration: 30
   maxLateralSpeed: 50
+  useVelocityAsActiveFlightForward: 1
+  minPlanarSpeedForActiveDirection: 0.25
   laneHalfWidth: 500
   boundarySpring: 40
   boundaryDamping: 10
   postImpactControlOffSpeed: 0.2
   allowPostImpactSteering: 1
-  postImpactSteeringMultiplier: 1
+  postImpactSteeringMultiplier: 0.97
   postImpactSteeringFullEffectSpeed: 10
   postImpactLiftMultiplier: 0
   spinWhilePostImpactMoving: 1
