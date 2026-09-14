@@ -22,6 +22,8 @@ public class DiscRunManager : MonoBehaviour
     [SerializeField] private DiscSlingshotController discController;
     [SerializeField] private DiscDurability discDurability;
     [SerializeField] private DiscCinemachineSwitcher cameraSwitcher;
+    [SerializeField]
+    private RunActiveTimeTracker runTimeTracker;
 
     [Header("Launch Anchor")]
     [SerializeField] private Transform launchAnchor;
@@ -109,6 +111,8 @@ public class DiscRunManager : MonoBehaviour
 
     private bool finalResultShown;
 
+    private bool finishLineCrossed;
+
     public int ThrowsRemaining
     {
         get
@@ -133,9 +137,13 @@ public class DiscRunManager : MonoBehaviour
 
     private void Awake()
     {
+        if (runTimeTracker == null)
+        {
+            runTimeTracker = GetComponent<RunActiveTimeTracker>();
+        }
+
         CaptureOriginalLaunchAnchor();
     }
-
     private void OnEnable()
     {
         SubscribeToDiscEvents();
@@ -143,6 +151,7 @@ public class DiscRunManager : MonoBehaviour
 
     private void OnDisable()
     {
+        runTimeTracker?.FinishRun(false);
         UnsubscribeFromDiscEvents();
     }
 
@@ -163,14 +172,17 @@ public class DiscRunManager : MonoBehaviour
 
     public void StartRun()
     {
+        runTimeTracker?.FinishRun(false);
         StopRunningCoroutines();
         finalResultShown = false;
+        finishLineCrossed = false;
 
         if (discController == null)
         {
             Debug.LogError("DiscController가 연결되어 있지 않습니다.");
             return;
         }
+        discController.SetRunManager(this);
 
         if (!hasOriginalLaunchAnchor)
             CaptureOriginalLaunchAnchor();
@@ -203,7 +215,10 @@ public class DiscRunManager : MonoBehaviour
 
         if (distanceCoinRewarder != null)
             distanceCoinRewarder.ResetRun();
-
+        if (runActive)
+        {
+            runTimeTracker?.BeginRun(discController);
+        }
         onRunStarted.Invoke();
 
         Debug.Log("Run started.");
@@ -490,6 +505,7 @@ public class DiscRunManager : MonoBehaviour
         // 1. 내구도 소진 결과
         if (discDurability != null && discDurability.IsBroken)
         {
+            runTimeTracker?.FinishRun(false);
             rethrowRoutine = null;
             runActive = false;
             finalResultShown = true;
@@ -515,12 +531,35 @@ public class DiscRunManager : MonoBehaviour
             progressTracker != null &&
             progressTracker.LevelProgress01 >= 1f;
 
-        if (levelCompleted)
+        //if (levelCompleted)
+        //{
+        //    runTimeTracker?.FinishRun(false);
+        //    rethrowRoutine = null;
+        //    runActive = false;
+        //    finalResultShown = true;
+
+        //    if (resultScreenController != null)
+        //    {
+        //        resultScreenController.ShowFinalCompleteResult();
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError(
+        //            "ResultScreenController가 연결되지 않아 " +
+        //            "완주 결과 화면을 표시할 수 없습니다."
+        //        );
+        //    }
+
+        //    yield break;
+        //}
+        // 결승선을 정상 통과했다면 이후 충돌로 내구도가 소진되어도 완주입니다.
+        if (finishLineCrossed)
         {
             rethrowRoutine = null;
             runActive = false;
             finalResultShown = true;
 
+            // 시간은 결승선에서 이미 확정했으므로 여기서는 저장하지 않습니다.
             if (resultScreenController != null)
             {
                 resultScreenController.ShowFinalCompleteResult();
@@ -529,12 +568,15 @@ public class DiscRunManager : MonoBehaviour
             {
                 Debug.LogError(
                     "ResultScreenController가 연결되지 않아 " +
-                    "완주 결과 화면을 표시할 수 없습니다."
+                    "완주 결과 화면을 표시할 수 없습니다.",
+                    this
                 );
             }
 
             yield break;
         }
+
+        // 아래에는 기존 내구도 소진, 투척 횟수 소진 등의 처리를 유지합니다.
 
 
         // 3. 투척 횟수 소진
@@ -582,10 +624,44 @@ public class DiscRunManager : MonoBehaviour
 
 
     }
+    public void HandleFinishLineCrossed(
+    DiscSlingshotController crossingDisc)
+    {
+        if (!isActiveAndEnabled ||
+            !runActive ||
+            finalResultShown ||
+            finishLineCrossed)
+        {
+            return;
+        }
+
+        // 현재 플레이 중인 원반만 인정합니다.
+        if (crossingDisc == null || crossingDisc != discController)
+            return;
+
+        // 배치 또는 드래그 중 결승선에 닿는 경우는 제외합니다.
+        if (!discController.IsFlying && !discController.IsSettling)
+            return;
+
+        // 이미 내구도가 소진된 원반은 완주로 인정하지 않습니다.
+        if (discDurability != null && discDurability.IsBroken)
+            return;
+
+        finishLineCrossed = true;
+
+        // 결과 데이터에서도 완주 상태를 유지합니다.
+        if (progressTracker != null)
+            progressTracker.MarkLevelCompleted();
+
+        // 이 시점까지의 Flying + Settling 시간으로 즉시 저장합니다.
+        runTimeTracker?.FinishRun(true);
+    }
     private void ShowNoThrowsFinalResult()
     {
         if (finalResultShown)
             return;
+
+        runTimeTracker?.FinishRun(false);
 
         finalResultShown = true;
 
@@ -642,6 +718,7 @@ public class DiscRunManager : MonoBehaviour
     {
         if (!runActive)
             return;
+        runTimeTracker?.FinishRun(false);
 
         runActive = false;
 

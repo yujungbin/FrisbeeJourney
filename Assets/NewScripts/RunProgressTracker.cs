@@ -11,6 +11,7 @@ public class RunProgressTracker : MonoBehaviour
     [SerializeField] private float levelLength = 1000f;
 
     private bool tracking;
+    private bool levelCompleted;
 
     private Vector3 lastDiscPosition;
     private Vector3 runOriginPosition;
@@ -29,6 +30,9 @@ public class RunProgressTracker : MonoBehaviour
     {
         get
         {
+            if (levelCompleted)
+                return 1f;
+
             if (levelLength <= 0f)
                 return 0f;
 
@@ -57,6 +61,7 @@ public class RunProgressTracker : MonoBehaviour
     public void ResetRun()
     {
         tracking = false;
+        levelCompleted = false;
 
         currentThrowDistance = 0f;
         totalDistance = 0f;
@@ -81,6 +86,11 @@ public class RunProgressTracker : MonoBehaviour
         currentThrowDistance = 0f;
         lastDiscPosition = disc.position;
         tracking = true;
+    }
+
+    public void MarkLevelCompleted()
+    {
+        levelCompleted = true;
     }
 
     public void EndThrow()

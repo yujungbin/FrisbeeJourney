@@ -4621,6 +4621,7 @@ MonoBehaviour:
   maxDragWorldDistance: 4.5
   minDragYOffset: -0.2
   maxDragYOffset: 2.5
+  verticalControlDelayAfterLaunch: 0.8
   throwPowerToInitialThrust: 1
   throwPowerResponseExponent: 1
   scaleForwardTargetSpeedWithThrowPower: 1
@@ -4647,6 +4648,26 @@ MonoBehaviour:
   laneHalfWidth: 500
   boundarySpring: 40
   boundaryDamping: 10
+  verticalDragDeadZone: 0.015
+  verticalDragFullScreenRatio: 0.2
+  verticalInputResponse: 6
+  verticalInputReturnSpeed: 5
+  maxForwardAssistAcceleration: 12
+  extraLiftPerPlanarSpeed: 0.08
+  minExtraLiftCoefficient: 0
+  maxExtraLiftCoefficient: 1.5
+  climbBrakeAcceleration: 3
+  climbBrakeMinPlanarSpeed: 4
+  climbLowSpeedFadeRange: 6
+  diveDownAcceleration: 8
+  diveForwardAcceleration: 5
+  diveMaxSpeed: 35
+  diveSpeedFadeRange: 5
+  diveSpeedLimitGain: 4
+  maxClimbAngle: 20
+  maxDiveAngle: 15
+  flightAngleLimitGain: 4
+  maxAngleCorrectionAcceleration: 20
   postImpactControlOffSpeed: 0.2
   allowPostImpactSteering: 1
   postImpactSteeringMultiplier: 0.97
@@ -4656,10 +4677,16 @@ MonoBehaviour:
   postImpactForwardAccelerationCoefficient: 0
   postImpactMaxForwardAcceleration: 0
   postImpactForwardAccelerationMinSpeed: 0.2
+  postImpactVerticalMultiplier: 0
   unlockRotationAfterFirstImpact: 1
   unlockRotationCurrentSpeedThreshold: 1
   unlockRotationImpactSpeedThreshold: 2
   unlockedRotationAngularDamping: 3
+  allowPostImpactViewPanning: 1
+  postImpactViewPanDegreesPerSecond: 40
+  postImpactViewPanDeadZone: 0.08
+  postImpactViewPanExponent: 1.2
+  invertPostImpactViewPan: 0
   settlingLinearDamping: 0.1
   settlingAngularDamping: 3
   settlingHorizontalBrake: 0
@@ -4676,7 +4703,9 @@ MonoBehaviour:
   stoppedLinearDamping: 30
   spinDegreesPerSecond: 900
   bankAngle: 18
-  visualLerp: 12
+  visualLerp: 15
+  visualMaxClimbPitch: 40
+  visualMaxDivePitch: 50
   onLaunched:
     m_PersistentCalls:
       m_Calls: []
@@ -4840,7 +4869,6 @@ MonoBehaviour:
   useHorizontalSpeed: 1
   trailRigTurnSpeed: 40
   snapTrailRigWhileReady: 1
-  freezeTrailRigAfterImpact: 1
   minTrailTime: 0.01
   maxTrailTime: 0.06
   trailTimeResponse: 2
@@ -5561,6 +5589,7 @@ GameObject:
   - component: {fileID: 1469500877}
   - component: {fileID: 1469500878}
   - component: {fileID: 1469500879}
+  - component: {fileID: 1469500880}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5600,6 +5629,7 @@ MonoBehaviour:
   discController: {fileID: 1234174329}
   discDurability: {fileID: 1234174334}
   cameraSwitcher: {fileID: 1994770297}
+  runTimeTracker: {fileID: 1469500880}
   launchAnchor: {fileID: 1171811459}
   trackRoot: {fileID: 2097020924}
   useThrowLimit: 0
@@ -5733,6 +5763,19 @@ MonoBehaviour:
   onCoinsChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1469500880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469500876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41fe1b5b192f49458816cbd86a787da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunActiveTimeTracker
+  recordId: map_01_active_v1
 --- !u!1 &1480204914
 GameObject:
   m_ObjectHideFlags: 0

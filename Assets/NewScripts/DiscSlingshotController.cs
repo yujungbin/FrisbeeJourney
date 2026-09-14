@@ -91,6 +91,11 @@ public class DiscSlingshotController : MonoBehaviour
 
     [Tooltip("드래그 중 원반의 최대 높이입니다. LaunchAnchor 기준 상대 Y입니다.")]
     [SerializeField] private float maxDragYOffset = 2.5f;
+    [Header("Vertical Control Launch Delay")]
+    [SerializeField, Min(0f)]
+    private float verticalControlDelayAfterLaunch = 0.15f;
+
+    
 
     #endregion
 
@@ -198,6 +203,75 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField] private float boundarySpring = 40f;
     [SerializeField] private float boundaryDamping = 10f;
 
+    [Header("Vertical Drag Input")]
+    [SerializeField, Range(0.001f, 0.1f)]
+    private float verticalDragDeadZone = 0.015f;
+
+    [SerializeField, Range(0.02f, 0.5f)]
+    private float verticalDragFullScreenRatio = 0.2f;
+
+    [SerializeField, Min(0.1f)]
+    private float verticalInputResponse = 6f;
+
+    [SerializeField, Min(0.1f)]
+    private float verticalInputReturnSpeed = 5f;
+
+    [Tooltip("수직 조종 해제 후 재개되는 전방 보조 가속도의 상한")]
+    [SerializeField, Min(0f)]
+    private float maxForwardAssistAcceleration = 12f;
+
+
+    [Header("Climb")]
+    [SerializeField, Min(0f)]
+    private float extraLiftPerPlanarSpeed = 0.08f;
+
+    [SerializeField, Min(0f)]
+    private float minExtraLiftCoefficient = 0f;
+
+    [SerializeField, Min(0f)]
+    private float maxExtraLiftCoefficient = 1.5f;
+
+    [SerializeField, Min(0f)]
+    private float climbBrakeAcceleration = 3f;
+
+    [SerializeField, Min(0f)]
+    private float climbBrakeMinPlanarSpeed = 4f;
+
+    [SerializeField, Min(0.01f)]
+    private float climbLowSpeedFadeRange = 3f;
+
+
+    [Header("Dive")]
+    [SerializeField, Min(0f)]
+    private float diveDownAcceleration = 8f;
+
+    [SerializeField, Min(0f)]
+    private float diveForwardAcceleration = 5f;
+
+    [Tooltip("하강 조작 중 전체 속력의 소프트 상한")]
+    [SerializeField, Min(0.1f)]
+    private float diveMaxSpeed = 35f;
+
+    [SerializeField, Min(0.01f)]
+    private float diveSpeedFadeRange = 5f;
+
+    [SerializeField, Min(0f)]
+    private float diveSpeedLimitGain = 4f;
+
+
+    [Header("Flight Path Angle")]
+    [SerializeField, Range(1f, 80f)]
+    private float maxClimbAngle = 25f;
+
+    [SerializeField, Range(1f, 80f)]
+    private float maxDiveAngle = 35f;
+
+    [SerializeField, Min(0f)]
+    private float flightAngleLimitGain = 4f;
+
+    [SerializeField, Min(0f)]
+    private float maxAngleCorrectionAcceleration = 20f;
+
     #endregion
 
     #region Inspector - Post Impact
@@ -205,6 +279,8 @@ public class DiscSlingshotController : MonoBehaviour
     [Header("Post Impact Control")]
     [Tooltip("충돌 후에도 이 속도보다 빠르면 약한 비행 제어를 유지합니다.")]
     [SerializeField] private float postImpactControlOffSpeed = 0.2f;
+
+    
 
     [SerializeField]
     private bool allowPostImpactSteering = true;
@@ -233,6 +309,10 @@ public class DiscSlingshotController : MonoBehaviour
 
     [Tooltip("속도가 이 값 이하이면 충돌 후 전방 가속을 끕니다.")]
     [SerializeField] private float postImpactForwardAccelerationMinSpeed = 0.2f;
+
+    [Header("Post Impact Vertical Control")]
+    [SerializeField, Range(0f, 1f)]
+    private float postImpactVerticalMultiplier = 0.15f;
 
     [Header("Post Impact Rotation")]
     [Tooltip("첫 충돌 이후 조건에 따라 Rigidbody Freeze Rotation을 해제합니다.")]
@@ -322,7 +402,12 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField] private float spinDegreesPerSecond = 900f;
     [SerializeField] private float bankAngle = 18f;
     [SerializeField] private float visualLerp = 12f;
+    [Header("Visual Pitch")]
+    [SerializeField, Range(0f, 80f)]
+    private float visualMaxClimbPitch = 40f;
 
+    [SerializeField, Range(0f, 80f)]
+    private float visualMaxDivePitch = 50f;
     [Header("Events")]
     [SerializeField] private UnityEvent onLaunched = new UnityEvent();
 
@@ -331,6 +416,9 @@ public class DiscSlingshotController : MonoBehaviour
     #region Runtime Fields
 
     public event UnityAction Launched;
+    public event System.Action<bool, float> ActiveTimeAdvanced;
+
+    public DiscRunManager RunManager { get; private set; }
 
     private Rigidbody rb;
     private DiscState state = DiscState.Ready;
@@ -382,6 +470,37 @@ public class DiscSlingshotController : MonoBehaviour
     private float launchAimYaw;
     private float postImpactSteeringSpeedCompensation;
     private float previousPredictedPostImpactPlanarSpeed = -1f;
+
+    private Quaternion visualBankLocalRotation =
+    Quaternion.identity;
+
+    private int flightTouchId = -1;
+    private bool flightMouseHeld;
+    private float flightPointerStartY;
+
+    private float verticalInputTarget;
+    private float verticalInput;
+    private float verticalControlBlend;
+
+    private bool HasVerticalCommand =>
+        Mathf.Abs(verticalInput) > 0.0001f ||
+        verticalControlBlend > 0.0001f;
+    private bool hasVerticalSnapshot;
+    private bool verticalRestorePending;
+    private bool verticalRestoreBlocked;
+
+    private DiscState verticalSnapshotState;
+    private float savedPlanarSpeed;
+    private float savedVerticalSpeed;
+    private Vector3 savedPlanarForward;
+
+    private float visualPitch;
+    private float visualBank;
+    private Quaternion visualHeadingLocal = Quaternion.identity;
+
+    private float verticalControlUnlockTime;
+    private bool IsVerticalControlLocked =>
+        Time.time < verticalControlUnlockTime;
 
     #endregion
 
@@ -438,6 +557,7 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void OnDisable()
     {
+        ResetFlightSteeringInput();
         EnhancedTouchSupport.Disable();
     }
 
@@ -546,7 +666,7 @@ public class DiscSlingshotController : MonoBehaviour
                     if (needsPostImpactInput)
                         ReadSteeringInput();
                     else
-                        steerInput = 0f;
+                        ResetFlightSteeringInput();
 
                     if (allowPostImpactViewPanning)
                     {
@@ -559,7 +679,7 @@ public class DiscSlingshotController : MonoBehaviour
                 }
 
             default:
-                steerInput = 0f;
+                ResetFlightSteeringInput();
                 break;
         }
 
@@ -568,6 +688,8 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdateVerticalInput();
+        bool restoredThisStep = TryRestoreVerticalSnapshot();
         if (state == DiscState.Dragging && rb.isKinematic)
         {
             //rb.MovePosition(dragTargetPosition);
@@ -582,7 +704,7 @@ public class DiscSlingshotController : MonoBehaviour
             launchedThisStep = true;
         }
 
-        if (state == DiscState.Flying && flightControlEnabled && !launchedThisStep)
+        if (state == DiscState.Flying && flightControlEnabled && !launchedThisStep && !restoredThisStep)
         {
             UpdateActiveFlightDirection();
 
@@ -595,14 +717,27 @@ public class DiscSlingshotController : MonoBehaviour
         }
         else if (state == DiscState.Settling)
         {
-            if (flightControlEnabled)
-                ApplyPostImpactFlightControl();
+            if (!restoredThisStep)
+            {
+                if (flightControlEnabled)
+                    ApplyPostImpactFlightControl();
 
-            //ApplySettlingBrake();
-
-            UpdatePostImpactRotationUnlock();
-            UpdateSettlingStopReadiness();
+                UpdatePostImpactRotationUnlock();
+                UpdateSettlingStopReadiness();
+            }
         }
+        if (state == DiscState.Flying)
+        {
+            ActiveTimeAdvanced?.Invoke(true, Time.fixedDeltaTime);
+        }
+        else if (state == DiscState.Settling)
+        {
+            ActiveTimeAdvanced?.Invoke(false, Time.fixedDeltaTime);
+        }
+    }
+    public void SetRunManager(DiscRunManager manager)
+    {
+        RunManager = manager;
     }
 
     #endregion
@@ -880,19 +1015,23 @@ public class DiscSlingshotController : MonoBehaviour
     private void ExecutePhysicsLaunch()
     {
         //Vector2 releaseVelocityScreen = GetRecentScreenVelocity();
-       // if(releaseVelocityScreen.magnitude >= maxFlickPixelsPerSecond)
-      //  {
+        // if(releaseVelocityScreen.magnitude >= maxFlickPixelsPerSecond)
+        //  {
         //    releaseVelocityScreen = releaseVelocityScreen.normalized * maxFlickPixelsPerSecond;
-       // }
+        // }
         //float power01 = CalculateThrowPower01(totalDragScreen, releaseVelocityScreen);
         //lastThrowPower01 = power01;
-       // Vector3 finalLaunchVelocity =
-       // ClampFinalLaunchVelocity(
-          //  pendingLaunchVelocity,
-           // power01
+        // Vector3 finalLaunchVelocity =
+        // ClampFinalLaunchVelocity(
+        //  pendingLaunchVelocity,
+        // power01
         //);
 
         //pendingLaunchVelocity = finalLaunchVelocity;
+
+        ResetFlightSteeringInput();
+        verticalControlUnlockTime =
+    Time.time + Mathf.Max(0f, verticalControlDelayAfterLaunch);
         rb.isKinematic = false;
 
         //SetLinearVelocity(Vector3.zero);
@@ -1217,35 +1356,44 @@ public class DiscSlingshotController : MonoBehaviour
 
     #region Active Flight Direction
 
-    private void SetActiveFlightDirection(Vector3 throwDirection)
+    //private void SetActiveFlightDirection(Vector3 throwDirection)
+    //{
+    //    Vector3 trackForward = GetTrackForward();
+
+    //    Vector3 flatThrowDirection = Vector3.ProjectOnPlane(
+    //        throwDirection,
+    //        Vector3.up
+    //    );
+
+    //    if (flatThrowDirection.sqrMagnitude < 0.0001f)
+    //        flatThrowDirection = trackForward;
+
+    //    flatThrowDirection.Normalize();
+
+    //    activeFlightForward = Vector3.Slerp(
+    //        flatThrowDirection,
+    //        trackForward,
+    //        Mathf.Clamp01(forwardCorrectionStrength)
+    //    ).normalized;
+
+    //    activeFlightRight = Vector3.Cross(
+    //        Vector3.up,
+    //        activeFlightForward
+    //    ).normalized;
+
+    //    if (activeFlightRight.sqrMagnitude < 0.0001f)
+    //        activeFlightRight = GetTrackRight();
+    //}
+    private void SetActiveFlightDirection(
+    Vector3 throwDirection)
     {
-        Vector3 trackForward = GetTrackForward();
-
-        Vector3 flatThrowDirection = Vector3.ProjectOnPlane(
-            throwDirection,
-            Vector3.up
-        );
-
-        if (flatThrowDirection.sqrMagnitude < 0.0001f)
-            flatThrowDirection = trackForward;
-
-        flatThrowDirection.Normalize();
-
-        activeFlightForward = Vector3.Slerp(
-            flatThrowDirection,
-            trackForward,
-            Mathf.Clamp01(forwardCorrectionStrength)
-        ).normalized;
-
-        activeFlightRight = Vector3.Cross(
-            Vector3.up,
-            activeFlightForward
-        ).normalized;
-
-        if (activeFlightRight.sqrMagnitude < 0.0001f)
-            activeFlightRight = GetTrackRight();
+        if (!SetActiveFlightBasis(throwDirection))
+        {
+            SetActiveFlightBasis(
+                GetLaunchAimForward()
+            );
+        }
     }
-
     private void UpdateActiveFlightDirection()
     {
         // 실시간 속도 방향 모드에서는 Track 방향 보정을 적용하지 않음
@@ -1380,6 +1528,7 @@ public class DiscSlingshotController : MonoBehaviour
 
         return true;
     }
+    
     private bool TryUpdateActiveFlightDirectionFromVelocity()
     {
         if (!useVelocityAsActiveFlightForward)
@@ -1437,28 +1586,52 @@ public class DiscSlingshotController : MonoBehaviour
             return forward.normalized;
         }
     }
-
-    private Vector3 GetActiveFlightForward()
+    private Vector3 GetSteeringRightForControl()
     {
-        
-        if (useVelocityAsActiveFlightForward && state == DiscState.Flying)
+        if (inputCamera != null)
         {
-            Vector3 planarVelocity = Vector3.ProjectOnPlane(
-                GetLinearVelocity(),
-                Vector3.up
-            );
+            Vector3 cameraRight =
+                Vector3.ProjectOnPlane(
+                    inputCamera.transform.right,
+                    Vector3.up
+                );
 
-            if (planarVelocity.sqrMagnitude > 0.0001f)
-            {
-                activeFlightForward =
-                    planarVelocity.normalized;
-            }
+            if (cameraRight.sqrMagnitude > 0.0001f)
+                return cameraRight.normalized;
         }
 
-        if (activeFlightForward.sqrMagnitude < 0.0001f)
-            activeFlightForward = GetTrackForward();
+        return Vector3.Cross(
+            Vector3.up,
+            CurrentActiveFlightForward
+        ).normalized;
+    }
+    //private Vector3 GetActiveFlightForward()
+    //{
 
-        return activeFlightForward.normalized;
+    //    if (useVelocityAsActiveFlightForward && state == DiscState.Flying)
+    //    {
+    //        Vector3 planarVelocity = Vector3.ProjectOnPlane(
+    //            GetLinearVelocity(),
+    //            Vector3.up
+    //        );
+
+    //        if (planarVelocity.sqrMagnitude > 0.0001f)
+    //        {
+    //            activeFlightForward =
+    //                planarVelocity.normalized;
+    //        }
+    //    }
+
+    //    if (activeFlightForward.sqrMagnitude < 0.0001f)
+    //        activeFlightForward = GetTrackForward();
+
+    //    return activeFlightForward.normalized;
+    //}
+    private Vector3 GetActiveFlightForward()
+    {
+        TryUpdateActiveFlightDirectionFromVelocity();
+
+        return CurrentActiveFlightForward;
     }
 
     private Vector3 GetActiveFlightRight()
@@ -1484,49 +1657,236 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ReadSteeringInput()
     {
-        float input = 0f;
+        steerInput = 0f;
+        verticalInputTarget = 0f;
 
-        if (ETouch.activeTouches.Count > 0)
+        // 이미 조작 중인 손가락을 계속 추적합니다.
+        if (flightTouchId >= 0)
         {
             foreach (ETouch touch in ETouch.activeTouches)
             {
-                Vector2 position = touch.screenPosition;
-
-                if (IsPointerOverUI(position))
+                if (touch.touchId != flightTouchId)
                     continue;
 
-                float halfWidth = Screen.width * 0.5f;
+                if (touch.phase == ETouchPhase.Ended ||
+                    touch.phase == ETouchPhase.Canceled)
+                {
+                    break;
+                }
 
-                input = Mathf.Clamp(
-                    (position.x - halfWidth) / halfWidth,
-                    -1f,
-                    1f
-                );
-
-                break;
+                SetFlightPointerInput(touch.screenPosition);
+                return;
             }
+
+            EndFlightSteeringPointer();
+            return;
         }
-        else
+
+        // 새 터치는 Began에서만 획득합니다.
+        if (!flightMouseHeld)
         {
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
-            if (Keyboard.current != null)
+            foreach (ETouch touch in ETouch.activeTouches)
             {
-                if (Keyboard.current.aKey.isPressed ||
-                    Keyboard.current.leftArrowKey.isPressed)
+                if (touch.phase != ETouchPhase.Began ||
+                    IsPointerOverUI(touch.screenPosition))
                 {
-                    input -= 1f;
+                    continue;
                 }
 
-                if (Keyboard.current.dKey.isPressed ||
-                    Keyboard.current.rightArrowKey.isPressed)
-                {
-                    input += 1f;
-                }
+                flightTouchId = touch.touchId;
+                flightPointerStartY = touch.screenPosition.y;
+
+                SetFlightPointerInput(touch.screenPosition);
+                return;
             }
-#endif
         }
 
-        steerInput = Mathf.Clamp(input, -1f, 1f);
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
+        Mouse mouse = Mouse.current;
+
+        if (mouse != null)
+        {
+            Vector2 position = mouse.position.ReadValue();
+
+            if (!flightMouseHeld &&
+                mouse.leftButton.wasPressedThisFrame &&
+                !IsPointerOverUI(position))
+            {
+                flightMouseHeld = true;
+                flightPointerStartY = position.y;
+            }
+
+            if (flightMouseHeld)
+            {
+                if (mouse.leftButton.isPressed)
+                {
+                    SetFlightPointerInput(position);
+                    return;
+                }
+
+                EndFlightSteeringPointer();
+                return;
+            }
+        }
+
+        // 기존 키보드 좌우 조작 유지
+        if (Keyboard.current != null)
+        {
+            if (Keyboard.current.aKey.isPressed ||
+                Keyboard.current.leftArrowKey.isPressed)
+            {
+                steerInput -= 1f;
+            }
+
+            if (Keyboard.current.dKey.isPressed ||
+                Keyboard.current.rightArrowKey.isPressed)
+            {
+                steerInput += 1f;
+            }
+        }
+        hasVerticalSnapshot = false;
+        verticalRestorePending = false;
+        verticalRestoreBlocked = false;
+#endif
+    }
+
+    private void SetFlightPointerInput(Vector2 position)
+    {
+        // 좌우: 기존처럼 화면 중심에 대한 터치 위치 기준
+        float halfWidth = Mathf.Max(1f, Screen.width * 0.5f);
+
+        steerInput = Mathf.Clamp(
+            (position.x - halfWidth) / halfWidth,
+            -1f,
+            1f
+        );
+
+        if (IsVerticalControlLocked)
+        {
+            // 유예 시간에 움직인 드래그량이 나중에 한꺼번에 적용되지 않도록
+            // 수직 기준 위치를 계속 갱신합니다.
+            flightPointerStartY = position.y;
+            verticalInputTarget = 0f;
+            return;
+        }
+
+        // 위아래: 처음 누른 Y 위치로부터의 이동량 기준
+        float delta =
+            (position.y - flightPointerStartY) /
+            Mathf.Max(1f, Screen.height);
+
+        float deadZone = Mathf.Max(0f, verticalDragDeadZone);
+
+        float fullDrag = Mathf.Max(
+            deadZone + 0.001f,
+            verticalDragFullScreenRatio
+        );
+
+        float amount = Mathf.InverseLerp(
+            deadZone,
+            fullDrag,
+            Mathf.Abs(delta)
+        );
+
+        verticalInputTarget = Mathf.Sign(delta) * amount;
+    }
+
+    private void UpdateVerticalInput()
+    {
+        if (IsVerticalControlLocked)
+        {
+            verticalInputTarget = 0f;
+            verticalInput = 0f;
+            verticalControlBlend = 0f;
+
+            hasVerticalSnapshot = false;
+            verticalRestorePending = false;
+
+            return;
+        }
+        bool allowed =
+            flightControlEnabled &&
+            (
+                state == DiscState.Flying ||
+                (
+                    state == DiscState.Settling &&
+                    allowPostImpactSteering &&
+                    postImpactVerticalMultiplier > 0f
+                )
+            );
+
+        if (!allowed)
+        {
+            verticalInputTarget = 0f;
+            verticalInput = 0f;
+            verticalControlBlend = 0f;
+            hasVerticalSnapshot = false;
+            verticalRestorePending = false;
+            return;
+        }
+
+        if (verticalRestorePending)
+            return;
+
+        // 한 번의 터치에서 수직 조종이 처음 시작될 때만 저장합니다.
+        if (!hasVerticalSnapshot &&
+            !verticalRestoreBlocked &&
+            Mathf.Abs(verticalInputTarget) > 0.0001f)
+        {
+            CaptureVerticalSnapshot();
+        }
+
+        float rate = Mathf.Abs(verticalInputTarget) < 0.0001f
+            ? verticalInputReturnSpeed
+            : verticalInputResponse;
+
+        float step =
+            Mathf.Max(0.1f, rate) * Time.fixedDeltaTime;
+
+        verticalInput = Mathf.MoveTowards(
+            verticalInput,
+            verticalInputTarget,
+            step
+        );
+
+        // 작은 드래그에서도 유지하면 각도·속도 제한이 충분히 작동합니다.
+        // 해제 시에는 제한용 힘도 부드럽게 사라집니다.
+        float blendTarget =
+            Mathf.Abs(verticalInputTarget) > 0.0001f ? 1f : 0f;
+
+        verticalControlBlend = Mathf.MoveTowards(
+            verticalControlBlend,
+            blendTarget,
+            step
+        );
+    }
+
+    private void ResetFlightSteeringInput()
+    {
+        flightTouchId = -1;
+        flightMouseHeld = false;
+
+        verticalInputTarget = 0f;
+        verticalInput = 0f;
+        verticalControlBlend = 0f;
+
+        steerInput = 0f;
+    }
+
+    private static float SmoothBand(
+        float value,
+        float from,
+        float to)
+    {
+        return Mathf.SmoothStep(
+            0f,
+            1f,
+            Mathf.InverseLerp(
+                from,
+                Mathf.Max(from + 0.001f, to),
+                value
+            )
+        );
     }
     private bool CanReadSteeringInput()
     {
@@ -1601,95 +1961,257 @@ public class DiscSlingshotController : MonoBehaviour
             maximumLiftAcceleration
         );
     }
-    private void ApplyFlightControl(
-        bool allowForwardAssist,
-        float steeringMultiplier,
-        float liftMultiplier,
-        bool applyBoundary,
-        float steeringInputScale = 1f)
+    private void ApplyVerticalFlightControl(
+    float authority,
+    float baseLiftMultiplier)
     {
-        
-
-        if (state != DiscState.Flying && state != DiscState.Settling)
+        if (!HasVerticalCommand || authority <= 0f)
             return;
-        
-
-        Vector3 forward = GetActiveFlightForward();
-        Vector3 sideClampRight = GetActiveFlightRight();
-
-        bool useActiveSteeringBasis =
-    state == DiscState.Settling ||
-    steeringRelativeToThrowDirection;
-
-        Vector3 steeringRight =
-            useActiveSteeringBasis
-                ? sideClampRight
-                : GetTrackRight();
-
-        Vector3 boundaryRight = GetTrackRight();
 
         Vector3 velocity = GetLinearVelocity();
 
-        float sideSpeed = Vector3.Dot(velocity, sideClampRight);
+        Vector3 planarVelocity =
+            Vector3.ProjectOnPlane(velocity, Vector3.up);
 
-        float effectiveMaxLateralSpeed = maxLateralSpeed;
+        float planarSpeed = planarVelocity.magnitude;
+        float speed = velocity.magnitude;
 
-        //if (state == DiscState.Settling)
-        //{
-        //    effectiveMaxLateralSpeed = maxLateralSpeed * Mathf.Clamp01(steeringInputScale);
-        //}
-        if (state == DiscState.Flying &&
-    Mathf.Abs(sideSpeed) > maxLateralSpeed)
+        // 카메라 방향과 관계없이 실제 이동 방향으로 가속·감속합니다.
+        Vector3 planarForward = planarSpeed > 0.001f
+            ? planarVelocity / planarSpeed
+            : GetActiveFlightForward();
+
+        float up = Mathf.Max(0f, verticalInput) * authority;
+        float down = Mathf.Max(0f, -verticalInput) * authority;
+
+        float gravity = Mathf.Max(0f, -Physics.gravity.y);
+
+        // 1. 저속에서 상승 양력과 상승 브레이크를 함께 줄입니다.
+        float floor = Mathf.Max(0f, climbBrakeMinPlanarSpeed);
+
+        float lowSpeedScale = SmoothBand(
+            planarSpeed,
+            floor,
+            floor + Mathf.Max(0.01f, climbLowSpeedFadeRange)
+        );
+
+        float minCoefficient =
+            Mathf.Max(0f, minExtraLiftCoefficient);
+
+        float coefficient = Mathf.Clamp(
+            planarSpeed * Mathf.Max(0f, extraLiftPerPlanarSpeed),
+            minCoefficient,
+            Mathf.Max(minCoefficient, maxExtraLiftCoefficient)
+        );
+
+        Vector3 acceleration =
+            Vector3.up *
+            (gravity * coefficient * up * lowSpeedScale);
+
+        acceleration -=
+            planarForward *
+            (
+                Mathf.Max(0f, climbBrakeAcceleration) *
+                up *
+                lowSpeedScale
+            );
+
+        // 2. 하강 가속: 최고 속도에 접근하면 전방·하방 가속 모두 감소
+        float limit = Mathf.Max(0.1f, diveMaxSpeed);
+
+        float speedLimitBlend = SmoothBand(
+            speed,
+            Mathf.Max(0f, limit - diveSpeedFadeRange),
+            limit
+        );
+
+        acceleration +=
+            down *
+            (1f - speedLimitBlend) *
+            (
+                planarForward * Mathf.Max(0f, diveForwardAcceleration) -
+                Vector3.up * Mathf.Max(0f, diveDownAcceleration)
+            );
+
+        // 기존 양력과 중력의 합. 중력은 Rigidbody가 실제 적용합니다.
+        float baseY =
+            Physics.gravity.y +
+            CalculateBaseLiftAcceleration(
+                velocity,
+                baseLiftMultiplier
+            );
+
+        // 3. 이동 경로의 상승·하강각을 가속도로 제한
+        // vy = planarSpeed * tan(angle)을 기준으로 계산합니다.
+        float controlBlend = verticalControlBlend;
+
+        // 거의 정지하면 비행각의 의미가 약해지므로 보정을 줄입니다.
+        controlBlend *= SmoothBand(
+            planarSpeed,
+            0f,
+            Mathf.Max(0.1f, floor)
+        );
+
+        float upSlope = Mathf.Tan(
+            Mathf.Clamp(maxClimbAngle, 1f, 80f) * Mathf.Deg2Rad
+        );
+
+        float downSlope = Mathf.Tan(
+            Mathf.Clamp(maxDiveAngle, 1f, 80f) * Mathf.Deg2Rad
+        );
+
+        float gain = Mathf.Max(0f, flightAngleLimitGain);
+
+        float planarAcceleration =
+            Vector3.Dot(acceleration, planarForward);
+
+        // 수평 감속으로 비행각이 커지는 효과도 함께 반영합니다.
+        float minNetY =
+            -planarAcceleration * downSlope +
+            gain * (-planarSpeed * downSlope - velocity.y);
+
+        float maxNetY =
+            planarAcceleration * upSlope +
+            gain * (planarSpeed * upSlope - velocity.y);
+
+        float netY = baseY + acceleration.y;
+
+        float limitedNetY = Mathf.Clamp(
+            netY,
+            Mathf.Min(minNetY, maxNetY),
+            Mathf.Max(minNetY, maxNetY)
+        );
+
+        float correctionLimit =
+            Mathf.Max(0f, maxAngleCorrectionAcceleration);
+
+        if (gain > 0f)
         {
-            float clampedSideSpeed =
-                Mathf.Sign(sideSpeed) *
-                maxLateralSpeed;
-
-            velocity -=
-                sideClampRight *
-                (sideSpeed - clampedSideSpeed);
-
-            SetLinearVelocity(velocity);
+            acceleration.y +=
+                Mathf.Clamp(
+                    limitedNetY - netY,
+                    -correctionLimit,
+                    correctionLimit
+                ) *
+                controlBlend;
         }
 
-        //if (Mathf.Abs(sideSpeed) > effectiveMaxLateralSpeed)
-        //{
-        //    float clampedSideSpeed = Mathf.Sign(sideSpeed) * effectiveMaxLateralSpeed;
-        //    velocity -= sideClampRight * (sideSpeed - clampedSideSpeed);
-        //    SetLinearVelocity(velocity);
-        //}
-
-        if (allowForwardAssist && forwardAssistEnabled)
+        // 4. 하강 중 속도 제한용 항력
+        // 추가 가속만 끄면 중력으로 계속 빨라질 수 있어 이를 보완합니다.
+        if (down > 0f && speed > 0.001f)
         {
-            float forwardSpeed = Vector3.Dot(velocity, forward);
+            Vector3 direction = velocity / speed;
 
-            float forwardAcceleration =
-                (GetActiveTargetForwardSpeed() - forwardSpeed) * forwardSpeedGain;
+            float drive = Vector3.Dot(
+                Vector3.up * baseY + acceleration,
+                direction
+            );
+
+            float drag =
+                Mathf.Max(0f, drive) * speedLimitBlend +
+                Mathf.Max(0f, speed - limit) *
+                Mathf.Max(0f, diveSpeedLimitGain);
+
+            acceleration -=
+                direction * (drag * verticalControlBlend);
+        }
+
+        rb.AddForce(
+            acceleration,
+            ForceMode.Acceleration
+        );
+    }
+    private void ApplyFlightControl(
+    bool allowForwardAssist,
+    float steeringMultiplier,
+    float liftMultiplier,
+    bool applyBoundary,
+    float steeringInputScale = 1f)
+    {
+        if (state != DiscState.Flying &&
+            state != DiscState.Settling)
+        {
+            return;
+        }
+
+        Vector3 velocity = GetLinearVelocity();
+        Vector3 forward = GetActiveFlightForward();
+
+        Vector3 steeringRight = GetActiveFlightRight();
+
+        // 수직 조종 중에는 상승 감속·하강 가속에 간섭하지 않습니다.
+        if (allowForwardAssist &&
+            forwardAssistEnabled &&
+            !HasVerticalCommand)
+        {
+            float acceleration =
+                Mathf.Max(
+                    0f,
+                    GetActiveTargetForwardSpeed() -
+                    Vector3.Dot(velocity, forward)
+                ) *
+                forwardSpeedGain;
+
+            // 해제 후 급격한 재가속을 줄이는 가속도 상한입니다.
+            acceleration = Mathf.Min(
+                acceleration,
+                Mathf.Max(0f, maxForwardAssistAcceleration)
+            );
 
             rb.AddForce(
-                forward * forwardAcceleration,
+                forward * acceleration,
                 ForceMode.Acceleration
             );
         }
-        
 
-        if (steeringMultiplier > 0f)
+        if (steeringMultiplier > 0f && maxLateralSpeed > 0f)
         {
-            float effectiveSteerInput =
-            steerInput * Mathf.Clamp01(steeringInputScale);
+            float input =
+                steerInput * Mathf.Clamp01(steeringInputScale);
+
+            float alongInput =
+                Vector3.Dot(velocity, steeringRight) *
+                Mathf.Sign(input);
+
+            // 해당 방향의 횡속도가 높으면 추가 횡가속을 줄입니다.
+            // 반대 방향으로 조작할 때는 제동할 수 있습니다.
+            float room = 1f - SmoothBand(
+                alongInput,
+                maxLateralSpeed * 0.75f,
+                maxLateralSpeed
+            );
+
             rb.AddForce(
                 steeringRight *
-                (effectiveSteerInput * lateralAcceleration * steeringMultiplier),
+                (
+                    input *
+                    lateralAcceleration *
+                    steeringMultiplier *
+                    room
+                ),
                 ForceMode.Acceleration
             );
         }
-
 
         if (liftMultiplier > 0f)
             ApplyLift(liftMultiplier);
 
         if (applyBoundary)
-            ApplyBoundaryForce(boundaryRight);
+            ApplyBoundaryForce(GetTrackRight());
+
+        float verticalAuthority =
+            state == DiscState.Flying
+                ? 1f
+                : (
+                    allowPostImpactSteering
+                        ? postImpactVerticalMultiplier
+                        : 0f
+                );
+
+        ApplyVerticalFlightControl(
+            verticalAuthority,
+            liftMultiplier
+        );
     }
 
     private void ApplyPostImpactFlightControl()
@@ -1706,10 +2228,10 @@ public class DiscSlingshotController : MonoBehaviour
         float planarSpeed =
             planarVelocity.magnitude;
 
-        if (speed <= postImpactControlOffSpeed)
-        {
+        if(speed <= postImpactControlOffSpeed)
+{
             flightControlEnabled = false;
-            steerInput = 0f;
+            ResetFlightSteeringInput();
             return;
         }
 
@@ -1736,10 +2258,12 @@ public class DiscSlingshotController : MonoBehaviour
             );
         }
 
-        /*
-         * 삭제하지 않습니다.
-         * coefficient가 0이면 내부에서 바로 return합니다.
-         */
+        ApplyVerticalFlightControl(
+    allowPostImpactSteering
+        ? postImpactVerticalMultiplier
+        : 0f,
+    postImpactLiftMultiplier
+);
         ApplyPostImpactForwardAcceleration(speed);
     }
     private void ApplyPostImpactSteeringForce(
@@ -1759,8 +2283,7 @@ public class DiscSlingshotController : MonoBehaviour
         /*
          * Settling 진입 시 고정된 카메라 기준 right입니다.
          */
-        Vector3 steeringRight =
-            GetActiveFlightRight();
+        Vector3 steeringRight = GetSteeringRightForControl();
 
         Vector3 steeringAcceleration =
             steeringRight *
@@ -1808,6 +2331,8 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ApplyPostImpactForwardAcceleration(float currentSpeed)
     {
+        if (HasVerticalCommand)
+            return;
         if (postImpactForwardAccelerationCoefficient <= 0f)
             return;
 
@@ -1833,33 +2358,42 @@ public class DiscSlingshotController : MonoBehaviour
         );
     }
 
-    private void ApplyLift(float multiplier)
+    private float CalculateBaseLiftAcceleration(
+    Vector3 velocity,
+    float multiplier)
     {
-        if (multiplier <= 0f)
-            return;
-
-        Vector3 velocity = GetLinearVelocity();
-        Vector3 horizontalVelocity = Vector3.ProjectOnPlane(velocity, Vector3.up);
+        float planarSpeed =
+            Vector3.ProjectOnPlane(
+                velocity,
+                Vector3.up
+            ).magnitude;
 
         float speedFactor = Mathf.Clamp01(
-            horizontalVelocity.magnitude / GetActiveTargetForwardSpeed()
+            planarSpeed /
+            Mathf.Max(0.01f, GetActiveTargetForwardSpeed())
         );
 
-        float liftAcceleration =
-            -Physics.gravity.y *
+        float rawAcceleration =
+            Mathf.Max(0f, -Physics.gravity.y) *
             runtimeStats.lift *
             speedFactor *
-            multiplier;
+            Mathf.Max(0f, multiplier);
 
-        float finalLiftAcceleration =
-        LimitLiftAcceleration(
-            liftAcceleration,
+        return LimitLiftAcceleration(
+            rawAcceleration,
             velocity
+        );
+    }
+
+    private void ApplyLift(float multiplier)
+    {
+        float acceleration = CalculateBaseLiftAcceleration(
+            GetLinearVelocity(),
+            multiplier
         );
 
         rb.AddForce(
-            Vector3.up *
-            finalLiftAcceleration,
+            Vector3.up * acceleration,
             ForceMode.Acceleration
         );
     }
@@ -2118,13 +2652,136 @@ public class DiscSlingshotController : MonoBehaviour
             maximumAllowedUpwardSpeed;
     }
 
+    private void CaptureVerticalSnapshot()
+    {
+        Vector3 velocity = GetLinearVelocity();
+        Vector3 planar = Vector3.ProjectOnPlane(
+            velocity,
+            Vector3.up
+        );
+
+        savedPlanarSpeed = planar.magnitude;
+        savedVerticalSpeed = velocity.y;
+
+        savedPlanarForward = savedPlanarSpeed > 0.001f
+            ? planar / savedPlanarSpeed
+            : GetActiveFlightForward();
+
+        verticalSnapshotState = state;
+        hasVerticalSnapshot = true;
+    }
+
+    private void EndFlightSteeringPointer()
+    {
+        verticalRestorePending =
+            hasVerticalSnapshot &&
+            !verticalRestoreBlocked;
+
+        if (!verticalRestorePending)
+            hasVerticalSnapshot = false;
+
+        verticalRestoreBlocked = false;
+
+        flightTouchId = -1;
+        flightMouseHeld = false;
+
+        // 해제 시 추가 양력·브레이크·다이브 힘을 즉시 제거합니다.
+        verticalInputTarget = 0f;
+        verticalInput = 0f;
+        verticalControlBlend = 0f;
+        steerInput = 0f;
+    }
+
+    private void InvalidateVerticalSnapshot()
+    {
+        hasVerticalSnapshot = false;
+        verticalRestorePending = false;
+
+        // 충돌 후 같은 터치로 이전 속도를 다시 저장하지 않습니다.
+        verticalRestoreBlocked =
+            flightTouchId >= 0 || flightMouseHeld;
+    }
+
+    private bool TryRestoreVerticalSnapshot()
+    {
+        if (!verticalRestorePending)
+            return false;
+
+        verticalRestorePending = false;
+
+        bool canRestore =
+            hasVerticalSnapshot &&
+            rb != null &&
+            !rb.isKinematic &&
+            flightControlEnabled &&
+            state == verticalSnapshotState &&
+            (
+                state == DiscState.Flying ||
+                state == DiscState.Settling
+            );
+
+        hasVerticalSnapshot = false;
+
+        if (!canRestore)
+            return false;
+
+        Vector3 currentVelocity = GetLinearVelocity();
+
+        Vector3 currentPlanar = Vector3.ProjectOnPlane(
+            currentVelocity,
+            Vector3.up
+        );
+
+        // 좌우 조종으로 바뀐 현재 진행 방향은 유지합니다.
+        Vector3 forward = currentPlanar.sqrMagnitude > 0.0001f
+            ? currentPlanar.normalized
+            : savedPlanarForward;
+
+        Vector3 restoredVelocity =
+            forward * savedPlanarSpeed +
+            Vector3.up * savedVerticalSpeed;
+
+        rb.AddForce(
+            restoredVelocity - currentVelocity,
+            ForceMode.VelocityChange
+        );
+
+        // 복원 프레임에서도 기본 양력은 적용합니다.
+        float liftMultiplier = state == DiscState.Flying
+            ? 1f
+            : postImpactLiftMultiplier;
+
+        rb.AddForce(
+            Vector3.up * CalculateBaseLiftAcceleration(
+                restoredVelocity,
+                liftMultiplier
+            ),
+            ForceMode.Acceleration
+        );
+
+        verticalInput = 0f;
+        verticalControlBlend = 0f;
+
+        if (state == DiscState.Settling)
+        {
+            lowSpeedTimer = 0f;
+            settlingStopReady = false;
+        }
+
+        // 아래에서 추가할 Visual 변수·메서드입니다.
+        visualPitch = GetVisualFlightPitch(restoredVelocity);
+
+        return true;
+    }
+
     #endregion
 
     #region Settling / Rotation / Stop
 
     public void BeginSettlingAfterImpact(float firstImpactSpeed)
     {
-        if(state != DiscState.Flying)
+        InvalidateVerticalSnapshot();
+        if (state != DiscState.Flying)
         {
             Debug.LogWarning(
                 $"BeginSettlingAfterImpact ignored | " +
@@ -2245,7 +2902,15 @@ public class DiscSlingshotController : MonoBehaviour
             SetLinearVelocity(brakedHorizontalVelocity + verticalVelocity);
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        InvalidateVerticalSnapshot();
+    }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        InvalidateVerticalSnapshot();
+    }
     private void UpdatePostImpactRotationUnlock()
     {
         if (!unlockRotationAfterFirstImpact)
@@ -2368,6 +3033,7 @@ public class DiscSlingshotController : MonoBehaviour
 
     public void StopDiscImmediately()
     {
+        ResetFlightSteeringInput();
         state = DiscState.Stopped;
 
         flightControlEnabled = false;
@@ -2604,6 +3270,7 @@ public class DiscSlingshotController : MonoBehaviour
 
     public void PlaceAtLaunchAnchor(bool readyForInput)
     {
+        ResetFlightSteeringInput();
         if (rb == null)
             rb = GetComponent<Rigidbody>();
 
@@ -2682,6 +3349,7 @@ public class DiscSlingshotController : MonoBehaviour
 
         // Ready 상태에서는 드래그 전까지 물리 시뮬레이션에 의해 움직이지 않게 함
         rb.isKinematic = true;
+        verticalControlUnlockTime = 0f;
 
         // Visual 자식 오브젝트의 시각적 회전도 초기화
         ResetVisualPose();
@@ -2916,20 +3584,29 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void UpdateVisual()
     {
-        if (visualRoot == null)
+        // Visual Root는 Rigidbody 본체와 분리된 자식이어야 합니다.
+        if (visualRoot == null || visualRoot == transform)
             return;
 
-        bool shouldSpin =
+        bool controlledPose =
             state == DiscState.Flying ||
             (
                 state == DiscState.Settling &&
                 flightControlEnabled &&
-                spinWhilePostImpactMoving &&
                 !postImpactRotationUnlocked &&
                 !rotationStoppedAfterLowSpeed &&
                 !settlingStopReady
             );
 
+        bool shouldSpin =
+            state == DiscState.Flying ||
+            (
+                state == DiscState.Settling &&
+                controlledPose &&
+                spinWhilePostImpactMoving
+            );
+
+        // 1. 스핀 각도 누적
         if (shouldSpin)
         {
             float speedFactor = 1f;
@@ -2943,37 +3620,129 @@ public class DiscSlingshotController : MonoBehaviour
             }
 
             spinAngle =
-                (spinAngle +
-                 spinDegreesPerSecond *
-                 speedFactor *
-                 Time.deltaTime) % 360f;
+                (
+                    spinAngle +
+                    spinDegreesPerSecond *
+                    speedFactor *
+                    Time.deltaTime
+                ) % 360f;
         }
 
-        Quaternion spin = Quaternion.Euler(0f, spinAngle, 0f);
-        Quaternion bank = Quaternion.Euler(0f, 0f, -steerInput * bankAngle);
+        float targetPitch = 0f;
+        float targetBank = 0f;
 
-        Quaternion targetRotation =
-            visualInitialLocalRotation *
-            bank *
-            spin;
+        // 2. 조종 중에는 Active Forward와 실제 비행각을 반영
+        if (controlledPose)
+        {
+            Vector3 forward = Vector3.ProjectOnPlane(
+                GetActiveFlightForward(),
+                Vector3.up
+            );
 
-        float t = 1f - Mathf.Exp(-visualLerp * Time.deltaTime);
+            if (forward.sqrMagnitude > 0.0001f)
+            {
+                Quaternion parentRotation =
+                    visualRoot.parent != null
+                        ? visualRoot.parent.rotation
+                        : Quaternion.identity;
 
-        visualRoot.localRotation = Quaternion.Slerp(
-            visualRoot.localRotation,
-            targetRotation,
-            t
+                Quaternion worldHeading = Quaternion.LookRotation(
+                    forward.normalized,
+                    Vector3.up
+                );
+
+                visualHeadingLocal =
+                    Quaternion.Inverse(parentRotation) *
+                    worldHeading;
+            }
+
+            targetPitch = IsVerticalControlLocked
+    ? 0f
+    : GetVisualFlightPitch(GetLinearVelocity());
+            targetBank = -steerInput * bankAngle;
+        }
+
+        // 자유 회전 중에는 마지막 local heading을 유지해서
+        // 부모 Rigidbody의 물리 회전을 상속합니다.
+
+        // 3. 피치와 뱅크만 부드럽게 보간
+        float visualBlend =
+            1f - Mathf.Exp(
+                -Mathf.Max(0f, visualLerp) * Time.deltaTime
+            );
+
+        visualPitch = IsVerticalControlLocked
+    ? 0f
+    : Mathf.Lerp(
+        visualPitch,
+        targetPitch,
+        visualBlend
+    );
+
+        visualBank = Mathf.Lerp(
+            visualBank,
+            targetBank,
+            visualBlend
         );
+
+        // 양수 비행각은 기수가 위를 향하도록 X축 회전 부호를 반전
+        Quaternion pitchRotation = Quaternion.AngleAxis(
+            -visualPitch,
+            Vector3.right
+        );
+
+        Quaternion bankRotation = Quaternion.AngleAxis(
+            visualBank,
+            Vector3.forward
+        );
+
+        Quaternion spinRotation = Quaternion.AngleAxis(
+            spinAngle,
+            Vector3.up
+        );
+
+        // 4. 진행 방향 → 피치 → 뱅크 → 스핀 → 모델 초기 회전
+        visualRoot.localRotation =
+            visualHeadingLocal *
+            pitchRotation *
+            bankRotation *
+            spinRotation *
+            visualInitialLocalRotation;
     }
     private void ResetVisualPose()
     {
         spinAngle = 0f;
 
+        visualPitch = 0f;
+        visualBank = 0f;
+        visualHeadingLocal = Quaternion.identity;
+
         if (visualRoot == null)
             return;
 
         visualRoot.localPosition = Vector3.zero;
-        visualRoot.localRotation = Quaternion.identity;
+        visualRoot.localRotation = visualInitialLocalRotation;
+    }
+    private float GetVisualFlightPitch(Vector3 velocity)
+    {
+        if (velocity.sqrMagnitude < 0.0001f)
+            return 0f;
+
+        float planarSpeed = Vector3.ProjectOnPlane(
+            velocity,
+            Vector3.up
+        ).magnitude;
+
+        float angle = Mathf.Atan2(
+            velocity.y,
+            planarSpeed
+        ) * Mathf.Rad2Deg;
+
+        return Mathf.Clamp(
+            angle,
+            -visualMaxDivePitch,
+            visualMaxClimbPitch
+        );
     }
 
     #endregion
