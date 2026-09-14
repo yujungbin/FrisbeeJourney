@@ -739,6 +739,10 @@ public class DiscSlingshotController : MonoBehaviour
     {
         RunManager = manager;
     }
+    public void SetRunManager(DiscRunManager manager)
+    {
+        RunManager = manager;
+    }
 
     #endregion
 
