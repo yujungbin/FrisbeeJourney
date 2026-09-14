@@ -372,7 +372,7 @@ public class DiscCameraTargetFollower : MonoBehaviour
              discController.IsFlying)
         {
             forward =
-                discController.CurrentLaunchAimForward;
+    discController.CurrentActiveFlightForward;
         }
 
         // 발사 직전 또는 속도가 너무 낮을 때 사용할 방향입니다.
