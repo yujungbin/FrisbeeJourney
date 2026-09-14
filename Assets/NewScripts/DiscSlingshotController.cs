@@ -1879,7 +1879,10 @@ public class DiscSlingshotController : MonoBehaviour
 
         float step =
             Mathf.Max(0.1f, rate) * Time.fixedDeltaTime;
-
+        if (verticalInput * verticalInputTarget < 0f)
+        {
+            verticalInput = 0f;
+        }
         verticalInput = Mathf.MoveTowards(
             verticalInput,
             verticalInputTarget,
@@ -3784,35 +3787,35 @@ public class DiscSlingshotController : MonoBehaviour
     }
     private float GetVisualFlightPitch(Vector3 velocity)
     {
-        bool showVerticalPitch =
+        // velocity 매개변수는 기존 호출부와의 호환을 위해 유지합니다.
+        // Visual 피치는 조종 입력으로 계산합니다.
+
+        bool canShowPitch =
             CanUseVerticalPointer &&
+            flightControlEnabled &&
             (
-                HasVerticalCommand ||
-                hasVerticalSnapshot
+                state == DiscState.Flying ||
+                (
+                    state == DiscState.Settling &&
+                    allowPostImpactSteering &&
+                    postImpactVerticalMultiplier > 0f
+                )
             );
 
-        // 유효한 수직 조종을 시작하기 전에는 기본 피치를 0으로 표시합니다.
-        if (!showVerticalPitch ||
-            velocity.sqrMagnitude < 0.0001f)
-        {
+        if (!canShowPitch)
             return 0f;
-        }
 
-        float planarSpeed = Vector3.ProjectOnPlane(
-            velocity,
-            Vector3.up
-        ).magnitude;
-
-        float angle = Mathf.Atan2(
-            velocity.y,
-            planarSpeed
-        ) * Mathf.Rad2Deg;
-
-        return Mathf.Clamp(
-            angle,
-            -visualMaxDivePitch,
-            visualMaxClimbPitch
+        // 보간 전 입력을 사용해 이전 조종 방향이 표시되지 않게 합니다.
+        float input = Mathf.Clamp(
+            verticalInputTarget,
+            -1f,
+            1f
         );
+
+        if (input >= 0f)
+            return input * visualMaxClimbPitch;
+
+        return input * visualMaxDivePitch;
     }
 
     #endregion
