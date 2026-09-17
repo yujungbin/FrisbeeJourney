@@ -624,7 +624,7 @@ public class DiscRunManager : MonoBehaviour
 
 
     }
-    public void HandleFinishLineCrossed(
+    public bool HandleFinishLineCrossed(
     DiscSlingshotController crossingDisc)
     {
         if (!isActiveAndEnabled ||
@@ -632,29 +632,75 @@ public class DiscRunManager : MonoBehaviour
             finalResultShown ||
             finishLineCrossed)
         {
-            return;
+            return false;
         }
 
-        // 현재 플레이 중인 원반만 인정합니다.
-        if (crossingDisc == null || crossingDisc != discController)
-            return;
+        // 현재 이 RunManager가 관리하는 원반만 인정합니다.
+        if (crossingDisc == null ||
+            crossingDisc != discController)
+        {
+            return false;
+        }
 
-        // 배치 또는 드래그 중 결승선에 닿는 경우는 제외합니다.
-        if (!discController.IsFlying && !discController.IsSettling)
-            return;
+        // 발사 또는 충돌 후 이동 중일 때만 완주로 인정합니다.
+        if (!discController.IsFlying &&
+            !discController.IsSettling)
+        {
+            return false;
+        }
 
-        // 이미 내구도가 소진된 원반은 완주로 인정하지 않습니다.
-        if (discDurability != null && discDurability.IsBroken)
-            return;
+        // 결승선 통과 전에 이미 파괴된 원반은 완주가 아닙니다.
+        if (discDurability != null &&
+            discDurability.IsBroken)
+        {
+            return false;
+        }
 
         finishLineCrossed = true;
+        finalResultShown = true;
+        runActive = false;
 
-        // 결과 데이터에서도 완주 상태를 유지합니다.
+        // 진행 중인 재투척 및 자동 재시작 처리를 중단합니다.
+        StopRunningCoroutines();
+
+        // 원반을 결승선 위치에서 즉시 정지시킵니다.
+        if (discController != null)
+            discController.StopDiscImmediately();
+
+        // 마지막 투척의 거리 측정을 종료하고 완주 상태로 설정합니다.
         if (progressTracker != null)
+        {
+            progressTracker.EndThrow();
             progressTracker.MarkLevelCompleted();
+        }
 
-        // 이 시점까지의 Flying + Settling 시간으로 즉시 저장합니다.
+        // 결승선까지의 미지급 거리 코인을 계산합니다.
+        if (distanceCoinRewarder != null)
+            distanceCoinRewarder.AwardAvailableCoins();
+
+        // 완주 기록을 저장합니다.
         runTimeTracker?.FinishRun(true);
+
+        if (resultScreenController != null)
+        {
+            // COMPLETE / COLLECT 최종 결과 창을 즉시 표시합니다.
+            resultScreenController.ShowFinalCompleteResult();
+        }
+        else
+        {
+            Debug.LogError(
+                "DiscRunManager: ResultScreenController가 연결되지 않아 " +
+                "완주 결과 화면을 표시할 수 없습니다.",
+                this
+            );
+        }
+
+        Debug.Log(
+            "Finish line crossed. Final result screen opened.",
+            this
+        );
+
+        return true;
     }
     private void ShowNoThrowsFinalResult()
     {
@@ -712,26 +758,67 @@ public class DiscRunManager : MonoBehaviour
         if (cameraSwitcher != null)
             cameraSwitcher.ShowLaunchCameraAt(launchAnchor);
     }
-    
+
 
     private void GameOver(GameOverReason reason)
     {
-        if (!runActive)
+        if (!runActive || finalResultShown)
             return;
-        runTimeTracker?.FinishRun(false);
 
+        // 먼저 종료 상태를 확정해 중복 처리를 막습니다.
         runActive = false;
+        finalResultShown = true;
 
         StopRunningCoroutines();
 
-        PlaceDiscAtOriginalLaunchAnchorForGameOver();
+        // 시작 위치로 이동시키지 않고 현재 위치에서 정지합니다.
+        if (discController != null)
+            discController.StopDiscImmediately();
+
+        if (progressTracker != null)
+            progressTracker.EndThrow();
+
+        // 이미 계산된 코인은 제외하고 미지급분만 추가합니다.
+        if (distanceCoinRewarder != null)
+            distanceCoinRewarder.AwardAvailableCoins();
+
+        runTimeTracker?.FinishRun(false);
 
         NotifyThrowCountChanged();
 
+        if (resultScreenController == null)
+        {
+            Debug.LogError(
+                "DiscRunManager: ResultScreenController가 연결되지 않아 " +
+                "최종 결과 화면을 표시할 수 없습니다.",
+                this
+            );
+        }
+        else
+        {
+            switch (reason)
+            {
+                case GameOverReason.NoThrowsRemaining:
+                    resultScreenController.ShowFinalNoThrowsResult();
+                    break;
+
+                case GameOverReason.DurabilityBroken:
+                    resultScreenController.ShowFinalBrokenResult();
+                    break;
+
+                default:
+                    Debug.LogError(
+                        $"DiscRunManager: 처리되지 않은 종료 사유: {reason}",
+                        this
+                    );
+                    break;
+            }
+        }
+
         onGameOver.Invoke();
 
-        if (ShouldAutoRestart(reason))
-            ScheduleAutoRestart();
+        // 자동 재시작하지 않습니다.
+        // 결과 화면에서 COLLECT를 눌렀을 때만 Scene을 이동합니다.
     }
 
     private bool ShouldAutoRestart(GameOverReason reason)

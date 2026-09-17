@@ -157,6 +157,7 @@ public class DiscImpactReceiver : MonoBehaviour
     {
       
         TryHandleCollision(collision, CollisionPhase.Enter);
+        
     }
 
     private void OnCollisionStay(Collision collision)
@@ -165,6 +166,7 @@ public class DiscImpactReceiver : MonoBehaviour
             return;
 
         TryHandleCollision(collision, CollisionPhase.Stay);
+        
     }
 
     private enum CollisionPhase

@@ -489,7 +489,7 @@ MonoBehaviour:
   tileLength: 250
   startZ: 120
   mapXOffset: 12
-  spawnAheadDistance: 300
+  spawnAheadDistance: 500
   destroyBehindDistance: 100
 --- !u!4 &248318661
 Transform:
@@ -4621,7 +4621,6 @@ MonoBehaviour:
   maxDragWorldDistance: 4.5
   minDragYOffset: -0.2
   maxDragYOffset: 2.5
-  verticalControlDelayAfterLaunch: 0.8
   throwPowerToInitialThrust: 1
   throwPowerResponseExponent: 1
   scaleForwardTargetSpeedWithThrowPower: 1
@@ -6951,7 +6950,7 @@ MonoBehaviour:
   disc: {fileID: 465174908}
   trackRoot: {fileID: 2097020924}
   levelOrigin: {fileID: 540757803}
-  levelLength: 1300
+  levelLength: 2250
 --- !u!114 &1899608846
 MonoBehaviour:
   m_ObjectHideFlags: 0
