@@ -4663,6 +4663,7 @@ MonoBehaviour:
   diveMaxSpeed: 35
   diveSpeedFadeRange: 5
   diveSpeedLimitGain: 4
+  verticalRecoveryDuration: 0.7
   maxClimbAngle: 20
   maxDiveAngle: 15
   flightAngleLimitGain: 4

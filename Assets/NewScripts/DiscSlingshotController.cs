@@ -257,6 +257,10 @@ public class DiscSlingshotController : MonoBehaviour
     [SerializeField, Min(0f)]
     private float diveSpeedLimitGain = 4f;
 
+    [Header("Vertical Recovery")]
+    [Tooltip("수직 조종 해제 후 속력과 비행각을 복원하는 시간(초)")]
+    [SerializeField, Min(0.02f)]
+    private float verticalRecoveryDuration = 1.2f;
 
     [Header("Flight Path Angle")]
     [SerializeField, Range(1f, 80f)]
@@ -500,6 +504,22 @@ public class DiscSlingshotController : MonoBehaviour
     private bool verticalInputArmed;
     private bool verticalPointerAuthorized;
 
+    private bool verticalRecoveryActive;
+    private float verticalRecoveryElapsed;
+    private float verticalRecoveryTime;
+
+    private float verticalRecoveryStartSpeed;
+    private float verticalRecoveryTargetSpeed;
+
+    // 라디안 단위
+    private float verticalRecoveryStartAngle;
+    private float verticalRecoveryTargetAngle;
+
+    private float verticalRecoveryStartVisualPitch;
+
+    private bool IsVerticalRecovering =>
+        verticalRestorePending || verticalRecoveryActive;
+
 
 
     #endregion
@@ -689,10 +709,10 @@ public class DiscSlingshotController : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateVerticalInput();
-        bool restoredThisStep = TryRestoreVerticalSnapshot();
+        UpdateVerticalRecovery();
+
         if (state == DiscState.Dragging && rb.isKinematic)
         {
-            //rb.MovePosition(dragTargetPosition);
             rb.position = dragTargetPosition;
         }
 
@@ -704,7 +724,9 @@ public class DiscSlingshotController : MonoBehaviour
             launchedThisStep = true;
         }
 
-        if (state == DiscState.Flying && flightControlEnabled && !launchedThisStep && !restoredThisStep)
+        if (state == DiscState.Flying &&
+            flightControlEnabled &&
+            !launchedThisStep)
         {
             UpdateActiveFlightDirection();
 
@@ -717,22 +739,28 @@ public class DiscSlingshotController : MonoBehaviour
         }
         else if (state == DiscState.Settling)
         {
-            if (!restoredThisStep)
+            if (flightControlEnabled)
             {
-                if (flightControlEnabled)
-                    ApplyPostImpactFlightControl();
-
-                UpdatePostImpactRotationUnlock();
-                UpdateSettlingStopReadiness();
+                ApplyPostImpactFlightControl();
             }
+
+            UpdatePostImpactRotationUnlock();
+            UpdateSettlingStopReadiness();
         }
+
         if (state == DiscState.Flying)
         {
-            ActiveTimeAdvanced?.Invoke(true, Time.fixedDeltaTime);
+            ActiveTimeAdvanced?.Invoke(
+                true,
+                Time.fixedDeltaTime
+            );
         }
         else if (state == DiscState.Settling)
         {
-            ActiveTimeAdvanced?.Invoke(false, Time.fixedDeltaTime);
+            ActiveTimeAdvanced?.Invoke(
+                false,
+                Time.fixedDeltaTime
+            );
         }
     }
     public void SetRunManager(DiscRunManager manager)
@@ -1860,41 +1888,58 @@ public class DiscSlingshotController : MonoBehaviour
             verticalInputTarget = 0f;
             verticalInput = 0f;
             verticalControlBlend = 0f;
+
+            // 포인터가 해제되어도 복원은 계속되어야 합니다.
             return;
         }
 
-        if (verticalRestorePending)
-            return;
+        bool hasInput =
+            Mathf.Abs(verticalInputTarget) > 0.0001f;
 
+        // 새 수직 조작이 시작되면 이전 복원을 취소합니다.
+        if (hasInput && IsVerticalRecovering)
+        {
+            CancelVerticalRecovery();
+        }
+
+        // 좌우 조종만 하고 있다면 복원을 계속합니다.
+        if (IsVerticalRecovering)
+        {
+            verticalInput = 0f;
+            verticalControlBlend = 0f;
+            return;
+        }
+
+        // 복원을 중단했다면 현재 속도가 새 기준이 됩니다.
         if (!hasVerticalSnapshot &&
             !verticalRestoreBlocked &&
-            Mathf.Abs(verticalInputTarget) > 0.0001f)
+            hasInput)
         {
             CaptureVerticalSnapshot();
         }
 
-        float rate = Mathf.Abs(verticalInputTarget) < 0.0001f
-            ? verticalInputReturnSpeed
-            : verticalInputResponse;
+        float rate = hasInput
+            ? verticalInputResponse
+            : verticalInputReturnSpeed;
 
         float step =
             Mathf.Max(0.1f, rate) * Time.fixedDeltaTime;
+
+        // 방향 전환 시 이전 방향의 추가 힘을 제거합니다.
         if (verticalInput * verticalInputTarget < 0f)
         {
             verticalInput = 0f;
         }
+
         verticalInput = Mathf.MoveTowards(
             verticalInput,
             verticalInputTarget,
             step
         );
 
-        float blendTarget =
-            Mathf.Abs(verticalInputTarget) > 0.0001f ? 1f : 0f;
-
         verticalControlBlend = Mathf.MoveTowards(
             verticalControlBlend,
-            blendTarget,
+            hasInput ? 1f : 0f,
             step
         );
     }
@@ -1912,8 +1957,7 @@ public class DiscSlingshotController : MonoBehaviour
         verticalControlBlend = 0f;
         steerInput = 0f;
 
-        hasVerticalSnapshot = false;
-        verticalRestorePending = false;
+        CancelVerticalRecovery();
         verticalRestoreBlocked = false;
     }
 
@@ -2188,7 +2232,8 @@ public class DiscSlingshotController : MonoBehaviour
         // 수직 조종 중에는 상승 감속·하강 가속에 간섭하지 않습니다.
         if (allowForwardAssist &&
             forwardAssistEnabled &&
-            !HasVerticalCommand)
+            !HasVerticalCommand &&
+            !IsVerticalRecovering)
         {
             float acceleration =
                 Mathf.Max(
@@ -2377,7 +2422,7 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void ApplyPostImpactForwardAcceleration(float currentSpeed)
     {
-        if (HasVerticalCommand)
+        if (HasVerticalCommand || IsVerticalRecovering)
             return;
         if (postImpactForwardAccelerationCoefficient <= 0f)
             return;
@@ -2719,107 +2764,269 @@ public class DiscSlingshotController : MonoBehaviour
 
     private void EndFlightSteeringPointer()
     {
-        verticalRestorePending =
-            hasVerticalSnapshot &&
-            !verticalRestoreBlocked;
+        // 복원 중 좌우 터치만 했다가 놓아도
+        // 복원 타이머를 재시작하지 않습니다.
+        if (!IsVerticalRecovering)
+        {
+            verticalRestorePending =
+                hasVerticalSnapshot &&
+                !verticalRestoreBlocked;
 
-        if (!verticalRestorePending)
-            hasVerticalSnapshot = false;
+            if (verticalRestorePending)
+            {
+                verticalRecoveryStartVisualPitch = visualPitch;
+            }
+            else
+            {
+                hasVerticalSnapshot = false;
+            }
+        }
 
         verticalRestoreBlocked = false;
 
         flightTouchId = -1;
         flightMouseHeld = false;
+        verticalPointerAuthorized = false;
 
-        // 해제 시 추가 양력·브레이크·다이브 힘을 즉시 제거합니다.
         verticalInputTarget = 0f;
         verticalInput = 0f;
         verticalControlBlend = 0f;
         steerInput = 0f;
-
-        verticalPointerAuthorized = false;
     }
+
+
 
     private void InvalidateVerticalSnapshot()
     {
-        hasVerticalSnapshot = false;
-        verticalRestorePending = false;
+        CancelVerticalRecovery();
 
-        // 충돌 후 같은 터치로 이전 속도를 다시 저장하지 않습니다.
         verticalRestoreBlocked =
             flightTouchId >= 0 || flightMouseHeld;
     }
 
-    private bool TryRestoreVerticalSnapshot()
-    {
-        if (!verticalRestorePending)
-            return false;
+    //private bool TryRestoreVerticalSnapshot()
+    //{
+    //    if (!verticalRestorePending)
+    //        return false;
 
+    //    verticalRestorePending = false;
+
+    //    bool canRestore =
+    //        hasVerticalSnapshot &&
+    //        rb != null &&
+    //        !rb.isKinematic &&
+    //        flightControlEnabled &&
+    //        state == verticalSnapshotState &&
+    //        (
+    //            state == DiscState.Flying ||
+    //            state == DiscState.Settling
+    //        );
+
+    //    hasVerticalSnapshot = false;
+
+    //    if (!canRestore)
+    //        return false;
+
+    //    Vector3 currentVelocity = GetLinearVelocity();
+
+    //    Vector3 currentPlanar = Vector3.ProjectOnPlane(
+    //        currentVelocity,
+    //        Vector3.up
+    //    );
+
+    //    // 좌우 조종으로 바뀐 현재 진행 방향은 유지합니다.
+    //    Vector3 forward = currentPlanar.sqrMagnitude > 0.0001f
+    //        ? currentPlanar.normalized
+    //        : savedPlanarForward;
+
+    //    Vector3 restoredVelocity =
+    //        forward * savedPlanarSpeed +
+    //        Vector3.up * savedVerticalSpeed;
+
+    //    rb.AddForce(
+    //        restoredVelocity - currentVelocity,
+    //        ForceMode.VelocityChange
+    //    );
+
+    //    // 복원 프레임에서도 기본 양력은 적용합니다.
+    //    float liftMultiplier = state == DiscState.Flying
+    //        ? 1f
+    //        : postImpactLiftMultiplier;
+
+    //    rb.AddForce(
+    //        Vector3.up * CalculateBaseLiftAcceleration(
+    //            restoredVelocity,
+    //            liftMultiplier
+    //        ),
+    //        ForceMode.Acceleration
+    //    );
+
+    //    verticalInput = 0f;
+    //    verticalControlBlend = 0f;
+
+    //    if (state == DiscState.Settling)
+    //    {
+    //        lowSpeedTimer = 0f;
+    //        settlingStopReady = false;
+    //    }
+
+    //    // 아래에서 추가할 Visual 변수·메서드입니다.
+    //    visualPitch = GetVisualFlightPitch(restoredVelocity);
+
+    //    return true;
+    //}
+    private void CancelVerticalRecovery()
+    {
+        hasVerticalSnapshot = false;
         verticalRestorePending = false;
 
-        bool canRestore =
-            hasVerticalSnapshot &&
+        verticalRecoveryActive = false;
+        verticalRecoveryElapsed = 0f;
+    }
+
+    // 반환값: x = 수평 속력, y = 수직 속도
+    private Vector2 GetVerticalRecoveryVelocity(float progress)
+    {
+        float blend = Mathf.SmoothStep(0f, 1f, progress);
+
+        float speed = Mathf.Lerp(
+            verticalRecoveryStartSpeed,
+            verticalRecoveryTargetSpeed,
+            blend
+        );
+
+        float angle = Mathf.Lerp(
+            verticalRecoveryStartAngle,
+            verticalRecoveryTargetAngle,
+            blend
+        );
+
+        return new Vector2(
+            Mathf.Cos(angle) * speed,
+            Mathf.Sin(angle) * speed
+        );
+    }
+
+    private void UpdateVerticalRecovery()
+    {
+        if (!IsVerticalRecovering)
+            return;
+
+        bool canRecover =
             rb != null &&
             !rb.isKinematic &&
             flightControlEnabled &&
+            !hasPendingLaunch &&
             state == verticalSnapshotState &&
             (
                 state == DiscState.Flying ||
                 state == DiscState.Settling
             );
 
-        hasVerticalSnapshot = false;
+        if (!canRecover)
+        {
+            CancelVerticalRecovery();
+            return;
+        }
 
-        if (!canRestore)
-            return false;
+        Vector3 velocity = GetLinearVelocity();
 
-        Vector3 currentVelocity = GetLinearVelocity();
+        if (state == DiscState.Settling &&
+            (
+                settlingStopReady ||
+                rotationStoppedAfterLowSpeed ||
+                velocity.magnitude <= postImpactControlOffSpeed
+            ))
+        {
+            CancelVerticalRecovery();
+            return;
+        }
 
-        Vector3 currentPlanar = Vector3.ProjectOnPlane(
-            currentVelocity,
+        // 손을 놓은 뒤 첫 물리 스텝에서 복원을 시작합니다.
+        if (verticalRestorePending)
+        {
+            if (!hasVerticalSnapshot || verticalRestoreBlocked)
+            {
+                CancelVerticalRecovery();
+                return;
+            }
+
+            float planarSpeed = Vector3.ProjectOnPlane(
+                velocity,
+                Vector3.up
+            ).magnitude;
+
+            verticalRecoveryStartSpeed = velocity.magnitude;
+
+            verticalRecoveryStartAngle = Mathf.Atan2(
+                velocity.y,
+                planarSpeed
+            );
+
+            verticalRecoveryTargetSpeed = Mathf.Sqrt(
+                savedPlanarSpeed * savedPlanarSpeed +
+                savedVerticalSpeed * savedVerticalSpeed
+            );
+
+            verticalRecoveryTargetAngle = Mathf.Atan2(
+                savedVerticalSpeed,
+                savedPlanarSpeed
+            );
+
+            verticalRecoveryTime = Mathf.Max(
+                Time.fixedDeltaTime,
+                verticalRecoveryDuration
+            );
+
+            verticalRecoveryElapsed = 0f;
+            verticalRestorePending = false;
+            verticalRecoveryActive = true;
+            hasVerticalSnapshot = false;
+        }
+
+        // 마지막 보정 스텝까지 전방 보조 가속을 막습니다.
+        // 다음 물리 스텝부터 평소 제어로 돌아갑니다.
+        if (verticalRecoveryElapsed >= verticalRecoveryTime)
+        {
+            CancelVerticalRecovery();
+            return;
+        }
+
+        float dt = Time.fixedDeltaTime;
+
+        float nextElapsed = Mathf.Min(
+            verticalRecoveryElapsed + dt,
+            verticalRecoveryTime
+        );
+
+        Vector2 previous = GetVerticalRecoveryVelocity(
+            verticalRecoveryElapsed / verticalRecoveryTime
+        );
+
+        Vector2 next = GetVerticalRecoveryVelocity(
+            nextElapsed / verticalRecoveryTime
+        );
+
+        Vector3 planar = Vector3.ProjectOnPlane(
+            velocity,
             Vector3.up
         );
 
-        // 좌우 조종으로 바뀐 현재 진행 방향은 유지합니다.
-        Vector3 forward = currentPlanar.sqrMagnitude > 0.0001f
-            ? currentPlanar.normalized
+        // 좌우 조종으로 바뀐 현재 진행 방향을 유지합니다.
+        Vector3 forward = planar.sqrMagnitude > 0.0001f
+            ? planar.normalized
             : savedPlanarForward;
 
-        Vector3 restoredVelocity =
-            forward * savedPlanarSpeed +
-            Vector3.up * savedVerticalSpeed;
+        Vector3 deltaVelocity =
+            forward * (next.x - previous.x) +
+            Vector3.up * (next.y - previous.y);
 
         rb.AddForce(
-            restoredVelocity - currentVelocity,
-            ForceMode.VelocityChange
-        );
-
-        // 복원 프레임에서도 기본 양력은 적용합니다.
-        float liftMultiplier = state == DiscState.Flying
-            ? 1f
-            : postImpactLiftMultiplier;
-
-        rb.AddForce(
-            Vector3.up * CalculateBaseLiftAcceleration(
-                restoredVelocity,
-                liftMultiplier
-            ),
+            deltaVelocity / dt,
             ForceMode.Acceleration
         );
 
-        verticalInput = 0f;
-        verticalControlBlend = 0f;
-
-        if (state == DiscState.Settling)
-        {
-            lowSpeedTimer = 0f;
-            settlingStopReady = false;
-        }
-
-        // 아래에서 추가할 Visual 변수·메서드입니다.
-        visualPitch = GetVisualFlightPitch(restoredVelocity);
-
-        return true;
+        verticalRecoveryElapsed = nextElapsed;
     }
 
     #endregion
@@ -3169,7 +3376,8 @@ public class DiscSlingshotController : MonoBehaviour
         Vector3 newVelocity =
             deflectedDirection.normalized * targetHorizontalSpeed +
             verticalVelocity * Mathf.Clamp(verticalSpeedMultiplier, 0f, 1.5f);
-
+        
+        InvalidateVerticalSnapshot();
         SetLinearVelocity(newVelocity);
 
         UpdateActiveFlightDirectionAfterSoftObstacle(
@@ -3736,11 +3944,13 @@ public class DiscSlingshotController : MonoBehaviour
                 -Mathf.Max(0f, visualLerp) * Time.deltaTime
             );
 
-        visualPitch = Mathf.Lerp(
-            visualPitch,
-            targetPitch,
-            visualBlend
-        );
+        visualPitch = controlledPose && IsVerticalRecovering
+    ? targetPitch
+    : Mathf.Lerp(
+        visualPitch,
+        targetPitch,
+        visualBlend
+    );
 
         visualBank = Mathf.Lerp(
             visualBank,
@@ -3787,8 +3997,19 @@ public class DiscSlingshotController : MonoBehaviour
     }
     private float GetVisualFlightPitch(Vector3 velocity)
     {
-        // velocity 매개변수는 기존 호출부와의 호환을 위해 유지합니다.
-        // Visual 피치는 조종 입력으로 계산합니다.
+        // 손을 놓은 상태에서도 복원 중인 피치는 표시합니다.
+        if (IsVerticalRecovering)
+        {
+            float progress = verticalRecoveryActive
+                ? verticalRecoveryElapsed / verticalRecoveryTime
+                : 0f;
+
+            return Mathf.Lerp(
+                verticalRecoveryStartVisualPitch,
+                0f,
+                Mathf.SmoothStep(0f, 1f, progress)
+            );
+        }
 
         bool canShowPitch =
             CanUseVerticalPointer &&
@@ -3805,17 +4026,16 @@ public class DiscSlingshotController : MonoBehaviour
         if (!canShowPitch)
             return 0f;
 
-        // 보간 전 입력을 사용해 이전 조종 방향이 표시되지 않게 합니다.
+
         float input = Mathf.Clamp(
             verticalInputTarget,
             -1f,
             1f
         );
 
-        if (input >= 0f)
-            return input * visualMaxClimbPitch;
-
-        return input * visualMaxDivePitch;
+        return input >= 0f
+            ? input * visualMaxClimbPitch
+            : input * visualMaxDivePitch;
     }
 
     #endregion
