@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3357f6c63b9885409664beb364a12f6, type: 3}
   m_Name: DefaultDiscProgressionConfig
   m_EditorClassIdentifier: Assembly-CSharp::DiscProgressionConfig
-  baseLift: 0.201
-  liftFirstLevelIncrease: 0.1
-  liftIncreaseRetention: 0.906
+  baseLift: 0.101
+  liftFirstLevelIncrease: 0.14
+  liftIncreaseRetention: 0.85
   maximumLift: 1
   liftMaxLevel: 25
   liftUpgradeCost:
@@ -26,6 +26,8 @@ MonoBehaviour:
   durabilityUpgradeCost:
     baseCost: 1
     costGrowthPerLevel: 1.5
+  maxClimbMultiplier: 1.5
+  maxDiveMultiplier: 1.5
   baseIncomeMultiplier: 1
   incomeMultiplierPerLevel: 0.1
   incomeMaxLevel: 25

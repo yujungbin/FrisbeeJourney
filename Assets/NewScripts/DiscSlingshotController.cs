@@ -2053,7 +2053,9 @@ public class DiscSlingshotController : MonoBehaviour
     float authority,
     float baseLiftMultiplier)
     {
-        if (!CanUseVerticalPointer || !HasVerticalCommand || authority <= 0f)
+        if (!CanUseVerticalPointer ||
+            !HasVerticalCommand ||
+            authority <= 0f)
         {
             return;
         }
@@ -2066,7 +2068,6 @@ public class DiscSlingshotController : MonoBehaviour
         float planarSpeed = planarVelocity.magnitude;
         float speed = velocity.magnitude;
 
-        // 카메라 방향과 관계없이 실제 이동 방향으로 가속·감속합니다.
         Vector3 planarForward = planarSpeed > 0.001f
             ? planarVelocity / planarSpeed
             : GetActiveFlightForward();
@@ -2076,7 +2077,16 @@ public class DiscSlingshotController : MonoBehaviour
 
         float gravity = Mathf.Max(0f, -Physics.gravity.y);
 
-        // 1. 저속에서 상승 양력과 상승 브레이크를 함께 줄입니다.
+        // 실제 기본 양력과 중력의 합입니다.
+        // 이 값 자체를 여기서 AddForce로 다시 적용하지 않습니다.
+        float baseY =
+            Physics.gravity.y +
+            CalculateBaseLiftAcceleration(
+                velocity,
+                baseLiftMultiplier
+            );
+
+        // 1. Climb: 추가 양력과 감속을 같은 배율로 강화
         float floor = Mathf.Max(0f, climbBrakeMinPlanarSpeed);
 
         float lowSpeedScale = SmoothBand(
@@ -2094,19 +2104,21 @@ public class DiscSlingshotController : MonoBehaviour
             Mathf.Max(minCoefficient, maxExtraLiftCoefficient)
         );
 
+        float climbStrength =
+            up *
+            lowSpeedScale *
+            Mathf.Max(1f, runtimeStats.climbMultiplier);
+
         Vector3 acceleration =
             Vector3.up *
-            (gravity * coefficient * up * lowSpeedScale);
+            (gravity * coefficient * climbStrength);
 
         acceleration -=
             planarForward *
-            (
-                Mathf.Max(0f, climbBrakeAcceleration) *
-                up *
-                lowSpeedScale
-            );
+            Mathf.Max(0f, climbBrakeAcceleration) *
+            climbStrength;
 
-        // 2. 하강 가속: 최고 속도에 접근하면 전방·하방 가속 모두 감소
+        // 2. Dive: 최고 속력에 가까워지면 추가 조종력을 감소
         float limit = Mathf.Max(0.1f, diveMaxSpeed);
 
         float speedLimitBlend = SmoothBand(
@@ -2115,27 +2127,45 @@ public class DiscSlingshotController : MonoBehaviour
             limit
         );
 
-        acceleration +=
-            down *
-            (1f - speedLimitBlend) *
-            (
-                planarForward * Mathf.Max(0f, diveForwardAcceleration) -
-                Vector3.up * Mathf.Max(0f, diveDownAcceleration)
+        float diveBlend = down * (1f - speedLimitBlend);
+
+        if (diveBlend > 0f)
+        {
+            float diveMultiplier = Mathf.Max(
+                1f,
+                runtimeStats.diveMultiplier
             );
 
-        // 기존 양력과 중력의 합. 중력은 Rigidbody가 실제 적용합니다.
-        float baseY =
-            Physics.gravity.y +
-            CalculateBaseLiftAcceleration(
-                velocity,
-                baseLiftMultiplier
-            );
+            float levelZeroLiftAcceleration =
+                CalculateLiftAcceleration(
+                    velocity,
+                    baseLiftMultiplier,
+                    runtimeStats.levelZeroLift
+                );
 
-        // 3. 이동 경로의 상승·하강각을 가속도로 제한
-        // vy = planarSpeed * tan(angle)을 기준으로 계산합니다.
+            // 최대 입력일 때 목표로 하는 최종 수직 가속도입니다.
+            // 0레벨의 기존 동작을 기준으로 하강 조종력을 강화합니다.
+            float targetNetY =
+                Physics.gravity.y +
+                levelZeroLiftAcceleration -
+                Mathf.Max(0f, diveDownAcceleration) *
+                diveMultiplier;
+
+            // 현재 기본 양력을 고려하여 필요한 차이만 적용합니다.
+            float diveControlY = targetNetY - baseY;
+
+            acceleration += diveBlend *
+                (
+                    planarForward *
+                    Mathf.Max(0f, diveForwardAcceleration) *
+                    diveMultiplier +
+                    Vector3.up * diveControlY
+                );
+        }
+
+        // 3. 기존 상승·하강 비행각 제한
         float controlBlend = verticalControlBlend;
 
-        // 거의 정지하면 비행각의 의미가 약해지므로 보정을 줄입니다.
         controlBlend *= SmoothBand(
             planarSpeed,
             0f,
@@ -2143,11 +2173,13 @@ public class DiscSlingshotController : MonoBehaviour
         );
 
         float upSlope = Mathf.Tan(
-            Mathf.Clamp(maxClimbAngle, 1f, 80f) * Mathf.Deg2Rad
+            Mathf.Clamp(maxClimbAngle, 1f, 80f) *
+            Mathf.Deg2Rad
         );
 
         float downSlope = Mathf.Tan(
-            Mathf.Clamp(maxDiveAngle, 1f, 80f) * Mathf.Deg2Rad
+            Mathf.Clamp(maxDiveAngle, 1f, 80f) *
+            Mathf.Deg2Rad
         );
 
         float gain = Mathf.Max(0f, flightAngleLimitGain);
@@ -2155,7 +2187,6 @@ public class DiscSlingshotController : MonoBehaviour
         float planarAcceleration =
             Vector3.Dot(acceleration, planarForward);
 
-        // 수평 감속으로 비행각이 커지는 효과도 함께 반영합니다.
         float minNetY =
             -planarAcceleration * downSlope +
             gain * (-planarSpeed * downSlope - velocity.y);
@@ -2182,12 +2213,10 @@ public class DiscSlingshotController : MonoBehaviour
                     limitedNetY - netY,
                     -correctionLimit,
                     correctionLimit
-                ) *
-                controlBlend;
+                ) * controlBlend;
         }
 
-        // 4. 하강 중 속도 제한용 항력
-        // 추가 가속만 끄면 중력으로 계속 빨라질 수 있어 이를 보완합니다.
+        // 4. 기존 Dive 속력 제한용 항력
         if (down > 0f && speed > 0.001f)
         {
             Vector3 direction = velocity / speed;
@@ -2453,11 +2482,22 @@ public class DiscSlingshotController : MonoBehaviour
     Vector3 velocity,
     float multiplier)
     {
-        float planarSpeed =
-            Vector3.ProjectOnPlane(
-                velocity,
-                Vector3.up
-            ).magnitude;
+        return CalculateLiftAcceleration(
+            velocity,
+            multiplier,
+            runtimeStats.lift
+        );
+    }
+
+    private float CalculateLiftAcceleration(
+        Vector3 velocity,
+        float multiplier,
+        float liftCoefficient)
+    {
+        float planarSpeed = Vector3.ProjectOnPlane(
+            velocity,
+            Vector3.up
+        ).magnitude;
 
         float speedFactor = Mathf.Clamp01(
             planarSpeed /
@@ -2466,10 +2506,11 @@ public class DiscSlingshotController : MonoBehaviour
 
         float rawAcceleration =
             Mathf.Max(0f, -Physics.gravity.y) *
-            runtimeStats.lift *
+            Mathf.Max(0f, liftCoefficient) *
             speedFactor *
             Mathf.Max(0f, multiplier);
 
+        // 현재 레벨과 0레벨 모두 같은 양력 제한을 적용합니다.
         return LimitLiftAcceleration(
             rawAcceleration,
             velocity
@@ -3484,11 +3525,6 @@ public class DiscSlingshotController : MonoBehaviour
 
     public void ApplyStats(DiscRuntimeStats stats)
     {
-        /*
-         * DiscSlingshotController는 비행 물리만 담당합니다.
-         * maxDurability와 incomeMultiplier는 여기서 사용하지 않습니다.
-         */
-
         runtimeStats = stats;
 
         runtimeStats.initialThrust = Mathf.Max(
@@ -3496,24 +3532,44 @@ public class DiscSlingshotController : MonoBehaviour
             stats.initialThrust
         );
 
-        runtimeStats.lift = Mathf.Max(
-            0f,
-            stats.lift
+        runtimeStats.lift = Mathf.Max(0f, stats.lift);
+
+        // 새 필드가 초기화되지 않은 기존 데이터도 처리합니다.
+        bool hasVerticalStats =
+            stats.climbMultiplier >= 1f &&
+            stats.diveMultiplier >= 1f;
+
+        runtimeStats.climbMultiplier = Mathf.Max(
+            1f,
+            stats.climbMultiplier
         );
+
+        runtimeStats.diveMultiplier = Mathf.Max(
+            1f,
+            stats.diveMultiplier
+        );
+
+        runtimeStats.levelZeroLift = hasVerticalStats
+            ? Mathf.Clamp(
+                stats.levelZeroLift,
+                0f,
+                runtimeStats.lift
+            )
+            : runtimeStats.lift;
 
         targetForwardSpeed =
             runtimeStats.initialThrust *
             Mathf.Max(0f, targetForwardSpeedRatio);
 
-        activeTargetForwardSpeed =
-            targetForwardSpeed;
-
+        activeTargetForwardSpeed = targetForwardSpeed;
         runtimeStatsInitialized = true;
 
         Debug.Log(
             $"Disc flight stats applied | " +
             $"Initial Thrust: {runtimeStats.initialThrust:F2}, " +
-            $"Lift: {runtimeStats.lift:F2}",
+            $"Lift: {runtimeStats.lift:F2}, " +
+            $"Climb: x{runtimeStats.climbMultiplier:F2}, " +
+            $"Dive: x{runtimeStats.diveMultiplier:F2}",
             this
         );
     }

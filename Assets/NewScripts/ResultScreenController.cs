@@ -109,6 +109,7 @@ public class ResultScreenController : MonoBehaviour
             false
         );
     }
+    
     //private void ShowNoThrowsFinalResult()
     //{
     //    if (finalResultShown)
