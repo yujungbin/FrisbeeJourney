@@ -105,6 +105,15 @@ public sealed class DiscProgressionConfig : ScriptableObject
     private UpgradeCostRule durabilityUpgradeCost =
         new UpgradeCostRule();
 
+    [Header("Vertical Control Upgrade")]
+    [Tooltip("비행능력 최고 레벨에서의 추가 상승 양력 및 감속 배율")]
+    [SerializeField, Min(1f)]
+    private float maxClimbMultiplier = 1.5f;
+
+    [Tooltip("비행능력 최고 레벨에서의 Dive 조종력 배율")]
+    [SerializeField, Min(1f)]
+    private float maxDiveMultiplier = 1.5f;
+
     // ==================================================
     // Income Upgrade
     // ==================================================
@@ -129,6 +138,7 @@ public sealed class DiscProgressionConfig : ScriptableObject
     [SerializeField]
     private UpgradeCostRule incomeUpgradeCost =
         new UpgradeCostRule();
+
 
 
     // ==================================================
@@ -158,10 +168,6 @@ public sealed class DiscProgressionConfig : ScriptableObject
     public float MaximumLift =>
         maximumLift;
 
-
-    // ==================================================
-    // Validation
-    // ==================================================
 
     private void OnValidate()
     {
@@ -489,30 +495,56 @@ public sealed class DiscProgressionConfig : ScriptableObject
         }
     }
 
+    private float GetVerticalControlGrowth01(int level)
+    {
+        // 기존 양력 상한까지 고려한 실제 강화 가능 레벨입니다.
+        int maxLevel = GetMaxLevel(DiscUpgradeType.Lift);
 
-    // ==================================================
-    // Runtime Stats
-    // ==================================================
+        float startLift = GetLift(0);
+        float endLift = GetLift(maxLevel);
+
+        if (endLift <= startLift + 0.0001f)
+            return 0f;
+
+        return Mathf.InverseLerp(
+            startLift,
+            endLift,
+            GetLift(Mathf.Clamp(level, 0, maxLevel))
+        );
+    }
+
+    public float GetClimbMultiplier(int level)
+    {
+        return Mathf.Lerp(
+            1f,
+            Mathf.Max(1f, maxClimbMultiplier),
+            GetVerticalControlGrowth01(level)
+        );
+    }
+
+    public float GetDiveMultiplier(int level)
+    {
+        return Mathf.Lerp(
+            1f,
+            Mathf.Max(1f, maxDiveMultiplier),
+            GetVerticalControlGrowth01(level)
+        );
+    }
 
     public DiscRuntimeStats BuildRuntimeStats(
-        int liftLevel,
-        int durabilityLevel,
-        int incomeLevel)
+    int liftLevel,
+    int durabilityLevel,
+    int incomeLevel)
     {
         return new DiscRuntimeStats(
             initialThrust: fixedInitialThrust,
-            maxDurability:
-                GetMaxDurability(
-                    durabilityLevel
-                ),
-            lift:
-                GetLift(
-                    liftLevel
-                ),
-            incomeMultiplier:
-                GetIncomeMultiplier(
-                    incomeLevel
-                )
+            maxDurability: GetMaxDurability(durabilityLevel),
+            lift: GetLift(liftLevel),
+            incomeMultiplier: GetIncomeMultiplier(incomeLevel),
+            levelZeroLift: GetLift(0),
+            climbMultiplier: GetClimbMultiplier(liftLevel),
+            diveMultiplier: GetDiveMultiplier(liftLevel)
         );
     }
+
 }

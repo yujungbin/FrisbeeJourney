@@ -4654,13 +4654,13 @@ MonoBehaviour:
   maxForwardAssistAcceleration: 12
   extraLiftPerPlanarSpeed: 0.08
   minExtraLiftCoefficient: 0
-  maxExtraLiftCoefficient: 1.5
-  climbBrakeAcceleration: 3
-  climbBrakeMinPlanarSpeed: 4
-  climbLowSpeedFadeRange: 6
+  maxExtraLiftCoefficient: 1
+  climbBrakeAcceleration: 2
+  climbBrakeMinPlanarSpeed: 3
+  climbLowSpeedFadeRange: 4
   diveDownAcceleration: 8
   diveForwardAcceleration: 5
-  diveMaxSpeed: 35
+  diveMaxSpeed: 45
   diveSpeedFadeRange: 5
   diveSpeedLimitGain: 4
   verticalRecoveryDuration: 0.7

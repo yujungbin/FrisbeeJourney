@@ -9,7 +9,10 @@ public struct DiscRuntimeStats
     [Min(0f)] public float lift;
     [Min(0f)] public float incomeMultiplier;
 
-    // 기존 코드와 호환되는 생성자
+    [Min(0f)] public float levelZeroLift;
+    [Min(1f)] public float climbMultiplier;
+    [Min(1f)] public float diveMultiplier;
+
     public DiscRuntimeStats(
         float initialThrust,
         float maxDurability,
@@ -22,16 +25,44 @@ public struct DiscRuntimeStats
     {
     }
 
-    // 수입 배수까지 포함한 새 생성자
+    // 기존 호출에서는 조종력 배율 1을 사용합니다.
     public DiscRuntimeStats(
         float initialThrust,
         float maxDurability,
         float lift,
         float incomeMultiplier)
+        : this(
+            initialThrust,
+            maxDurability,
+            lift,
+            incomeMultiplier,
+            lift,
+            1f,
+            1f)
+    {
+    }
+
+    public DiscRuntimeStats(
+        float initialThrust,
+        float maxDurability,
+        float lift,
+        float incomeMultiplier,
+        float levelZeroLift,
+        float climbMultiplier,
+        float diveMultiplier)
     {
         this.initialThrust = Mathf.Max(0f, initialThrust);
         this.maxDurability = Mathf.Max(1f, maxDurability);
         this.lift = Mathf.Max(0f, lift);
         this.incomeMultiplier = Mathf.Max(0f, incomeMultiplier);
+
+        this.levelZeroLift = Mathf.Clamp(
+            levelZeroLift,
+            0f,
+            this.lift
+        );
+
+        this.climbMultiplier = Mathf.Max(1f, climbMultiplier);
+        this.diveMultiplier = Mathf.Max(1f, diveMultiplier);
     }
 }
