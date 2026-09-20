@@ -2370,7 +2370,7 @@ MonoBehaviour:
   snapDistance: 8
   useVelocityDirection: 1
   minimumPlanarSpeedForDirection: 0.25
-  panRotationSpeed: 40
+  panRotationSpeed: 0
   freezeViewAfterImpact: 1
   useTrackForward: 1
   invertForward: 0
@@ -4630,7 +4630,7 @@ MonoBehaviour:
   maxThrowUpAngle: 25
   throwUpInputExponent: 2
   maxInitialUpwardSpeed: 0.75
-  forwardCorrectionStrength: 0.25
+  forwardCorrectionStrength: 0
   forwardCorrectionTurnSpeed: 0
   steeringRelativeToThrowDirection: 0
   liftFadeStartUpSpeed: 0
@@ -4643,8 +4643,9 @@ MonoBehaviour:
   lateralAcceleration: 30
   maxLateralSpeed: 50
   useVelocityAsActiveFlightForward: 1
-  minPlanarSpeedForActiveDirection: 0.25
+  minPlanarSpeedForActiveDirection: 0
   laneHalfWidth: 500
+  laneHalfHeight: 150
   boundarySpring: 40
   boundaryDamping: 10
   verticalDragDeadZone: 0.015
@@ -5630,6 +5631,7 @@ MonoBehaviour:
   discDurability: {fileID: 1234174334}
   cameraSwitcher: {fileID: 1994770297}
   runTimeTracker: {fileID: 1469500880}
+  runDurabilityTracker: {fileID: 0}
   launchAnchor: {fileID: 1171811459}
   trackRoot: {fileID: 2097020924}
   useThrowLimit: 0

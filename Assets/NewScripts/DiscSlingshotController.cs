@@ -199,6 +199,7 @@ public class DiscSlingshotController : MonoBehaviour
 
     [Header("Track Boundary")]
     [SerializeField] private float laneHalfWidth = 4.5f;
+    [SerializeField] private float laneHalfHeight = 150f;
     [SerializeField] private float boundarySpring = 40f;
     [SerializeField] private float boundaryDamping = 10f;
 
@@ -519,7 +520,8 @@ public class DiscSlingshotController : MonoBehaviour
 
     private bool IsVerticalRecovering =>
         verticalRestorePending || verticalRecoveryActive;
-
+    private Vector3 visualInitialLocalPosition;
+    private bool visualFollowsPhysics;
 
 
     #endregion
@@ -556,16 +558,14 @@ public class DiscSlingshotController : MonoBehaviour
         if (inputCamera == null)
             inputCamera = Camera.main;
 
-        if (visualRoot != null)
-            visualInitialLocalRotation = visualRoot.localRotation;
-        else
-            visualInitialLocalRotation = Quaternion.identity;
+        visualInitialLocalPosition = Vector3.zero;
+        visualInitialLocalRotation = Quaternion.identity;
 
-        //ApplyStats(new DiscRuntimeStats(
-        //    defaultInitialThrust,
-        //    defaultMaxDurability,
-        //    defaultLift
-        //));
+        if (visualRoot != null && visualRoot != transform)
+        {
+            visualInitialLocalPosition = visualRoot.localPosition;
+            visualInitialLocalRotation = visualRoot.localRotation;
+        }
 
         ConfigureRigidbodyForReadyOrFlying();
     }
@@ -1059,7 +1059,8 @@ public class DiscSlingshotController : MonoBehaviour
         //pendingLaunchVelocity = finalLaunchVelocity;
 
         ResetFlightSteeringInput();
-        
+        ResetVisualPose();
+
         rb.isKinematic = false;
 
         //SetLinearVelocity(Vector3.zero);
@@ -2316,8 +2317,8 @@ public class DiscSlingshotController : MonoBehaviour
         if (liftMultiplier > 0f)
             ApplyLift(liftMultiplier);
 
-        if (applyBoundary)
-            ApplyBoundaryForce(GetTrackRight());
+       // if (applyBoundary)
+            //ApplyBoundaryForce(GetTrackRight(), GetTrackUp());
 
         float verticalAuthority =
             state == DiscState.Flying
@@ -2530,25 +2531,43 @@ public class DiscSlingshotController : MonoBehaviour
         );
     }
 
-    private void ApplyBoundaryForce(Vector3 right)
+    private void ApplyBoundaryForce(Vector3 right, Vector3 up)
     {
         float sidePosition = Vector3.Dot(rb.position - anchorPosition, right);
+        float height = Vector3.Dot(rb.position - anchorPosition, up);
 
-        if (Mathf.Abs(sidePosition) <= laneHalfWidth)
+        if (Mathf.Abs(sidePosition) <= laneHalfWidth && Mathf.Abs(height)<= laneHalfHeight)
             return;
 
         float sign = Mathf.Sign(sidePosition);
+        float signup = Mathf.Sign(height);
         float overshoot = Mathf.Abs(sidePosition) - laneHalfWidth;
+        float heightOvershoot = Mathf.Abs(height) - laneHalfHeight;
         float sideSpeed = Vector3.Dot(GetLinearVelocity(), right);
+        float upSpeed = Vector3.Dot(GetLinearVelocity(), up);
 
         float acceleration =
             -sign * boundarySpring * overshoot -
             boundaryDamping * sideSpeed;
+        float heightAcceleration =
+            -sign * boundarySpring * heightOvershoot -
+            boundaryDamping * upSpeed;
 
-        rb.AddForce(
-            right * acceleration,
-            ForceMode.Acceleration
-        );
+        if (Mathf.Abs(sidePosition) <= laneHalfWidth)
+        {
+            rb.AddForce(
+                right * acceleration,
+                ForceMode.Acceleration
+            );
+        }
+        else if (Mathf.Abs(height) <= laneHalfHeight)
+        {
+            rb.AddForce(
+                up * heightAcceleration,
+                ForceMode.Acceleration
+            );
+        }
+        else { return; }
     }
 
     private float CalculateActiveTargetForwardSpeed(float thrustRatio)
@@ -3092,7 +3111,7 @@ public class DiscSlingshotController : MonoBehaviour
         FreezeActiveFlightDirectionForSettling();
 
         state = DiscState.Settling;
-
+        UseRigidbodyVisualAfterImpact();
         //ResetPostImpactSteeringSpeedCompensation();
 
         flightControlEnabled = true;
@@ -3201,11 +3220,13 @@ public class DiscSlingshotController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         InvalidateVerticalSnapshot();
+        UseRigidbodyVisualAfterImpact();
     }
 
     private void OnCollisionStay(Collision collision)
     {
         InvalidateVerticalSnapshot();
+        UseRigidbodyVisualAfterImpact();
     }
     private void UpdatePostImpactRotationUnlock()
     {
@@ -3831,6 +3852,20 @@ public class DiscSlingshotController : MonoBehaviour
 
         return right.normalized;
     }
+    private Vector3 GetTrackUp()
+    {
+        Vector3 up = trackRoot != null
+            ? trackRoot.up
+            : Vector3.up;
+
+        up.x = 0f;
+        up.z = 0f;
+
+        if (up.sqrMagnitude < 0.0001f)
+            return Vector3.up;
+
+        return up.normalized;
+    }
     public void SetLaunchAimYaw(float yawDegrees)
     {
         // 버튼은 Ready 상태에서만 작동합니다.
@@ -3899,70 +3934,34 @@ public class DiscSlingshotController : MonoBehaviour
         if (visualRoot == null || visualRoot == transform)
             return;
 
-        // 조종 방향을 기준으로 Visual 자세를 잡을 수 있는 상태
-        bool controlledPose =
-            state == DiscState.Flying ||
-            (
-                state == DiscState.Settling &&
-                flightControlEnabled &&
-                !postImpactRotationUnlocked &&
-                !rotationStoppedAfterLowSpeed &&
-                !settlingStopReady
-            );
-
-        // 좌우 뱅크는 수직 조종 여부와 독립적으로 판단합니다.
-        bool canShowSteeringBank =
-            (
-                state == DiscState.Flying &&
-                flightControlEnabled
-            ) ||
-            (
-                state == DiscState.Settling &&
-                flightControlEnabled &&
-                allowPostImpactSteering &&
-                !rotationStoppedAfterLowSpeed &&
-                !settlingStopReady
-            );
-
-        bool shouldSpin =
-            state == DiscState.Flying ||
-            (
-                state == DiscState.Settling &&
-                controlledPose &&
-                spinWhilePostImpactMoving
-            );
-
-        // 1. 스핀
-        if (shouldSpin)
+        // 충돌 이후에는 부모 Rigidbody의 실제 자세를 따릅니다.
+        if (visualFollowsPhysics ||
+            state == DiscState.Settling ||
+            state == DiscState.Stopped)
         {
-            float speedFactor = 1f;
+            ApplyPhysicsVisualPose();
+            return;
+        }
 
-            if (state == DiscState.Settling)
-            {
-                speedFactor = Mathf.Clamp01(
-                    GetLinearVelocity().magnitude /
-                    Mathf.Max(0.01f, postImpactControlOffSpeed)
-                );
-            }
+        bool isFlying = state == DiscState.Flying;
 
+        // 충돌 전 비행에서는 기존 시각적 스핀을 유지합니다.
+        if (isFlying)
+        {
             spinAngle =
                 (
                     spinAngle +
-                    spinDegreesPerSecond *
-                    speedFactor *
-                    Time.deltaTime
+                    spinDegreesPerSecond * Time.deltaTime
                 ) % 360f;
         }
 
-        // 2. 좌우 기울기: 수직 조종 조건 밖에서 계산
-        float targetBank = canShowSteeringBank
+        float targetBank = isFlying && flightControlEnabled
             ? -steerInput * bankAngle
             : 0f;
 
-        // 3. 위아래 기울기와 진행 방향
         float targetPitch = 0f;
 
-        if (controlledPose)
+        if (isFlying)
         {
             Vector3 forward = Vector3.ProjectOnPlane(
                 GetActiveFlightForward(),
@@ -3976,37 +3975,37 @@ public class DiscSlingshotController : MonoBehaviour
                         ? visualRoot.parent.rotation
                         : Quaternion.identity;
 
-                Quaternion worldHeading =
-                    Quaternion.LookRotation(
-                        forward.normalized,
-                        Vector3.up
-                    );
+                Quaternion worldHeading = Quaternion.LookRotation(
+                    forward.normalized,
+                    Vector3.up
+                );
 
                 visualHeadingLocal =
                     Quaternion.Inverse(parentRotation) *
                     worldHeading;
             }
 
-            // 이 메서드 내부에서 수직 조종 여부를 검사합니다.
-            // 0을 반환하더라도 좌우 뱅크 계산은 계속됩니다.
             targetPitch = GetVisualFlightPitch(
                 GetLinearVelocity()
             );
         }
+        else
+        {
+            visualHeadingLocal = Quaternion.identity;
+        }
 
-        // 4. 피치와 뱅크를 각각 보간
         float visualBlend =
             1f - Mathf.Exp(
                 -Mathf.Max(0f, visualLerp) * Time.deltaTime
             );
 
-        visualPitch = controlledPose && IsVerticalRecovering
-    ? targetPitch
-    : Mathf.Lerp(
-        visualPitch,
-        targetPitch,
-        visualBlend
-    );
+        visualPitch = isFlying && IsVerticalRecovering
+            ? targetPitch
+            : Mathf.Lerp(
+                visualPitch,
+                targetPitch,
+                visualBlend
+            );
 
         visualBank = Mathf.Lerp(
             visualBank,
@@ -4029,7 +4028,8 @@ public class DiscSlingshotController : MonoBehaviour
             Vector3.up
         );
 
-        // 5. 좌우 뱅크를 포함한 최종 회전
+        visualRoot.localPosition = visualInitialLocalPosition;
+
         visualRoot.localRotation =
             visualHeadingLocal *
             pitchRotation *
@@ -4037,19 +4037,37 @@ public class DiscSlingshotController : MonoBehaviour
             spinRotation *
             visualInitialLocalRotation;
     }
-    private void ResetVisualPose()
+    private void ApplyPhysicsVisualPose()
     {
         spinAngle = 0f;
-
         visualPitch = 0f;
         visualBank = 0f;
         visualHeadingLocal = Quaternion.identity;
 
-        if (visualRoot == null)
+        if (visualRoot == null || visualRoot == transform)
             return;
 
-        visualRoot.localPosition = Vector3.zero;
+        visualRoot.localPosition = visualInitialLocalPosition;
         visualRoot.localRotation = visualInitialLocalRotation;
+    }
+
+    private void UseRigidbodyVisualAfterImpact()
+    {
+        if (state != DiscState.Flying &&
+            state != DiscState.Settling &&
+            state != DiscState.Stopped)
+        {
+            return;
+        }
+
+        visualFollowsPhysics = true;
+        ApplyPhysicsVisualPose();
+    }
+
+    private void ResetVisualPose()
+    {
+        visualFollowsPhysics = false;
+        ApplyPhysicsVisualPose();
     }
     private float GetVisualFlightPitch(Vector3 velocity)
     {
