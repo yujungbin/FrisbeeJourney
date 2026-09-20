@@ -21,7 +21,7 @@ MonoBehaviour:
     baseCost: 1
     costGrowthPerLevel: 1.5
   baseMaxDurability: 50
-  durabilityPerLevel: 15
+  durabilityPerLevel: 10
   durabilityMaxLevel: 25
   durabilityUpgradeCost:
     baseCost: 1

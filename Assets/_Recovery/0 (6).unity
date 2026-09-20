@@ -4659,7 +4659,7 @@ MonoBehaviour:
   climbBrakeMinPlanarSpeed: 3
   climbLowSpeedFadeRange: 4
   diveDownAcceleration: 8
-  diveForwardAcceleration: 3.8
+  diveForwardAcceleration: 5
   diveMaxSpeed: 45
   diveSpeedFadeRange: 5
   diveSpeedLimitGain: 4
