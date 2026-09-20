@@ -24,6 +24,8 @@ public class DiscRunManager : MonoBehaviour
     [SerializeField] private DiscCinemachineSwitcher cameraSwitcher;
     [SerializeField]
     private RunActiveTimeTracker runTimeTracker;
+    [SerializeField]
+    private RunDurabilityTracker runDurabilityTracker;
 
     [Header("Launch Anchor")]
     [SerializeField] private Transform launchAnchor;
@@ -141,6 +143,10 @@ public class DiscRunManager : MonoBehaviour
         {
             runTimeTracker = GetComponent<RunActiveTimeTracker>();
         }
+        if (runDurabilityTracker == null)
+        {
+            runDurabilityTracker = GetComponent<RunDurabilityTracker>();
+        }
 
         CaptureOriginalLaunchAnchor();
     }
@@ -152,6 +158,7 @@ public class DiscRunManager : MonoBehaviour
     private void OnDisable()
     {
         runTimeTracker?.FinishRun(false);
+        runDurabilityTracker?.FinishRun(false);
         UnsubscribeFromDiscEvents();
     }
 
@@ -173,6 +180,7 @@ public class DiscRunManager : MonoBehaviour
     public void StartRun()
     {
         runTimeTracker?.FinishRun(false);
+        runDurabilityTracker?.FinishRun(false);
         StopRunningCoroutines();
         finalResultShown = false;
         finishLineCrossed = false;
@@ -218,6 +226,7 @@ public class DiscRunManager : MonoBehaviour
         if (runActive)
         {
             runTimeTracker?.BeginRun(discController);
+            runDurabilityTracker?.BeginRun(discDurability);
         }
         onRunStarted.Invoke();
 
@@ -506,6 +515,7 @@ public class DiscRunManager : MonoBehaviour
         if (discDurability != null && discDurability.IsBroken)
         {
             runTimeTracker?.FinishRun(false);
+            runDurabilityTracker?.FinishRun(false);
             rethrowRoutine = null;
             runActive = false;
             finalResultShown = true;
@@ -678,8 +688,8 @@ public class DiscRunManager : MonoBehaviour
         if (distanceCoinRewarder != null)
             distanceCoinRewarder.AwardAvailableCoins();
 
-        // 완주 기록을 저장합니다.
         runTimeTracker?.FinishRun(true);
+        runDurabilityTracker?.FinishRun(true);
 
         if (resultScreenController != null)
         {
@@ -708,6 +718,7 @@ public class DiscRunManager : MonoBehaviour
             return;
 
         runTimeTracker?.FinishRun(false);
+        runDurabilityTracker?.FinishRun(false);
 
         finalResultShown = true;
 
@@ -783,6 +794,7 @@ public class DiscRunManager : MonoBehaviour
             distanceCoinRewarder.AwardAvailableCoins();
 
         runTimeTracker?.FinishRun(false);
+        runDurabilityTracker?.FinishRun(false);
 
         NotifyThrowCountChanged();
 
